@@ -44,18 +44,21 @@ const SinglePage = async ({ params }) => {
         )}
       </div>
       <div className={styles.content}>
-        <div className={styles.post}>
-          <div
-            className={styles.description}
-            dangerouslySetInnerHTML={{ __html: data?.desc }}
-          />
+        {data?.sections?.map((section, index) => (
+          <div key={index} className={styles.section}>
+            <h2>{section.title}</h2>
+            <div
+              className={styles.sectionContent}
+              dangerouslySetInnerHTML={{ __html: section.content }}
+            />
+          </div>
+        ))}
           <div className={styles.comment}>
             <Comments postSlug={slug}/>
           </div>
         </div>
         <Menu />
       </div>
-    </div>
   );
 };
 
