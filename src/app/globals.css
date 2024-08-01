@@ -32,13 +32,14 @@ ol {
 	--textColor: #ddd;
 	--softBg: #1f273a;
 	--softTextColor: #a6a6a6;
+	--mediumTextColor: #c5c5c5;
 }
 
 .light {
 	--bg: white;
 	--textColor: black;
 	--softBg: #f0f0f0;
-	--softTextColor: #626262;
+	--softTextColor: #6e6d6d;
 }
 
 .container {
