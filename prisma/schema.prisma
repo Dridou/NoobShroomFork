@@ -76,6 +76,7 @@ model Post {
   user      User      @relation(fields: [userEmail], references: [email])
   comments  Comment[]
   sections  Section[]
+  sets      Set[]
 }
 
 model Comment {
@@ -89,9 +90,36 @@ model Comment {
 }
 
 model Section {
-  id        String   @id @default(cuid()) @map("_id")
-  title     String
-  content   String
-  postId    String
-  post      Post     @relation(fields: [postId], references: [id])
+  id      String  @id @default(cuid()) @map("_id")
+  title   String
+  content String
+  icon    String?
+  type    String  @default("text") // Ajoutez ce champ pour déterminer le type de la section
+  postId  String
+  post    Post    @relation(fields: [postId], references: [id])
+  sets    Set[] // Ajoutez cette ligne pour relier les sets aux sections
+}
+
+model Set {
+  id                 String   @id @default(cuid()) @map("_id")
+  title              String
+  standardImage      String
+  opponentImage      String
+  opponentSpells     String
+  explanation        String
+  timings            String
+  alternatives       String
+  palsImage          String
+  palsAlternatives   String
+  relicsImage        String
+  relicsAlternatives String
+  talents            String
+  mounts             Json // Changed to Json to store array of objects
+  artifacts          Json // Changed to Json to store array of objects
+  accessories        Json // Changed to Json to store array of objects
+  avians             Json // Changed to Json to store object with list and affixes
+  postId             String
+  post               Post     @relation(fields: [postId], references: [id])
+  Section            Section? @relation(fields: [sectionId], references: [id])
+  sectionId          String?
 }
