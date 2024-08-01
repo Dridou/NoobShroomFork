@@ -1,0 +1,25 @@
+﻿.custom-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.custom-col {
+    flex: 1;
+    margin: 10px;
+    text-align: center;
+}
+
+.figure {
+    margin: 0;
+}
+
+.figure-img {
+    max-width: 100%;
+    height: auto;
+}
+
+.figure-caption {
+    font-size: 14px;
+    color: #555;
+}

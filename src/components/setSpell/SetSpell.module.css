@@ -1,0 +1,29 @@
+﻿.setDivTitle {
+	text-align: center;
+	padding: 1.5rem 0;
+	font-size: 1.25rem;
+	font-weight: bold;
+  }
+
+  .setImageContainer {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+  }
+
+  .setImage {
+	max-width: 100%;
+	height: auto;
+  }
+
+  .setImageSmall {
+	width: 50%;
+  }
+
+  .setDetails {
+	padding: 1rem 0;
+  }
+
+  .setDetails img {
+	margin: 0 0.5rem;
+  }

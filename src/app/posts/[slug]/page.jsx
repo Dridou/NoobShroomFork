@@ -2,18 +2,33 @@ import Menu from "@/components/Menu/Menu";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/components/comments/Comments";
+import SetSection from "@/components/SetSection/SetSection";
+import "../../styles/colStyles.css"; // Import custom table styles
+import "../../styles/tableStyles.css"; // Import custom table styles
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 const getData = async (slug) => {
-  const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
-    cache: "no-store",
-  });
+	// Utiliser Prisma pour récupérer les données du post avec les sections et les sets associés
+	const post = await prisma.post.findUnique({
+	  where: { slug: slug },
+	  include: {
+		user: true,
+		sections: {
+		  include: {
+			sets: true,
+		  },
+		},
+	  },
+	});
 
-  if (!res.ok) {
-    throw new Error("Failed");
-  }
+	if (!post) {
+	  throw new Error("Post not found");
+	}
 
-  return res.json();
-};
+	return post;
+  };
 
 const SinglePage = async ({ params }) => {
   const { slug } = params;
@@ -28,7 +43,12 @@ const SinglePage = async ({ params }) => {
           <div className={styles.user}>
             {data?.user?.image && (
               <div className={styles.userImageContainer}>
-                <Image src={data.user.image} alt="" fill className={styles.avatar} />
+                <Image
+                  src={data.user.image}
+                  alt=""
+                  fill
+                  className={styles.avatar}
+                />
               </div>
             )}
             <div className={styles.userTextContainer}>
@@ -46,19 +66,55 @@ const SinglePage = async ({ params }) => {
       <div className={styles.content}>
         {data?.sections?.map((section, index) => (
           <div key={index} className={styles.section}>
-            <h2>{section.title}</h2>
-            <div
-              className={styles.sectionContent}
-              dangerouslySetInnerHTML={{ __html: section.content }}
-            />
+            <div className={styles.sectionHeader}>
+              {section.icon && (
+                <Image
+                  src={section.icon}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className={styles.sectionIcon}
+                />
+              )}
+              <h2>{section.title}</h2>
+            </div>
+			{section.type === 'set' && section.sets.length > 0 ? (
+              section.sets.map((set, setIndex) => (
+                <SetSection
+                  key={setIndex}
+                  id={set.id}
+                  title={set.title}
+                  standardImage={set.standardImage}
+                  opponentImage={set.opponentImage}
+                  opponentSpells={set.opponentSpells}
+                  explanation={set.explanation}
+                  timings={set.timings}
+                  alternatives={set.alternatives}
+                  palsImage={set.palsImage}
+                  palsAlternatives={set.palsAlternatives}
+                  relicsImage={set.relicsImage}
+                  relicsAlternatives={set.relicsAlternatives}
+                  talents={set.talents}
+                  mounts={set.mounts}
+                  artifacts={set.artifacts}
+                  accessories={set.accessories}
+                  avians={set.avians}
+                />
+              ))
+            ) : (
+              <div
+                dangerouslySetInnerHTML={{ __html: section.content }}
+              />
+            )}
           </div>
+          // </div>
         ))}
-          <div className={styles.comment}>
-            <Comments postSlug={slug}/>
-          </div>
+        <div className={styles.comment}>
+          <Comments postSlug={slug} />
         </div>
         <Menu />
       </div>
+    </div>
   );
 };
 

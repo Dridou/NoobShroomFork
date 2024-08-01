@@ -1,0 +1,41 @@
+﻿.setSection {
+	margin-bottom: 3rem;
+  }
+
+  .card {
+	background-color: #333;
+	border: none;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .cardBody {
+	color: white;
+	padding: 2rem;
+  }
+
+  .navTabs {
+	display: flex;
+	border-bottom: 1px solid #444;
+	margin-bottom: 1rem;
+  }
+
+  .navLink {
+	flex: 1;
+	text-align: center;
+	padding: 1rem;
+	cursor: pointer;
+	background-color: #444;
+	border: none;
+	color: white;
+	font-weight: bold;
+  }
+
+  .navLinkActive {
+	background-color: #555;
+  }
+
+  .tabContent {
+	padding: 1rem;
+  }
