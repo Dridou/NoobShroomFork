@@ -1,0 +1,53 @@
+﻿{
+  "slug": "arrowgod-class-guide",
+  "title": "Legend of Mushrooms - Arrowgod class guide",
+  "user": {
+    "connect": {
+      "email": "aneboncarle@hotmail.fr"
+    }
+  },
+  "img": "",
+  "createdAt": "2024-07-31T00:00:00.000Z",
+  "desc": "Discover the most in depth guide for the Arrowgod class in Legend of Mushrooms and learn how to master it.",
+  "cat": {
+    "connect": {
+      "slug": "class-guide"
+    }
+  },
+  "sections": {
+    "create": [
+      {
+        "title": "Introduction",
+        "content": "<p>Arrowgod, and its evolved form Plume Monarch, is a very versatile class. It's more complex than it seems. Success in this class isn't just about dealing massive damage, whether in PvE (Player versus Environment) or PvP (Player vs Player).</p>"
+      },
+      {
+        "title": "Who am I ?",
+        "content": "<p>My in-game name is Kitsu. I've been playing Arrowgod since I started. I currently have around 55 million power and often switch between Arrowgod and Hunter.</p><p>I'm not the best player, but I love theorycrafting and testing to push my character's limits. This has given me a decent understanding of the class and and how to play it effectively.</p>"
+      },
+      {
+        "title": "Kitsu adventure levels",
+        "content": "<p>To give you an idea of what you can achieve with my recommended setups and knowledge at this power level, here are my current PvE achievements (Updated frequently):</p><ul><li>Lamp Dungeon: 145</li><li>Molten ruins Dungeon: 131</li><li>Chrono Tower Dungeon: 130</li><li>Mage Dark Trial: 10-5 (max level)</li><li>Archer Dark Trial: 10-5 (max level)</li><li>Warrior Dark Trial: 10-5 (max level)</li><li>Cloud Ascension: 20 (max level)</li><li>Grumpy: ~ 4.000.000B dammage (difficulty 96)</li><li>Lava Dungeon: ~ 15.000.000B dammage</li><li>Adventure: Revelation V - 6</li><li>PvP Cross Server: Elite Champion</li></ul>"
+      },
+	  {
+        "title": "Guide important information",
+        "content": "<p>Disclaimer: this guide shows you the methods and sets I use or have used in my adventure. However, many other choices are possible, and some might be even better than those suggested here. Testing everything thoroughly takes a lot of time, but I hope this guide will help you as much as possible.</p>If you need further help or want to discuss the strategies, feel free to join our Discord server: <a href='https://discord.gg/XFf9mP3V'>NoobShroom Community</a>"
+      },
+      {
+        "title": "Class presentation",
+        "content": "<p>Playing Arrowgod will eventually be necessary to advance in PvE content because of its high and consistent damage output, often referred to as DPS (Damage Per Second). This will help you gather more resources, directly increasing your power.</p><p>In PvP, Arrowgod becomes viable when you have enough red feathers to upgrade your back accessory talents, allowing you to compete with warriors and mages. We'll go into more detail on this later.</p><br><table class='table custom-table'><thead><tr><th><b>Class skill</b></th><th>Skill description<hr>Explanation</th></tr></thead><tbody><tr><td class='text-center'><img src='/images/crossbow-skill-active.png' class='img-fluid' style='width: 3rem;' alt='Crossbow passive skill icon'></td><td><p style='font-weight: bold;'>Deal 4263% <span style='color: aqua;'>(9591%)</span> AoE Dmg and increasing Combo Dmg received by the range by 60 during 5 <span style='color: aqua;'>(8)</span> seconds.<br><span style='color: aqua;'>Additionally, ignore enemy evasion for 10 seconds.</span></p><hr>Your class spell gives you 5 seconds of burst damage. Make sure to activate it at the same time as your damage spells.</td></tr><tr><td class='text-center'><img src='/images/crossbow-skill-1.png' class='img-fluid' style='width: 3rem;' alt='Crossbow active skill 1 icon'></td><td><p style='font-weight: bold;'>Combo +30%</p><hr>Our main damage will come from our combo attacks</td></tr><tr><td class='text-center'><img src='/images/crossbow-skill-2.png' class='img-fluid' style='width: 3rem;' alt='Crossbow active skill 2 icon'></td><td><p style='font-weight: bold;'>Atk Speed +15%, Ignore Evasion +10%</p><hr>As a DPS class, we want to hit a maximum of attacks</td></tr><tr><td class='text-center'><img src='/images/crossbow-skill-3.png' class='img-fluid' style='width: 3rem;' alt='Crossbow active skill 3 icon'></td><td>Combo Dmg +140%<hr>A bonus to our base combo dmg</td></tr><tr><td class='text-center'><img src='/images/crossbow-skill-4.png' class='img-fluid' style='width: 3rem;' alt='Crossbow active skill 4 icon'></td><td><p style='font-weight: bold;'>Shoot an additional 2 <span class='tip'>(3)</span> <s>basic attack</s> bullets during combos</p><hr>Since basic attacks trigger combo attacks, it's important to know that this spell will fire 2 bullets (or 3 when awakened) each time you trigger a combo. These bullets use your basic attack damage coefficient but <span class='tip'>are not counted as basic attacks</span>. They don't trigger combo attacks or use the combo coefficient.</td></tr><tr><td class='text-center'><img src='/images/crossbow-skill-5.png' class='img-fluid' style='width: 3rem;' alt='Crossbow active skill 5 icon'></td><td><p style='font-weight: bold;'>Shoot twice during basic attacks</p><hr>If you have 4.0 Attack Speed you'll hit 8 <b>basic attacks</b> per second, it's essential to understand that because basic attacks are the one triggering combos, see <a href='http://localhost:3000/tips/stats-information#stats-explanation-advanced-basic-atk'>Basic Attack explanation</a></td></tr></tbody></table>"
+      },
+      {
+        "title": "Cross-Server Attacks",
+        "content": "<p>Attacks are permitted between 8 AM and midnight. During the rest of the time, each server retains control of its parkings, and they are not attackable. A parking lot with no defenders, when attacked, will be taken over by the server with the most successful attacks. Once a parking lot is captured, it becomes unattackable for 4 hours.</p>"
+      },
+      {
+        "title": "Cross-Server Defense",
+        "content": "<p>You can defend a parking lot by joining the defense queue.</p><p>You can move to the top of the queue at any time, which is key to being attacked by an opponent you can defeat to improve your personal ranking.</p><p>When parking a mount in the inter-server public parking, an alert will prompt you to decide if you want to defend the parking; select 'no' because you want to defend a parking that is about to be attacked or is currently under attack to surprise your opponent and ensure victory.</p><p>You can withdraw from the defense of one parking to move to another, but there is a 30-minute cooldown, and you retain your debuffs.</p>"
+      },
+	  {
+        "title": "Cross-Server Debuffs",
+        "content": "<p>Successfully attacking or defending in inter-server wars results in separate attack and defense debuffs lowering your Attack and your Defense until a minimum of 20%.</p><p>If you are defeated in either attack or defense, you incur a minimum 1 hour cooldown until a maximum 2 hours cooldown.</p>"
+      }
+    ]
+  }
+}
