@@ -1,0 +1,48 @@
+﻿.container {
+	/* background-color: rgb(110, 110, 126);
+	padding: 5px; */
+}
+
+.title {
+	text-align: center;
+	padding: 1.5rem 0;
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.imageContainer {
+	display: flex;
+	padding-bottom: 30px;
+}
+
+.setImage {
+	max-width: 100%;
+	height: auto;
+	border-radius: 10px;
+
+}
+
+.mainPal {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+
+.setDetails {
+	padding: 10px 0;
+	font-size: 18px;
+}
+
+.setDetails img {
+	margin: 0 0.5rem;
+}
+
+.setDetails p {
+	color: var(--mediumTextColor);
+	padding-bottom: 30px;
+}
+
+.setDetails h5 {
+	font-size: 22px;
+	padding-bottom: 10px;
+}

@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import SetSpell from '../setSpell/SetSpell';
-// import SetPal from './SetPal';
+import SetPal from '../setPal/SetPal';
 // import SetRelic from './SetRelic';
 // import SetTalents from './SetTalents';
 // import SetMount from './SetMount';
@@ -29,12 +29,12 @@ const SetSection = ({ id, title, standardImage, opponentImage, opponentSpells, e
                 timings={timings}
                 alternatives={alternatives}
               />
-              {/* <hr />
+              <hr />
               <SetPal
                 palsImage={palsImage}
                 palsAlternatives={palsAlternatives}
               />
-              <hr />
+              {/* <hr />
               <SetRelic
                 relicsImage={relicsImage}
                 relicsAlternatives={relicsAlternatives}
