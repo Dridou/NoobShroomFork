@@ -81,7 +81,7 @@ async function updateSectionsAndSets() {
 
 
 
-updateSectionsAndSets("clz9n88l60000ynoiwwz3fqu0", sectionsData, darkWarriorData) // Pass the ID of the post you want to update
+updateSectionsAndSets() // Pass the ID of the post you want to update
   .catch((e) => {
     throw e;
   })
