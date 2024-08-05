@@ -111,6 +111,7 @@
 	  "id": "clzbwx43w0001jv4x4kcs4jhl",
 	  "sets": [
 		{
+		"id":"dark-warrior",
 		  "title": "Dark Trials - Versus Warrior",
 		  "standardImage": "/images/crossbow-dark-warrior-spells.png",
 		  "opponentImage": "/images/dark-warrior-spells.png",
