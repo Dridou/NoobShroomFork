@@ -26,8 +26,8 @@ const getPost = async (slug) => {
 	return post;
   };
 
-const Featured = async () => {
-	const post = await getPost("prophet-preblitz-class-guide");
+const Featured = () => {
+	const post = getPost("prophet-preblitz-class-guide");
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
@@ -38,7 +38,7 @@ const Featured = async () => {
       </h2>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
-          <Image src="/p1.jpeg" alt="" fill className={styles.image} />
+          <Image src="/images/prophet-character.png" alt="" width={512} height={512} className={styles.image} />
         </div>
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>
