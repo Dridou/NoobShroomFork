@@ -1,0 +1,128 @@
+[
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Introduction",
+	  "content": "<div class=\"goal\"><p><i>Holy Guide</i>, and its evolved form <i>Prophet</i>, is a burst damage class, meaning it deals significant damage in a short time with its spells. This differs from a DPS class like the archer, which deals consistent damage throughout the fight. As a result, the mage is weak in PvE but strong in PvP due to its stuns for crowd control.<br>This guide presents the 'classic' way to play Prophet, focusing on PvP. The strategy involves stunning your opponent as much as possible to recover your spells faster and kill them in a second spell rotation if you didn't kill them instantly, which is the 'pre-blitz' strategy we will discuss later.</p></div>",
+	  "displayOrder": 1
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Co-Authors and Sources",
+	  "content": "<h3>Co-Authors and Sources</h3><p>This guide combines insights from players who have been playing Prophet since the beginning of the game and have conducted various experiments, mainly as free-to-play. It also includes knowledge from late-game players highly experienced in PvP who have conducted multiple tests.</p><br><p>Co-authors:<ul><li>Geraldine - 70M</li><li>Eren - 60M</li><li>Artemis - 45M</li></ul></p>",
+	  "displayOrder": 2
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Guide Important Information",
+	  "content": "<h3>Guide Important Information</h3><p><span class=\"tip\">Disclaimer</span>: This guide outlines the methods and sets I use or have used in my adventure. However, many other choices are possible, and some might be even better than those suggested here. Testing everything thoroughly takes a lot of time, but I hope this guide will help you as much as possible.</p><p>In this guide, we will cover every aspect of the class so you can progress quickly on your own.<br>Each section will cover:</p><ul><li><h4 class=early-game>Early game - obtaining every orange pal and skill<\/h4><p>Focus on essential tips for beginners and the key aspects to concentrate on during the early game.<li><h4 class=mid-game>Mid game - obtaining every red pal and skill<\/h4><p>This stage involves strategizing and identifying key areas to improve your gameplay.<li><h4 class=late-game>Late game - obtaining every pink pal and skill<\/h4><p>At this point, you have access to all possible strategies. We'll explore more complex tactics and cover additional aspects of the game.<li><h4 class=ultra-late-game>Ultra late game - high number of red feathers for back accessory, several mounts\/artifacts, and a few eternal gears<\/h4><p>Strategies evolve, allowing you to build various setups for your main class. The focus is on pushing PvE content and excelling in PvP, while also preparing for potential future meta changes.<\/ul><p>If you need further help or want to discuss the strategies, feel free to join our <button onclick=\"copyDiscordID()\" type=\"button\" class=\"btn btn-primary me-2 me-md-3\" id=\"discord-button\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-discord\" viewBox=\"0 0 16 16\"><path d=\"M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612\"></path></svg><span class=\"bi bi-discord d-inline\">Discord</span></button></p>",
+	  "displayOrder": 3
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Class Presentation",
+	  "content": "<table class=\"table custom-table\"><thead><tr><th><b>Class Skill</b></th><th>Skill Description<hr>Explanation</th></tr></thead><tbody><tr><td class=\"text-center\"><img src=\"/images/prophet-skill-passive.png\" class=\"img-fluid\" style=\"width: 3rem;\" alt=\"Prophet passive skill icon\"></td><td><p style=\"font-weight: bold;\">Deal 4627% <span style=\"color: aqua;\">(10.410%)</span> AoE Damage and extends Basic Attacks Stun duration on targets within the range by 30% for 5s (<span style=\"color: aqua;\">8s</span>).<br><span style=\"color: aqua;\">Break enemy shields instantly with basic attacks for 10s</span><br><hr>This spell is the primary reason we focus on stun rate %. Breaking shields is a very strong ability in PvP.</td></tr><tr><td class=\"text-center\"><img src=\"/images/prophet-skill-1.png\" class=\"img-fluid\" style=\"width: 3rem;\" alt=\"Prophet active skill 1 icon\"></td><td><p style=\"font-weight: bold;\">Skill Crit +30%</p><hr>Tips: check <a href=\"http://localhost:3000/tips/stats-information#stats-explanation-advanced-skill\">Skill statistic explanation</a> to understand how your damage as a mage works.</td></tr><tr><td class=\"text-center\"><img src=\"/images/prophet-skill-2.png\" class=\"img-fluid\" style=\"width: 3rem;\" alt=\"Prophet active skill 2 icon\"></td><td><p style=\"font-weight: bold;\">Global Attack +12%</p><hr>In case it wasn't clear, we're here to hit hard...</td></tr><tr><td class=\"text-center\"><img src=\"/images/prophet-skill-3.png\" class=\"img-fluid\" style=\"width: 3rem;\" alt=\"Prophet active skill 3 icon\"></td><td style=\"font-weight: bold;\">Active Skill Energy regeneration +30%<hr>Means you'll get your spells back 1.3 times faster.</td></tr><tr><td class=\"text-center\"><img src=\"/images/prophet-skill-4.png\" class=\"img-fluid\" style=\"width: 3rem;\" alt=\"Prophet active skill 4 icon\"></td><td><p>Extend active skills duration (<b>excluding Blitz Assault</b>) by 50%. <span style=\"color: aqua;\">Also boosts global Skill Damage by 30%</span></p><hr>This ability allows some skills to outlast the opponent's Blitz Assault by 4.5 seconds, enabling a 'One Shot' kill (1 spell rotation kill) if you deal enough damage.</td></tr><tr><td class=\"text-center\"><img src=\"/images/prophet-skill-5.png\" class=\"img-fluid\" style=\"width: 3rem;\" alt=\"Prophet active skill 5 icon\"></td><td><p style=\"font-weight: bold;\">Any stun reduces the cooldown of all your skills by 0.3s</p><hr>This ability is the second reason we prioritize a high stun rate % in our build, allowing us to reduce the DPS of Crossbows and get our skills back faster to hit.</td></tr></tbody></table>",
+	  "displayOrder": 4
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Stats to Focus On your gears",
+	  "content": "<p>As a Prophet, you should focus on getting Skill Crit rate % and Stun Rate %:<div class=custom-row><div class=custom-col><figure class=figure><img alt=\"Wrong item for a Prophet\"class=\"figure-img img-fluid\"src=\/images\/prophet-bad-item.png><figcaption class=figure-caption>Bad Item<\/figcaption><\/figure><\/div><div class=custom-col><figure class=figure><img alt=\"Correct item for a Prophet\"class=\"figure-img img-fluid\"src=\/images\/prophet-good-item-1.png><figcaption class=figure-caption>Good Item<\/figcaption><\/figure><\/div><div class=custom-col><figure class=figure><img alt=\"Perfect item for a Prophet\"class=\"figure-img img-fluid\"src=\/images\/prophet-excellent-item.png><figcaption class=figure-caption>Excellent Item<\/figcaption><\/figure><\/div><\/div>",
+	  "displayOrder": 6
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Upgrade Gear Rarity",
+	  "content": "<p>From <span style=\"color: pink;\">immortal</span> equipment, start focusing on substats.<br> As you get good stats on your equipment, you will need to upgrade its rarity.<br> Especially for <span style=\"color: gold\">gold</span> equipment, only replace your Aurous gear with a Supreme if it has <b>Skill Crit (priority)</b> AND <b>Stun</b>.</p><div class=\"custom-row\"><div class=\"custom-col\"><figure class=\"figure\"><img class=\"figure-img img-fluid\" src=\"/images/prophet-item-compare-good.png\" alt=\"Item with two good stats: crit and combo\"><figcaption class=\"figure-caption\">The two stats we want</figcaption></figure></div><div class=\"custom-col\"><figure class=\"figure\"><img class=\"figure-img img-fluid\" src=\"/images/prophet-item-compare-bad.png\" alt=\"Item with only one good stat: Combo and Skill Crit\"><figcaption class=\"figure-caption\">Only one good stat</figcaption></figure></div></div>",
+	  "displayOrder": 7
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Stats Ratio",
+	  "content": "<div class=\"paragraph\"><p>For Prophet, it's important to maintain a good balance between <span class=\"tip\">Skill Crit %</span> and <span class=\"tip\">Stun %</span>. This balance depends on your Skill Damage.<br>Typically, aim for 50% Skill Crit and 20% stun rate (without back accessory talents or the cloud mount). However, this can vary based on your equipment and level. <span class=\"tip\">Always prioritize Skill Crit over stun</span> and try to maximize both as much as possible.<br><br>Here are some good ratios:<br></p><ul><li>40% Skill Crit / 15% stun rate</li><li>60% Skill Crit / 25% stun rate</li><li>80% Skill Crit / 40% stun rate</li><li>85%+ Skill Crit / 50%+ stun</li></ul><br><p>As Prophet, the mask relic provides a free 5% Skill Crit Rate.</p></div>",
+	  "displayOrder": 8
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Spells Analysis",
+	  "content": "<p class=\"side-note\">Your spells' damage scales with the coefficient of the spell (written on it), and it also works with the Thundercaller Kite relic which can crit.</p>",
+	  "displayOrder": 9
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Offensive Spells",
+	  "content": "<div><table class=\"table custom-table\"><thead><tr><th>Skill</th><th>Explanation</th></tr></thead><tbody><tr><td class=\"text-center\"><img src=\"/images/skill-star-array.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Star Array skill icon\"></td><td>Provides a significant buff and deals massive damage. The higher your Skill Crit Rate, the stronger this spell, so ensure you have sufficient Skill Crit.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-blitz-assault.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Blitz Assault skill icon\"></td><td>Grants immunity for 3 seconds, which is essential. Deals decent damage and boosts your other spells' damage with the Spirit Necklace Relic.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-crimson-moonfall.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Crimson Moonfall skill icon\"></td><td>Very useful in PvP with a low cooldown, and effective in long PvE combat. It allows you to use the Abyss Necklace relic.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-smoke-bomb.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Smoke Bomb skill icon\"></td><td>Provides a powerful 30% damage buff, especially useful for PvE.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-batty-trace.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Batty Trace skill icon\"></td><td>Deals significant damage over 7.5 seconds, which is longer than your opponent's blitz, allowing you to bypass it. As a 'yellow rarity' spell, it is important to have it at least level 100/120 for it to be effective. Combines well with the pumpkin pet.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-pineapple-plunge.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Pineapple Plunge skill icon\"></td><td>Along with <img src=\"/images/skill-batty-trace.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Batty Trace skill icon\"> it can be a good DPS spell. Lower damage but still effective. Mostly used in PvE, while Bat is preferred for PvP.</td></tr></tbody></table></div>",
+	  "displayOrder": 10
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Situational Spells",
+	  "content": "<div><table class=\"table custom-table\"><thead><tr><th>Skill</th><th>Explanation</th></tr></thead><tbody><tr><td class=\"text-center\"><img src=\"/images/skill-disarm.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Disarm skill icon\"></td><td>Effective against archers in PvP, and in PvE.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-easy-breasy.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Easy Breezy skill icon\"></td><td>Reduces the attack power of archers or berserkers in PvP.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-take-it-slow.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Take It Slow skill icon\"></td><td>If you really want to counter a crossbow in PvP.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-blade-pierce.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Blade Pierce skill icon\"></td><td>Deals spell damage + 7.5% of opponent max HP, a good alternative in a full damage build.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-spider-weaver.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Spider Weaver skill icon\"></td><td>A good beginner damage spell, effective as a DPS spell. Lower damage but consistent. Mostly used in PvE, while Bat is preferred for PvP.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-dazzled.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Dazzled skill icon\"></td><td>Initially a perfect skill, but with a long cooldown and low damage coefficient. Can be combined with <img src=\"/images/aco-fox.png\" class=\"img-fluid\" style=\"width: 2rem;\" alt=\"Fox pal icon\"> in special cases.</td></tr><tr><td class=\"text-center\"><img src=\"/images/skill-meteor-fall.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Meteor Fall skill icon\"></td><td>For the <b>early game</b>, this is your main damage skill.</td></tr></tbody></table></div>",
+	  "displayOrder": 11
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Essential Pals",
+	  "content": "<div><table class=\"table custom-table\"><thead><tr><th>Pal</th><th>Explanation</th></tr></thead><tbody><tr><td class=\"text-center\"><img src=\"/images/aco-red-slime.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Red Slime pal icon\"></td><td>Grants a 25% bonus to skill cooldown reduction (in addition to the Prophet class's 30% bonus). This is essential for any build to ensure you can use your spells at least a second time.</td></tr><tr><td class=\"text-center\"><img src=\"/images/aco-fiery-tail.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Fiery Tail pal icon\"></td><td>Increases skill damage by 60%, useful in mid-game but replaceable later (it's another pal for SEA players).</td></tr><tr><td class=\"text-center\"><img src=\"/images/aco-hero-bird.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Hero Bird pal icon\"></td><td>Increases attack speed, essential for pre-blitz strategy. Faster attack speed reduces casting time, increasing your chances to damage your opponent before they cast their blitz spell.</td></tr><tr><td class=\"text-center\"><img src=\"/images/aco-cat-prince.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Cat Prince pal icon\"></td><td>Procs with the pumpkin and bat, dealing great damage.</td></tr><tr><td class=\"text-center\"><img src=\"/images/aco-dragon.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Dragon pal icon\"></td><td>Increases base crit damage by 50% and skill crit rate by 20%, a must-have for Prophets.</td></tr><tr><td class=\"text-center\"><img src=\"/images/aco-snail.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Snail pal icon\"></td><td>Reduces enemy movement speed, only in PvE when combined with Thorns, giving you more time to deal damage.</td></tr><tr><td class=\"text-center\"><img src=\"/images/aco-fox.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Fox pal icon\"></td><td>Great for PvP with a decent stun rate, can be combined with <img src=\"/images/skill-dazzled.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Dazzled skill icon\"></td></tr><tr><td class=\"text-center\"><img src=\"/images/aco-deer.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Deer pal icon\"></td><td>Good for PvP but not for pre-blitz build, also useful in PvE.</td></tr></tbody></table></div>",
+	  "displayOrder": 13
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Relics",
+	  "content": "<table class=\"table custom-table\"><thead><tr><th>Relic</th><th>Effect</th><th>Explanation</th></tr></thead><tbody><tr><td class=\"text-center\"><img src=\"/images/relic-mask-demon.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Combo Mask relic icon\"></td><td>Skill Crit Rate +5%</td><td>The best option for Prophet.</td></tr><tr><td class=\"text-center\"><img src=\"/images/relic-thunder.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Thundercaller Kite relic icon\"></td><td>After using a skill, deal X% Damage</td><td>The best option for Prophets since this damage can also be a critical hit.</td></tr><tr><td class=\"text-center\"><img src=\"/images/relic-flame-book.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Flame Book relic icon\"></td><td>Increase Attack by 1% per second up to 10%</td><td>Your first option in PvP, damage-oriented, essential for pre-blitz strategy.</td></tr><tr><td class=\"text-center\"><img src=\"/images/relic-stonewrit-tome.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Stonewrit Tome relic icon\"></td><td>Basic Attack Damage Resistance, Pal Damage Resistance, Counter Damage Resistance, Combo Damage Resistance, and Skill Damage Resistance +5%</td><td>Second option in PvP and for PvE (waves) if you need to survive more than dealing damage.</td></tr><tr><td class=\"text-center\"><img src=\"/images/relic-beasthide-book.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Beasthide Book relic icon\"></td><td>Damage to bosses +20%</td><td>For bosses, you'll alternate between this one to defeat the boss in one skill rotation, or the immune one in two skill rotations.</td></tr><tr><td class=\"text-center\"><img src=\"/images/relic-immunity-book.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Immunity Book relic icon\"></td><td>In boss levels, become immune to damage for 3 seconds when HP drops below 70% (one time)</td><td>For bosses, you'll alternate between this one to defeat the boss in one skill rotation, or the immune one in two skill rotations.</td></tr><tr><td class=\"text-center\"><img src=\"/images/relic-statue-time.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Time Statue relic icon\"></td><td>Duration of Disarm, Dazzled, and Smoke Bomb +50%</td><td>Synergizes well with Disarm and Dazzled if you play these skills.</td></tr><tr><td class=\"text-center\"><img src=\"/images/relic-stellar-statue.png\" class=\"img-fluid\" style=\"width: 5rem;\" alt=\"Stellar Statue relic icon\"></td><td>Extend the effect duration of Hundred Slashes, Wordly Snare, and Star Array by 50%</td><td>Extending the Star Array skill significantly boosts our damage.</td></tr></tbody></table>",
+	  "displayOrder": 14
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Statue",
+	  "content": "For pre-blitz strategy, run <b>5x Atk</b>.<br>That is effective if you're already over 750% skill damage without prayer, which should happen sooner or later.",
+	  "displayOrder": 15
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Soul - Usage Tips",
+	  "content": "<h3>Usage Tips</h3><p>Several essential facts to know concerning souls:</p><ul><li>Salvaging any soul below a red one will destroy it permanently and refund you the entire XP amount spent on it.</li><li>You cannot salvage a red one, though you can reset its level with the <img src=\"/images/reset-icon.png\" class=\"img-fluid\" style=\"width: 1.5rem;\" alt=\"Soul reset icon\"> on top of it for 500 <img src=\"/images/red-diamond.png\" class=\"img-fluid\" style=\"width: 1.75rem;\" alt=\"Red diamond icon\">.</li><li>All the extra red runes you have will be used to reroll the bonus stat of your pink rune. Then you'll be able to choose the one to retain:<br><img src=\"/images/soul-fusion-result.png\" class=\"img-fluid\" width=\"33%\" alt=\"Fusion of two tier 2 red souls into a pink soul\"></li></ul>",
+	  "displayOrder": 17
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Soul - Red Soul Acquisition Order",
+	  "content": "<p>ATK / HP / DEF giving global stats</p><p>Then Crit Res / others</p>",
+	  "displayOrder": 18
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Soul - Pink Soul Acquisition Order",
+	  "content": "<ul><li>HP</li><li>PV</li><li>DEF</li><li>Skill Crit OR Skill Damage, whichever you don't have in your statue</li><li>Crit Res</li><li>Combo</li><li>Counter</li></ul>",
+	  "displayOrder": 19
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Soul - Levels Ratio",
+	  "content": "<p>For soul levels, assuming you have every rune in red rarity (otherwise prioritize your red offensive souls), here is a good balanced example:</p><ul><li><span style=\"font-weight: bold;\">lv45</span> | <span>ATK</span></li><li><span style=\"font-weight: bold;\">lv40</span> | <span>HP</span></li><li><span style=\"font-weight: bold;\">lv35</span> | <span>Skill Crit</span></li><li><span style=\"font-weight: bold;\">lv35</span> | <span>Skill Damage</span></li><li><span style=\"font-weight: bold;\">lv30</span> | <span>Crit Res</span></li><li><span style=\"font-weight: bold;\">lv20</span> | <span>DEF</span></li><li><span style=\"font-weight: bold;\">lv1</span> | <span>Counter</span></li><li><span style=\"font-weight: bold;\">lv1</span> | <span>Combo</span></li></ul><br><p>There isn't a perfect strategy for soul level-up yet, so I encourage you to test by yourself!</p>",
+	  "displayOrder": 20
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Talent",
+	  "content": "<div><p>For any class you play, it's worthwhile to <span class=\"tip-detailled\">equalize Atk/Def/HP</span> (to lv10/12/14/16, depending on your divine feather amount) across the three branches: fury, archery, and sorcery. These nodes are cheap and worth it, and the first three nodes are always the same in a different order.</p><p>Then, <span class=\"tip\">for Prophet</span> you absolutely want the <span class=\"tip-detailled\">Skill Crit Damage node</span> in the Sorcery branch.</p>You have plenty of other strategies, but these are some useful ones. Join our Discord to discuss them and discover new ones!<br>Also, <span class=\"tip\">don't forget to have fun</span>. You can infinitely reset these talents for free, so why not try different strategies?</div>",
+	  "displayOrder": 21
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Awakening Scrolls",
+	  "content": "A widely accepted strategy is to level up all your nodes to level 10 first, then prioritize Crit Resistance and Skill Crit Damage slightly more than other stats.",
+	  "displayOrder": 22
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Artifact Runes",
+	  "content": "<div class=paragraph><p>For a reminder, you should first consider reading the <a href=\/tips\/artifact-rune-system>Artifact Rune System<\/a>.<p>Sets: initially, don't worry about sets and focus on substats.<br>Later, aim to get 3x Global Crit since this is the only place we can get global crit.<div>You should quickly:<ul><li>obtain a top right <span class=tip>Skill Damage<\/span> rune<li>obtain a bottom right <span class=tip>Crit Res<\/span> rune<\/ul><\/div><br><p><span class=tip>Substats<\/span> to prioritize:<ul><li>(S tier) Stun<li>(S tier) Skill Crit Damage<li>(A tier) Combo Resistance<li>(A tier) Skill Damage Resistance<li>(B tier) Counter Resistance<li>(B tier) Global Basic Attack Damage<li>(C tier) Evasion<\/ul><p>Stun and Skill Critic are our primary stats. In PvP, archers pose the greatest threat to us, so we should focus on increasing our Combo Damage Resistance.<\/div>",
+	  "displayOrder": 23
+	},
+	{
+	  "postId": "clzjvah2y000j4z4auy3dxiw5",
+	  "title": "Mounts / Artifacts / Back Accessory / Avian",
+	  "content": "<p>For a starting point for <b>free-to-play players</b>:<ul><li><b>Mounts:</b> Take the <b>cloud</b> first, the essential main mount for mage with its 10% Skill Crit Rate increase.<br></li><li><b>Back Accessory:</b> Emerald Embrace (the only free back accessory available through the wheel).</li><li><b>Avians S tier for pre-blitz strategy:</b> Pumpkin</li></ul></p><p>For <b>cashers</b>:<ul><li><b>Mounts:<\/b> Also the cloud, the essential main mount for mage with its 10% Skill Crit Rate increase.<br><li><b>Back Accessory:<\/b> Shell Shade is undoubtedly the best option for a pre-blitz Prophet and an excellent choice for other classes as well.<li><b>Artifact:<\/b> Eye of Raven is a very good option for pre-blitz Prophet.<li><b>Avians S tier for pre-blitz strategy:<\/b> Pumpkin<\/ul>",
+	  "displayOrder": 24
+	}
+  ]

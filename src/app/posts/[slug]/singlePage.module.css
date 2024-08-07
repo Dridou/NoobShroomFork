@@ -89,6 +89,13 @@
 .section h2 {
 	padding-bottom: 12px;
 	color: whitesmoke;
+	font-size: clamp(1.25rem, 3.5vw, 2.5rem);
+}
+
+.section h3 {
+	padding-bottom: 12px;
+	color: whitesmoke;
+	font-size: clamp(10px, 5vw, 18px);
 }
 
 .section hr {

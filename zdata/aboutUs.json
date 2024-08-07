@@ -1,0 +1,32 @@
+[
+  {
+    "postId": "clzju0hen000e4z4algb3d10x",
+    "title": "About this site",
+    "content": "This is a personal website and has no official or corporate affiliation.<br> We use <a href=\"https://adsense.google.com/start/\">Googe AdSense</a> for advertasing, and the proceeds are used to cover the costs of hosting and domain name.",
+    "displayOrder": 0
+  },
+  {
+    "postId": "clzju0hen000e4z4algb3d10x",
+    "title": "Information",
+    "content": "We are not responsible for the content of any information, services etc. accessed via advertisements, links or banners from this website.<br>Also, we try to provide accurate information, but we cannot guarantee that the information is always up-to-date or accurate.<br>We are not responsible for any loss or damage caused by the use of the information on this website.",
+    "displayOrder": 1
+  },
+  {
+    "postId": "clzju0hen000e4z4algb3d10x",
+    "title": "Advertising and Cookies",
+    "content": "This website use a third-party advertasing service which is <a href=\"https://adsense.google.com/start/\">Googe AdSense</a>, also using cookies to serve ads based on a user's prior visits to this website or other websites. For more information about how Google uses cookies, please visit <a href=\"https://policies.google.com/technologies/cookies\">Google's Privacy & Terms</a>.<br>",
+    "displayOrder": 4
+  },
+  {
+    "postId": "clzju0hen000e4z4algb3d10x",
+    "title": "Analysis tool",
+    "content": "This website uses <a href=\"https://analytics.google.com/analytics/web/\">Google Analytics</a> to collect information about how visitors use the site. This information is used to compile reports and to help improve the site. The cookies collect information in an anonymous form, including the number of visitors to the site, where visitors have come to the site from and the pages they visited. For more information about how Google uses cookies, please visit <a href=\"https://policies.google.com/technologies/cookies\">Google's Privacy & Terms</a>.",
+    "displayOrder": 5
+  },
+  {
+    "postId": "clzju0hen000e4z4algb3d10x",
+    "title": "Access our privacy policy",
+    "content": "You can access our privacy policy by clicking <a href=\"/privacy-policy\">here</a>.",
+    "displayOrder": 6
+  }
+]

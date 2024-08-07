@@ -6,7 +6,7 @@ console.log("Updating post...");
 
 // Load data from JSON files
 const sectionsData = JSON.parse(
-  fs.readFileSync("./prayerStatue.json", "utf-8")
+  fs.readFileSync("./magePreBlitzGuide.json", "utf-8")
 );
 
 async function updateSectionsAndSets() {
