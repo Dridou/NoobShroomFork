@@ -2,7 +2,32 @@ import React from "react";
 import styles from "./featured.module.css";
 import Image from "next/image";
 
-const Featured = () => {
+const getPost = async (slug) => {
+	// Utiliser Prisma pour récupérer les données du post avec les sections et les sets associés
+	const post = await prisma.post.findUnique({
+	  where: { slug: slug },
+	  include: {
+		user: true,
+		sections: {
+		  include: {
+			sets: true,
+		  },
+		  orderBy: {
+			displayOrder: 'asc',  // Order sections by the 'order' field in ascending order
+		  },
+		},
+	  },
+	});
+
+	if (!post) {
+	  throw new Error("Post not found");
+	}
+
+	return post;
+  };
+
+const Featured = async () => {
+	const post = await getPost("prophet-preblitz-class-guide");
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
@@ -17,15 +42,12 @@ const Featured = () => {
         </div>
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>
-            Lorem ipsum dolor sit amet alim consectetur adipisicing elit.
+            <b>{post?.title}</b>
           </h1>
           <p className={styles.postDesc}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Cupiditate, quam nisi magni ea laborum inventore voluptatum
-            laudantium repellat ducimus unde aspernatur fuga. Quo, accusantium
-            quisquam! Harum unde sit culpa debitis.
+            Discover all the knowledge acumulated by the best Prophet players, avoid mistakes and learn from the best how to play your pre-blitz Prophet !
           </p>
-          <button className={styles.button}>Read More</button>
+          <button className={styles.button}><a href="http://localhost:3000/posts/prophet-preblitz-class-guide">Read more</a></button>
         </div>
       </div>
     </div>
