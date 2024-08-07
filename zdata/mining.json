@@ -1,0 +1,32 @@
+[
+  {
+    "postId": "clzjsec7r000b4z4arrbomnau",
+    "title": "Introduction",
+    "content": "<p>Mining is also an important part of the game as it allows you to research technologies that provide a significant boost to your stats. It should not be neglected, especially since a rush involves ores, making it even more important to manage this activity well, particularly at the beginning of a server.</p>",
+    "displayOrder": 0
+  },
+  {
+    "postId": "clzjsec7r000b4z4arrbomnau",
+    "title": "Drills & bombs",
+    "content": "<p>You can buy drills <img alt=\"Drill icon\"class=img-fluid src=\/images\/drill.png style=width:2rem> and bombs <img alt=\"Bomb icon\"class=img-fluid src=\/images\/bomb.png style=width:2rem> in the family shop, which are very important for efficient mining. Additionally, you can get 2 drills and 2 bombs for free by watching ads as showed below:<br><\/p><img alt=\"Drill and bomb free with ads\"class=img-fluid src=\/images\/mine-bonuses.png><br><br><p>Additionnaly, and especially at the beginning of the game, be sure to buy a maximum of drills and bombs in your family shop, this is how you'll be better than other players.<\/p><img alt=\"Family shop drills and bombs\"class=img-fluid src=\/images\/family-drills-bomb.png style=width:30%>",
+    "displayOrder": 1
+  },
+  {
+    "postId": "clzjsec7r000b4z4arrbomnau",
+    "title": "Parking super miner card",
+    "content": "<p>You can buy up to 3 super miner cards <img alt=\"\"class=img-fluid src=\/images\/super-mining-image.png style=width:2rem>, each granting 50% more resources for 50 uses within 1 hour (the timer stops if you leave the game, while the pickaxes come back).<br>A crucial tip: <span class=tip>if you use a bomb or a drill on multiple cells, it only counts as one use of the card!<\/span><br><\/p><img alt=\"Super Miner card icon\"class=img-fluid src=\/images\/super-mining.png>",
+    "displayOrder": 2
+  },
+  {
+    "postId": "clzjsec7r000b4z4arrbomnau",
+    "title": "What about auto mining ?",
+    "content": "<p>Auto mining is not recommended, especially beyond 10,000m. It provides a fixed amount of ore without using drills or bombs, resulting in lower efficiency. Avoid using auto mining to maximize your resource gains.</p>",
+    "displayOrder": 3
+  },
+  {
+    "postId": "clzjsec7r000b4z4arrbomnau",
+    "title": "Technologies",
+    "content": "<p>Always prioritize researching blue technologies first.<br>These technologies help to accelerate the research time of other technologies, maximizing your efficiency. This is especially important at the beginning of a server to focus on these and stop there to save resources for the rush.<br><br>After completing the blue technologies, it's beneficial for any class to balance attack, defense, and HP. However, in the ultra-late game, strategies may differ depending on how you build your class.<\/p><img alt=\"Blue technologies\"class=\"img-fluid img-padding\"src=\/images\/tech-blue.png style=width:50%;height:50%>",
+    "displayOrder": 3
+  }
+]

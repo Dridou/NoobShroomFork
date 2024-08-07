@@ -6,7 +6,7 @@ console.log("Updating post...");
 
 // Load data from JSON files
 const sectionsData = JSON.parse(
-  fs.readFileSync("./choosingPacks.json", "utf-8")
+  fs.readFileSync("./prayerStatue.json", "utf-8")
 );
 
 async function updateSectionsAndSets() {
@@ -14,7 +14,7 @@ async function updateSectionsAndSets() {
   for (const sectionData of sectionsData) {
     // Trouver la section existante par son titre
     let section = await prisma.section.findFirst({
-      where: { title: sectionData.title },
+      where: { title: sectionData.title, postId: sectionData.postId },
       include: {
         sets: true,
         tables: { include: { rows: true } },
@@ -31,6 +31,7 @@ async function updateSectionsAndSets() {
           content: sectionData.content,
           type: sectionData.type || "text", // Utiliser une valeur par défaut si `type` est indéfini
           postId: sectionData.postId,
+		  icon: sectionData.icon,
           displayOrder: sectionData.displayOrder,
         },
       });
@@ -41,6 +42,7 @@ async function updateSectionsAndSets() {
         data: {
           title: sectionData.title,
           content: sectionData.content,
+		  icon: sectionData.icon,
           type: sectionData.type || "text", // Utiliser une valeur par défaut si `type` est indéfini
           postId: sectionData.postId, // Assurez-vous que `postId` est défini dans votre JSON
           displayOrder: sectionData.displayOrder,

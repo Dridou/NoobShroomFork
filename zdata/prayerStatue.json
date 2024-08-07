@@ -1,0 +1,20 @@
+[
+  {
+    "postId": "clzjsq7fg000c4z4al83ga8yd",
+    "title": "Introduction",
+    "content": "<p>The farm is an essential aspect of the game as it is your only means of obtaining fruit offerings, which grant the best possible stats for your prayer statue.<p>The concept is simple: you can plant seeds that will take some time to grow, depending on their rarity, before you can harvest them. A normal or rare seed has a certain percentage chance of yielding a normal, rare, or very rare fruit. A very rare seed is guaranteed to produce a very rare fruit. You also have normal and rare fertilizers: <img src=\"/images/fertilizer-common.png\" alt=\"normal fertilizer\"class=img-fluid> normal fertilizers <img alt=\"rare fertilizer\"class=img-fluid> accelerate growth by 30 minutes, and rare fertilizers <img src=\"\/images\/fertilizer.png\" alt=\"rare fertilizer\"class=img-fluid> by 1 hour.",
+    "displayOrder": 0
+  },
+  {
+    "postId": "clzjsq7fg000c4z4al83ga8yd",
+    "title": "Common Optimization",
+    "content": "<p>Tips for Farm Optimization:<ul><li>Always collect normal fertilizers <img src=\"/images/fertilizer-common.png\" alt=\"normal fertilizer\"class=img-fluid> through in-game ads, as you will get one more each time up to a maximum of 11.<li>Collect normal seeds in the same way.<li>Acquire 3 or 4 rare fertilizers <img src=\"\/images\/fertilizer.png\" alt=\"rare fertilizer\"class=img-fluid> every day with red gems.<\/ul>",
+    "displayOrder": 1
+  },
+  {
+    "postId": "clzjsq7fg000c4z4al83ga8yd",
+    "title": "Harvest Optimization",
+    "content": "<h4><img alt=\"Heart icon\" src=\"\/images\/mariage-heart.png\" class=\"img-fluid\" style=\"width: 2rem;\"> Marriage Bonus<\/h4><p>As your marriage intimacy increases, the fertilization bonus your spouse gives you becomes significant, up to 8 hours, allowing you to instantly harvest a very rare seed.<h4>Fertilizer Management<\/h4><p><img src=\"\/images\/fertilizer-common.png\" alt=\"rare fertilizer\"class=img-fluid> normal fertilizers accelerate growth by 30 minutes and regenerate every hour.<p><img src=\"\/images\/fertilizer.png\" alt=\"rare fertilizer\"class=img-fluid> rare fertilizers accelerate growth by 1 hour and are obtained elsewhere.<p>Try to distribute your normal and rare fertilizers to optimize growth. For example, if your harvest takes 4 hours and 20 minutes, use one normal fertilizer (30 minutes) and four rare fertilizers (1h). This strategy helps you stack a maximum number of normal & rare fertilizer that you can stack.<h4><img alt=\"Super Harvest icon\" src=\"\/images\/beautiful-harvest.png\" class=\"img-fluid\" style=\"width: 2rem;\">  Super harvest<\/h4><p>When you have stacked around 50\/60 rare fertilizers <img src=\"\/images\/fertilizer.png\" alt=\"rare fertilizer\"class=img-fluid>and maximized your normal fertilizers <img src=\"\/images\/fertilizer-common.png\" alt=\"rare fertilizer\"class=img-fluid> with free ones, you can take the harvest bonus in parking wars. This will enable you to complete your 30 bonus harvests within 3 hours. Note that the bonus time stops when you exit the game.",
+    "displayOrder": 2
+  }
+]

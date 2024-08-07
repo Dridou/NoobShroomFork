@@ -1,0 +1,50 @@
+[
+  {
+    "postId": "clzjr2l9k000a4z4ae2haeu8v",
+    "title": "Introduction",
+    "content": "<p>Enchanting your artifact with runes is crucial, allowing you to obtain a variety of stats, including some that are not available through equipment, such as airborne, stun resistance, and combo resistance, which become highly effective in PvP.</p><p>Additionally, the raw stats (HP, DEF, ATK) provided by these runes are added to your base stats (see details on stats) and are therefore extremely powerful.</p>",
+    "displayOrder": 0
+  },
+  {
+    "postId": "clzjr2l9k000a4z4ae2haeu8v",
+    "title": "System explanation",
+    "content": "<p>We have six available rune slots, and currently, there are six different types of runes. Each set of two identical runes grants a 5% bonus, while a set of four identical runes grants a 10% bonus specific to the rune type.</p><p>Each rune has a main stat that increases with each level until lv20, and 1 to 4 sub-stats, where every 4 levels, either a new sub-stat will appear (up to a maximum of 4), or an existing sub-stat will increase. A rune is from a specific set.</p><p>There are strategies to fully exploit the potential of your runes. Let's see each part the a rune together.</p><img alt=\"Rune system explanation\" src=\"\/images\/rune-explain.png\" class=\"img-fluid\">",
+    "displayOrder": 1
+  },
+  {
+    "postId": "clzjr2l9k000a4z4ae2haeu8v",
+    "title": "Runes Sets",
+    "content": "<p>We have six available rune slots, and currently, there are six different types of runes. Each set of two identical runes grants a 5% bonus, while a set of four identical runes grants a 10% bonus specific to the rune type.</p><div class=custom-col><div class=\"custom=row\"><img alt=\"Heart of resilience and Furious gale set description\"class=img-fluid src=\/images\/set-glo-counter-glo-combo.png><\/div><div class=custom-row><img alt=\"Mana mastery and Blazing Roar set description\"class=img-fluid src=\/images\/glo-atk-crit-dmg.png><\/div><div class=custom-row><img alt=\"Iron wall and Elemental Wrath set description\"class=img-fluid src=\/images\/glo-crit-res-skill-dmg.png><\/div><\/div>",
+    "displayOrder": 2
+  },
+  {
+    "postId": "clzjr2l9k000a4z4ae2haeu8v",
+    "title": "Main stat per rune slot",
+    "content": "<p>Here are 6 possible rune slots, and each rune you obtain will be designated for a particular slot. Each of these slots has a specific list of main stats according to the slot, but any slot can have any sub-stats.</p><p>Here is an illustration of the different possible main stats for each slot:</p><img alt=\"Rune attributes per slot explanation src=\"\/images\/runes-slot-effect.png\" class=\"img-fluid\"><p>Obviously, you will be looking for runes 4, 5, and 6 based on your class and needs.</p>",
+    "displayOrder": 3
+  },
+  {
+    "postId": "clzjr2l9k000a4z4ae2haeu8v",
+    "title": "Rune Rarity",
+    "content": "<p>Runes come in various rarities, each represented by a different color. Higher rarity runes also require significantly more experience to level up.<br>Players should refer to the rune database to understand the experience required for each level and plan their upgrades accordingly to maximize their character's potential.</p><p>Each rune, as each sub-stat has a color:green, blue, purple, orange, red, or pink.<br>Concerning the rune rarity, it affects the main stat maximum value, and also affects the gain when a substat proc every 4 lvls.Concerning the substats, the color only indicated how powerfull the sub stat is based on the minimal and maximal value it could have.</p>",
+    "displayOrder": 4
+  },
+  {
+    "postId": "clzjr2l9k000a4z4ae2haeu8v",
+    "title": "Leveling up system",
+    "content": "<p>You'll be able to lv up your runes until lv20. You'll need to feed them with other runes to up them.<br>Please note that for a similar rarity, feeding a lv10 or less rune to another one will not make it lose xp.</p><p>Each rune has a main stat that increases with each level, and 1 to 4 sub-stats at most, where every 4 levels:</p><div class=custom-row><div class=custom-col><figure class=figure><img alt=\"New stat apparition example\"class=\"figure-img img-fluid rounded\"src=\/images\/rune-new-sub.png><figcaption class=figure-caption>A new stat (ignore airborne) appeared.<\/figcaption><\/figure><\/div><div class=custom-col><figure class=figure><img alt=\"Stat upgraded apparition example\"class=\"figure-img img-fluid rounded\"src=\/images\/rune-sub-up.png style=width:94.5%><figcaption class=figure-caption>A random stat was upgraded (ignore airborne too)<\/figcaption><\/figure><\/div><\/div><p>This means that a rune with 4 sub-stats at level 1 is better because it will forcibly up a present sub stat + you already know all the substats you'll have lv20.</p><p>Level 1 runes can have one or more green or blue sub-stats at most.The higher the quality of the rune, the more likely it is to have more level 1 sub-stats and for their color to be blue.</p>",
+    "displayOrder": 5
+  },
+  {
+    "postId": "clzjr2l9k000a4z4ae2haeu8v",
+    "title": "How to obtain runes ?",
+    "content": "<p>Runes can only be obtained through the Flames Dungeon. This dungeon ranges from level 1 to level 20.It is crucial to reach level 20 as quickly as possible, as it is the only level where you can obtain pink rarity runes.Additionally, at level 20, you will receive 15 runes per run.</p><p>Here is the drop rate for level 20 (max dungeon level):</p><img alt=\"Flame temple dungeon\"class=\"img-fluid img-padding\"src=\/images\/flame-dj-lv20-en.png style=width:33%>",
+    "displayOrder": 6
+  },
+  {
+    "postId": "clzjr2l9k000a4z4ae2haeu8v",
+    "title": "Best practices",
+    "content": "<h3>Before the lv20 dungeon:</h3><p>First, reach level 20 as quickly as possible to obtain pink runes and maximize the number of runes per run. If you haven't reached level 20 yet, don't hesitate to level up all your runes to level 10. Just use the highest color runes available to boost your base stats significantly!</p><h3>Lv20 reached:</h3><p>What should you do next? Should you prioritize sets absolutely? Should you choose the highest color runes? Should you focus only on the sub-stats? Let's break it down together.</p><h4>Which rune is good for me ?</h4><p>Here’s how to decide if a rune is good for you, in this order of priority:</p><ol><li>Main stat (especially for rune slots 4 and 6)</li><li>Sub-stats</li><li>Set effect</li></ol><p>Yes, the set effect should only be prioritized in the very late game (level +130). Why? Because a single rune can have a greater effect than a set of 4 runes of the same type. So, you shouldn't restrict yourself to certain types of runes until you have a significant selection. See the example below.</p><p>This rune has nearly 10% of Global Combo Dmg, which is the 4 set bonus of the combo set. Not event talking about the other present substats.</p><div class=text-center><img alt=\"Excellent rune example\"class=\"align-content-center img img-fluid img-padding rounded\"src=\/images\/rune-excellent-example.png><\/div><h4>Which stats are good for me ?</h4><p>Indeed, check your class guide to see which stats you need for slots 4 and 6. Generally:</p><ul><li><b>Archer<\/b>: Combo Damage \/ Crit Damage<li><b>Tank<\/b>: Counter Damage \/ Crit Damage (Berserk) or Crit Resistance (Martial Saint)<li><b>Mage<\/b>: Skill Damage \/ Crit Resistance<\/ul><h4>Global tips<\/h4><p>Next, also consider the sub-stats to prioritize and the recommended sets. You want sub-stats that are as rare (blue) as possible at level 1 and as many relevant sub-stats as possible.<p>However, do not underestimate runes with few or only one interesting sub-stat. If this sub-stat procs 5 times (at levels 4, 8, 12, 16, and 20) and you get 8% stun for a mage, it might be worth having some mediocre stats on the side...<p>Remember that leveling a rune to level 8 does not waste any experience if it is used as food later, and at level 12, you will only lose a little experience (equivalent to one whole level). Therefore, I recommend leveling all potentially interesting runes to level 8, and if they don't proc well, use them as food for another rune. Continue testing your runes this way.</p>",
+    "displayOrder": 6
+  }
+]

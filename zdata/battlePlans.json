@@ -1,0 +1,33 @@
+[
+  {
+    "postId": "clzjpeqxq00084z4a08vt8j1u",
+    "title": "Introduction",
+    "content": "<p>Gear plans are vital for saving precious time by avoiding the constant need to switch spells, acolytes (pals), relics, mounts, and artifacts.</p><p>They can be automatically bound to different game modes, ensuring that the correct set is used, especially during PvP attacks where having your PvP set equipped is crucial.<br>Additionally, gear plans help remember and maintain cooldowns for PvE.</p><p>This feature becomes even more important later in the game when playing multiple classes for different game modes, making it an essential tool for both efficiency and strategic gameplay.</p>",
+    "displayOrder": 0
+  },
+  {
+    "postId": "clzjpeqxq00084z4a08vt8j1u",
+    "title": "Why and how to create battle plans ?",
+    "content": "<p>A battle plan is a shortcut that allows you to select at once:</p><ul><li>A gear plan<li>A spell plan<li>A pal plan<li>A relic plan<li>A prayer plan<li>A talent plan<li>A mount / artifact / back accessory plan<li>An avian plan</ul><p>As the game becomes more strategic with increasing gameplay elements, having a battle plan helps you adapt quickly, saving you the time you would otherwise spend manually changing everything.</p>",
+    "displayOrder": 1
+  },
+  {
+    "postId": "clzjpeqxq00084z4a08vt8j1u",
+    "title": "Creating Effective Battle Plans",
+    "content": "<p>You can create only 5 battle plans, but more would be necessary. Depending on your gameplay preferences, you can pick 5 plans to suit your needs:</p><ul><li><h3>PvP</h3><p>The Cross Server Arena is so important due to its rewards, learn more about it in the <a href=#>Cross Server Arena guide</a>.<p>Auto assign it to Arena, Cross-Server Ranked Match & Shroomie Farm, Parking Wars, and Retainer in Presets<li><h3>Sea</h3><p>Used for Sail Season, where sea fights last 2 minutes instead of the usual 30 seconds, requiring different strategies.<p>Auto assign it to Sail Season in Presets<li><h3>Grumpy</h3><p>Designed for the grumpy events, helping you rank among the top players and push the grumpy level with your family.<p>Auto assign it to Raid Grumpy Bighead in Presets<li><h3>Custom</h3><p>This is the plan you’ll tweak frequently for dark trials, testing strategies, or any scenario where you don’t want to alter your other plans.<li><h3>Lava</h3><p>Dedicated to the lava boss, which offers significant rewards, especially family points needed for important resources. This dungeon can be completed up to 3 times a day (with an 8-hour cooldown), so it’s better to have a specific set.<p>Not auto assignable.<li><h3>Boss</h3><p>Mainly used for adventure bosses, Soul trial bosses, and potentially others.<p>Not auto assignable.<li><h3>Wave</h3><p>Used for adventure waves, Cloud Ascension trial waves, and Chrono tower.<p>Not auto assignable.</ul>",
+    "displayOrder": 2
+  },
+  {
+    "postId": "clzjpeqxq00084z4a08vt8j1u",
+    "title": "Creating Effective Battle Plans",
+    "content": "<p>You can create only 5 battle plans, but more would be necessary. Depending on your gameplay preferences, you can pick 5 plans to suit your needs:</p><ul><li><h3>PvP</h3><p>The Cross Server Arena is so important due to its rewards, learn more about it in the <a href=#>Cross Server Arena guide</a>.<p>Auto assign it to Arena, Cross-Server Ranked Match & Shroomie Farm, Parking Wars, and Retainer in Presets<li><h3>Sea</h3><p>Used for Sail Season, where sea fights last 2 minutes instead of the usual 30 seconds, requiring different strategies.<p>Auto assign it to Sail Season in Presets<li><h3>Grumpy</h3><p>Designed for the grumpy events, helping you rank among the top players and push the grumpy level with your family.<p>Auto assign it to Raid Grumpy Bighead in Presets<li><h3>Custom</h3><p>This is the plan you’ll tweak frequently for dark trials, testing strategies, or any scenario where you don’t want to alter your other plans.<li><h3>Lava</h3><p>Dedicated to the lava boss, which offers significant rewards, especially family points needed for important resources. This dungeon can be completed up to 3 times a day (with an 8-hour cooldown), so it’s better to have a specific set.<p>Not auto assignable.<li><h3>Boss</h3><p>Mainly used for adventure bosses, Soul trial bosses, and potentially others.<p>Not auto assignable.<li><h3>Wave</h3><p>Used for adventure waves, Cloud Ascension trial waves, and Chrono tower.<p>Not auto assignable.</ul>",
+    "displayOrder": 2
+  },
+  {
+    "postId": "clzjpeqxq00084z4a08vt8j1u",
+    "title": "Designing & Assigning Battle Plans",
+    "content": "<p>Your asssigned battle-plans will be automatically applied for the concerned game mode.</p><div class=custom-row><div class=custom-col><figure class=text-center><img alt=\"Battle plan attribution example\"class=img-fluid src=\/images\/batte-plans-attribution.png><figcaption class=\"text-center figure-caption\">Battle plan settings<\/figcaption><\/figure><\/div><div class=custom-col><figure class=text-center><img alt=\"Battle plan presets assignation example\"class=img-fluid src=\/images\/battle-plan-presets.png><figcaption class=\"text-center figure-caption\">Battle plans attribution<\/figcaption><\/figure><\/div><\/div>",
+    "displayOrder": 2,
+	"icon": "/images/battle-plan.png"
+  }
+]

@@ -1,0 +1,26 @@
+[
+	{
+		"postId": "clzjqj8el00094z4a5zlvx8xd",
+		"title": "Introduction",
+		"content": "<p>You can create up to 5 gear sets, allowing you to have multiple sets with different items. This flexibility is crucial, especially when considering all possible classes when you acquire a valuable item.</p>",
+		"displayOrder": 0
+	  },
+	  {
+		"postId": "clzjqj8el00094z4a5zlvx8xd",
+		"title": "Setting one gear plan per class",
+		"content": "<p>I recommend creating at least the following gear sets:</p><ul><li>A crossbow set for clearing dungeons/PvE.<li>A Berserker/Martial for PvP<li>A mage for PvP</ul><p>Indeed, each class is more or less valuable depending the game modes and the situation.<p>The Crossbow is excellent for pushing PvE content and you will need it to get as far as possible in Dragon, lamp, Chrono and Dark dungeons. It is essential to secure as many resources as possible.<p>Meanwhile the Archer will shine in PvP against warriors around 45/50m power.<p>The Prophet is a very valuable class in term of PvP, especially having a big impact around 45/50m when you succeed to get enough stun rate and having good damages in the same time, it has a huge burst which is especially strong against warriors and can easily shutdown a Crossbow/Archer not tanky enough and who has no resistance to controls, meanwhile the Darklord has a huge burst power.<p>Eventually the Berserker is a really strong in PvP in early game due to the fact that a lot of people play Crossbow in early games, it seems the Martial Sage is preferred over 45/50m due to his huge tankiness, making it very efficient do defend in the sea mode or parking wars, also helping pushing the grumpy lvs.<p>So, as you can see, it is really important to progressively build several gear plans in order to later be able to swap your class from time to time depending your objectives.</p>",
+		"displayOrder": 1
+	  },
+	  {
+		"postId": "clzjqj8el00094z4a5zlvx8xd",
+		"title": "Setting one gear plan per class",
+		"content": "<div class=custom-row><div class=custom-col><img alt=\"Crossbow tab of gear plan\"class=img-fluid src=\/images\/class-gear-arba.png><\/div><div class=custom-col><img alt=\"Berseker tab of gear plan\"class=img-fluid src=\/images\/class-gear-bers.png><\/div><\/div>",
+		"displayOrder": 2
+	  },
+	  {
+		"postId": "clzjqj8el00094z4a5zlvx8xd",
+		"title": "How to attribute a looted gear to another gear set ?",
+		"content": "<p>Let's imagine this purple loot is good for a mage and I wanna set it to my mage gear, here are the steps</p><div class=custom-row><div class=custom-col><img alt=\"Drop item screen\"class=\"img-fluid img-padding\"src=\/images\/base-stuff-swap.png><\/div><div class=custom-col><img alt=\"Placement of the battle plans icon\"class=\"img-fluid img-padding\"src=\/images\/swap-button.png><\/div><\/div><hr class=my-4><div class=custom-row><div class=custom-col><img alt=\"Switch Plan Image\"class=\"img-fluid img-padding\"src=\/images\/switch-plan.png><\/div><div class=custom-col><img alt=\"Swap Gear Item Image\"class=\"img-fluid img-padding\"src=\/images\/swap-gear-item.png><\/div><\/div>",
+		"displayOrder": 3
+	  }
+]
