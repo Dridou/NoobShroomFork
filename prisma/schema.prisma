@@ -97,6 +97,8 @@ model Section {
   postId  String
   post    Post    @relation(fields: [postId], references: [id])
   sets    Set[] // Relier les sets aux sections
+  tables   Table[]
+  displayOrder Int?
 }
 
 model Set {
@@ -119,4 +121,22 @@ model Set {
   avians             Json // Changed to Json to store object with list and affixes
   sectionId          String?
   section            Section?  @relation(fields: [sectionId], references: [id])
+}
+
+model Table {
+  id          String      @id @default(cuid()) @map("_id")
+  title       String
+
+  rows        TableRow[]  @relation("TableRows")
+
+  sectionId   String
+  section     Section?  @relation(fields: [sectionId], references: [id])
+}
+
+model TableRow {
+  id        String  @id @default(cuid()) @map("_id")
+  stat      String
+  explanation String
+  table     Table   @relation("TableRows", fields: [tableId], references: [id])
+  tableId   String
 }

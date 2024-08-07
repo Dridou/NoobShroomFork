@@ -19,6 +19,9 @@ const getData = async (slug) => {
 		  include: {
 			sets: true,
 		  },
+		  orderBy: {
+			displayOrder: 'asc',  // Order sections by the 'order' field in ascending order
+		  },
 		},
 	  },
 	});

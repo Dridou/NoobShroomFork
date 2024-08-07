@@ -1,0 +1,383 @@
+[
+  {
+    "title": "Introduction",
+    "content": "<p>In this section, we will delve into the workings of the game's statistics. Here's what you will discover for each statistic:<ul><li>A general explanation on the concerned statistic Category (Skill for example) and how it works in reality.<li>Explanation of every stats concerning this category (Skill Dmg, Skill crit...)<li>For every category, a simplify formula to understand the real damage, thanks again to @Ciboulette and @Qooter for this.</ul><p>Understanding statistics is perhaps the most crucial element of the game. It guides your decisions and strategic choices. I hope you will learn more and create your own winning strategies with this information!",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "displayOrder": 0
+  },
+  {
+    "title": "Base Stats",
+    "content": "Base stats are the only raw stats (i.e. not percentages) in your character's attributes. These include HP, DEF, ATK, and ATK SPD.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Base Attributes",
+        "rows": [
+          {
+            "stat": "HP",
+            "explanation": "Health Points. When this reaches 0, you lose the fight."
+          },
+          {
+            "stat": "DEF",
+            "explanation": "Defense. Reduces the amount of damage taken from attacks."
+          },
+          {
+            "stat": "ATK",
+            "explanation": "Attack. The difference between your Attack and your opponent's Defense is the starting point of inflicted damage"
+          },
+          {
+            "stat": "ATK SPD %",
+            "explanation": "Attack Speed. Naturally enhances your damage per second (DPS)"
+          }
+        ]
+      }
+    ],
+    "displayOrder": 0
+  },
+  {
+    "title": "Basic Attack",
+    "content": "Let's say your character has an attack speed of 4, meaning it performs 4 basic attacks per second, more projectiles are sent (Crossbow passive, Combos, Counterstrikes, gatling 'bullets' and so on) but you only hit |your atk speed| * basic attacks per second, those are the only ones that can trigger a combo, a counter, a crit, a stun, or an airborne effect, and only those can heal you.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Basic Attack",
+        "rows": [
+          {
+            "stat": "Basic ATK Multiplier (%)",
+            "explanation": "Multiply your Basic Atk Damage by"
+          },
+          {
+            "stat": "Basic ATK Res Coefficient (%)",
+            "explanation": "Resistance Coefficient for basic attack (%), deduced from your opponent basic attack damage."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 1
+  },
+  {
+    "title": "Crit",
+    "content": "Critical stats enhance the chance and effectiveness of landing critical hits in combat. These stats significantly impact your damage output. Moreover only few players upgrade their Crit Resistance. Don't negligeate this statistic as a damage dealer, neither the resistance for any class.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Crit stats",
+        "rows": [
+          {
+            "stat": "Crit Rate (%)",
+            "explanation": "Increases the chance to land a critical hit. Can be triggered on Basic Attacks, Combo and Counters."
+          },
+          {
+            "stat": "Base Damage",
+            "explanation": "That's your damage before the crit formula, can be your basic, combo or counter damage"
+          },
+          {
+            "stat": "Crit Dmg Multiplier (%)",
+            "explanation": "Multiplier for critical damage"
+          },
+          {
+            "stat": "Crit Res Coefficient (%)",
+            "explanation": "Divide your opponent Critical Multiplier by your Res one, until a minimum of 1.5.<br>For example if your oponent has 3000% Dmg Crit, it's ueless to go upper than 2000% crit Res, otherwise this 1.5 value will be the one taken into account."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 2
+  },
+  {
+    "title": "Combo",
+    "content": "Combo stats determine the chance and effectiveness of performing an additional Combo Attack each time you hit a Basic Attack. This is the main stat for dps classes as CrossBow / Archer, it is also used by some Sword Master.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Combo stats",
+        "rows": [
+          {
+            "stat": "Combo Rate (%)",
+            "explanation": "Chances that your Basic Attack triggers an bonus Combo Attack right after your basic Attack."
+          },
+          {
+            "stat": "Ignore Combo Rate (%)",
+            "explanation": "Subtract the opponent’s chance to perform a combo by your Ignore Rate.<br>Example: he has 100% Combo and you have 10% Res, he'll only have 90% real chances of combo."
+          },
+          {
+            "stat": "Combo Multiplier (%)",
+            "explanation": "Multiplier for combo damage."
+          },
+          {
+            "stat": "Combo Dmg Res Multiplier (%)",
+            "explanation": "Subtract your opponent Combo Multiplier by your Combo Dmg Resistance * His Combo Multiplier<br>For example if your opponent has 15000% Combo Multiplier, and you have 10% Combo Res, his real Combo Multiplier against you will be : 15000% - (10% of 15000% -> 1500%) = 13500%."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 3
+  },
+  {
+    "title": "Counter",
+    "content": "Counterstrike stats determine the chance and effectiveness of performing counterattacks in response to an opponent's attack. Especially efficient against combo oriented classes, which allows more counter attacks.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Counterstrike stats",
+        "rows": [
+          {
+            "stat": "Counterstrike Rate (%)",
+            "explanation": "Chance to perform a counterstrike when being attacked."
+          },
+          {
+            "stat": "Ignore Counter Rate (%)",
+            "explanation": "Subtract the opponent’s chance to perform a Counter by your Ignore Rate.<br>Example: he has 100% Counter and you have 10% Res, he'll only have 90% real chances of Counter Attacking."
+          },
+          {
+            "stat": "Counter Multiplier (%)",
+            "explanation": "Multiplier for counter damage."
+          },
+          {
+            "stat": "Counter Dmg Res Coeff (%)",
+            "explanation": "Subtract your opponent Counter Multiplier by your Counter Dmg Resistance * His Counter Multiplier<br>For example if your opponent has 15000% Counter Multiplier, and you have 10% Combo Res, his real Combo Multiplier against you will be : 15000% - (10% of 15000% -> 1500%) = 13500%."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 4
+  },
+  {
+    "title": "Skill",
+    "content": "Skill stats enhance the performance and effectiveness of your character's abilities. Note that your skills damage are also augmenting when the skill lvl up, and that some relics as the Thunder Kite are also counted.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Skill stats",
+        "rows": [
+          {
+            "stat": "Skill Crit Rate (%)",
+            "explanation": "Chance to land a critical hit with skills, the 'classic' Critical Rate is not taken into account for spells."
+          },
+          {
+            "stat": "Skill Dmg Multiplier (%)",
+            "explanation": "Multiplier for skill damage"
+          },
+          {
+            "stat": "Skill Dmg (%)",
+            "explanation": "Multiplier of the used skill"
+          },
+          {
+            "stat": "Skill Crit Dmg Multiplier (%)",
+            "explanation": "Multiplier for skills critical damage"
+          },
+          {
+            "stat": "Skill Dmg Res (%)",
+            "explanation": "Subtract your opponent Skill Dmg Multiplier by your Skill Dmg Resistance * His Skill Dmg Multiplier<br>For example if your opponent has 1500% Skill Dmg Multiplier, and you have 10% Skill Dmg Res, his real Skill Multiplier against you will be : 1500% - (10% of 1500% -> 150%) = 1350%."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 5
+  },
+  {
+    "title": "Boss",
+    "content": "Note the formula doesn't take your critic neither the boss crit resistance which is a very important stat to take into account, especially in Dark Trials.<br>Please note that \"atk - def\" cannot be below 1 and \"crit_dmg/crit_res\" cannot be below 1.5, otherwise, these values are taken by default.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Boss stats",
+        "rows": [
+          {
+            "stat": "Attack Dmg Multiplier",
+            "explanation": "Damage multiplier from your attack type (Basic Attack Multiplier, Combo multiplier or Counter Multiplier)"
+          },
+          {
+            "stat": "Attack Resistance",
+            "explanation": "Resistance of the boss to your attack type (Basic Attack Res, Combo Res or Counter Res), it is possible to know this stat for some bosses like the dark soul trials ones."
+          },
+          {
+            "stat": "Boss Dmg Multiplier (%)",
+            "explanation": "Multiplier for damage dealt to bosses"
+          },
+          {
+            "stat": "Boss Dmg Res (%)",
+            "explanation": "Resistance rate for damage taken from bosses"
+          },
+          {
+            "stat": "Global Dmg Res (%)",
+            "explanation": "Global resistance of the boss, this stat is not accessible for most bosses"
+          }
+        ]
+      }
+    ],
+    "displayOrder": 6
+  },
+  {
+    "title": "Pal",
+    "content": "Pal stats (Player vs Player) enhance your effectiveness in fights against other players, providing significant advantages in PvP scenarios.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Pal stats",
+        "rows": [
+          {
+            "stat": "Pals Dmg Multiplier (%)",
+            "explanation": "Multiplier for damage dealt by your deployed pals."
+          },
+          {
+            "stat": "Pal Multiplier",
+            "explanation": "Multiplier of the attacking pal."
+          },
+          {
+            "stat": "Pal Dmg Res (%)",
+            "explanation": "Subtract your opponent Pal Dmg % by your Pal Dmg Resistance * His Pal Dmg Multiplier<br>For example if your opponent has 2000% Pal Dmg Multiplier, and you have 10% Pal Dmg Res, his real Pal Multiplier against you will be : 2000% - (10% of 2000% -> 200%) = 1800%."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 7
+  },
+  {
+    "title": "Stun",
+    "content": "Stun stats affect your ability to stun your opponent during 0.5s",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Stun stats",
+        "rows": [
+          {
+            "stat": "Stun Rate (%)",
+            "explanation": "Chance to stun the opponent"
+          },
+          {
+            "stat": "Ignore Stun Rate (%)",
+            "explanation": "Reduces your opponent chance of stun by your ignore stun rate. If he has 40% stun, and you have 10% ignore stun, in reality he only has 30% chance of stun."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 8
+  },
+  {
+    "title": "Airborne",
+    "content": "Airborne stats affect your ability to launch opponents into the air during 0.5s. Be careful in PvE, launching a monster will make it reset his focus, especially switching his focus from your yourself to your clone is your clone appears at least 0.5s after you because the skill is delayed.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Airborne stats",
+        "rows": [
+          {
+            "stat": "Airborne Rate (%)",
+            "explanation": "Chance to launch the opponent into the air during 0.5s"
+          },
+          {
+            "stat": "Ignore Airborne Rate (%)",
+            "explanation": "Reduces your oponnent chance of launch you into the air by your Ignore Airborne Rate. If he has 10% airborne, and you have 2% ignore airborne, in reality he only has 8% chance of launch you."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 9
+  },
+  {
+    "title": "Evasion",
+    "content": "Evasion stats determine your ability to dodge attacks and triggering an 'evasion'. Evasion can triggers Counters.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Evasion stats",
+        "rows": [
+          {
+            "stat": "Evasion Rate (%)",
+            "explanation": "Chance to evade an attack"
+          },
+          {
+            "stat": "Ignore Evasion Rate (%)",
+            "explanation": "Reduces your opponent’s chance to evade (and so does he when attacking you) by your Ignore Evasion Rate %; if he has 100% Evasion Rate and you have 80% Ignore Evasion, he'll only have 80% chance of evading your attack."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 10
+  },
+  {
+    "title": "Regen",
+    "content": "Regen stats determine the rate at which your health regenerates per second, having 1% regen means to healing yourself from 1% of your max HP per second. Be careful this value is not displayed on your screen.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Regen stats",
+        "rows": [
+          {
+            "stat": "Regeneration Rate (%)",
+            "explanation": "Each second, heal yourself from this % of your max HP."
+          }
+        ]
+      }
+    ],
+    "displayOrder": 11
+  },
+  {
+    "title": "Heal",
+    "content": "On each Basic Attack, you have Healing Rate % chance of healing you by Healing Amount % of your max HP, it does not depend of inflicted damage.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Healing stats",
+        "rows": [
+          {
+            "stat": "Healing Rate (%)",
+            "explanation": "Chance of healing on each basic Attack"
+          },
+          {
+            "stat": "Healing Amount Rate (%)",
+            "explanation": "When you heal, heals from this amount of your max HP (displayed on screen)"
+          }
+        ]
+      }
+    ],
+    "displayOrder": 12
+  },
+  {
+    "title": "Global Resistance",
+    "content": "Global Res stats enhance your resistance to every types of damage",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Global Res stats",
+        "rows": [
+          {
+            "stat": "Dmg Res (%)",
+            "explanation": "General damage resistance"
+          }
+        ]
+      }
+    ],
+    "displayOrder": 13
+  },
+  {
+    "title": "Final Stats",
+    "content": "Base stats bonuses enhance your fundamental attributes, providing significant boosts to your overall performance.",
+    "postId": "clziuxa0z000j12vru4um9948",
+    "tables": [
+      {
+        "title": "Base stats Bonus",
+        "rows": [
+          {
+            "stat": "HP Bonus Multiplier (%)",
+            "explanation": "Increases your base health"
+          },
+          {
+            "stat": "ATK Bonus Multiplier (%)",
+            "explanation": "Increases your base attack"
+          },
+          {
+            "stat": "DEF Bonus Multiplier (%)",
+            "explanation": "Increases your base defense"
+          },
+          {
+            "stat": "Attack Speed Bonus Multiplier (%)",
+            "explanation": "Increases your base attack speed"
+          }
+        ]
+      }
+    ],
+    "displayOrder": 14
+  }
+]
