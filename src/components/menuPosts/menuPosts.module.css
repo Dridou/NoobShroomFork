@@ -39,34 +39,21 @@
   width: max-content;
 }
 
-.category.travel {
-  background-color: #ff7857;
-}
-
-.culture {
-  background-color: #ffb14f;
-}
-
-.food {
-  background-color: #7fb881;
-}
-
-.fashion {
-  background-color: #ff7887;
-}
-
-.coding {
-  background-color: #775aec;
-}
-
-.style {
-  background-color: #789cff;
-}
+.classGuide {
+	background-color: grey;
+	border-radius: 10px;
+	text-align: center;
+	width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+	font-weight: 300;
+  }
 
 .postTitle {
   font-size: 18px;
-  font-weight: 500;
-  color: var(--softTextColor);
+  font-weight: 600;
+  color: var(--textColor);
+
 }
 
 .detail {
@@ -75,4 +62,5 @@
 
 .date {
   color: gray;
+  color:var(--softTextColor);
 }

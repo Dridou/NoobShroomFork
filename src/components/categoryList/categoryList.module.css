@@ -1,18 +1,51 @@
 .container {
-}
-
-.title {
-  margin: 50px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.title {
+	margin: 50px 0px;
+}
+
+.catTitle {
+	/* font-size: 20px; */
+	font-weight: 600;
+	margin-top: 10px;
+	margin-bottom: 5px;
 }
 
 .category {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	max-width: 350px;
+	background-color: #57c4ff31;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+
+	/* Ajustez si nécessaire */
+}
+
+.image {
+		width: 100%;
+		height: auto;
+		/* object-fit: cover; */
+		aspect-ratio: 3 / 1;
+		border-top-right-radius: 10px;
+		border-top-left-radius: 10px;
+		/* Proportion 768/256 */
+}
+
+/* .category {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -21,53 +54,54 @@
   height: 80px;
   justify-content: center;
   border-radius: 10px;
-}
+} */
 
 .category.style {
-  background-color: #57c4ff31;
+	background-color: #57c4ff31;
 }
 
 .category.fashion {
-  background-color: #da85c731;
+	background-color: #da85c731;
 }
 
 .category.food {
-  background-color: #7fb88133;
+	background-color: #7fb88133;
 }
 
 .category.travel {
-  background-color: #ff795736;
+	background-color: #ff795736;
 }
 
 .category.culture {
-  background-color: #ffb04f45;
+	background-color: #ffb04f45;
 }
 
 .category.coding {
-  background-color: #5e4fff31;
+	background-color: #5e4fff31;
 }
 
-.image {
-  border-radius: 50%;
-}
+
 
 @media screen and (max-width: 1280px) {
-  .category {
-    width: 20%;
-  }
+	.category {
+		width: 20%;
+	}
 }
+
 @media screen and (max-width: 1024px) {
-  .category {
-    width: 25%;
-  }
+	.category {
+		width: 25%;
+	}
 }
+
 @media screen and (max-width: 768px) {
-  .category {
-    width: 45%;
-  }
+	.category {
+		width: 45%;
+	}
 }
+
 @media screen and (max-width: 640px) {
-  .category {
-    width: 100%;
-  }
+	.category {
+		width: 100%;
+	}
 }

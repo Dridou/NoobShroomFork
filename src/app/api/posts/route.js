@@ -7,26 +7,43 @@ export const GET = async (req) => {
 
   const page = searchParams.get("page");
   const cat = searchParams.get("cat");
+  const sortBy = searchParams.get("sortBy");
 
-  const POST_PER_PAGE = 2;
+  const POST_PER_PAGE = 4;
 
-  const query = {
-    take: POST_PER_PAGE,
-    skip: POST_PER_PAGE * (page - 1),
-    where: {
-      ...(cat && { catSlug: cat }),
-    },
-	orderBy: {
-        createdAt: "desc",
+  let query = null;
+
+  if (page) {
+    query = {
+      take: POST_PER_PAGE,
+      skip: POST_PER_PAGE * (page - 1),
+      where: {
+        ...((cat && { catSlug: cat }) || {}),
       },
-  };
-
-
-
-
-
-
-
+    //   orderBy: {
+    //     ...(sortBy === "views" ? { views: "desc" } : { createdAt: "desc" }),
+    //   },
+    };
+  }
+  else {
+	query = {
+		take: 5,
+		// skip: POST_PER_PAGE * (page - 1),
+		where: {
+		  ...((cat && { catSlug: cat }) || {}),
+		},
+		include: {
+		  user: {
+			select: {
+			  name: true,
+			},
+		  },
+		},
+		orderBy: {
+		  ...(sortBy === "views" ? { views: "desc" } : { createdAt: "desc" }),
+		},
+	  };
+  }
 
   try {
     const [posts, count] = await prisma.$transaction([
@@ -41,15 +58,6 @@ export const GET = async (req) => {
     );
   }
 };
-
-
-
-
-
-
-
-
-
 
 // CREATE A POST
 export const POST = async (req) => {
