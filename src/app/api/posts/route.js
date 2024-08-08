@@ -11,6 +11,8 @@ export const GET = async (req) => {
 
   const POST_PER_PAGE = 4;
 
+  const excludedCategories = ["legal"];
+
   let query = null;
 
   if (page) {
@@ -18,8 +20,11 @@ export const GET = async (req) => {
       take: POST_PER_PAGE,
       skip: POST_PER_PAGE * (page - 1),
       where: {
-        ...((cat && { catSlug: cat }) || {}),
-      },
+		catSlug: {
+		  notIn: excludedCategories,
+		},
+		...(cat && { catSlug: cat }),
+	  },
     //   orderBy: {
     //     ...(sortBy === "views" ? { views: "desc" } : { createdAt: "desc" }),
     //   },
@@ -30,8 +35,11 @@ export const GET = async (req) => {
 		take: 5,
 		// skip: POST_PER_PAGE * (page - 1),
 		where: {
-		  ...((cat && { catSlug: cat }) || {}),
-		},
+			catSlug: {
+			  notIn: excludedCategories,
+			},
+			...(cat && { catSlug: cat }),
+		  },
 		include: {
 		  user: {
 			select: {
