@@ -2,37 +2,6 @@
 	cursor: pointer;
 }
 
-/* .burger {
-  width: 20px;
-  height: 16px;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  display: none;
-}
-
-.line {
-  width: 100%;
-  height: 2px;
-  background-color: var(--textColor);
-} */
-
-/* .responsiveMenu{
-  position: absolute;
-  top: 100px;
-  left: 0;
-  background-color: var(--bg);
-  height: calc(100vh - 100px);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  font-size: 36px;
-  z-index: 999;
-} */
-
 .navLink {
 	color: var(--textColor);
 	text-decoration: none;
@@ -40,6 +9,7 @@
 	display: block;
 	transition: background-color 0.3s;
 	border-radius: 30px;
+	cursor: pointer;
 }
 
 .navLink:hover {
@@ -48,6 +18,20 @@
 
 .auth {
 	position: relative;
+}
+
+.loggedIn {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	/* Espace entre l'image et le lien Logout */
+}
+
+.userImage {
+	border-radius: 50%;
+	/* Pour rendre l'image circulaire */
+	object-fit: cover;
+	/* Assure que l'image est bien ajustée */
 }
 
 @media screen and (max-width: 640px) {

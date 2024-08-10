@@ -9,7 +9,7 @@ export const GET = async (req) => {
   const cat = searchParams.get("cat");
   const sortBy = searchParams.get("sortBy");
 
-  const POST_PER_PAGE = 4;
+  const POST_PER_PAGE = 3;
 
   const excludedCategories = ["legal","shops","database"];
 

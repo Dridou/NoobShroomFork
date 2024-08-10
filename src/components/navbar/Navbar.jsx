@@ -18,21 +18,14 @@ const Navbar = () => {
         <Image src="/youtube.png" alt="youtube" width={24} height={24} />
       </div>
       <div className={styles.logo}>
-        <Link href="/">
-          <Image
-            src="/images/noobshroom-full-logo.png"
-            alt="nooshroom logo"
-            width={200}
-            height={46}
-          />
-        </Link>
+        <Link href="/">NoobShroom</Link>
       </div>
 
       <ul className={styles.navMenu}>
-        <div className={styles.links}>
+        {/* <div className={styles.links}>
           <ThemeToggle />
-        </div>
-        <NavItem label="Categories">
+        </div> */}
+        {/* <NavItem label="Categories">
           <DropdownMenu>
             <DropdownItem
               label="Web Development"
@@ -44,9 +37,9 @@ const Navbar = () => {
             />
             <DropdownItem label="SEO Services" link="/services/seo" />
           </DropdownMenu>
-        </NavItem>
-        <NavItem label="About" link="/about" />
-        <NavItem label="Contact" link="/contact" />
+        </NavItem> */}
+        <NavItem label="About" link="/posts/about-us" />
+        <NavItem label="Contact" link="/posts/contact-us" />
         <AuthLinks />
       </ul>
     </div>

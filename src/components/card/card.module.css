@@ -1,63 +1,76 @@
 .container {
-  margin-bottom: 50px;
-  display: flex;
-  align-items: top;
-  /* background-color: darkred; */
-  border-bottom: 1px solid rgba(211, 211, 211, 0.432);
-  height: 250px;
-}
-
-.container:not(:last-child) {
-	margin-bottom: 50px;
+	padding-bottom: 30px;
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column; /* Change to column on mobile */
+	align-items: center;
+	border-bottom: 1px solid rgba(211, 211, 211, 0.432);
   }
 
-.imageContainer {
-  flex: 2;
-  position: relative;
-  width: 20%;
-  overflow: hidden; /* Cache toute partie de l'image qui dépasse */
-  border-radius: 10px;
-  /* padding-bottom: 20px; */
-}
-
-.image {
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 90%;
-	object-fit: contain;
-}
-
-.textContainer {
-  flex: 5;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.date {
-  color: gray;
-}
-
-.category {
-  color: crimson;
-  font-weight: 500;
-}
-
-.desc {
-  font-size: 18px;
-  font-weight: 300;
-  color: var(--softTextColor);
-}
-
-.link {
-  border-bottom: 1px solid crimson;
-  width: max-content;
-  padding: 2px 0px;
-}
-
-@media screen and (max-width: 1280px) {
   .imageContainer {
-    display: none;
+	width: 90%; /* Ensure the image takes full width */
+	overflow: hidden;
+	border-radius: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px; /* Add some space below the image */
+	justify-content: center;
   }
-}
+
+  .image {
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+  }
+
+  .textContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+  }
+
+  .date {
+	color: gray;
+	font-size: 14px; /* Slightly reduce the font size */
+  }
+
+  .category {
+	color: crimson;
+	font-weight: 500;
+	font-size: 14px; /* Slightly reduce the font size */
+  }
+
+  .desc {
+	font-size: 16px; /* Slightly reduce the font size */
+	font-weight: 300;
+	color: var(--softTextColor);
+  }
+
+  .link {
+	border-bottom: 1px solid crimson;
+	width: max-content;
+	padding: 2px 0px;
+  }
+
+  @media screen and (min-width: 680px) {
+	.container {
+	  flex-direction: row; /* Use row layout on larger screens */
+	  height: auto; /* Let the container height adjust based on content */
+	}
+
+	.imageContainer {
+	  flex: 2;
+	  width: 20%;
+	  margin-bottom: 0; /* Remove bottom margin for desktop */
+	  margin: 0; /* Remove auto-centering for larger screens */
+	}
+
+	.textContainer {
+	  flex: 5;
+	  gap: 30px;
+	}
+
+	.image {
+		height: auto;
+	}
+  }
