@@ -5,62 +5,66 @@
 	justify-content: space-between;
 	color: var(--softTextColor);
 	gap: 20px;
-	flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
-  }
+	flex-wrap: wrap;
+	/* Permet aux éléments de passer à la ligne si nécessaire */
+}
 
-  .info {
+.info {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	gap: 14px;
-  }
+}
 
-  .logo {
+.logo {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	gap: 10px;
-  }
+}
 
-  .logoText {
+.logoText {
 	font-size: 24px;
-  }
+}
 
-  .desc {
+.desc {
 	font-weight: 300;
-  }
+}
 
-  .icons {
+.icons {
 	margin-top: 10px;
 	display: flex;
 	gap: 10px;
-  }
+}
 
-  .discord {
+.discord {
 	flex: 1;
-	text-align: right; /* Aligne le contenu de discord à droite */
-  }
+	text-align: right;
+	/* Aligne le contenu de discord à droite */
+}
 
-  .discord {
+.discord {
 	/* background-color: var(--softBg); */
-	padding: 20px;
+	/* padding: 20px; */
 	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-  }
+}
 
-  .discordContainer {
+.discordContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-  }
+}
 
-  .discordButton {
+.discordButton {
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	background-color: #5865f2; /* Discord's main color */
+	background-color: #5865f2;
+	/* Discord's main color */
 	font-size: 28px;
 	color: white;
 	padding: 12px 20px;
@@ -68,56 +72,60 @@
 	font-weight: bold;
 	cursor: pointer;
 	transition: background-color 0.3s;
-  }
+}
 
-  .discordButton:hover {
-	background-color: #4752c4; /* Slightly darker on hover */
-  }
+.discordButton:hover {
+	background-color: #4752c4;
+	/* Slightly darker on hover */
+}
 
-  .discordLogo {
+.discordLogo {
 	display: inline-block;
-  }
+}
 
-  .discordText {
+.discordText {
 	margin-top: 10px;
 	font-size: 14px;
 	color: var(--softTextColor);
 	font-size: 16px;
-  }
+}
 
-  .yo {
-	width: 100%; /* Assure que cette section prend toute la largeur */
+.yo {
+	width: 100%;
+	/* Assure que cette section prend toute la largeur */
 	padding-top: 20px;
 	border-top: 1px solid rgba(211, 211, 211, 0.432);
 	margin-top: 20px;
 	padding-bottom: 20px;
-  }
+}
 
-  .links {
+.links {
 	display: flex;
-	justify-content: center; /* Centre les liens horizontalement */
-	gap: 15px; /* Espace entre les liens */
-  }
+	justify-content: center;
+	/* Centre les liens horizontalement */
+	gap: 15px;
+	/* Espace entre les liens */
+}
 
-  .links :not(:first-child)::before {
+.links :not(:first-child)::before {
 	content: '•';
 	color: var(--softTextColor);
 	padding: 0 8px;
-  }
+}
 
-  .link {
+.link {
 	text-align: center;
 	color: var(--softTextColor);
 	text-decoration: none;
-  }
+}
 
-  .link:hover {
+.link:hover {
 	text-decoration: underline;
-  }
+}
 
-  @media screen and (max-width: 1280px) {
+@media screen and (max-width: 1280px) {
 	.container {
-	  flex-direction: column;
+		flex-direction: column;
 	}
 
 	/* .links {
@@ -125,20 +133,22 @@
 	} */
 
 	.discord {
-	  text-align: left; /* Réaligne à gauche sur les petits écrans */
+		text-align: left;
+		/* Réaligne à gauche sur les petits écrans */
 	}
-  }
+}
 
-  @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
 	.links {
-	  font-size: 14px;
-	  width: 100%; /* Assure que les liens prennent toute la largeur sur les petits écrans */
-	  flex-direction: column;
-	  justify-content: start;
+		font-size: 14px;
+		width: 100%;
+		/* Assure que les liens prennent toute la largeur sur les petits écrans */
+		flex-direction: column;
+		justify-content: start;
 	}
 
 	.links :not(:first-child)::before {
 		content: ' ';
 		padding: 0;
 	}
-  }
+}

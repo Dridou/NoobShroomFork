@@ -1,103 +1,131 @@
+/* Container principal */
 .container {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	height: 100px;
-  }
+	position: relative;
+}
 
-  .social {
-	display: flex;
-	gap: 10px;
-	flex-basis: 20%;
-  }
-
-  .logo {
+/* Logo */
+.logo {
 	flex-grow: 1;
 	text-align: center;
 	font-size: 36px;
 	font-weight: bold;
-  }
+}
 
-  .links {
+/* Liens de navigation */
+.links {
 	display: flex;
 	align-items: center;
 	gap: 20px;
 	font-size: 20px;
-  }
+}
 
-  .navMenu {
+/* Menu hamburger */
+.hamburger {
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	cursor: pointer;
+}
+
+.hamburgerLine {
+	width: 25px;
+	height: 3px;
+	background-color: #fff;
+	margin: 4px 0;
+}
+
+/* Styles pour le menu de navigation */
+.navMenu {
 	list-style: none;
 	display: flex;
 	justify-content: space-around;
 	margin: 0;
 	padding: 0;
-  }
+}
 
-  .discord {
-	display: flex;
-	justify-content: flex-start; /* Aligne le contenu à gauche */
-  }
-
-  .discordContainer {
+.navMenuOpen {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
-  }
+	position: absolute;
+	top: 100%;
+	right: 0;
+	background-color: #222; /* Couleur de fond plus sombre pour le menu */
+	padding: 10px 0;
+	z-index: 1000;
+	width: 220px; /* Réduit la largeur du menu */
+	border-radius: 10px; /* Ajout de coins arrondis */
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Légère ombre pour détacher le menu */
+}
 
-  .discordButton {
+.navMenuOpen li {
+	padding: 15px 20px; /* Augmentez l'espacement pour plus de confort */
+	text-align: left; /* Alignement à gauche pour un meilleur rendu */
+}
+
+.navMenuOpen li:not(:last-child) {
+	border-bottom: 1px solid #444; /* Séparation des éléments avec une bordure */
+}
+
+/* Boutons de Discord */
+.discord {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.discordButton {
 	display: flex;
 	align-items: center;
-	background-color: #5865f2; /* Couleur principale de Discord */
+	background-color: #5865f2;
 	gap: 10px;
 	padding: 10px 15px;
 	border-radius: 10px;
 	font-weight: bold;
 	cursor: pointer;
 	transition: background-color 0.3s;
-  }
+}
 
-  .discordText {
+.discordButton:hover {
+	background-color: #4752c4;
+}
+
+.discordText {
 	color: white;
-  }
+}
 
-  .discordButton:hover {
-	background-color: #4752c4; /* Couleur légèrement plus foncée au survol */
-  }
-
-  .discordLogo {
-	display: inline-block;
-  }
-
-  @media screen and (max-width: 1280px) {
-	.logo {
-	  font-size: 32px;
-	}
-	.links {
-	  font-size: 18px;
-	  gap: 15px;
-	}
-  }
-
-  @media screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
 	.social {
-	  display: none;
+		display: none;
 	}
-	.logo {
-	  text-align: left;
-	}
-  }
+}
 
-  @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
 	.logo {
-	  font-size: 24px;
+		font-size: 24px;
 	}
-  }
 
-  @media screen and (max-width: 640px) {
+	.hamburger {
+		display: flex;
+	}
+
+	.navMenu {
+		display: none;
+	}
+
+	.navMenuOpen {
+		display: flex;
+	}
+}
+
+@media screen and (max-width: 640px) {
 	.links {
-	  justify-content: flex-end;
+		justify-content: flex-end;
 	}
-	.link {
-	  display: none;
+
+	.discordText {
+		display: none;
 	}
-  }
+}

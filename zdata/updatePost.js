@@ -6,7 +6,7 @@ console.log("Updating post...");
 
 // Load data from JSON files
 const sectionsData = JSON.parse(
-  fs.readFileSync("./magePreBlitzGuide.json", "utf-8")
+  fs.readFileSync("./crossbowGuide.json", "utf-8")
 );
 
 async function updateSectionsAndSets() {
@@ -73,7 +73,8 @@ async function updateSectionsAndSets() {
               palsAlternatives: setData.palsAlternatives,
               relicsImage: setData.relicsImage,
               relicsAlternatives: setData.relicsAlternatives,
-              talents: setData.talents,
+			  talentImage: setData.talentImage,
+			  talents: setData.talents,
               mounts: setData.mounts,
               artifacts: setData.artifacts,
               accessories: setData.accessories,
@@ -96,7 +97,8 @@ async function updateSectionsAndSets() {
               palsAlternatives: setData.palsAlternatives,
               relicsImage: setData.relicsImage,
               relicsAlternatives: setData.relicsAlternatives,
-              talents: setData.talents,
+			  talentImage: setData.talentImage,
+			  talents: setData.talents,
               mounts: setData.mounts,
               artifacts: setData.artifacts,
               accessories: setData.accessories,

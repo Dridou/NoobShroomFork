@@ -149,8 +149,9 @@
         "palsImage": "/images/crossbow-pal-grumpy.png",
         "palsAlternatives": "set pal alternative",
         "relicsImage": "/images/crossbow-grumpy-relic.png",
-        "relicsAlternatives": "<img src='/images/crossbow-grumpy-relic.png' class='img-fluid' alt='Grumpy relics'><p>Book is for the 5% of basic atk resistance. Statue allows the hundred slashes to last longer and so bringing more basic atk resistance</p>",
-        "talents": "<p>A maximum of <span class=tip>basic atk resistance</span> because the grumpy mainly hit with basic attacks. Also some <span class=tip>regen / lifesteal</span> to ensure more sustain. Ensuring in High grumpy levels to not die within the 10mn do deal a maximum of damage.<br><br>Current level: grumpy 95 and top3 damage every time - around 800.000 B",
+        "relicsAlternatives": "Book is for the 5% of basic atk resistance. Statue allows the hundred slashes to last longer and so bringing more basic atk resistance",
+		"talentImage": "/images/crossbow-grumpy-talent.png",
+		"talents": "<p>A maximum of <span class=tip>basic atk resistance</span> because the grumpy mainly hit with basic attacks. Also some <span class=tip>regen / lifesteal</span> to ensure more sustain. Ensuring in High grumpy levels to not die within the 10mn do deal a maximum of damage.<br><br>Current level: grumpy 95 and top3 damage every time - around 800.000 B",
         "mounts": [
           { "name": "Diving Duck", "description": "lowering grumpy attack" },
           {
@@ -228,7 +229,8 @@
         "palsAlternatives": "<p>First be careful for <b>ranged bosses</b>: <img alt=\"Benny pal icon\"class=img-fluid src=/images/aco-benny.png style=width:30px> bump (airborne) <span class=tip>switch boss focus to your clone</span> (dangerous concerning boss with long range attacks) so according to your boss:<ul><li><b>Ranged bosses</b>: <img alt=\"Toothpick pal icon\"class=img-fluid src=/images/aco-aubergine.png style=width:30px> for constant results, or swap to the benny but you may try a couple of times.</li><br><li><b>Close bosses</b>: <img alt=\"Benny pal icon\"class=img-fluid src=/images/aco-benny.png style=width:30px> (if possible) will make you gain a few dps seconds</ul>",
         "relicsImage": "/images/crossbow-adventure-bosses-relics.png",
         "relicsAlternatives": "<ul><li><b>Ranged bosses</b>: I advise you to try the <img alt=\"Beasthide Book relic icon\"class=img-fluid src=/images/relic-beasthide-book.png style=width:30px> first, if it's not working you can try the <img alt=\"Immunity book relic icon\"class=img-fluid src=/images/relic-immunity-book.png style=width:30px> to gain 3 more dps seconds, especially strong in late game when you have a lot of attack even without buffs<li><b>Close bosses</b>: <img alt=\"Immunity book relic icon\"class=img-fluid src=/images/relic-immunity-book.png style=width:30px> is really useful versus close range bosses because they often buff themselves and are hard to finish.<br>Crocodile heals himself, Minor gains defense and so on.</ul>",
-        "talents": "Set talents",
+		"talentImage": "/images/crossbow-grumpy-talent.png",
+		"talents": "Set talents",
         "mounts": [
           {
             "name": "Adapto slime",
@@ -300,9 +302,10 @@
         "alternatives": "<img alt=\"Worldly Snare skill icon\"class=img-fluid src=/images/skill-worldly-snare.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/skill-speed-surge.png style=width:30px><br><img alt=\"Hundred slashes skill icon\"class=img-fluid src=/images/skill-hundred-slashes.png style=width:30px> or <img alt=\"Wild gust skill icon\"class=img-fluid src=/images/skill-wild-gust.png style=width:30px><br><img alt=\"Clone Strike skill icon\"class=img-fluid src=/images/skill-clone-strike.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=/images/skill-blitz-assault.png style=width:30px> at 5s+ to extend your dps time.",
         "palsImage": "/images/crossbow-pal-lava.png",
         "palsAlternatives": "<img src=\"/images/aco-toothpick.png\" class=\"img-fluid\" alt=\"Red Slime skill icon\" style=\"width: 30px;\"> or <img src=\"/images/aco-benny.png\"class=\"img-fluid\" alt=\"Speed Surge skill icon\" style=\"width: 40px;\"> or <img src=\"/images/aco-cactus.png\" class=\"img-fluid\"alt=\"Speed Surge skill icon\" style=\"width: 30px;\">",
-        "relicsImage": "/images/crossbow-relics-lava.png",
+        "relicsImage": "/images/crossbow-adventure-bosses-relics.png",
         "relicsAlternatives": "<img src=\"/images/relic-beasthide-book.png\" class=\"img-fluid\" alt=\"Red Slime skill icon\" style=\"width: 40px;\"> or (<img src=\"/images/relic-immunity-book.png\" class=\"img-fluid\" alt=\"Speed Surge skill icon\" style=\"width: 40px;\"> if this allows to to do a second skill rotation.)",
-        "talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
+		"talentImage": "/images/crossbow-grumpy-talent.png",
+		"talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
         "mounts": [
           {
             "name": "Pyrebreaker",
@@ -385,7 +388,8 @@
         "palsAlternatives": "<img src='/images/aco-benny.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 30px;'> or <img src='/images/aco-cactus.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 30px;'> <br> <img src='/images/aco-deer.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 30px;'> or <img src='/images/aco-banana.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 30px;'> If you survive easily, use the deer for more tankiness. It only requires a few attempts to get a good run with combo and crit, while the boss's damage remains consistent.",
         "relicsImage": "/images/crossbow-adventure-bosses-relics.png",
         "relicsAlternatives": "<img src='/images/relic-immunity-book.png' class='img-fluid' alt='Red Slime skill icon' style='width: 40px;'> or <img src='/images/relic-beasthide-book.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 40px;'> if you can tank 10s and need more damage.",
-        "talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough. Grab a few points in <span class='tip'>basic attack resistance</span> since the boss mainly deals that type of damage. <span class='tip'>Increase a basic attack resistance rune</span> (the right one) to level 10/12 without worrying about sub stats to boost your tankiness (also useful for the archer and general PvE).",
+		"talentImage": "/images/crossbow-grumpy-talent.png",
+		"talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough. Grab a few points in <span class='tip'>basic attack resistance</span> since the boss mainly deals that type of damage. <span class='tip'>Increase a basic attack resistance rune</span> (the right one) to level 10/12 without worrying about sub stats to boost your tankiness (also useful for the archer and general PvE).",
         "mounts": [
           { "name": "Watermelon Ship", "description": "defense+,bump" },
           { "name": "Pyrebreaker", "description": "damage+, crit rate %." },
@@ -446,7 +450,8 @@
 		"relicsImage": "/images/crossbow-dark-mage-relic.png",
         "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-deer.png style=width:30px> if you need more tankiness.",
         "relicsAlternatives": "",
-        "talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
+		"talentImage": "/images/crossbow-grumpy-talent.png",
+		"talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
         "mounts": [
           { "name": "Watermelon Ship", "description": "defense+,bump" },
           { "name": "Pyrebreaker", "description": "damage+, crit rate %." },
@@ -498,7 +503,8 @@
         "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-deer.png style=width:30px> if you need more tankiness.",
 		"relicsImage": "/images/crossbow-dark-mage7more-relic.png",
         "relicsAlternatives": "<img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/relic-statue-time.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/relic-stellar-statue.png style=width:30px> can also be good with <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/skill-worldly-snare.png style=width:30px> and <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/skill-hundred-slashes.png style=width:30px>",
-        "talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
+		"talentImage": "/images/crossbow-grumpy-talent.png",
+		"talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
         "mounts": [
           { "name": "Watermelon Ship", "description": "defense+,bump" },
           { "name": "Pyrebreaker", "description": "damage+, crit rate %." },
@@ -559,7 +565,8 @@
         "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-deer.png style=width:30px> if you need more tankiness.",
 		"relicsImage": "/images/crossbow-dark-mage7more-relic.png",
         "relicsAlternatives": "",
-        "talents": "Grab decent points in <span class=tip>basic attack resistance<\/span> since the boss mainly deals that type of damage (we avoid its spells).<br><span class=tip>Increase a basic attack resistance rune<\/span> (the right one) to level 10\/12 without worrying about sub stats to boost your tankiness (also useful for the mage \/ warrior and general PvE) content.",
+		"talentImage": "/images/crossbow-grumpy-talent.png",
+		"talents": "Grab decent points in <span class=tip>basic attack resistance<\/span> since the boss mainly deals that type of damage (we avoid its spells).<br><span class=tip>Increase a basic attack resistance rune<\/span> (the right one) to level 10\/12 without worrying about sub stats to boost your tankiness (also useful for the mage \/ warrior and general PvE) content.",
         "mounts": [
           {
             "name": "Holy Dragon",

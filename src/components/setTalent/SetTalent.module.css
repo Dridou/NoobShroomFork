@@ -1,0 +1,40 @@
+﻿.title {
+	text-align: center;
+	padding: 1.5rem 0;
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.imageContainer {
+	display: flex;
+	padding-bottom: 30px;
+	justify-content: center;
+}
+
+.image {
+	max-width: 100%;
+	height: auto;
+	border-radius: 10px;
+
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+	flex-direction: column;
+}
+
+.content img {
+	margin: 0 0.5rem;
+}
+
+.content p {
+	color: var(--mediumTextColor);
+	padding-bottom: 30px;
+}
+
+.content h5 {
+	font-size: 22px;
+	padding-bottom: 10px;
+}

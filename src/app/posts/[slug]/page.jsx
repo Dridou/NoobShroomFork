@@ -98,6 +98,7 @@ const SinglePage = async ({ params }) => {
                   palsAlternatives={set.palsAlternatives}
                   relicsImage={set.relicsImage}
                   relicsAlternatives={set.relicsAlternatives}
+				  talentImage={set.talentImage}
                   talents={set.talents}
                   mounts={set.mounts}
                   artifacts={set.artifacts}

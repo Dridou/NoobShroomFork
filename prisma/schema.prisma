@@ -116,6 +116,7 @@ model Set {
   palsAlternatives   String
   relicsImage        String
   relicsAlternatives String
+  talentImage		 String?
   talents            String
   mounts             Json // Changed to Json to store array of objects
   artifacts          Json // Changed to Json to store array of objects

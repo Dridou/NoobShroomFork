@@ -1,14 +1,22 @@
-import React from "react";
+'use client'
+
+import React, { useState } from "react";
 import styles from "./navbar.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import AuthLinks from "../authLinks/AuthLinks";
 import ThemeToggle from "../themeToggle/ThemeToggle";
-import NavItem from "../navItem/navItem"; // Import the NavItem component
-import DropdownMenu from "../dropdownMenu/dropdownMenu"; // Import the DropdownMenu component
-import DropdownItem from "../dropdownItem/dropdownItem"; // Import the DropdownItem component
+import NavItem from "../navItem/navItem";
+import DropdownMenu from "../dropdownMenu/dropdownMenu";
+import DropdownItem from "../dropdownItem/dropdownItem";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.discord}>
@@ -29,19 +37,14 @@ const Navbar = () => {
         <Link href="/">NoobShroom</Link>
       </div>
 
-      <ul className={styles.navMenu}>
-        {/* <div className={styles.links}>
-          <ThemeToggle />
-        </div> */}
-        {/* <NavItem label="Categories">
-          <DropdownMenu>
-            <DropdownItem
-              label="Web Development"
-              link="/services/web-development"
-            />
-            <DropdownItem label="SEO Services" link="/services/seo" />
-          </DropdownMenu>
-        </NavItem> */}
+      <div className={styles.hamburger} onClick={toggleMenu}>
+        <span className={styles.hamburgerLine}></span>
+        <span className={styles.hamburgerLine}></span>
+        <span className={styles.hamburgerLine}></span>
+      </div>
+
+
+      <ul className={`${styles.navMenu} ${isOpen ? styles.navMenuOpen : ""}`}>
         <NavItem label="About" link="/posts/about-us" />
         <NavItem label="Contact" link="/posts/contact-us" />
         <AuthLinks />

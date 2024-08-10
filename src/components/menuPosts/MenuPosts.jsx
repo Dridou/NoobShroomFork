@@ -24,7 +24,7 @@ const MenuPosts = async () => {
 		  <Image src={`/images/${post.img}`} alt="" fill className={styles.image} />
 		</div>
 		<div className={styles.textContainer}>
-		<span className={styles.classGuide}>{post.catSlug}</span>
+		{/* <span className={styles.classGuide}>{post.catSlug}</span> */}
 		  <h3 className={styles.postTitle}>
 			{post.title}
 		  </h3>

@@ -1,26 +1,59 @@
-﻿import React from 'react';
-import SetSpell from '../setSpell/SetSpell';
-import SetPal from '../setPal/SetPal';
-// import SetRelic from './SetRelic';
-// import SetTalents from './SetTalents';
+﻿import React from "react";
+import SetSpell from "../setSpell/SetSpell";
+import SetPal from "../setPal/SetPal";
+import SetSectionList from '../SetSectionList/SetSectionList';
+import SetTalent from '../SetTalent/SetTalent';
 // import SetMount from './SetMount';
 // import SetArtifact from './SetArtifact';
 // import SetBackAccessory from './SetBackAccessory';
 // import SetAvian from './SetAvian';
-import styles from './SetSection.module.css';
+import styles from "./SetSection.module.css";
 
-const SetSection = ({ id, title, standardImage, opponentImage, opponentSpells, explanation, timings, alternatives, palsImage, palsAlternatives, relicsImage, relicsAlternatives, talents, mounts, artifacts, accessories, avians }) => {
+const SetSection = ({
+  id,
+  title,
+  standardImage,
+  opponentImage,
+  opponentSpells,
+  explanation,
+  timings,
+  alternatives,
+  palsImage,
+  palsAlternatives,
+  relicsImage,
+  relicsAlternatives,
+  talentImage,
+  talents,
+  mounts,
+  artifacts,
+  accessories,
+  avians,
+}) => {
   return (
     <section id={id} className={styles.setSection}>
       <div className={styles.fullSet}>
         <div className={styles.cardBody}>
           <nav>
             <div className={styles.navTabs} id="nav-tab">
-              <button className={`${styles.navLink} active`} id={`nav-set-${id}`} data-target={`#pill-set-${id}`} role="tab" aria-controls={`nav-set-${id}`} aria-selected="true">Standard</button>
+              <button
+                className={`${styles.navLink} active`}
+                id={`nav-set-${id}`}
+                data-target={`#pill-set-${id}`}
+                role="tab"
+                aria-controls={`nav-set-${id}`}
+                aria-selected="true"
+              >
+                Standard
+              </button>
             </div>
           </nav>
           <div className={styles.tabContent} id="nav-tabContent">
-            <div className={`${styles.tabPane} active`} id={`pill-set-${id}`} role="tabpanel" aria-labelledby={`nav-set-${id}`}>
+            <div
+              className={`${styles.tabPane} active`}
+              id={`pill-set-${id}`}
+              role="tabpanel"
+              aria-labelledby={`nav-set-${id}`}
+            >
               <SetSpell
                 standardImage={standardImage}
                 opponentImage={opponentImage}
@@ -30,25 +63,47 @@ const SetSection = ({ id, title, standardImage, opponentImage, opponentSpells, e
                 alternatives={alternatives}
               />
               <hr />
+
               <SetPal
                 palsImage={palsImage}
                 palsAlternatives={palsAlternatives}
+				title={"Pal"}
               />
-              {/* <hr />
-              <SetRelic
-                relicsImage={relicsImage}
-                relicsAlternatives={relicsAlternatives}
+			  <hr />
+              <SetPal
+                palsImage={relicsImage}
+                palsAlternatives={relicsAlternatives}
+				title={"Relics"}
               />
               <hr />
-              <SetTalents talents={talents} />
+              <SetTalent
+			  	talentImage={talentImage}
+                talents={talents}
+				title={"Talents"}
+              />
               <hr />
-              <SetMount mounts={mounts} />
+			  <SetSectionList
+			  	list={mounts}
+				title={"Mounts"}
+			  />
               <hr />
-              <SetArtifact artifacts={artifacts} />
+              {/* <SetPal
+                palsImage={artifacts}
+                palsAlternatives={relicsAlternatives}
+				title={"Artifacts"}
+              />
               <hr />
-              <SetBackAccessory accessories={accessories} />
+              <SetPal
+                palsImage={accessories}
+                palsAlternatives={relicsAlternatives}
+				title={"Accessories"}
+              />
               <hr />
-              <SetAvian avians={avians} /> */}
+              <SetPal
+                palsImage={avians}
+                palsAlternatives={relicsAlternatives}
+				title={"Avians"}
+              /> */}
             </div>
           </div>
         </div>
