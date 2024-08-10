@@ -32,7 +32,7 @@ const Featured = () => {
         <b>Your ultimate Legend of Mushrooms reference</b>
       </h1>
       <h2 className={styles.subtitle}>
-        Most <b>in-depth guides</b> by the most <b>experienced players</b>.
+       <i> Most <b>in-depth guides</b> by the most <b>experienced players</b>.</i>
       </h2>
       <div className={styles.post}>
         <div className={styles.imgContainer}>

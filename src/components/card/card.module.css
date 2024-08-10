@@ -1,30 +1,38 @@
 .container {
   margin-bottom: 50px;
   display: flex;
-  align-items: center;
-  gap: 50px;
+  align-items: top;
+  /* background-color: darkred; */
+  border-bottom: 1px solid rgba(211, 211, 211, 0.432);
+  height: 250px;
 }
 
+.container:not(:last-child) {
+	margin-bottom: 50px;
+  }
+
 .imageContainer {
-  flex: 1;
+  flex: 2;
   position: relative;
+  width: 20%;
+  overflow: hidden; /* Cache toute partie de l'image qui dépasse */
+  border-radius: 10px;
+  /* padding-bottom: 20px; */
 }
 
 .image {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 90%;
 	object-fit: contain;
-	/* width: 100%;
-	height: 100%; */
 }
 
 .textContainer {
-  flex: 1;
+  flex: 5;
   display: flex;
   flex-direction: column;
   gap: 30px;
-}
-
-.postMain {
-	flex: 1;
 }
 
 .date {

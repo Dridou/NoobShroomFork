@@ -37,9 +37,9 @@ ol {
 }
 
 .light {
-	--bg: white;
+	--bg: rgba(238, 238, 238, 0.616);
 	--textColor: black;
-	--softBg: #f0f0f0;
+	--softBg: #bbbbbb;
 	--softTextColor: #6e6d6d;
 }
 

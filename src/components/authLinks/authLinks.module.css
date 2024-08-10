@@ -33,6 +33,12 @@
   z-index: 999;
 }
 
+.auth {
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+}
+
 @media screen and (max-width: 640px) {
   .burger {
     display: flex;

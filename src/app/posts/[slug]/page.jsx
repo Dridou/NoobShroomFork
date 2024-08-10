@@ -3,6 +3,7 @@ import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/components/comments/Comments";
 import SetSection from "@/components/SetSection/SetSection";
+import CardList from "@/components/cardList/CardList";
 import "../../styles/colStyles.css"; // Import custom table styles
 import "../../styles/tableStyles.css"; // Import custom table styles
 
@@ -60,9 +61,9 @@ const SinglePage = async ({ params }) => {
             </div>
           </div>
         </div>
-        {data?.img && (
+        {data?.imgBig && (
           <div className={styles.imageContainer}>
-            <Image src={data.img} alt="" fill className={styles.image} />
+            <Image src={`/images/${data.imgBig}`} alt="" width={300} height={400} className={styles.image} />
           </div>
         )}
       </div>
@@ -115,7 +116,10 @@ const SinglePage = async ({ params }) => {
         <div className={styles.comment}>
           <Comments postSlug={slug} />
         </div>
-        <Menu />
+		<div className={styles.bottomContent}>
+			<CardList page={1}/>
+	        <Menu />
+		</div>
       </div>
     </div>
   );

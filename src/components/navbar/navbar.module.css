@@ -26,6 +26,15 @@
   font-size: 20px;
 }
 
+.navMenu {
+	list-style: none;
+	display: flex;
+	justify-content: space-around;
+	margin: 0;
+	padding: 0;
+	/* gap: 5px; */
+  }
+
 @media screen and (max-width: 1280px) {
   .logo {
     font-size: 32px;

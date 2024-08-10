@@ -9,43 +9,18 @@ const Footer = () => {
       <div className={styles.info}>
         <div className={styles.logo}>
           <Image src="/logo.png" alt="lama blog" width={50} height={50} />
-          <h1 className={styles.logoText}>Lamablog</h1>
+          <h1 className={styles.logoText}>@NoobShroom</h1>
         </div>
         <p className={styles.desc}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim
-          necessitatibus similique aspernatur obcaecati veritatis. Aperiam cum
-          porro sequi, totam minima consequuntur, aspernatur deleniti vero
-          repellendus dorales.
+          Created to help you find the most accurate and up-to-date information about the game Legend of Mushrooms, including the latest news, updates, and guides.
         </p>
-        <div className={styles.icons}>
-          <Image src="/facebook.png" alt="" width={18} height={18} />
-          <Image src="/instagram.png" alt="" width={18} height={18} />
-          <Image src="/tiktok.png" alt="" width={18} height={18} />
-          <Image src="/youtube.png" alt="" width={18} height={18} />
-        </div>
       </div>
       <div className={styles.links}>
-        <div className={styles.list}>
-          <span className={styles.listTitle}>Links</span>
-          <Link href="/">Homepage</Link>
-          <Link href="/">Blog</Link>
-          <Link href="/">About</Link>
-          <Link href="/">Contact</Link>
-        </div>
-        <div className={styles.list}>
-          <span className={styles.listTitle}>Tags</span>
-          <Link href="/">Style</Link>
-          <Link href="/">Fashion</Link>
-          <Link href="/">Coding</Link>
-          <Link href="/">Travel</Link>
-        </div>
-        <div className={styles.list}>
-          <span className={styles.listTitle}>Social</span>
-          <Link href="/">Facebook</Link>
-          <Link href="/">Instagram</Link>
-          <Link href="/">Tiktok</Link>
-          <Link href="/">Youtube</Link>
-        </div>
+	  <Link href="/posts/about-us" className={styles.link}>About Us</Link>•
+	  <Link href="/posts/contact-us" className={styles.link}>Contact Us</Link>•
+	  <Link href="/posts/source-credit" className={styles.link}>Source & Credit</Link>•
+	  <Link href="/posts/privacy-policy" className={styles.link}>Privacy Policy</Link>•
+	  <Link href="/posts/terms" className={styles.link}>Terms of Use</Link>
       </div>
     </div>
   );
