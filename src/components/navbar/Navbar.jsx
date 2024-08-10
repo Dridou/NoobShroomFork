@@ -11,11 +11,19 @@ import DropdownItem from "../dropdownItem/dropdownItem"; // Import the DropdownI
 const Navbar = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.social}>
-        <Image src="/facebook.png" alt="facebook" width={24} height={24} />
-        <Image src="/instagram.png" alt="instagram" width={24} height={24} />
-        <Image src="/tiktok.png" alt="tiktok" width={24} height={24} />
-        <Image src="/youtube.png" alt="youtube" width={24} height={24} />
+      <div className={styles.discord}>
+        <div className={styles.discordContainer}>
+          <div className={styles.discordButton}>
+            <Image
+              src="/images/icon_discord.png"
+              alt="Discord Logo"
+              width={30}
+              height={23}
+              className={styles.discordLogo}
+            />
+            <span className={styles.discordText}>Community</span>
+          </div>
+        </div>
       </div>
       <div className={styles.logo}>
         <Link href="/">NoobShroom</Link>
@@ -30,10 +38,6 @@ const Navbar = () => {
             <DropdownItem
               label="Web Development"
               link="/services/web-development"
-            />
-            <DropdownItem
-              label="App Development"
-              link="/services/app-development"
             />
             <DropdownItem label="SEO Services" link="/services/seo" />
           </DropdownMenu>

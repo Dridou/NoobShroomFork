@@ -1,62 +1,55 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content:space-between;
-  height: 100px;
-}
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 100px;
+  }
 
-.social {
-  display: flex;
-  gap: 10px;
-  flex-basis: 20%;
-}
+  .social {
+	display: flex;
+	gap: 10px;
+	flex-basis: 20%;
+  }
 
-.logo {
-flex-grow: 1;
-  text-align: center;
-  font-size: 36px;
-  font-weight: bold;
-}
+  .logo {
+	flex-grow: 1;
+	text-align: center;
+	font-size: 36px;
+	font-weight: bold;
+  }
 
-.links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  /* flex: 1; */
-  font-size: 20px;
-}
+  .links {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	font-size: 20px;
+  }
 
-.navMenu {
+  .navMenu {
 	list-style: none;
 	display: flex;
 	justify-content: space-around;
 	margin: 0;
 	padding: 0;
-	/* gap: 5px; */
   }
 
   .discord {
-	/* background-color: var(--softBg); */
-	padding: 20px;
-	border-radius: 8px;
-	/* flex-direction: column; */
 	display: flex;
-	justify-content:flex-start;
+	justify-content: flex-start; /* Aligne le contenu à gauche */
   }
 
   .discordContainer {
 	display: flex;
 	flex-direction: column;
-	align-items:flex-start;
-	text-align:left;
+	align-items: flex-start;
   }
 
   .discordButton {
 	display: flex;
 	align-items: center;
-	background-color: #5865f2; /* Discord's main color */
-	gap:10px;
-	padding: 5px 5px;
+	background-color: #5865f2; /* Couleur principale de Discord */
+	gap: 10px;
+	padding: 10px 15px;
 	border-radius: 10px;
 	font-weight: bold;
 	cursor: pointer;
@@ -67,43 +60,44 @@ flex-grow: 1;
 	color: white;
   }
 
-
-
   .discordButton:hover {
-	background-color: #4752c4; /* Slightly darker on hover */
+	background-color: #4752c4; /* Couleur légèrement plus foncée au survol */
   }
 
   .discordLogo {
 	display: inline-block;
   }
 
-@media screen and (max-width: 1280px) {
-  .logo {
-    font-size: 32px;
+  @media screen and (max-width: 1280px) {
+	.logo {
+	  font-size: 32px;
+	}
+	.links {
+	  font-size: 18px;
+	  gap: 15px;
+	}
   }
-  .links {
-    font-size: 18px;
-    gap: 15px;
+
+  @media screen and (max-width: 1024px) {
+	.social {
+	  display: none;
+	}
+	.logo {
+	  text-align: left;
+	}
   }
-}
-@media screen and (max-width: 1024px) {
-  .social {
-    display: none;
+
+  @media screen and (max-width: 768px) {
+	.logo {
+	  font-size: 24px;
+	}
   }
-  .logo {
-    text-align: left;
+
+  @media screen and (max-width: 640px) {
+	.links {
+	  justify-content: flex-end;
+	}
+	.link {
+	  display: none;
+	}
   }
-}
-@media screen and (max-width: 768px) {
-  .logo {
-    font-size: 24px;
-  }
-}
-@media screen and (max-width: 640px) {
-  .links{
-    justify-content: flex-end;
-  }
-  .link {
-    display: none;
-  }
-}
