@@ -11,7 +11,7 @@ export const GET = async (req) => {
 
   const POST_PER_PAGE = 4;
 
-  const excludedCategories = ["legal"];
+  const excludedCategories = ["legal","shops","database"];
 
   let query = null;
 

@@ -1,75 +1,80 @@
 .container {
-  margin-top: 50px;
-  padding: 20px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--softTextColor);
+	margin-top: 50px;
+	padding: 20px 0px;
+	display: flex;
+	align-items:flex-end;
+	justify-content: space-between;
+	color: var(--softTextColor);
+	gap:20px;
 }
 
 .info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	/* background-color: black; */
 }
 
 .logoText {
-  font-size: 24px;
+	font-size: 24px;
 }
 
 .desc {
-  font-weight: 300;
+	font-weight: 300;
 }
 
 .icons {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
+	margin-top: 10px;
+	display: flex;
+	gap: 10px;
 }
 
 .links {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  gap: 5px;
+	flex: 1;
+	display: flex;
+	justify-content: start;
+	/* Center the content horizontally */
+	/* padding: 20px; */
+	/* gap: 20px; */
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-weight: 300;
+.links :not(:first-child)::before {
+	content: '•';
+	color: var(--softTextColor);
+
 }
 
-.listTitle {
-  font-weight: bold;
+.link {
+	text-align: center;
 }
 
 @media screen and (max-width: 1024px) {
-  .links {
-    gap: 50px;
-  }
+	.links {
+		/* gap: 10px; */
+	}
 }
-@media screen and (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    gap: 50px;
-  }
 
-  .links {
-    width: 100%;
-    justify-content: space-between;
-  }
+@media screen and (max-width: 768px) {
+	.container {
+		flex-direction: column;
+		/* gap: 50px; */
+	}
+
+	.links {
+		width: 100%;
+		/* justify-content: space-between; */
+	}
 }
+
 @media screen and (max-width: 640px) {
-  .links {
-    font-size: 14px;
-  }
+	.links {
+		font-size: 14px;
+	}
 }

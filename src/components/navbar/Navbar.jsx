@@ -47,11 +47,7 @@ const Navbar = () => {
         </NavItem>
         <NavItem label="About" link="/about" />
         <NavItem label="Contact" link="/contact" />
-        <NavItem label="Blog">
-          <DropdownMenu>
-            <AuthLinks />
-          </DropdownMenu>
-        </NavItem>
+        <AuthLinks />
       </ul>
     </div>
   );
