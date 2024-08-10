@@ -1,0 +1,16 @@
+﻿.navItem {
+	position: relative;
+  }
+
+  .navLink {
+	color: var(--textColor);
+	text-decoration: none;
+	padding: 5px 10px;
+	display: block;
+	transition: background-color 0.3s;
+	border-radius: 30px;
+  }
+
+  .navLink:hover {
+	background-color: var(--softBg);
+  }

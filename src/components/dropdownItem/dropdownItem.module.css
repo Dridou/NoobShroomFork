@@ -1,0 +1,15 @@
+﻿.dropdownItem {
+	padding: 0;
+  }
+
+  .dropdownLink {
+	color: var(--textColor);
+	text-decoration: none;
+	padding: 10px 20px;
+	display: block;
+	transition: background-color 0.3s;
+  }
+
+  .dropdownLink:hover {
+	background-color: #555;
+  }
