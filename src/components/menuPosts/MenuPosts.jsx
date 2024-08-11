@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./menuPosts.module.css";
 
 export const getPopularPosts = async () => {
-  const res = await fetch("http://localhost:3000/api/posts?sortBy=views", {
+  const res = await fetch("/api/posts?sortBy=views", {
     cache: "no-store",
   });
 

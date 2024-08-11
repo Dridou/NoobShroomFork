@@ -11,7 +11,7 @@ const Featured = () => {
     const fetchPost = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/api/posts/prophet-preblitz-class-guide"
+          "/api/posts/prophet-preblitz-class-guide"
         );
         if (!res.ok) {
           throw new Error("Post not found");
@@ -54,7 +54,7 @@ const Featured = () => {
             Prophet!
           </p>
           <button className={styles.button}>
-            <a href="http://localhost:3000/posts/prophet-preblitz-class-guide">
+            <a href="/posts/prophet-preblitz-class-guide">
               Read more
             </a>
           </button>
