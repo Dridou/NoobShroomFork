@@ -2,7 +2,7 @@ import Menu from "@/components/Menu/Menu";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/components/comments/Comments";
-import SetSection from "@/components/SetSection/SetSection";
+import SetSection from "@/components/setSection/SetSection";
 import CardList from "@/components/cardList/CardList";
 import "../../styles/colStyles.css"; // Import custom table styles
 import "../../styles/tableStyles.css"; // Import custom table styles
