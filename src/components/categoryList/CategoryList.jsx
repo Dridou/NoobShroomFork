@@ -15,7 +15,7 @@ const getBaseUrl = () => {
 
 const getData = async () => {
   const baseUrl = getBaseUrl();
-  console.log("Fetching from URL:", url); // Log the URL
+  console.log("Fetching from URL:", baseUrl); // Log the URL
   const res = await fetch(`${baseUrl}/api/categories`, {
     cache: "no-store",
   });
