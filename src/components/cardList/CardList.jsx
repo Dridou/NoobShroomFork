@@ -24,7 +24,9 @@ const getData = async (page, cat) => {
   );
 
   if (!res.ok) {
-    throw new Error("Failed");
+    const errorDetails = await res.text();
+    console.error("Fetch failed:", errorDetails);
+    throw new Error("Failed to fetch posts");
   }
 
   return res.json();
