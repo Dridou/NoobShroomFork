@@ -4,6 +4,16 @@ import styles from "./featured.module.css";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
+const getBaseUrl = () => {
+	if (process.env.VERCEL_ENV === "production") {
+	  return "https://www.noobshroom.com";
+	} else if (process.env.VERCEL_ENV === "preview") {
+	  return `https://${process.env.VERCEL_URL}`;
+	} else {
+	  return "http://localhost:3000";
+	}
+  };
+
 const Featured = () => {
   const [post, setPost] = useState(null);
 
@@ -11,7 +21,7 @@ const Featured = () => {
     const fetchPost = async () => {
       try {
         const res = await fetch(
-          "/api/posts/prophet-preblitz-class-guide"
+          `${getBaseUrl}/api/posts/prophet-preblitz-class-guide`
         );
         if (!res.ok) {
           throw new Error("Post not found");
