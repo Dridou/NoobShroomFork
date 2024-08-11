@@ -5,23 +5,23 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const getBaseUrl = () => {
-	if (process.env.VERCEL_ENV === "production") {
-	  return "https://www.noobshroom.com";
-	} else if (process.env.VERCEL_ENV === "preview") {
-	  return `https://${process.env.VERCEL_URL}`;
-	} else {
-	  return "http://localhost:3000";
-	}
-  };
+  if (process.env.VERCEL_ENV === "production") {
+    return "https://www.noobshroom.com";
+  } else if (process.env.VERCEL_ENV === "preview") {
+    return `https://${process.env.VERCEL_URL}`;
+  } else {
+    return "http://localhost:3000";
+  }
+};
 
 const Featured = () => {
   const [post, setPost] = useState(null);
-
+  const baseUrl = getBaseUrl();
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const res = await fetch(
-          `${getBaseUrl}/api/posts/prophet-preblitz-class-guide`
+          `${baseUrl}/api/posts/prophet-preblitz-class-guide`
         );
         if (!res.ok) {
           throw new Error("Post not found");
@@ -42,7 +42,10 @@ const Featured = () => {
         <b>Your ultimate Legend of Mushrooms reference</b>
       </h1>
       <h2 className={styles.subtitle}>
-       <i> Most <b>in-depth guides</b> by the most <b>experienced players</b>.</i>
+        <i>
+          {" "}
+          Most <b>in-depth guides</b> by the most <b>experienced players</b>.
+        </i>
       </h2>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
@@ -64,9 +67,7 @@ const Featured = () => {
             Prophet!
           </p>
           <button className={styles.button}>
-            <a href="/posts/prophet-preblitz-class-guide">
-              Read more
-            </a>
+            <a href="/posts/prophet-preblitz-class-guide">Read more</a>
           </button>
         </div>
       </div>

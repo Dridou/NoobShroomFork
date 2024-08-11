@@ -8,18 +8,17 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const getBaseUrl = () => {
-	if (process.env.VERCEL_ENV === "production") {
-	  return "https://www.noobshroom.com";
-	} else if (process.env.VERCEL_ENV === "preview") {
-	  return `https://${process.env.VERCEL_URL}`;
-	} else {
-	  return "http://localhost:3000";
-	}
-  };
+  if (process.env.VERCEL_ENV === "production") {
+    return "https://www.noobshroom.com";
+  } else if (process.env.VERCEL_ENV === "preview") {
+    return `https://${process.env.VERCEL_URL}`;
+  } else {
+    return "http://localhost:3000";
+  }
+};
 
 const fetcher = async (url) => {
   const res = await fetch(url);
-
   const data = await res.json();
 
   if (!res.ok) {
@@ -32,9 +31,10 @@ const fetcher = async (url) => {
 
 const Comments = ({ postSlug }) => {
   const { status } = useSession();
+  const baseUrl = getBaseUrl();
 
   const { data, mutate, isLoading } = useSWR(
-    `${getBaseUrl}/api/comments?postSlug=${postSlug}`,
+    `${baseUrl}/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
