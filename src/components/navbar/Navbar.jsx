@@ -29,7 +29,7 @@ const Navbar = () => {
               height={23}
               className={styles.discordLogo}
             />
-            <span className={styles.discordText}>Community</span>
+            <Link href="https://discord.gg/BtwdhuBk" target="_blank" className={styles.discordText}>Community</Link>
           </div>
         </div>
       </div>

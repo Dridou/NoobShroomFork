@@ -32,7 +32,7 @@ const Footer = () => {
                 height={23}
                 className={styles.discordLogo}
               />
-              <span>Join NoobShroom Community!</span>
+              <Link href="https://discord.gg/BtwdhuBk" target="_blank" className={styles.discordText}>Join NoobShroom Community !</Link>
             </div>
             <p className={styles.discordText}>
               Connect with other Legend of Mushrooms enthusiasts and get the
