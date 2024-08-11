@@ -48,12 +48,8 @@ const SetSection = ({
             </div>
           </nav>
           <div className={styles.tabContent} id="nav-tabContent">
-            <div
-              className={`${styles.tabPane} active`}
-              id={`pill-set-${id}`}
-              role="tabpanel"
-              aria-labelledby={`nav-set-${id}`}
-            >
+			<div>
+            <h4></h4>
               <SetSpell
                 standardImage={standardImage}
                 opponentImage={opponentImage}
@@ -87,23 +83,19 @@ const SetSection = ({
 				title={"Mounts"}
 			  />
               <hr />
-              {/* <SetPal
-                palsImage={artifacts}
-                palsAlternatives={relicsAlternatives}
+			  <SetSectionList
+			  	list={artifacts}
 				title={"Artifacts"}
-              />
-              <hr />
-              <SetPal
-                palsImage={accessories}
-                palsAlternatives={relicsAlternatives}
-				title={"Accessories"}
-              />
-              <hr />
-              <SetPal
-                palsImage={avians}
-                palsAlternatives={relicsAlternatives}
+			  />
+			  <hr />
+			   <SetSectionList
+			  	list={accessories}
+				title={"Back Accessories"}
+			  />
+			  {/* <SetSectionList
+			  	list={avians}
 				title={"Avians"}
-              /> */}
+			  /> */}
             </div>
           </div>
         </div>

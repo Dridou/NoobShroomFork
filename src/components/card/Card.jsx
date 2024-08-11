@@ -2,12 +2,12 @@ import Image from "next/image";
 import styles from "./card.module.css";
 import Link from "next/link";
 
-const Card = ({item }) => {
+const Card = ({ item }) => {
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
+        <h1>{item.title}</h1>
         <Link href={`/posts/${item.slug}`}>
-          <h1>{item.title}</h1>
           <div className={styles.detail}>
             <span className={styles.date}>
               {item.createdAt.substring(0, 10)} -{" "}
@@ -16,14 +16,13 @@ const Card = ({item }) => {
           </div>
         </Link>
         <div>
+          <div
+            className={styles.desc}
+            dangerouslySetInnerHTML={{
+              __html: item?.desc.substring(0, 150) + "...",
+            }}
+          />
           <Link href={`/posts/${item.slug}`} className={styles.link}>
-            <div
-              className={styles.desc}
-              dangerouslySetInnerHTML={{
-                __html: item?.desc.substring(0, 150) + "...",
-              }}
-            />
-            <br></br>
             Read More
           </Link>
         </div>

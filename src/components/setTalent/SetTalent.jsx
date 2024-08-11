@@ -3,7 +3,6 @@ import Image from "next/image";
 import styles from "./SetTalent.module.css";
 
 const SetTalent = ({ talentImage, talents, title }) => {
-	console.log({talentImage})
   return (
     <div className={styles.container}>
       <h4 className={styles.title}>{title}</h4>
