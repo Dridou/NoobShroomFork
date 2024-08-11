@@ -2,7 +2,7 @@
 import SetSpell from "../setSpell/SetSpell";
 import SetPal from "../setPal/SetPal";
 import SetSectionList from '../SetSectionList/SetSectionList';
-import SetTalent from '../SetTalent/SetTalent';
+import SetTalent from '../setTalent/SetTalent';
 // import SetMount from './SetMount';
 // import SetArtifact from './SetArtifact';
 // import SetBackAccessory from './SetBackAccessory';
