@@ -14,7 +14,9 @@ const getBaseUrl = () => {
 };
 
 export const getPopularPosts = async () => {
+
   const baseUrl = getBaseUrl();
+  console.log("Fetching from URL:", url); // Log the URL
   const res = await fetch(`${baseUrl}/api/posts?sortBy=views`, {
     cache: "no-store",
   });
