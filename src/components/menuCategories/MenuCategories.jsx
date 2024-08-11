@@ -2,7 +2,15 @@ import Link from "next/link";
 import React from "react";
 import styles from "./menuCategories.module.css";
 
-const getBaseUrl = () => {return "https://www.noobshroom.com" };
+const getBaseUrl = () => {
+  if (process.env.VERCEL_ENV === "production") {
+    return "https://www.noobshroom.com";
+  } else if (process.env.VERCEL_ENV === "preview") {
+    return `https://${process.env.VERCEL_URL}`;
+  } else {
+    return "http://localhost:3000";
+  }
+};
 
 const getData = async () => {
   const baseUrl = getBaseUrl();
