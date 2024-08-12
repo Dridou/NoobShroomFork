@@ -12,7 +12,10 @@ export const GET = async (req, { params }) => {
       include: { user: true , sections: true},
     });
 
-    return new NextResponse(JSON.stringify(post, { status: 200 }));
+    const response = new NextResponse(JSON.stringify(post), { status: 200 });
+	response.headers.set("Cache-Control", "s-maxage=86400, stale-while-revalidate=59");
+
+	return response;
   } catch (err) {
     console.log(err);
     return new NextResponse(
