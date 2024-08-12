@@ -8,7 +8,7 @@ const getBaseUrl = () => {
   } else if (process.env.VERCEL_ENV === "preview") {
     return `https://${process.env.VERCEL_URL}`;
   } else {
-    return "http://localhost:3000";
+    return "https://www.noobshroom.com";
   }
 };
 
