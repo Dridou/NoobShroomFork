@@ -20,7 +20,8 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.discord}>
-          <div className={styles.discordButton}>
+        <Link href="https://discord.gg/BtwdhuBk" target="_blank">
+          <button className={styles.discordButton}>
             <Image
               src="/images/icon_discord.png"
               alt="Discord Logo"
@@ -28,16 +29,12 @@ const Navbar = () => {
               height={23}
               className={styles.discordLogo}
             />
-            <Link
-              href="https://discord.gg/BtwdhuBk"
-              target="_blank"
-              className={styles.discordText}
-            >
-              Community
-            </Link>
-          </div>
+            <span className={styles.discordText}>Community</span>
+          </button>
+        </Link>
 
-		  <div className={styles.bmcButton}>
+        <Link href="https://www.buymeacoffee.com/NoobShroom" target="_blank">
+          <button className={styles.bmcButton}>
             <Image
               src="/images/bmc-logo.png"
               alt="Buy me a coffee Logo"
@@ -45,15 +42,11 @@ const Navbar = () => {
               height={32}
               className={styles.discordLogo}
             />
-            <Link
-              href="https://www.buymeacoffee.com/NoobShroom"
-              target="_blank"
-              className={styles.bmcText}
-            >
-              Buy me a coffee
-            </Link>
-          </div>
+            <span className={styles.bmcText}>Buy me a coffee</span>
+          </button>
+        </Link>
       </div>
+
       <div className={styles.logo}>
         <Link href="/">NoobShroom</Link>
       </div>
