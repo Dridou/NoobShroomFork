@@ -17,6 +17,23 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js";
+    script.setAttribute("data-name", "bmc-button");
+    script.setAttribute("data-slug", "NoobShroom");
+    script.setAttribute("data-color", "#5F7FFF");
+    script.setAttribute("data-emoji", "🍄");
+    script.setAttribute("data-font", "Comic");
+    script.setAttribute("data-text", "Buy me a mushroom");
+    script.setAttribute("data-outline-color", "#000000");
+    script.setAttribute("data-font-color", "#ffffff");
+    script.setAttribute("data-coffee-color", "#FFDD00");
+    script.async = true;
+
+    document.getElementById("buyMeACoffeeContainer").appendChild(script);
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.discord}>
@@ -32,6 +49,7 @@ const Navbar = () => {
             <Link href="https://discord.gg/BtwdhuBk" target="_blank" className={styles.discordText}>Community</Link>
           </div>
         </div>
+		<div id="buyMeACoffeeContainer"></div>
       </div>
       <div className={styles.logo}>
         <Link href="/">NoobShroom</Link>
