@@ -34,7 +34,7 @@ const Featured = () => {
     };
 
     fetchPost();
-  }, [baseUrl]);
+  }, []);
 
   return (
     <div className={styles.container}>
