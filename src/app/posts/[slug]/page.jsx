@@ -1,42 +1,68 @@
-import Menu from "@/components/Menu/Menu";
-import styles from "./singlePage.module.css";
+import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
+import styles from "./singlePage.module.css";
 import Comments from "@/components/comments/Comments";
 import SetSection from "@/components/setSection/SetSection";
 import CardList from "@/components/cardList/CardList";
+import Menu from "@/components/Menu/Menu";
 import "../../styles/colStyles.css"; // Import custom table styles
 import "../../styles/tableStyles.css"; // Import custom table styles
 
-import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const getData = async (slug) => {
-	// Utiliser Prisma pour récupérer les données du post avec les sections et les sets associés
-	const post = await prisma.post.findUnique({
-	  where: { slug: slug },
-	  include: {
-		user: true,
-		sections: {
-		  include: {
-			sets: true,
-		  },
-		  orderBy: {
-			displayOrder: 'asc',  // Order sections by the 'order' field in ascending order
-		  },
-		},
-	  },
-	});
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const post = await prisma.post.findUnique({
+    where: { slug },
+  });
 
-	if (!post) {
-	  throw new Error("Post not found");
-	}
+  if (!post) {
+    return {
+      title: "Post Not Found",
+      description: "The post you are looking for does not exist.",
+    };
+  }
 
-	return post;
+  return {
+    title: post.title,
+    description: post.desc || "Read this amazing post on our blog.",
+    openGraph: {
+      title: post.title,
+      description: post.desc || "Read this amazing post on our blog.",
+      images: [
+        {
+          url: post.imgBig || "/default-image.png",
+        },
+      ],
+    },
   };
+}
+
+const getData = async (slug) => {
+  const post = await prisma.post.findUnique({
+    where: { slug },
+    include: {
+      user: true,
+      sections: {
+        include: {
+          sets: true,
+        },
+        orderBy: {
+          displayOrder: "asc",
+        },
+      },
+    },
+  });
+
+  if (!post) {
+    throw new Error("Post not found");
+  }
+
+  return post;
+};
 
 const SinglePage = async ({ params }) => {
   const { slug } = params;
-
   const data = await getData(slug);
 
   return (
@@ -63,7 +89,13 @@ const SinglePage = async ({ params }) => {
         </div>
         {data?.imgBig && (
           <div className={styles.imageContainer}>
-            <Image src={`/images/${data.imgBig}`} alt="" width={300} height={400} className={styles.image} />
+            <Image
+              src={`/images/${data.imgBig}`}
+              alt=""
+              width={300}
+              height={400}
+              className={styles.image}
+            />
           </div>
         )}
       </div>
@@ -82,7 +114,7 @@ const SinglePage = async ({ params }) => {
               )}
               <h2>{section.title}</h2>
             </div>
-			{section.type === 'set' && section.sets.length > 0 ? (
+            {section.type === "set" && section.sets.length > 0 ? (
               section.sets.map((set, setIndex) => (
                 <SetSection
                   key={setIndex}
@@ -98,7 +130,7 @@ const SinglePage = async ({ params }) => {
                   palsAlternatives={set.palsAlternatives}
                   relicsImage={set.relicsImage}
                   relicsAlternatives={set.relicsAlternatives}
-				  talentImage={set.talentImage}
+                  talentImage={set.talentImage}
                   talents={set.talents}
                   mounts={set.mounts}
                   artifacts={set.artifacts}
@@ -107,20 +139,17 @@ const SinglePage = async ({ params }) => {
                 />
               ))
             ) : (
-              <div
-                dangerouslySetInnerHTML={{ __html: section.content }}
-              />
+              <div dangerouslySetInnerHTML={{ __html: section.content }} />
             )}
           </div>
-          // </div>
         ))}
         <div className={styles.comment}>
           <Comments postSlug={slug} />
         </div>
-		<div className={styles.bottomContent}>
-			<CardList page={1}/>
-	        <Menu />
-		</div>
+        <div className={styles.bottomContent}>
+          <CardList page={1} />
+          <Menu />
+        </div>
       </div>
     </div>
   );
