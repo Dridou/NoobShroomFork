@@ -80,6 +80,17 @@
   .imgContainer {
     display: none;
   }
+  .postTitle {
+	font-size: 24px;
+  }
+
+  .postDesc {
+	font-size: 18px;
+  }
+
+  .textContainer {
+	align-items: center;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -90,14 +101,32 @@
   .subtitle {
 	font-size: 24px;
   }
+
+  .postTitle {
+	font-size: 20px;
+  }
+
+  .postDesc {
+	font-size: 16px;
+  }
 }
 
 @media screen and (max-width: 640px) {
   .title {
     font-size: 36px;
-  }
+	line-height: 1.2;
+}
 
   .subtitle {
 	font-size: 18px;
+  }
+
+  .postTitle {
+	font-size: 24px;
+	text-align: center;
+  }
+
+  .postDesc {
+	font-size: 14px;
   }
 }

@@ -16,14 +16,6 @@
 	font-weight: bold;
 }
 
-/* Liens de navigation */
-.links {
-	display: flex;
-	align-items: center;
-	gap: 20px;
-	font-size: 20px;
-}
-
 /* Menu hamburger */
 .hamburger {
 	display: none;
@@ -91,11 +83,10 @@
 	transition: background-color 0.3s;
 }
 
-
 .bmcButton {
 	display: flex;
 	align-items: center;
-	background-color:white;
+	background-color: white;
 	gap: 10px;
 	padding: 10px 15px;
 	border-radius: 10px;
@@ -116,6 +107,7 @@
 	color: black;
 }
 
+/* Mobile adjustments */
 @media screen and (max-width: 1024px) {
 	.social {
 		display: none;
@@ -146,7 +138,7 @@
 }
 
 @media screen and (max-width: 768px) {
-
+	/* Additional styles for this screen size can be added here if needed */
 }
 
 @media screen and (max-width: 640px) {
@@ -154,5 +146,25 @@
 		justify-content: flex-end;
 	}
 
+	.discord {
+		gap: 10px;
+	}
 
+	.discordButton{
+		padding: 7px 9px; /* Adjusts the padding to make the buttons smaller */
+	}
+
+	.bmcButton {
+		padding: 3px 5px;
+	}
+
+	.discordButton img {
+		width: 15px; /* Reduce the size of the images */
+		height: 12px;
+	}
+
+	.bmcButton img {
+		width: 22px; /* Reduce the size of the images */
+		height: 22px;
+	}
 }
