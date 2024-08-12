@@ -1,7 +1,5 @@
-"use client";
-
+import React from "react";
 import styles from "./featured.module.css";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const getBaseUrl = () => {
@@ -14,27 +12,19 @@ const getBaseUrl = () => {
   }
 };
 
-const Featured = () => {
-  const [post, setPost] = useState(null);
+const getPostData = async () => {
   const baseUrl = getBaseUrl();
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const res = await fetch(
-          `${baseUrl}/api/posts/prophet-preblitz-class-guide`
-        );
-        if (!res.ok) {
-          throw new Error("Post not found");
-        }
-        const data = await res.json();
-        setPost(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const res = await fetch(`${baseUrl}/api/posts/prophet-preblitz-class-guide`);
+  if (!res.ok) {
+    const errorDetails = await res.text();
+    console.error("Fetch failed:", errorDetails);
+    throw new Error("Failed to fetch post");
+  }
+  return res.json();
+};
 
-    fetchPost();
-  }, []);
+const Featured = async () => {
+  const post = await getPostData();
 
   return (
     <div className={styles.container}>
@@ -43,7 +33,6 @@ const Featured = () => {
       </h1>
       <h2 className={styles.subtitle}>
         <i>
-          {" "}
           Most <b>in-depth guides</b> by the most <b>experienced players</b>.
         </i>
       </h2>
@@ -59,15 +48,16 @@ const Featured = () => {
         </div>
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>
-            {post?.title}
+            <b>{post?.title}</b>
           </h1>
           <p className={styles.postDesc}>
-            Discover all the knowledge acumulated by the best Prophet players,
-            avoid mistakes and learn from the best how to play your pre-blitz
-            Prophet!
+            {post?.description ||
+              `Discover all the knowledge accumulated by the best Prophet players, avoid mistakes and learn from the best how to play your pre-blitz Prophet!`}
           </p>
           <button className={styles.button}>
-            <a href="/posts/prophet-preblitz-class-guide">Read more</a>
+            <a href={`/posts/${post?.slug || "prophet-preblitz-class-guide"}`}>
+              Read more
+            </a>
           </button>
         </div>
       </div>
