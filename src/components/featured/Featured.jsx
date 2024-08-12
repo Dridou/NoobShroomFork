@@ -59,7 +59,7 @@ const Featured = () => {
         </div>
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>
-            <b>{post?.title}</b>
+            {post?.title}
           </h1>
           <p className={styles.postDesc}>
             Discover all the knowledge acumulated by the best Prophet players,
