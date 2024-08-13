@@ -4,10 +4,6 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const posts = await prisma.post.findMany({
-      select: {
-        slug: true,
-        updatedAt: true,
-      },
       where: {
         catSlug: {
           notIn: ["legal", "shops", "database"],
@@ -15,8 +11,11 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json({ posts });
+    return NextResponse(JSON.stringify({ posts }, { statue: 200 }));
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
+    console.log(error);
+    return new NextResponse(
+      JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
+    );
   }
 }
