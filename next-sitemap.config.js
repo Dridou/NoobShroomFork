@@ -1,13 +1,12 @@
 ﻿module.exports = {
 	siteUrl: 'https://www.noobshroom.com',
-	generateRobotsTxt: true, // (optional)
+	generateRobotsTxt: true,
 	sitemapSize: 7000,
-	// Optionnel: définir une fonction pour récupérer les pages dynamiques
 	additionalPaths: async (config) => {
 	  const paths = [];
 
-	  // Par exemple, si vous avez des posts de blog :
-	  const res = await fetch("https://www.noobshroom.com/api/posts");
+	  // Faire un appel à l'API pour récupérer tous les posts
+	  const res = await fetch('https://www.noobshroom.com/api/posts?all=true');
 	  const data = await res.json();
 
 	  const posts = data.posts || [];
@@ -18,4 +17,4 @@
 
 	  return paths;
 	},
-  };
+};
