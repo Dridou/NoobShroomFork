@@ -17,10 +17,7 @@ const getBaseUrl = () => {
 const getData = async (page, cat) => {
   const baseUrl = getBaseUrl();
   const res = await fetch(
-    `${baseUrl}/api/posts?page=${page}&cat=${cat || ""}`,
-    {
-      cache: "no-store",
-    }
+    `${baseUrl}/api/posts?page=${page}&cat=${cat || ""}`
   );
 
   if (!res.ok) {

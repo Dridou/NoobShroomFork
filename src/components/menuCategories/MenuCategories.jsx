@@ -14,9 +14,7 @@ const getBaseUrl = () => {
 
 const getData = async () => {
   const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/categories`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`${baseUrl}/api/categories`);
 
   if (!res.ok) {
     throw new Error("Failed");

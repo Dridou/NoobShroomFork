@@ -17,9 +17,7 @@ export const getPopularPosts = async () => {
 
   const baseUrl = getBaseUrl();
   console.log("Fetching from URL:", baseUrl); // Log the URL
-  const res = await fetch(`${baseUrl}/api/posts?sortBy=views`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`${baseUrl}/api/posts?sortBy=views`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch posts");
