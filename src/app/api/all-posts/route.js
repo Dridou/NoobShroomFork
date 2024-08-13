@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
   try {
-	const posts = await prisma.$transaction([post.findMany()]);
+	const posts = await prisma.$transaction([prisma.post.findMany()]);
 
-    return NextResponse(JSON.stringify({ posts }, { status: 200 }));
+    return new NextResponse(JSON.stringify({ posts }, { status: 200 }));
   } catch (error) {
     console.log(error);
     return new NextResponse(
