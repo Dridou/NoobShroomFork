@@ -10,28 +10,6 @@ import "../../styles/tableStyles.css"; // Import custom table styles
 
 const prisma = new PrismaClient();
 
-export const GET = async (req) => {
-	const { searchParams } = new URL(req.url);
-	const all = searchParams.get('all');
-
-	let posts;
-	if (all) {
-	  posts = await prisma.post.findMany({
-		include: {
-		  user: true,
-		  sections: true,
-		},
-		orderBy: {
-		  createdAt: 'desc',
-		},
-	  });
-	} else {
-	  // Logique pour récupérer un ou plusieurs posts selon les paramètres
-	}
-
-	return new NextResponse(JSON.stringify({ posts }), { status: 200 });
-  };
-
 export async function generateMetadata({ params }) {
   const { slug } = params;
   const post = await prisma.post.findUnique({
@@ -60,38 +38,27 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const getData = async (slug = null) => {
-  if (post) {
-    const post = await prisma.post.findUnique({
-      where: { slug },
-      include: {
-        user: true,
-        sections: {
-          include: {
-            sets: true,
-          },
-          orderBy: {
-            displayOrder: "asc",
-          },
+const getData = async (slug) => {
+  const post = await prisma.post.findUnique({
+    where: { slug },
+    include: {
+      user: true,
+      sections: {
+        include: {
+          sets: true,
+        },
+        orderBy: {
+          displayOrder: "asc",
         },
       },
-    });
+    },
+  });
 
-    if (!post) {
-      throw new Error("Post not found");
-    }
-
-    return post;
-  } else {
-    const posts = await prisma.post.findMany({
-      include: {
-        user: true,
-        sections: true,
-      },
-    });
-
-    return posts;
+  if (!post) {
+    throw new Error("Post not found");
   }
+
+  return post;
 };
 
 const SinglePage = async ({ params }) => {
