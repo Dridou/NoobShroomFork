@@ -3,12 +3,14 @@
 	generateRobotsTxt: true, // (optional)
 	sitemapSize: 7000,
 	// Optionnel: définir une fonction pour récupérer les pages dynamiques
-	async additionalPaths(config) {
+	additionalPaths: async (config) => {
 	  const paths = [];
 
 	  // Par exemple, si vous avez des posts de blog :
 	  const res = await fetch("https://www.noobshroom.com/api/posts");
-	  const posts = await res.json();
+	  const data = await res.json();
+
+	  const posts = data.posts || [];
 
 	  posts.forEach((post) => {
 		paths.push({ loc: `/posts/${post.slug}`, changefreq: 'weekly', priority: 0.7 });

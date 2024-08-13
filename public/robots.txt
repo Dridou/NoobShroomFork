@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.noobshroom.com/
+Host: https://www.noobshroom.com
 
 # Sitemaps
 Sitemap: https://www.noobshroom.com/sitemap.xml

@@ -38,27 +38,38 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const getData = async (slug) => {
-  const post = await prisma.post.findUnique({
-    where: { slug },
-    include: {
-      user: true,
-      sections: {
-        include: {
-          sets: true,
-        },
-        orderBy: {
-          displayOrder: "asc",
+const getData = async (slug = null) => {
+  if (post) {
+    const post = await prisma.post.findUnique({
+      where: { slug },
+      include: {
+        user: true,
+        sections: {
+          include: {
+            sets: true,
+          },
+          orderBy: {
+            displayOrder: "asc",
+          },
         },
       },
-    },
-  });
+    });
 
-  if (!post) {
-    throw new Error("Post not found");
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    return post;
+  } else {
+    const posts = await prisma.post.findMany({
+      include: {
+        user: true,
+        sections: true,
+      },
+    });
+
+    return posts;
   }
-
-  return post;
 };
 
 const SinglePage = async ({ params }) => {
