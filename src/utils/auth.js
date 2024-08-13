@@ -12,8 +12,7 @@ export const authOptions = {
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
-  ],
-  secret: process.env.NEXTAUTH_SECRET,
+  ]
 };
 
 export const getAuthSession = () => getServerSession(authOptions);
