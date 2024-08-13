@@ -5,16 +5,19 @@
 	additionalPaths: async (config) => {
 	  const paths = [];
 
-	  // Faire un appel à l'API pour récupérer tous les posts
-	  const res = await fetch('https://www.noobshroom.com/api/posts?all=true');
-	  const data = await res.json();
+	  try {
+		const res = await fetch("https://www.noobshroom.com/api/all-posts");
+		const data = await res.json();
 
-	  const posts = data.posts || [];
+		const posts = data.posts || [];
 
-	  posts.forEach((post) => {
-		paths.push({ loc: `/posts/${post.slug}`, changefreq: 'weekly', priority: 0.7 });
-	  });
+		posts.forEach((post) => {
+		  paths.push({ loc: `/posts/${post.slug}`, changefreq: 'weekly', priority: 0.7 });
+		});
+	  } catch (error) {
+		console.error("Failed to fetch posts for sitemap:", error);
+	  }
 
 	  return paths;
 	},
-};
+  };
