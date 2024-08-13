@@ -7,7 +7,7 @@
 	  const paths = [];
 
 	  // Par exemple, si vous avez des posts de blog :
-	  const res = await fetch(`$https://www.noobshroom.com/api/posts`);
+	  const res = await fetch("https://www.noobshroom.com/api/posts");
 	  const posts = await res.json();
 
 	  posts.forEach((post) => {
