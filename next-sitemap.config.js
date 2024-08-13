@@ -12,6 +12,7 @@
 		const posts = data.posts || [];
 
 		posts.forEach((post) => {
+			console.log(post.slug);
 		  paths.push({ loc: `/posts/${post.slug}`, changefreq: 'weekly', priority: 0.7 });
 		});
 	  } catch (error) {
