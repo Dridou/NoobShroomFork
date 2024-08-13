@@ -3,13 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const posts = await prisma.post.findMany({
-      where: {
-        catSlug: {
-          notIn: ["legal", "shops", "database"],
-        },
-      },
-    });
+    const posts = await prisma.post.findMany();
 
     return NextResponse(JSON.stringify({ posts }, { statue: 200 }));
   } catch (error) {
