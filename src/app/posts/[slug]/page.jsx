@@ -143,9 +143,9 @@ const SinglePage = async ({ params }) => {
             )}
           </div>
         ))}
-        <div className={styles.comment}>
+        {/* <div className={styles.comment}>
           <Comments postSlug={slug} />
-        </div>
+        </div> */}
         <div className={styles.bottomContent}>
           <CardList page={1} />
           <Menu />
