@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 import styles from "./singlePage.module.css";
-import Comments from "@/components/comments/Comments";
 import SetSection from "@/components/setSection/SetSection";
 import CardList from "@/components/cardList/CardList";
 import Menu from "@/components/Menu/Menu";
+import Comments from "@/components/comments/Comments";
 import "../../styles/colStyles.css"; // Import custom table styles
 import "../../styles/tableStyles.css"; // Import custom table styles
 
@@ -38,43 +38,57 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const getData = async (slug) => {
-  const post = await prisma.post.findUnique({
-    where: { slug },
-    include: {
-      user: true,
-      sections: {
-        include: {
-          sets: true,
-        },
-        orderBy: {
-          displayOrder: "asc",
-        },
-      },
-    },
-  });
+export async function generateStaticParams() {
+	const posts = await prisma.post.findMany({
+	  select: {
+		slug: true,
+	  },
+	});
 
-  if (!post) {
-    throw new Error("Post not found");
+	return posts.map((post) => ({
+	  slug: post.slug,
+	}));
   }
 
-  return post;
-};
+  async function getData(slug) {
+	const post = await prisma.post.findUnique({
+	  where: { slug },
+	  include: {
+		user: true,
+		sections: {
+		  include: {
+			sets: true,
+		  },
+		  orderBy: {
+			displayOrder: "asc",
+		  },
+		},
+	  },
+	});
 
-const SinglePage = async ({ params }) => {
-  const { slug } = params;
-  const data = await getData(slug);
+	if (!post) {
+	  throw new Error("Post not found");
+	}
 
+	return post;
+  }
+
+
+  export default async function SinglePage({ params }) {
+	const { slug } = params;
+
+	try {
+	  const post = await getData(slug);
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.textContainer}>
-          <h1 className={styles.title}>{data?.title}</h1>
+          <h1 className={styles.title}>{post?.title}</h1>
           <div className={styles.user}>
-            {data?.user?.image && (
+            {post?.user?.image && (
               <div className={styles.userImageContainer}>
                 <Image
-                  src={data.user.image}
+                  src={post.user.image}
                   alt=""
                   fill
                   className={styles.avatar}
@@ -82,15 +96,15 @@ const SinglePage = async ({ params }) => {
               </div>
             )}
             <div className={styles.userTextContainer}>
-              <span className={styles.username}>{data?.user.name}</span>
+              <span className={styles.username}>{post?.user.name}</span>
               <span className={styles.date}>01.01.2024</span>
             </div>
           </div>
         </div>
-        {data?.imgBig && (
+        {post?.imgBig && (
           <div className={styles.imageContainer}>
             <Image
-              src={`/images/${data.imgBig}`}
+              src={`/images/${post.imgBig}`}
               alt=""
               width={300}
               height={400}
@@ -100,7 +114,7 @@ const SinglePage = async ({ params }) => {
         )}
       </div>
       <div className={styles.content}>
-        {data?.sections?.map((section, index) => (
+        {post?.sections?.map((section, index) => (
           <div key={index} className={styles.section}>
             <div className={styles.sectionHeader}>
               {section.icon && (
@@ -143,9 +157,6 @@ const SinglePage = async ({ params }) => {
             )}
           </div>
         ))}
-        {/* <div className={styles.comment}>
-          <Comments postSlug={slug} />
-        </div> */}
         <div className={styles.bottomContent}>
           <CardList page={1} />
           <Menu />
@@ -153,6 +164,9 @@ const SinglePage = async ({ params }) => {
       </div>
     </div>
   );
-};
-
-export default SinglePage;
+}
+catch (error) {
+    console.error("Error loading post:", error.message);
+    return <div>Post not found or an error occurred.</div>;
+  }
+}
