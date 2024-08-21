@@ -1,6 +1,9 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
+export const maxDuration = 3;
+export const dynamic = 'force-dynamic';
+
 // GET SINGLE POST
 export const GET = async (req, { params }) => {
   const { slug } = params;
