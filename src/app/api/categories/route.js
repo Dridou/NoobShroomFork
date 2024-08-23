@@ -2,7 +2,7 @@ import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
-  const excludedCategories = ["legal","shops","database"];
+  const excludedCategories = ["legal","database"];
 
   let query = {
     where: {

@@ -14,7 +14,7 @@ export const GET = async (req) => {
 
   const POST_PER_PAGE = 3;
 
-  const excludedCategories = ["legal","shops","database"];
+  const excludedCategories = ["legal","database"];
 
   let query = null;
 
@@ -28,9 +28,9 @@ export const GET = async (req) => {
 		},
 		...(cat && { catSlug: cat }),
 	  },
-    //   orderBy: {
-    //     ...(sortBy === "views" ? { views: "desc" } : { createdAt: "desc" }),
-    //   },
+      orderBy: {
+        ...(sortBy === "views" ? { views: "desc" } : { createdAt: "asc " }),
+      },
     };
   }
   else {
@@ -51,7 +51,7 @@ export const GET = async (req) => {
 		  },
 		},
 		orderBy: {
-		  ...(sortBy === "views" ? { views: "desc" } : { createdAt: "desc" }),
+		  ...(sortBy === "views" ? { views: "desc" } : { createdAt: "asc" }),
 		},
 	  };
   }

@@ -2,7 +2,7 @@ import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 export const maxDuration = 3;
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 // GET SINGLE POST
 export const GET = async (req, { params }) => {
@@ -12,13 +12,14 @@ export const GET = async (req, { params }) => {
     const post = await prisma.post.update({
       where: { slug },
       data: { views: { increment: 1 } },
-      include: { user: true , sections: true},
+      include: { user: true, sections: true },
     });
 
-    return new NextResponse(JSON.stringify(post,
-		{
-			status: 200
-		}));
+    return new NextResponse(
+      JSON.stringify(post, {
+        status: 200,
+      })
+    );
   } catch (err) {
     console.log(err);
     return new NextResponse(
