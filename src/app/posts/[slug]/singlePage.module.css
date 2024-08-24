@@ -111,6 +111,11 @@
 	@import 'bootstrap/dist/css/bootstrap.min.css';
 }
 
+.title {
+	font-size: 64px;
+	margin-bottom: 50px;
+}
+
 @media screen and (max-width: 1536px) {
 	.title {
 		font-size: 54px;

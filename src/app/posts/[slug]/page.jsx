@@ -115,6 +115,18 @@ export default async function SinglePage({ params }) {
         <div className={styles.content}>
           {post?.sections?.map((section, index) => (
             <div key={index} className={styles.section}>
+              <div className={styles.sectionHeader}>
+                {section.icon && (
+                  <Image
+                    src={section.icon}
+                    alt=""
+                    width={32}
+                    height={32}
+                    className={styles.sectionIcon}
+                  />
+                )}
+                <h2>{section.title}</h2>
+              </div>
               {section.type === "set" && section.sets.length > 0 ? (
                 section.sets.map((set, setIndex) => (
                   <SetSection
