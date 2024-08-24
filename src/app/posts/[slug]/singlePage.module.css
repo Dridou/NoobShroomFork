@@ -18,11 +18,6 @@
 	flex: 3;
 }
 
-.title {
-	font-size: 64px;
-	margin-bottom: 50px;
-}
-
 .user {
 	display: flex;
 	align-items: center;
@@ -73,15 +68,6 @@
 	display: flex;
 	flex-direction: column;
 	gap: 50px;
-}
-
-.sectionHeader {
-	display: flex;
-	align-items: center;
-}
-
-.sectionIcon {
-	margin-right: 8px;
 }
 
 .post {

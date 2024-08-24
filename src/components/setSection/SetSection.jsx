@@ -33,23 +33,9 @@ const SetSection = ({
     <section id={id} className={styles.setSection}>
       <div className={styles.fullSet}>
         <div className={styles.cardBody}>
-          <nav>
-            <div className={styles.navTabs} id="nav-tab">
-              <button
-                className={`${styles.navLink} active`}
-                id={`nav-set-${id}`}
-                data-target={`#pill-set-${id}`}
-                role="tab"
-                aria-controls={`nav-set-${id}`}
-                aria-selected="true"
-              >
-                Standard
-              </button>
-            </div>
-          </nav>
           <div className={styles.tabContent} id="nav-tabContent">
 			<div>
-            <h4></h4>
+			  <div className={styles.title}>{title}</div>
               <SetSpell
                 standardImage={standardImage}
                 opponentImage={opponentImage}
@@ -58,36 +44,29 @@ const SetSection = ({
                 timings={timings}
                 alternatives={alternatives}
               />
-              <hr />
-
               <SetPal
                 palsImage={palsImage}
                 palsAlternatives={palsAlternatives}
 				title={"Pal"}
               />
-			  <hr />
               <SetPal
                 palsImage={relicsImage}
                 palsAlternatives={relicsAlternatives}
 				title={"Relics"}
               />
-              <hr />
               <SetTalent
 			  	talentImage={talentImage}
                 talents={talents}
 				title={"Talents"}
               />
-              <hr />
 			  <SetSectionList
 			  	list={mounts}
 				title={"Mounts"}
 			  />
-              <hr />
 			  <SetSectionList
 			  	list={artifacts}
 				title={"Artifacts"}
 			  />
-			  <hr />
 			   <SetSectionList
 			  	list={accessories}
 				title={"Back Accessories"}

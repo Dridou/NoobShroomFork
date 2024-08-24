@@ -103,7 +103,7 @@
   },
   {
     "title": "Talents",
-    "content": "<p>Any class you play, I can already assure you it's so worth to <span class=\"tip-detailled\">equalize Atk/Def/HP</span> (either to lv10/12/14/16, depending your divine feather amount) on the your 3 different branches: fury, archery and sorcery. Indeed, these nodes are really cheap and so really worth, and the 3 first nodes are always the same (in a different order but whatever) on the 3 branches.</p><p>Then, <span class=\"tip\">for Crossbow</span> you absolutely want the <span class=\"tip-detailled\">combo damage node</span> in the Archery branch.</p><p>So this is the basic for a crossbow player:</p><img alt=\"Example of crossbow talent points distribution\" class=\"img-fluid\" src=\"/images/talent-combo-dmg.png\" style=\"width:33%\"><br><p>Then you have multiple strategies depending on what you want:</p><ul><li><p><span class=\"tip\">PvE Dmg build:</span> get the <span class=\"tip\">Basic Atk Damage</span> nodes to the maximum, only putting points in the required nodes to reach them, in the Sorcery blue path, and in the Fury Yellow path - for Lamp Dungeon for example.</p></li><li><p><span class=\"tip\">PvE Def build:</span> get the <span class=\"tip\">Basic Atk Resistance</span> nodes to the maximum, only putting points in the required nodes to reach them, for waves, Cloud Ascension Trial, Chrono Tower and so on. <span class=\"tip-detailled\">Most of monsters only hit with basic attacks, including most bosses</span>.</p></li><li><p><span class=\"tip\">PvP balanced build:</span> get the <span class=\"tip\">Skill Dmg Resistance</span> and/or <span class=\"tip\">Counter Dmg Resistance</span> nodes depending on the fights where you struggle. Associated with your artefact right rune you can achieve ~35% counter resistance for example.</p></li></ul><p>You have plenty other strategies, but these are some useful ones, join our discord to discuss about them and discover new ones!<br>Also, <span class=\"tip\">don't forget to have fun</span>, you can infinitely reset these talents for free so why not try different strategies?</p>",
+    "content": "<p>Any class you play, I can already assure you it's so worth to <span class=\"tip-detailled\">equalize Atk/Def/HP</span> (either to lv10/12/14/16, depending your divine feather amount) on the your 3 different branches: fury, archery and sorcery. Indeed, these nodes are really cheap and so really worth, and the 3 first nodes are always the same (in a different order but whatever) on the 3 branches.</p><p>Then, <span class=\"tip\">for Crossbow</span> you absolutely want the <span class=\"tip-detailled\">combo damage node</span> in the Archery branch.</p><p>So this is the basic for a crossbow player:</p><p>Then you have multiple strategies depending on what you want:</p><ul><li><p><span class=\"tip\">PvE Dmg build:</span> get the <span class=\"tip\">Basic Atk Damage</span> nodes to the maximum, only putting points in the required nodes to reach them, in the Sorcery blue path, and in the Fury Yellow path - for Lamp Dungeon for example.</p></li><li><p><span class=\"tip\">PvE Def build:</span> get the <span class=\"tip\">Basic Atk Resistance</span> nodes to the maximum, only putting points in the required nodes to reach them, for waves, Cloud Ascension Trial, Chrono Tower and so on. <span class=\"tip-detailled\">Most of monsters only hit with basic attacks, including most bosses</span>.</p></li><li><p><span class=\"tip\">PvP balanced build:</span> get the <span class=\"tip\">Skill Dmg Resistance</span> and/or <span class=\"tip\">Counter Dmg Resistance</span> nodes depending on the fights where you struggle. Associated with your artefact right rune you can achieve ~35% counter resistance for example.</p></li></ul><p>You have plenty other strategies, but these are some useful ones, join our discord to discuss about them and discover new ones!<br>Also, <span class=\"tip\">don't forget to have fun</span>, you can infinitely reset these talents for free so why not try different strategies?</p>",
     "id": "clzbti5gi000z11n8s0t2f8qj",
     "displayOrder": 17
   },
@@ -132,6 +132,65 @@
     "displayOrder": 21
   },
   {
+    "title": "PvP",
+    "type": "set",
+    "content": "",
+    "id": "cm05o717c0000ymomxu186iuw",
+    "sets": [
+      {
+        "id": "clzh8gbxn00033gvlqxsrspil",
+        "title": "PvP (easily accessible / f2p)",
+        "standardImage": "/images/crossbow-spell-pvp-f2p.png",
+        "opponentImage": "",
+        "opponentSpells": "",
+        "explanation": "Blitz, Disarm and Smoke Bomb are must have for any crossbow PvP build.<br><img alt=\"Take it slow skill icon\"class=img-fluid src=/images/skill-take-it-slow.png style=width:2rem> is a solid choice because it lowers the ennemy global atk by 20%, being effective on any opponent class, bows -> obvious, mages -> lower their skill damage and so their burst, tanks -> lower their counter attacks damage.<br>Why <img alt=\"Easy breasy skill icon\"class=img-fluid src=/images/skill-easy-breasy.png style=width:2rem> is a worse choice ? It will be more effective versus bows, but less effective versus mages and innefective versus tanks who don't rely on their basic attacks.<br>Concerning <img alt=\"Hundred slashes skill icon\"class=img-fluid src=/images/skill-hundred-slashes.png style=width:30px>: if you have unlocked eternal gears which provide significant HP bonus, choose it, else choose <img alt=\"Worldly Snare skill icon\"class=img-fluid src=/images/skill-worldly-snare.png style=width:30px>.",
+        "timings": "",
+        "alternatives": "",
+        "palsImage": "/images/crossbow-pal-pvp-f2p.png",
+        "palsAlternatives": "for SEA players, remember our (EU) bird is your (SEA) fiery tail, and for bunny you have your mecha drake which gives 10% crit rate",
+        "relicsImage": "/images/crossbow-relic-pvp-f2p.png",
+        "relicsAlternatives": "<img alt=\"Flame book relic icon\" class=\"img-fluid\" src=\"/images/relic-flame-book.png\" style=\"width:30px\"> or <img alt=\"Stonewrit book relic icon\" class=\"img-fluid\" src=\"/images/relic-stonewrit-tome.png\" style=\"width:30px\">, really varying.<br>",
+        "talentImage": "",
+        "talents": "Please refer to upcoming talent guide / calculator",
+        "mounts": [
+          {
+            "name": "Pyrebreaker",
+            "description": "if you lack crit rate (<70%) or are in early game"
+          },
+          {
+            "name": "Blue Ox (best option)",
+            "description": "Shorten duration of crowd controls + 10% dmg resistance. Obtainable (at 100%) by stacking 500 tokens for the wheel event. Strong versus any class."
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "Thunder Wrath (hammer)",
+            "description": "Only free artifact but the worse, if you have any other artifact, use it instead."
+          },
+          {
+            "name": "Flaming Carnage",
+            "description": "Currently the best pvp artifact versus all classes. (Safe distance artifact effects can be obtained through avians)"
+          }
+        ],
+        "accessories": [
+          {
+            "name": "Emerald Embrace",
+            "description": "Only free back accessory, pretty decent one"
+          }
+        ],
+
+        "avians": {
+          "list": "Sunshine bringer",
+          "affixes": [
+            "Easily best ones obtainable: Barrel Dodge (crit res), Shroom Combo (combo), Rage bonus (Dcrit), Debuff Immunity (debuff res)",
+            "End game rainbow affixes to get: No speeding (reducing ennemy spells duration), Multiple Shots (Combo have 50% dealing 0.5~1% of target current HP), Terminal Strike (10% chance cutting ennemy regen AND healing by 90% for 1s), Lighting Conductor (reducing ennemy crit dmg by 15% for 1s with 10% chance at each ennemy attack)"
+          ]
+        }
+      }
+    ],
+    "displayOrder": 22
+  },
+  {
     "title": "Adventure - Grumpy",
     "type": "set",
     "content": "",
@@ -150,8 +209,8 @@
         "palsAlternatives": "set pal alternative",
         "relicsImage": "/images/crossbow-grumpy-relic.png",
         "relicsAlternatives": "Book is for the 5% of basic atk resistance. Statue allows the hundred slashes to last longer and so bringing more basic atk resistance",
-		"talentImage": "/images/crossbow-grumpy-talent.png",
-		"talents": "<p>A maximum of <span class=tip>basic atk resistance</span> because the grumpy mainly hit with basic attacks. Also some <span class=tip>regen / lifesteal</span> to ensure more sustain. Ensuring in High grumpy levels to not die within the 10mn do deal a maximum of damage.<br><br>Current level: grumpy 95 and top3 damage every time - around 800.000 B",
+        "talentImage": "/images/crossbow-grumpy-talent.png",
+        "talents": "<p>A maximum of <span class=tip>basic atk resistance</span> because the grumpy mainly hit with basic attacks. Also some <span class=tip>regen / lifesteal</span> to ensure more sustain. Ensuring in High grumpy levels to not die within the 10mn do deal a maximum of damage.<br><br>Current level: grumpy 95 and top3 damage every time - around 800.000 B",
         "mounts": [
           { "name": "Diving Duck", "description": "lowering grumpy attack" },
           {
@@ -229,8 +288,8 @@
         "palsAlternatives": "<p>First be careful for <b>ranged bosses</b>: <img alt=\"Benny pal icon\"class=img-fluid src=/images/aco-benny.png style=width:30px> bump (airborne) <span class=tip>switch boss focus to your clone</span> (dangerous concerning boss with long range attacks) so according to your boss:<ul><li><b>Ranged bosses</b>: <img alt=\"Toothpick pal icon\"class=img-fluid src=/images/aco-aubergine.png style=width:30px> for constant results, or swap to the benny but you may try a couple of times.</li><br><li><b>Close bosses</b>: <img alt=\"Benny pal icon\"class=img-fluid src=/images/aco-benny.png style=width:30px> (if possible) will make you gain a few dps seconds</ul>",
         "relicsImage": "/images/crossbow-adventure-bosses-relics.png",
         "relicsAlternatives": "<ul><li><b>Ranged bosses</b>: I advise you to try the <img alt=\"Beasthide Book relic icon\"class=img-fluid src=/images/relic-beasthide-book.png style=width:30px> first, if it's not working you can try the <img alt=\"Immunity book relic icon\"class=img-fluid src=/images/relic-immunity-book.png style=width:30px> to gain 3 more dps seconds, especially strong in late game when you have a lot of attack even without buffs<li><b>Close bosses</b>: <img alt=\"Immunity book relic icon\"class=img-fluid src=/images/relic-immunity-book.png style=width:30px> is really useful versus close range bosses because they often buff themselves and are hard to finish.<br>Crocodile heals himself, Minor gains defense and so on.</ul>",
-		"talentImage": "/images/crossbow-grumpy-talent.png",
-		"talents": "Set talents",
+        "talentImage": "/images/crossbow-grumpy-talent.png",
+        "talents": "Set talents",
         "mounts": [
           {
             "name": "Adapto slime",
@@ -304,8 +363,8 @@
         "palsAlternatives": "<img src=\"/images/aco-toothpick.png\" class=\"img-fluid\" alt=\"Red Slime skill icon\" style=\"width: 30px;\"> or <img src=\"/images/aco-benny.png\"class=\"img-fluid\" alt=\"Speed Surge skill icon\" style=\"width: 40px;\"> or <img src=\"/images/aco-cactus.png\" class=\"img-fluid\"alt=\"Speed Surge skill icon\" style=\"width: 30px;\">",
         "relicsImage": "/images/crossbow-adventure-bosses-relics.png",
         "relicsAlternatives": "<img src=\"/images/relic-beasthide-book.png\" class=\"img-fluid\" alt=\"Red Slime skill icon\" style=\"width: 40px;\"> or (<img src=\"/images/relic-immunity-book.png\" class=\"img-fluid\" alt=\"Speed Surge skill icon\" style=\"width: 40px;\"> if this allows to to do a second skill rotation.)",
-		"talentImage": "/images/crossbow-grumpy-talent.png",
-		"talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
+        "talentImage": "/images/crossbow-grumpy-talent.png",
+        "talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
         "mounts": [
           {
             "name": "Pyrebreaker",
@@ -388,8 +447,8 @@
         "palsAlternatives": "<img src='/images/aco-benny.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 30px;'> or <img src='/images/aco-cactus.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 30px;'> <br> <img src='/images/aco-deer.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 30px;'> or <img src='/images/aco-banana.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 30px;'> If you survive easily, use the deer for more tankiness. It only requires a few attempts to get a good run with combo and crit, while the boss's damage remains consistent.",
         "relicsImage": "/images/crossbow-adventure-bosses-relics.png",
         "relicsAlternatives": "<img src='/images/relic-immunity-book.png' class='img-fluid' alt='Red Slime skill icon' style='width: 40px;'> or <img src='/images/relic-beasthide-book.png' class='img-fluid' alt='Speed Surge skill icon' style='width: 40px;'> if you can tank 10s and need more damage.",
-		"talentImage": "/images/crossbow-grumpy-talent.png",
-		"talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough. Grab a few points in <span class='tip'>basic attack resistance</span> since the boss mainly deals that type of damage. <span class='tip'>Increase a basic attack resistance rune</span> (the right one) to level 10/12 without worrying about sub stats to boost your tankiness (also useful for the archer and general PvE).",
+        "talentImage": "/images/crossbow-grumpy-talent.png",
+        "talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough. Grab a few points in <span class='tip'>basic attack resistance</span> since the boss mainly deals that type of damage. <span class='tip'>Increase a basic attack resistance rune</span> (the right one) to level 10/12 without worrying about sub stats to boost your tankiness (also useful for the archer and general PvE).",
         "mounts": [
           { "name": "Watermelon Ship", "description": "defense+,bump" },
           { "name": "Pyrebreaker", "description": "damage+, crit rate %." },
@@ -447,11 +506,11 @@
         "timings": "<img src=\"/images/skill-blitz-assault.png\" class=\"img-fluid\" alt=\"Clone Strike skill icon\" style=\"width: 30px;\"> With red slime, the spell will return at the right time to dodge spells again.",
         "alternatives": "<p><img alt=\"Clone Strike skill icon\"class=img-fluid src=/images/skill-blitz-assault.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=/images/skill-natures-renewal.png style=width:30px> to allow more tankiness, set at 0.5s.<p><img alt=\"Clone Strike skill icon\"class=img-fluid src=/images/skill-clone-strike.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=/images/skill-speed-surge.png style=width:30px>.",
         "palsImage": "/images/crossbow-dark-mage-pal.png",
-		"relicsImage": "/images/crossbow-dark-mage-relic.png",
-        "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-deer.png style=width:30px> if you need more tankiness.",
+        "relicsImage": "/images/crossbow-dark-mage-relic.png",
+        "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-deer.png style=width:30px> if you need more tankiness.",
         "relicsAlternatives": "",
-		"talentImage": "/images/crossbow-grumpy-talent.png",
-		"talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
+        "talentImage": "/images/crossbow-grumpy-talent.png",
+        "talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
         "mounts": [
           { "name": "Watermelon Ship", "description": "defense+,bump" },
           { "name": "Pyrebreaker", "description": "damage+, crit rate %." },
@@ -490,21 +549,21 @@
           ]
         }
       },
-	  {
+      {
         "id": "dark-mage-7more",
         "title": "Dark Trials - Versus Mage stage 7+",
         "standardImage": "/images/crossbow-dark-mage7more-spells.png",
         "opponentImage": "/images/dark-mage-spells.png",
         "opponentSpells": "Prophet or Dark Lord",
         "explanation": "Blitz at 1.5s to avoid most spell damage. Then your goal is to kill him before bliz comess again.",
-        "timings": "<img alt=\"Clone Strike skill icon\"class=img-fluid src=\/images\/skill-blitz-assault.png style=width:30px> -> set at the right second to avoid the first spells, but you need enough damage to kill before his second blitz.",
-        "alternatives": "<img alt=\"Clone Strike skill icon\"class=img-fluid src=\/images\/skill-clone-strike.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=\/images\/skill-speed-surge.png style=width:30px>",
+        "timings": "<img alt=\"Clone Strike skill icon\"class=img-fluid src=/images/skill-blitz-assault.png style=width:30px> -> set at the right second to avoid the first spells, but you need enough damage to kill before his second blitz.",
+        "alternatives": "<img alt=\"Clone Strike skill icon\"class=img-fluid src=/images/skill-clone-strike.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=/images/skill-speed-surge.png style=width:30px>",
         "palsImage": "/images/crossbow-dark-mage-pal.png",
-        "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-deer.png style=width:30px> if you need more tankiness.",
-		"relicsImage": "/images/crossbow-dark-mage7more-relic.png",
-        "relicsAlternatives": "<img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/relic-statue-time.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/relic-stellar-statue.png style=width:30px> can also be good with <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/skill-worldly-snare.png style=width:30px> and <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/skill-hundred-slashes.png style=width:30px>",
-		"talentImage": "/images/crossbow-grumpy-talent.png",
-		"talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
+        "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-deer.png style=width:30px> if you need more tankiness.",
+        "relicsImage": "/images/crossbow-dark-mage7more-relic.png",
+        "relicsAlternatives": "<img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/relic-statue-time.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/relic-stellar-statue.png style=width:30px> can also be good with <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/skill-worldly-snare.png style=width:30px> and <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/skill-hundred-slashes.png style=width:30px>",
+        "talentImage": "/images/crossbow-grumpy-talent.png",
+        "talents": "Your usual talent tree, balanced for damage and tankiness, you can up damage talents and lower def/hp if you tank enough..",
         "mounts": [
           { "name": "Watermelon Ship", "description": "defense+,bump" },
           { "name": "Pyrebreaker", "description": "damage+, crit rate %." },
@@ -559,14 +618,14 @@
         "opponentImage": "/images/dark-archer-spells.png",
         "opponentSpells": "Plume monarch or Hunter",
         "explanation": "Blitz at 1.5s to avoid most spell damage. The rest is a standard DPS combo with disarm and dazzled, maximizing the clone's and our attack time",
-        "timings": "<img alt=\"Clone Strike skill icon\"class=img-fluid src=\/images\/skill-blitz-assault.png style=width:30px> With red slime, the spell will return at the right time to dodge spells again.",
-        "alternatives": "<p><img alt=\"Clone Strike skill icon\"class=img-fluid src=\/images\/skill-blitz-assault.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=\/images\/skill-natures-renewal.png style=width:30px> to allow more tankiness, set at 0.5s.<p><img alt=\"Clone Strike skill icon\"class=img-fluid src=\/images\/skill-clone-strike.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=\/images\/skill-speed-surge.png style=width:30px>.",
+        "timings": "<img alt=\"Clone Strike skill icon\"class=img-fluid src=/images/skill-blitz-assault.png style=width:30px> With red slime, the spell will return at the right time to dodge spells again.",
+        "alternatives": "<p><img alt=\"Clone Strike skill icon\"class=img-fluid src=/images/skill-blitz-assault.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=/images/skill-natures-renewal.png style=width:30px> to allow more tankiness, set at 0.5s.<p><img alt=\"Clone Strike skill icon\"class=img-fluid src=/images/skill-clone-strike.png style=width:30px> or <img alt=\"Blitz Assault skill icon\"class=img-fluid src=/images/skill-speed-surge.png style=width:30px>.",
         "palsImage": "/images/crossbow-dark-mage-pal.png",
-        "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=\/images\/aco-deer.png style=width:30px> if you need more tankiness.",
-		"relicsImage": "/images/crossbow-dark-mage7more-relic.png",
+        "palsAlternatives": "<p><img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-toothpick.png style=width:30px>: <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-benny.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-cactus.png style=width:30px><p><img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-banana.png style=width:30px> or <img alt=\"Speed Surge skill icon\"class=img-fluid src=/images/aco-deer.png style=width:30px> if you need more tankiness.",
+        "relicsImage": "/images/crossbow-dark-mage7more-relic.png",
         "relicsAlternatives": "",
-		"talentImage": "/images/crossbow-grumpy-talent.png",
-		"talents": "Grab decent points in <span class=tip>basic attack resistance<\/span> since the boss mainly deals that type of damage (we avoid its spells).<br><span class=tip>Increase a basic attack resistance rune<\/span> (the right one) to level 10\/12 without worrying about sub stats to boost your tankiness (also useful for the mage \/ warrior and general PvE) content.",
+        "talentImage": "/images/crossbow-grumpy-talent.png",
+        "talents": "Grab decent points in <span class=tip>basic attack resistance</span> since the boss mainly deals that type of damage (we avoid its spells).<br><span class=tip>Increase a basic attack resistance rune</span> (the right one) to level 10/12 without worrying about sub stats to boost your tankiness (also useful for the mage / warrior and general PvE) content.",
         "mounts": [
           {
             "name": "Holy Dragon",
