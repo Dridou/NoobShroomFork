@@ -51,10 +51,11 @@
 	flex: 1;
 	position: relative;
 	width: 20%;
-	overflow: hidden; /* Cache toute partie de l'image qui dépasse */
+	overflow: hidden;
+	/* Cache toute partie de l'image qui dépasse */
 	border-radius: 10px;
 	/* padding-bottom: 20px; */
-  }
+}
 
 .image {
 	top: 0;
@@ -75,7 +76,8 @@
 	margin-top: 60px;
 }
 
-.section p, .section ul{
+.section p,
+.section ul {
 	font-size: calc(15px + 0.390625vw);
 	font-weight: 300;
 	margin-bottom: 20px;
@@ -111,11 +113,56 @@
 	@import 'bootstrap/dist/css/bootstrap.min.css';
 }
 
+.updateHeader {
+	display: flex;
+	gap: 20px;
+	flex-direction: row;
+}
+
+.update {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.references {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.postReference {
+	background-color: rgb(73, 134, 215);
+	padding: 7px;
+	border-radius: 15px;
+}
+
+.sectionReference {
+	background-color: lightseagreen;
+	padding: 7px;
+	border-radius: 15px;
+}
+
+.noReference {
+	background-color: rgb(76, 73, 73);
+	padding: 7px;
+	border-radius: 15px;
+}
+
+.arrow {
+	margin: 0 10px;
+	/* Espacement autour de la flèche */
+	display: flex;
+	/* Assurer que l'élément flèche est centré */
+	align-items: center;
+}
+
 .tableOfContents {
 	background-color: var(--softBg);
 	padding: 20px;
 	border-radius: 10px;
 	width: max-content;
+	margin-bottom: 30px;
 }
 
 .title {
@@ -149,6 +196,9 @@
 	.description p {
 		font-size: 18px;
 	}
-}
 
-/*  */
+	.updateHeader {
+		flex-direction: column-reverse;
+		gap:5px;
+	}
+}

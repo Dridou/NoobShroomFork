@@ -79,6 +79,19 @@ model Post {
   user      User      @relation(fields: [userEmail], references: [email])
   comments  Comment[]
   sections  Section[]
+  updates   Update[]
+}
+
+model Update {
+  id          String   @id @default(cuid()) @map("_id")
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  title       String
+  content     String
+  postSlug    String?
+  post        Post?    @relation(fields: [postSlug], references: [slug])
+  sectionId   String?
+  section     Section? @relation(fields: [sectionId], references: [id])
 }
 
 model Comment {
@@ -103,6 +116,7 @@ model Section {
   post    Post    @relation(fields: [postId], references: [id])
   sets    Set[] // Relier les sets aux sections
   tables   Table[]
+  updates   Update[]
   displayOrder Int?
 }
 
