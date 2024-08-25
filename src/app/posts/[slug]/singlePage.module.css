@@ -161,8 +161,11 @@
 	background-color: var(--softBg);
 	padding: 20px;
 	border-radius: 10px;
-	width: max-content;
+	width: fit-content;
 	margin-bottom: 30px;
+	text-wrap: wrap;
+	display: flex;
+	flex-direction: column;
 }
 
 .title {
