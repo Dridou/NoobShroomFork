@@ -65,7 +65,8 @@ model Category {
 
 model Post {
   id        String    @id @default(cuid()) @map("_id")
-  createdAt DateTime  @default(now())
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @updatedAt
   slug      String    @unique
   title     String
   desc      String
@@ -82,7 +83,7 @@ model Post {
 
 model Comment {
   id        String   @id @default(cuid()) @map("_id")
-  createdAt DateTime @default(now())
+  createdAt DateTime? @default(now())
   desc      String
   userEmail String
   user      User     @relation(fields: [userEmail], references: [email])
@@ -92,6 +93,8 @@ model Comment {
 
 model Section {
   id      String  @id @default(cuid()) @map("_id")
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt @default(now())
   title   String
   content String
   icon    String?
