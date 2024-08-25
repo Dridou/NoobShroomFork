@@ -12,14 +12,14 @@ import "../../styles/tableStyles.css"; // Import custom table styles
 const prisma = new PrismaClient();
 
 const getBaseUrl = () => {
-	if (process.env.VERCEL_ENV === "production") {
-	  return "https://www.noobshroom.com";
-	} else if (process.env.VERCEL_ENV === "preview") {
-	  return `https://${process.env.VERCEL_URL}`;
-	} else {
-	  return "http://localhost:3000";
-	}
-  };
+  if (process.env.VERCEL_ENV === "production") {
+    return "https://www.noobshroom.com";
+  } else if (process.env.VERCEL_ENV === "preview") {
+    return `https://${process.env.VERCEL_URL}`;
+  } else {
+    return "http://localhost:3000";
+  }
+};
 
 export async function generateMetadata({ params }) {
   const { slug } = params;
@@ -117,24 +117,37 @@ export default async function SinglePage({ params }) {
             <span>
               {update.post && update.section ? (
                 <div className={styles.references}>
-                  <span className={styles.postReference}>{update.post.title}</span>
+                  <span className={styles.postReference}>
+                    {update.post.title}
+                  </span>
                   <span className={styles.arrow}>→</span>
                   <span className={styles.sectionReference}>
                     {update.section.title}
                   </span>
                 </div>
               ) : (
-                <div className={styles.references}><span className={styles.noReference}>General</span></div>
+                <div className={styles.references}>
+                  <span className={styles.noReference}>General</span>
+                </div>
               )}
             </span>
           </div>
           <p>{update.content}</p>
-		  {update.post && update.section ? (
-		  <Link
-          href={`${getBaseUrl()}/posts/${update.post?.slug}/#section-${update.sectionId}`}
-        >
-          <span>→ See <u>{update.post?.title}/{update.section?.title}</u> updated section</span>
-        </Link>) : null}
+          {update.post && update.section ? (
+            <Link
+              href={`${getBaseUrl()}/posts/${update.post?.slug}/#section-${
+                update.sectionId
+              }`}
+            >
+              <span>
+                → See{" "}
+                <u>
+                  {update.post?.title}/{update.section?.title}
+                </u>{" "}
+                updated section
+              </span>
+            </Link>
+          ) : null}
         </div>
       ));
       // sectionsContent = "coucou"
@@ -250,16 +263,18 @@ export default async function SinglePage({ params }) {
           )}
         </div>
 
-        <div className={styles.tableOfContents}>
-          <h2>Table of Contents</h2>
-          <ul>
-            {post.sections.map((section) => (
-              <li key={section.id}>
-                <a href={`#section-${section.id}`}>{section.title}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {post.slug !== "updates" ? (
+          <div className={styles.tableOfContents}>
+            <h2>Table of Contents</h2>
+            <ul>
+              {post.sections.map((section) => (
+                <li key={section.id}>
+                  <a href={`#section-${section.id}`}>{section.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         <div className={styles.content}>
           {sectionsContent}
