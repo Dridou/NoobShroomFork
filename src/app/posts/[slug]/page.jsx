@@ -78,6 +78,13 @@ export default async function SinglePage({ params }) {
 
   try {
     const post = await getData(slug);
+
+	const tableOfContents = post.sections.map((section) => (
+		<li key={section.id}>
+		  <a href={`#section-${section.id}`}>{section.title}</a>
+		</li>
+	  ));
+
     return (
       <div className={styles.container}>
         <div className={styles.infoContainer}>
@@ -96,7 +103,7 @@ export default async function SinglePage({ params }) {
               )}
               <div className={styles.userTextContainer}>
                 <span className={styles.username}>{post?.user.name}</span>
-                <span className={styles.date}>01.01.2024</span>
+                {post?.updatedAt ? "Last update: " + new Date(post.updatedAt).toISOString().substring(0, 10) : 'Date not available'} {" "}
               </div>
             </div>
           </div>
@@ -112,9 +119,15 @@ export default async function SinglePage({ params }) {
             </div>
           )}
         </div>
+
+		<div className={styles.tableOfContents}>
+          <h2>Table of Contents</h2>
+          <ul>{tableOfContents}</ul>
+        </div>
+
         <div className={styles.content}>
           {post?.sections?.map((section, index) => (
-            <div key={index} className={styles.section}>
+            <div key={section.id} id={`section-${section.id}`} className={styles.section}>
               <div className={styles.sectionHeader}>
                 {section.icon && (
                   <Image

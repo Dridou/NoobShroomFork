@@ -111,6 +111,13 @@
 	@import 'bootstrap/dist/css/bootstrap.min.css';
 }
 
+.tableOfContents {
+	background-color: var(--softBg);
+	padding: 20px;
+	border-radius: 10px;
+	width: max-content;
+}
+
 .title {
 	font-size: 64px;
 	margin-bottom: 50px;
