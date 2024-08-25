@@ -4,11 +4,22 @@ import styles from "./singlePage.module.css";
 import SetSection from "@/components/setSection/SetSection";
 import CardList from "@/components/cardList/CardList";
 import Menu from "@/components/Menu/Menu";
+import Link from "next/link";
 import Comments from "@/components/comments/Comments";
 import "../../styles/colStyles.css"; // Import custom table styles
 import "../../styles/tableStyles.css"; // Import custom table styles
 
 const prisma = new PrismaClient();
+
+const getBaseUrl = () => {
+	if (process.env.VERCEL_ENV === "production") {
+	  return "https://www.noobshroom.com";
+	} else if (process.env.VERCEL_ENV === "preview") {
+	  return `https://${process.env.VERCEL_URL}`;
+	} else {
+	  return "http://localhost:3000";
+	}
+  };
 
 export async function generateMetadata({ params }) {
   const { slug } = params;
@@ -118,6 +129,12 @@ export default async function SinglePage({ params }) {
             </span>
           </div>
           <p>{update.content}</p>
+		  {update.post && update.section ? (
+		  <Link
+          href={`${getBaseUrl()}/posts/${update.post?.slug}/#section-${update.sectionId}`}
+        >
+          <span>→ See <u>{update.post?.title}/{update.section?.title}</u> updated section</span>
+        </Link>) : null}
         </div>
       ));
       // sectionsContent = "coucou"
