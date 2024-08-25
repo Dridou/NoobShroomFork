@@ -29,7 +29,7 @@ export const GET = async (req) => {
 		...(cat && { catSlug: cat }),
 	  },
       orderBy: {
-        ...(sortBy === "views" ? { views: "desc" } : { createdAt: "asc " }),
+        ...(sortBy === "views" ? { views: "desc" } : { createdAt: "asc" }),
       },
     };
   }

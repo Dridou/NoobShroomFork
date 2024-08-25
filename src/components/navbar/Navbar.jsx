@@ -61,6 +61,7 @@ const Navbar = () => {
       </div>
 
       <ul className={`${styles.navMenu} ${isOpen ? styles.navMenuOpen : ""}`}>
+	  	<NavItem label="Updates" link="/posts/updates" />
         <NavItem label="About" link="/posts/about-us" />
         <NavItem label="Contact" link="/posts/contact-us" />
         <AuthLinks />
