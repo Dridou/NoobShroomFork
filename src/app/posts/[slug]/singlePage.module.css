@@ -113,6 +113,15 @@
 	@import 'bootstrap/dist/css/bootstrap.min.css';
 }
 
+.fullHeader {
+	gap:5px;
+}
+
+.creationDate {
+	font-size: 14px;
+	color: var(--softTextColor);
+}
+
 .updateHeader {
 	display: flex;
 	gap: 20px;

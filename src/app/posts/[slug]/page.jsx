@@ -112,25 +112,28 @@ export default async function SinglePage({ params }) {
       const updates = await getUpdates();
       sectionsContent = updates.map((update) => (
         <div key={update.id} className={styles.update}>
-          <div className={styles.updateHeader}>
-            <h2>{update.title}</h2>
-            <span>
-              {update.post && update.section ? (
-                <div className={styles.references}>
-                  <span className={styles.postReference}>
-                    {update.post.title}
-                  </span>
-                  <span className={styles.arrow}>-</span>
-                  <span className={styles.sectionReference}>
-                    {update.section.title}
-                  </span>
-                </div>
-              ) : (
-                <div className={styles.references}>
-                  <span className={styles.noReference}>General</span>
-                </div>
-              )}
-            </span>
+          <div className={styles.fullHeader}>
+            <span className={styles.creationDate}>{update.createdAt.toLocaleDateString()}</span>
+            <div className={styles.updateHeader}>
+              <h2>{update.title}</h2>
+              <span>
+                {update.post && update.section ? (
+                  <div className={styles.references}>
+                    <span className={styles.postReference}>
+                      {update.post.title}
+                    </span>
+                    <span className={styles.arrow}>-</span>
+                    <span className={styles.sectionReference}>
+                      {update.section.title}
+                    </span>
+                  </div>
+                ) : (
+                  <div className={styles.references}>
+                    <span className={styles.noReference}>General</span>
+                  </div>
+                )}
+              </span>
+            </div>
           </div>
 
           <p>{update.content}</p>
