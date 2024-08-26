@@ -29,6 +29,11 @@ const getData = async (page, cat) => {
   return res.json();
 };
 
+const isPostReady = (post) => {
+	console.log(post);
+  return post.slug !== "best-class";
+};
+
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
 
@@ -37,8 +42,8 @@ const CardList = async ({ page, cat }) => {
       <h1 className={styles.title}>Recent Posts</h1>
       <hr className={styles.divider} />
       <div className={styles.posts}>
-        {posts?.map((item) => (
-          <Card item={item} key={item._id} />
+        {posts?.map((item) => ( isPostReady(item) && (
+          <Card item={item} key={item._id} />)
         ))}
       </div>
     </div>
