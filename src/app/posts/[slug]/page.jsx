@@ -120,7 +120,7 @@ export default async function SinglePage({ params }) {
                   <span className={styles.postReference}>
                     {update.post.title}
                   </span>
-                  <span className={styles.arrow}>→</span>
+                  <span className={styles.arrow}>-</span>
                   <span className={styles.sectionReference}>
                     {update.section.title}
                   </span>
@@ -132,6 +132,7 @@ export default async function SinglePage({ params }) {
               )}
             </span>
           </div>
+
           <p>{update.content}</p>
           {update.post && update.section ? (
             <Link
