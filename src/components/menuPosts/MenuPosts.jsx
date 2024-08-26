@@ -13,21 +13,25 @@ const getBaseUrl = () => {
   }
 };
 
-export const getPopularPosts = async () => {
+const getData = async () => {
+	const baseUrl = getBaseUrl();
+	const res = await fetch(
+	  `${baseUrl}/api/posts?sortBy=views`
+	);
 
-  const baseUrl = getBaseUrl();
-  console.log("Fetching from URL:", baseUrl); // Log the URL
-  const res = await fetch(`${baseUrl}/api/posts?sortBy=views`);
+	if (!res.ok) {
+	  const errorDetails = await res.text();
+	  console.error("Fetch failed:", errorDetails);
+	  throw new Error("Failed to fetch posts");
+	}
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts");
-  }
-  return res.json();
-};
+	return res.json();
+  };
 
 const MenuPosts = async () => {
-  const { posts, count } = await getPopularPosts();
+  const { posts, count } = await getData();
   return (
+
     <div className={styles.items}>
       {posts?.map((post) => (
         <Link
@@ -44,7 +48,6 @@ const MenuPosts = async () => {
             />
           </div>
           <div className={styles.textContainer}>
-            {/* <span className={styles.classGuide}>{post.catSlug}</span> */}
             <h3 className={styles.postTitle}>{post.title}</h3>
             <div className={styles.detail}>
               <span className={styles.username}>{post.user.name}</span>

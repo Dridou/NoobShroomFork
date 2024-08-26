@@ -12,7 +12,7 @@ const BlogPage = ({ searchParams }) => {
         <h1 className={styles.title}>{cat.replace("-", " ")}</h1>
       </div>
       <div className={styles.content}>
-        <CardList page={page} cat={cat} />
+        <CardList cat={cat} />
         <Menu />
       </div>
     </div>

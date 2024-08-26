@@ -279,7 +279,7 @@ export default async function SinglePage({ params }) {
         <div className={styles.content}>
           {sectionsContent}
           <div className={styles.bottomContent}>
-            <CardList page={1} />
+            <CardList />
             <Menu />
           </div>
         </div>
