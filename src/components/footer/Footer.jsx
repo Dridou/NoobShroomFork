@@ -39,7 +39,7 @@ const Footer = () => {
                 className={styles.discordLogo}
               />
               <Link
-                href="https://discord.gg/BtwdhuBk"
+                href="https://discord.gg/V8FzGSQyer"
                 target="_blank"
                 className={styles.discordText}
               >
