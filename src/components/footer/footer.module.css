@@ -3,11 +3,11 @@
 	padding: 20px 0px;
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-start; /* Align items to the top */
 	color: var(--softTextColor);
 	gap: 20px;
 	flex-wrap: wrap;
-	/* Permet aux éléments de passer à la ligne si nécessaire */
-}
+  }
 
 .info {
 	flex: 1;
@@ -37,6 +37,59 @@
 	gap: 10px;
 }
 
+.bmcContainer,
+.discordContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align the content */
+  text-align: center;
+  flex: 1;
+}
+
+.bmcButton {
+	background-color: white;
+  }
+
+  .discordButton {
+	background-color: #5865f2;
+	font-size: 28px;
+	color: white;
+  }
+
+.bmcButton {
+	display: flex;
+	align-items: center;
+	background-color: white;
+	gap: 10px;
+	padding: 15px;
+	border-radius: 10px;
+	width: fit-content;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+.discordButton {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 15px;
+	border-radius: 10px;
+	background-color: #5865f2;
+	/* Discord's main color */
+	/* font-size: 28px; */
+	color: white;
+
+
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.bmcText {
+	color: black;
+	font-size: 26px;
+}
+
 .discord {
 	flex: 1;
 	text-align: right;
@@ -47,27 +100,9 @@
 	/* Aligne le contenu de discord à droite */
 }
 
-.discordContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-}
 
-.discordButton {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	background-color: #5865f2;
-	/* Discord's main color */
-	font-size: 28px;
-	color: white;
-	padding: 12px 20px;
-	border-radius: 8px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
+
+
 
 .discordButton:hover {
 	background-color: #4752c4;
@@ -78,11 +113,15 @@
 	display: inline-block;
 }
 
-.discordText {
+.important {
+	color: cornflowerblue;
+	font-weight: 600;
+}
+
+
+.paragraphText {
 	margin-top: 10px;
-	font-size: 14px;
-	color: var(--textColor);
-	font-size: 16px;
+	font-size: calc(15px + 0.390625vw);
 }
 
 .yo {
@@ -122,10 +161,6 @@
 	.container {
 		flex-direction: column;
 	}
-
-	/* .links {
-	  justify-content: start;
-	} */
 
 	.discord {
 		text-align: left;

@@ -7,19 +7,25 @@ const Footer = () => {
   return (
     <div>
       <div className={styles.container}>
-        <div className={styles.info}>
-          <div className={styles.logo}>
-            <Image
-              src="/images/noobshroom-full-logo.png"
-              alt="noobshroom Logo"
-              width={200}
-              height={45}
-            />
+        <div className={styles.bmcContainer}>
+          <div>
+            <Link
+              href="https://www.buymeacoffee.com/NoobShroom"
+              target="_blank"
+              className={styles.bmcButton}
+            >
+              <Image
+                src="/images/bmc-logo.png"
+                alt="Buy me a coffee Logo"
+                width={30}
+                height={30}
+                className={styles.discordLogo}
+              />
+              <span className={styles.bmcText}>Buy me a coffee</span>
+            </Link>
           </div>
-          <p className={styles.desc}>
-            Created to help you find the most accurate and up-to-date
-            information about the game Legend of Mushrooms, including the latest
-            news, updates, and guides.
+          <p className={styles.paragraphText}>
+            Ever been <span className={styles.important}>helped by my content?</span> Support us by buying us a coffee!
           </p>
         </div>
         <div className={styles.discord}>
@@ -28,13 +34,19 @@ const Footer = () => {
               <Image
                 src="/images/icon_discord.png"
                 alt="Discord Logo"
-                width={30}
-                height={23}
+                width={40}
+                height={30}
                 className={styles.discordLogo}
               />
-              <Link href="https://discord.gg/BtwdhuBk" target="_blank" className={styles.discordText}>Join NoobShroom Community !</Link>
+              <Link
+                href="https://discord.gg/BtwdhuBk"
+                target="_blank"
+                className={styles.discordText}
+              >
+                Join NoobShroom Community !
+              </Link>
             </div>
-            <p className={styles.discordText}>
+            <p className={styles.paragraphText}>
               Connect with other Legend of Mushrooms enthusiasts and get the
               latest news and updates.
             </p>
