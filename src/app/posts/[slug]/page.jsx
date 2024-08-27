@@ -21,6 +21,15 @@ const getBaseUrl = () => {
   }
 };
 
+const slugifyTitle = (title) => {
+	return title
+	  .toLowerCase() // Convert to lowercase
+	  .trim() // Remove whitespace from both ends
+	  .replace(/[\s?]/g, '-') // Replace spaces and '?' with hyphens
+	  .replace(/[^\w-]+/g, ''); // Remove any character that is not a word, a hyphen, or underscore
+  }
+
+
 export async function generateMetadata({ params }) {
   const { slug } = params;
   const post = await prisma.post.findUnique({
@@ -139,8 +148,8 @@ export default async function SinglePage({ params }) {
           <p>{update.content}</p>
           {update.post && update.section ? (
             <Link
-              href={`${getBaseUrl()}/posts/${update.post?.slug}/#section-${
-                update.sectionId
+              href={`${getBaseUrl()}/posts/${update.post?.slug}/#${
+                slugifyTitle(section.title)
               }`}
             >
               <span>
@@ -162,7 +171,7 @@ export default async function SinglePage({ params }) {
           return (
             <div
               key={section.id}
-              id={`section-${section.id}`}
+              id={`${slugifyTitle(section.title)}`}
               className={styles.section}
             >
               <div className={styles.sectionHeader}>
@@ -206,7 +215,7 @@ export default async function SinglePage({ params }) {
           return (
             <div
               key={section.id}
-              id={`section-${section.id}`}
+              id={`${slugifyTitle(section.title)}`}
               className={styles.section}
             >
               <div className={styles.sectionHeader}>
@@ -272,8 +281,8 @@ export default async function SinglePage({ params }) {
             <h2>Table of Contents</h2>
             <ul>
               {post.sections.map((section) => (
-                <li key={section.id}>
-                  <a href={`#section-${section.id}`}>{section.title}</a>
+                <li key={section.title}>
+                  <a href={`#${slugifyTitle(section.title)}`}>{section.title}</a>
                 </li>
               ))}
             </ul>
