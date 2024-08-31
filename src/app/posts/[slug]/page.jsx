@@ -272,7 +272,7 @@ export default async function SinglePage({ params }) {
                     src={post.user.image}
                     alt="avatar image"
                     width={48}
-					height={48}
+                    height={48}
                     className={styles.avatar}
                   />
                 </div>
@@ -316,6 +316,9 @@ export default async function SinglePage({ params }) {
 
         <div className={styles.content}>
           {sectionsContent}
+          <div className={styles.comment}>
+            <Comments postSlug={slug} />
+          </div>
           <div className={styles.bottomContent}>
             <CardList />
             <Menu />
