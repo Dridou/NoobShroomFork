@@ -30,7 +30,6 @@ const getData = async (page, cat) => {
 };
 
 const isPostReady = (post) => {
-	console.log(post);
   return post.slug !== "best-class";
 };
 

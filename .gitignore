@@ -33,3 +33,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+x.html
+x.html
+public/sitemap-0.xml
+zdata/tmp.json
+y.html

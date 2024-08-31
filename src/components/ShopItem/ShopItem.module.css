@@ -1,0 +1,64 @@
+﻿/* .image {
+	  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75%;
+  object-fit: contain;
+} */
+
+.objetNameAndPrice {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* height: max-content; */
+}
+
+.objetImageContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 10px;
+}
+
+.priority {
+	font-weight: bold;
+	color:black;
+	align-items: center;
+	text-align: center;
+	padding: 5px;
+	width: auto;
+	height: auto;
+	border-radius: 10px;
+	display: flex; /* Utiliser Flexbox pour centrer le texte */
+	justify-content: center; /* Centrer horizontalement */
+	align-items: center; /* Centrer verticalement */
+	margin: auto;
+  }
+
+.never {
+	background-color: grey;
+}
+
+.rarely {
+	background-color: orange;
+}
+
+.situational {
+	background-color: lightyellow;
+}
+
+.optional {
+	background-color: lightblue;
+}
+
+.important {
+	background-color: lightcoral;
+}
+
+.mandatory {
+	background-color: rgb(148, 82, 165);
+}
+
+.always {
+	background-color: lightgreen;
+}

@@ -5,6 +5,7 @@ import SetSection from "@/components/setSection/SetSection";
 import CardList from "@/components/cardList/CardList";
 import Menu from "@/components/Menu/Menu";
 import Link from "next/link";
+import Shop from "@/components/Shop/Shop";
 import Comments from "@/components/comments/Comments";
 import "../../styles/colStyles.css"; // Import custom table styles
 import "../../styles/tableStyles.css"; // Import custom table styles
@@ -22,13 +23,12 @@ const getBaseUrl = () => {
 };
 
 const slugifyTitle = (title) => {
-	return title
-	  .toLowerCase() // Convert to lowercase
-	  .trim() // Remove whitespace from both ends
-	  .replace(/[\s?]/g, '-') // Replace spaces and '?' with hyphens
-	  .replace(/[^\w-]+/g, ''); // Remove any character that is not a word, a hyphen, or underscore
-  }
-
+  return title
+    .toLowerCase() // Convert to lowercase
+    .trim() // Remove whitespace from both ends
+    .replace(/[\s?]/g, "-") // Replace spaces and '?' with hyphens
+    .replace(/[^\w-]+/g, ""); // Remove any character that is not a word, a hyphen, or underscore
+};
 
 export async function generateMetadata({ params }) {
   const { slug } = params;
@@ -83,6 +83,11 @@ async function getData(slug) {
           displayOrder: "asc",
         },
       },
+      shop: {
+		orderBy: {
+		  displayOrder: "asc",
+		},
+	  },
     },
   });
 
@@ -108,6 +113,7 @@ async function getUpdates() {
     throw new Error("Updates not found");
   }
 
+  console.log(updates);
   return updates;
 }
 
@@ -118,11 +124,15 @@ export default async function SinglePage({ params }) {
     const post = await getData(slug);
     let sectionsContent = null;
     if (post.slug === "updates") {
+      console.log("in updates");
       const updates = await getUpdates();
+
       sectionsContent = updates.map((update) => (
         <div key={update.id} className={styles.update}>
           <div className={styles.fullHeader}>
-            <span className={styles.creationDate}>{update.createdAt.toLocaleDateString()}</span>
+            <span className={styles.creationDate}>
+              {update.createdAt.toLocaleDateString()}
+            </span>
             <div className={styles.updateHeader}>
               <h2>{update.title}</h2>
               <span>
@@ -145,12 +155,12 @@ export default async function SinglePage({ params }) {
             </div>
           </div>
 
-          <p>{update.content}</p>
+          <p dangerouslySetInnerHTML={{ __html: update.content }}></p>
           {update.post && update.section ? (
             <Link
-              href={`${getBaseUrl()}/posts/${update.post?.slug}/#${
-                slugifyTitle(section.title)
-              }`}
+              href={`${getBaseUrl()}/posts/${update.post?.slug}/#${slugifyTitle(
+                update.section.title
+              )}`}
             >
               <span>
                 → See{" "}
@@ -164,6 +174,18 @@ export default async function SinglePage({ params }) {
         </div>
       ));
       // sectionsContent = "coucou"
+    } else if (post.slug === "what-to-buy-in-shops") {
+      sectionsContent = post.shop.map((shop) => {
+        return (
+          <div key={shop.id} className={styles.shop}>
+            <div className={styles.shopHeader}>
+              <h2>{shop.title}</h2>
+			  <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
+            </div>
+            <Shop shopId={shop.id} />
+          </div>
+        );
+      });
     } else {
       // Préparer le contenu de chaque section avant le return principal
       sectionsContent = post.sections.map((section) => {
@@ -248,8 +270,9 @@ export default async function SinglePage({ params }) {
                 <div className={styles.userImageContainer}>
                   <Image
                     src={post.user.image}
-                    alt=""
-                    fill
+                    alt="avatar image"
+                    width={48}
+					height={48}
                     className={styles.avatar}
                   />
                 </div>
@@ -282,7 +305,9 @@ export default async function SinglePage({ params }) {
             <ul>
               {post.sections.map((section) => (
                 <li key={section.title}>
-                  <a href={`#${slugifyTitle(section.title)}`}>{section.title}</a>
+                  <a href={`#${slugifyTitle(section.title)}`}>
+                    {section.title}
+                  </a>
                 </li>
               ))}
             </ul>

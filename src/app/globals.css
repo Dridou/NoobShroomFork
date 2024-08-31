@@ -12,6 +12,10 @@
 	box-sizing: border-box;
 }
 
+p {
+	margin-bottom: 15px;
+}
+
 body {
 	max-width: 100vw;
 	overflow-x: hidden;
@@ -26,10 +30,16 @@ a {
 	text-decoration: none;
 }
 
+.tips {
+	color: #9061b6;
+    font-weight: bold;
+}
+
 ul,
 ol {
 	margin-left: 20px;
 	padding-left: 0;
+	padding-bottom: 10px;
 }
 
 .dark {

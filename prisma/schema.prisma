@@ -80,6 +80,8 @@ model Post {
   comments  Comment[]
   sections  Section[]
   updates   Update[]
+  shop      Shop[]
+
 }
 
 model Update {
@@ -142,6 +144,33 @@ model Set {
   sectionId          String?
   section            Section?  @relation(fields: [sectionId], references: [id])
 }
+
+model shopItem {
+	id String @id @default(cuid()) @map("_id")
+	objectImage String
+	objectName String
+	price Int
+	priority String?
+	explanation String?
+	displayOrder Int?
+	shopId String
+	shop Shop @relation("shop", fields: [shopId], references: [id])
+}
+
+model Shop {
+  id      String  @id @default(cuid()) @map("_id")
+  title   String
+  desc    String?
+  shopItems shopItem[] @relation("shop")
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt @default(now())
+  displayOrder Int?
+
+  money String[]
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+}
+
 
 model Table {
   id          String      @id @default(cuid()) @map("_id")

@@ -11,7 +11,8 @@ const nextConfig = {
         headers: [
           {
             key: "Cache-Control",
-            value: "s-maxage=86400, stale-while-revalidate=59", // Cache global de 24 heures
+            value: "no-cache, no-store, must-revalidate",
+			// value: "s-maxage=86400, stale-while-revalidate=59",
           },
         ],
       },
