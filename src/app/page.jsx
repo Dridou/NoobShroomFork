@@ -16,31 +16,17 @@ const getBaseUrl = () => {
   }
 };
 
-async function getInitialPosts() {
-	const res = await fetch(`${getBaseUrl()}/api/posts`, {
-	  next: { revalidate: 60 }, // ISR: Revalider toutes les 60 secondes
-	});
-	if (!res.ok) {
-	  console.error("Failed to fetch initial posts");
-	  return [];
-	}
+export default function Home({ searchParams }) {
+	const page = parseInt(searchParams.page) || 1;
 
-	const { posts } = await res.json();
-	return posts;
-  }
-
-export default async function Home({}) {
-  const initialPosts = await getInitialPosts(); // Récupérer les posts initiaux
-
-  return (
-    <div className={styles.container}>
-      <Featured />
-      <CategoryList />
-      <div className={styles.content}>
-        {/* Passez les posts initiaux au composant client */}
-        <CardList initialPosts={initialPosts} />
-        <Menu />
-      </div>
-    </div>
-  );
+	return (
+	  <div className={styles.container}>
+		<Featured />
+		<CategoryList />
+		<div className={styles.content}>
+		  <CardList page={page}/>
+		  <Menu />
+		</div>
+	  </div>
+	);
 }
