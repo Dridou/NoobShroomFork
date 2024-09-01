@@ -324,6 +324,9 @@ export default async function SinglePage({ params }) {
 
       <div className={styles.content}>
         {sectionsContent}
+		<div className={styles.comment}>
+            <Comments postSlug={slug} />
+          </div>
         <div className={styles.bottomContent}>
           <CardList />
           <Menu />
