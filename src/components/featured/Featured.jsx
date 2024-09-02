@@ -51,7 +51,7 @@ const Featured = async () => {
             <b>What to buy in shops ?</b>
           </h1>
           <p className={styles.postDesc}>
-		  Have you ever wondered <span className={styles.tips}>what you should buy first</span> in the Family Shop, the Brawl Shop or during events ?<br /><br />I've done my best to make this guide <span className={styles.tips}>easy to follow</span>, and I truly hope it helps you on your journey to becoming a better player.
+		  Have you ever wondered <span className={styles.tips}>what you should buy first</span> in the Family Shop, the Brawl Shop or during events ?<br /><br />I tried my best to make this guide <span className={styles.tips}>easy to follow</span>, and I truly hope it helps you on your journey to becoming a better player.
           </p>
           <button className={styles.button}>
             <a href={"/posts/what-to-buy-in-shops"}>
