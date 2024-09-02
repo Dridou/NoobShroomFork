@@ -25,15 +25,24 @@
   border-radius: 15px;
 }
 
+.tips {
+	color: #4c54c9;
+    font-weight: bold;
+}
+
 .imgContainer {
   flex: 1;
   height: 500px;
   position: relative;
   object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .image {
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .textContainer {
@@ -67,6 +76,14 @@
   .subtitle {
 	font-size: 36px;
   }
+
+  .post {
+	flex-direction: column;
+  }
+
+  .textContainer {
+	align-items: center;
+  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -88,9 +105,6 @@
 	font-size: 18px;
   }
 
-  .textContainer {
-	align-items: center;
-  }
 }
 
 @media screen and (max-width: 768px) {

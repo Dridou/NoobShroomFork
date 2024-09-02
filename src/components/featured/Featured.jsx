@@ -39,23 +39,22 @@ const Featured = async () => {
       <div className={styles.post}>
         <div className={styles.imgContainer}>
           <Image
-            src="/images/prophet-character.png"
+            src="/images/shops-banner.png"
             alt=""
-            width={512}
-            height={512}
+            width={520}
+            height={210}
             className={styles.image}
           />
         </div>
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>
-            <b>{post?.title}</b>
+            <b>What to buy in shops ?</b>
           </h1>
           <p className={styles.postDesc}>
-            {post?.description ||
-              `Discover all the knowledge accumulated by the best Prophet players, avoid mistakes and learn from the best how to play your pre-blitz Prophet!`}
+		  Have you ever wondered <span className={styles.tips}>what you should buy first</span> in the Family Shop, the Brawl Shop or during events ?<br /><br />I've done my best to make this guide <span className={styles.tips}>easy to follow</span>, and I truly hope it helps you on your journey to becoming a better player.
           </p>
           <button className={styles.button}>
-            <a href={`/posts/${post?.slug || "prophet-preblitz-class-guide"}`}>
+            <a href={"/posts/what-to-buy-in-shops"}>
               Read more
             </a>
           </button>
