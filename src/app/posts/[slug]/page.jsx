@@ -117,17 +117,18 @@ const renderShopsSection = (shops) => {
   }
 
   return (
-    <>
-      {shops.map((shop) => (
-        <div key={shop.id} className={styles.shop}>
-          <div className={styles.shopHeader}>
-            <h2>{shop.title}</h2>
-            <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
-          </div>
-          <Shop shop={shop} />
-        </div>
-      ))}
-    </>
+      <>
+      	{shops.map((shop) => (
+	        <div key={shop.id} id={`${slugifyTitle(shop.title)}`} className={styles.shop}>
+	          <div className={styles.shopHeader}>
+	            <h2>{shop.title}</h2>
+	            <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
+	          </div>
+	          <Shop shop={shop} />
+	        </div>
+	      ))}
+      </>
+
   );
 };
 
