@@ -3,7 +3,7 @@ import ShopItem from "@/components/ShopItem/ShopItem";
 import "../../app/styles/colStyles.css"; // Import custom table styles
 import "../../app/styles/tableStyles.css"; // Import custom table styles
 import "./Shop.module.css";
-import "../../app/posts/[slug]/singlePage.module.css";
+import styles from "../../app/posts/[slug]/singlePage.module.css";
 
 
 const Shop = ({ shop }) => {
@@ -15,7 +15,7 @@ const Shop = ({ shop }) => {
 	const secondMoney = money.length > 1 ? money[1] : null;
 
   return ( shopItems.length > 0 &&
-    <div>
+    <div className={styles.section}>
       <table className="custom-table">
         <thead>
           <tr>

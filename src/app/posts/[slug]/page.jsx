@@ -116,15 +116,19 @@ const renderShopsSection = (shops) => {
     return <div>Shops not found</div>;
   }
 
-  return shops.map((shop) => (
-    <div key={shop.id} className={styles.shop}>
-      <div className={styles.shopHeader}>
-        <h2>{shop.title}</h2>
-        <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
-      </div>
-      <Shop shop={shop} />
-    </div>
-  ));
+  return (
+    <>
+      {shops.map((shop) => (
+        <div key={shop.id} className={styles.shop}>
+          <div className={styles.shopHeader}>
+            <h2>{shop.title}</h2>
+            <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
+          </div>
+          <Shop shop={shop} />
+        </div>
+      ))}
+    </>
+  );
 };
 
 // Render updates section for "updates" page
@@ -261,6 +265,7 @@ export default async function SinglePage({ params }) {
 
   switch (slug) {
     case "what-to-buy-in-shops":
+	post = await fetchPostData(slug);
       const shops = await fetchShopsData();
       sectionsContent = renderShopsSection(shops);
       break;
@@ -313,24 +318,33 @@ export default async function SinglePage({ params }) {
         )}
       </div>
 
-      {slug !== "updates" && post?.sections ? (
+      {slug !== "updates" &&
+      (slug === "what-to-buy-in-shops" ? post?.shop : post?.sections) ? (
         <div className={styles.tableOfContents}>
           <h2>Table of Contents</h2>
           <ul>
-            {post.sections.map((section) => (
-              <li key={section.title}>
-                <a href={`#${slugifyTitle(section.title)}`}>{section.title}</a>
-              </li>
-            ))}
+            {slug === "what-to-buy-in-shops"
+              ? post.shop.map((shop) => (
+                  <li key={shop.title}>
+                    <a href={`#${slugifyTitle(shop.title)}`}>{shop.title}</a>
+                  </li>
+                ))
+              : post.sections.map((section) => (
+                  <li key={section.title}>
+                    <a href={`#${slugifyTitle(section.title)}`}>
+                      {section.title}
+                    </a>
+                  </li>
+                ))}
           </ul>
         </div>
       ) : null}
 
       <div className={styles.content}>
         {sectionsContent}
-		<div className={styles.comment}>
-            <Comments postSlug={slug} />
-          </div>
+        <div className={styles.comment}>
+          <Comments postSlug={slug} />
+        </div>
         <div className={styles.bottomContent}>
           <CardList />
           <Menu />

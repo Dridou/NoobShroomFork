@@ -31,10 +31,9 @@ const fetcher = async (url) => {
 
 const Comments = ({ postSlug }) => {
   const { status } = useSession();
-  const baseUrl = getBaseUrl();
 
   const { data, mutate, isLoading } = useSWR(
-    `${baseUrl}/api/comments?postSlug=${postSlug}`,
+    `${getBaseUrl()}/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
