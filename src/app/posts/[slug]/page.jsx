@@ -39,6 +39,9 @@ export async function generateStaticParams() {
 // Fetch shops data for "what-to-buy-in-shops" page
 const fetchShopsData = async () => {
   const shops = await prisma.shop.findMany({
+	orderBy: {
+		displayOrder: "asc",
+	},
     include: {
       shopItems: {
         orderBy: {
@@ -46,6 +49,7 @@ const fetchShopsData = async () => {
         },
       },
     },
+
   });
 
   if (!shops) {

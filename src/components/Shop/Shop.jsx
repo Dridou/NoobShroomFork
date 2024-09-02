@@ -14,7 +14,7 @@ const Shop = ({ shop }) => {
 	const currentMoney = money[0];
 	const secondMoney = money.length > 1 ? money[1] : null;
 
-  return (
+  return ( shopItems.length > 0 &&
     <div>
       <table className="custom-table">
         <thead>

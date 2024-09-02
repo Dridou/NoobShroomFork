@@ -51,11 +51,11 @@
 	background-color: lightblue;
 }
 
-.important {
+.mandatory {
 	background-color: lightcoral;
 }
 
-.mandatory {
+.important {
 	background-color: rgb(148, 82, 165);
 }
 
