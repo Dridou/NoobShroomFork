@@ -22,7 +22,6 @@ const Navbar = () => {
       <div className={styles.discord}>
         <Link
           href="https://discord.gg/V8FzGSQyer"
-          target="_blank"
           className={styles.discordButton}
         >
           <Image

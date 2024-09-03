@@ -40,7 +40,6 @@ const Footer = () => {
               />
               <Link
                 href="https://discord.gg/V8FzGSQyer"
-                target="_blank"
                 className={styles.discordText}
               >
                 Join NoobShroom Community !
