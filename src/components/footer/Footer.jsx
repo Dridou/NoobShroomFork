@@ -47,7 +47,7 @@ const Footer = () => {
               </Link>
             </div>
             <p className={styles.paragraphText}>
-              Connect with other Legend of Mushrooms enthusiasts and get the
+              Connect with other legend of mushroom enthusiasts and get the
               latest news and updates.
             </p>
           </div>

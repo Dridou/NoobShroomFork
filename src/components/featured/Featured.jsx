@@ -29,7 +29,7 @@ const Featured = async () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <b>Your ultimate Legend of Mushrooms reference</b>
+        <b>Your ultimate Legend of Mushroom reference</b>
       </h1>
       <h2 className={styles.subtitle}>
         <i>

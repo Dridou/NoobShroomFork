@@ -10,8 +10,8 @@ import AuthProvider from "@/providers/AuthProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Legend of Mushrooms - Wiki",
-  description: "Your ultimate guide to the Legend of Mushrooms game",
+  title: "Legend of Mushroom - Wiki",
+  description: "Your ultimate guide to the Legend of Mushroom game",
 };
 
 export default function RootLayout({ children }) {
