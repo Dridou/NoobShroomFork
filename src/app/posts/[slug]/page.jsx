@@ -2,6 +2,7 @@
 
 import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
+import Head from 'next/head';
 import styles from "./singlePage.module.css";
 import SetSection from "@/components/setSection/SetSection";
 import CardList from "@/components/cardList/CardList";
@@ -17,6 +18,27 @@ const prisma = new PrismaClient();
 // Helper function to generate slug
 const slugifyTitle = (title) => {
   return title.toLowerCase().trim().replace(/[\s?]/g, "-").replace(/[^\w-]+/g, "");
+};
+
+
+export async function generateMetadata({ params }) {
+	const post = await fetchPostData(params.slug);
+	if (!post || !post.metadata) {
+		return {
+		  title: 'Default Title',
+		  description: 'Default description for SEO purposes.',
+		};
+	  }
+	  const { metadata } = post;
+	  return {
+		title: metadata?.title || 'Default Title',
+		description: metadata?.description || 'Default description for SEO purposes.',
+		openGraph: {
+		  url: metadata?.url || 'https://www.noobshroom.com',
+		  title: metadata?.title || 'Default Title',
+		  description: metadata?.description || 'Default description for SEO purposes.',
+		}
+	};
 };
 
 // Fetch all posts for static paths generation
@@ -80,6 +102,7 @@ const fetchUpdatesData = async () => {
 
 // Fetch post data based on slug
 const fetchPostData = async (slug) => {
+	console.log(slug);
   const post = await prisma.post.findUnique({
     where: { slug },
     include: {
@@ -271,6 +294,7 @@ export default async function SinglePage({ params }) {
       sectionsContent = renderShopsSection(shops);
       break;
     case "updates":
+		post = await fetchPostData(slug);
       const updates = await fetchUpdatesData();
       sectionsContent = renderUpdatesSection(updates);
       break;
