@@ -2,6 +2,7 @@
 	siteUrl: 'https://www.noobshroom.com',
 	generateRobotsTxt: true,
 	sitemapSize: 7000,
+	exclude: ['/write', '/login', '/api/*', '/best-class', '/terms', '/privacy-policy', '/source-credit', '/contact-us', '/about-us'], // Exclude these paths from sitemap
 	additionalPaths: async (config) => {
 	  const paths = [];
 
@@ -12,8 +13,9 @@
 		const posts = data.posts || [];
 
 		posts.forEach((post) => {
-			console.log(post.slug);
-		  paths.push({ loc: `/posts/${post.slug}`, changefreq: 'weekly', priority: 0.7 });
+		  if (!['best-class', 'terms', 'privacy-policy', 'source-credit', 'contact-us', 'about-us'].includes(post.slug)) { // Exclude these slugs
+			paths.push({ loc: `/posts/${post.slug}`, changefreq: 'weekly', priority: 0.7 });
+		  }
 		});
 	  } catch (error) {
 		console.error("Failed to fetch posts for sitemap:", error);

@@ -23,23 +23,46 @@ const slugifyTitle = (title) => {
 
 export async function generateMetadata({ params }) {
 	const post = await fetchPostData(params.slug);
+
+	// Slugs pour lesquels nous ne voulons pas d'indexation
+	const noIndexSlugs = [
+	  'best-class',
+	  'terms',
+	  'privacy-policy',
+	  'source-credit',
+	  'contact-us',
+	  'about-us',
+	];
+
 	if (!post || !post.metadata) {
-		return {
-		  title: 'Default Title',
-		  description: 'Default description for SEO purposes.',
-		};
-	  }
-	  const { metadata } = post;
 	  return {
+		title: 'Default Title',
+		description: 'Default description for SEO purposes.',
+	  };
+	}
+
+	const { metadata } = post;
+
+	// Vérification si le slug est dans la liste des noIndexSlugs
+	const isNoIndex = noIndexSlugs.includes(params.slug);
+
+	return {
+	  title: metadata?.title || 'Default Title',
+	  description: metadata?.description || 'Default description for SEO purposes.',
+	  openGraph: {
+		url: metadata?.url || 'https://www.noobshroom.com',
 		title: metadata?.title || 'Default Title',
 		description: metadata?.description || 'Default description for SEO purposes.',
-		openGraph: {
-		  url: metadata?.url || 'https://www.noobshroom.com',
-		  title: metadata?.title || 'Default Title',
-		  description: metadata?.description || 'Default description for SEO purposes.',
-		}
+	  },
+	  // Ajout de l'objet robots pour les slugs spécifiés
+	  robots: isNoIndex
+		? {
+			index: false,
+			follow: false,
+		  }
+		: undefined, // Pas de robots si le slug ne correspond pas
 	};
-};
+  }
 
 // Fetch all posts for static paths generation
 export async function generateStaticParams() {
