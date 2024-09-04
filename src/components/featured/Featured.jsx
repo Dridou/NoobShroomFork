@@ -39,22 +39,22 @@ const Featured = async () => {
       <div className={styles.post}>
         <div className={styles.imgContainer}>
           <Image
-            src="/images/shops-banner.png"
+            src="/images/update-image.webp"
             alt=""
-            width={520}
-            height={210}
+            width={594}
+            height={335}
             className={styles.image}
           />
         </div>
         <div className={styles.textContainer}>
           <h1 className={styles.postTitle}>
-            <b>What to buy in shops ?</b>
+            <b>Update Septembre 4th : New class - Spirit Channeler and adjustements</b>
           </h1>
           <p className={styles.postDesc}>
-		  Have you ever wondered <span className={styles.tips}>what you should buy first</span> in the Family Shop, the Brawl Shop or during events ?<br /><br />I tried my best to make this guide <span className={styles.tips}>easy to follow</span>, and I truly hope it helps you on your journey to becoming a better player.
+		  Discover everything you need to know about the exciting <span class="tips">new update</span> in Legend of Mushroom! The new <span class="tips">Spirit Channeler class</span> is here, bringing a complete overhaul to game balance, including major adjustments to Pals, Relics, Accessory Talents, and more.<br/><br/>In our <span class="tips">preliminary analysis</span>, we dive into the details of these changes and explore their potential impact on gameplay.<br/><br/><span class="tips">Follow our ongoing analysis</span> to stay up-to-date and understand how these adjustments might shake up your favorite strategies! Stay tuned for real-time updates and in-depth guides!
           </p>
           <button className={styles.button}>
-            <a href={"/posts/what-to-buy-in-shops"}>
+            <a href={"/posts/update-new-class"}>
               Read more
             </a>
           </button>
