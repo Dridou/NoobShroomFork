@@ -23,11 +23,13 @@ export default function RootLayout({ children }) {
           <ThemeContextProvider>
             <ThemeProvider>
               <div className="container">
-                <div className="wrapper">
+
                   <Navbar />
+				  <div className="wrapper">
                   {children}
+				  </div>
                   <Footer />
-                </div>
+
               </div>
             </ThemeProvider>
           </ThemeContextProvider>
