@@ -1,16 +1,83 @@
 ﻿.navItem {
 	position: relative;
-  }
+	cursor: pointer;
+}
 
-  .navLink {
+.dropdownMenu {
+	position: absolute;
+	background-color: var(--softBg);
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	gap: 10px;
+	white-space: nowrap;
+	text-align: left;
+	z-index: 999;
+	border-radius: 15px;
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+	max-height: 0;
+
+
+  /* top: 100%;
+  left: 0; */
+}
+
+.open {
+	max-height: 300px; /* Hauteur maximum lorsque le menu est ouvert (ajuste selon le contenu) */
+}
+
+.dropdownMenu a {
+	padding: 10px;
+}
+
+.dropdownMenu a:hover {
+	background-color:rgb(125, 133, 168) ;
+	position: relative;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+
+
+.navLink {
 	color: var(--textColor);
 	text-decoration: none;
-	padding: 5px 10px;
-	display: block;
+	/* padding: 5px 10px; */
+	/* display: block; */
 	transition: background-color 0.3s;
 	border-radius: 30px;
-  }
+	padding: 0;
+	margin: 0;
+}
 
-  .navLink:hover {
-	background-color: var(--softBg);
-  }
+.navLink:hover {
+	text-decoration: underline;
+}
+
+.navLink::after {
+		content: " ▼"; /* Flèche vers le bas */
+		font-size: 0.8em; /* Taille de la flèche légèrement plus petite */
+		margin-left: -3px; /* Espace entre le texte et la flèche */
+}
+
+@media screen and (max-width: 1250px) {
+	.dropdownMenu {
+		width: 100%;
+		position: relative;
+		border-radius: 0px;
+	}
+
+	.dropdownMenu a {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.open {
+		background-color: rgb(60, 61, 68);
+		padding: 10px;
+		border-radius: 10px;
+	}
+
+}
