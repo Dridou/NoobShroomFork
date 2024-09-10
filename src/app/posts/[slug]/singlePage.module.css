@@ -90,26 +90,30 @@ p .link {
 }
 
 .section p {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 
 .section h2 {
-	padding-bottom: 15px;
 	color: rgb(255, 255, 255);
-	font-size: calc(15px + 0.690625vw);
+	font-size: 3rem;
 	margin-bottom: 5px;
+	margin-top:10px
 }
 
 .section h3 {
 	padding-bottom: 5px;
-	color: rgb(110, 173, 197);
-	font-size: calc(15px + 0.540625vw);
+	color: rgb(220, 220, 220);
+	font-size: 2rem;
+	text-decoration: underline;
+	margin-top: 40px;
 }
 
-.section h4 {
+.section h4:not([class^="Set"]) {
 	padding-bottom: 2px;
-    color: rgb(126 128 131);
-    font-size: calc(15px + 0.440625vw);
+    color: rgb(212, 212, 212);
+    font-size: 1.5rem;
+	font-weight: 500;
+	font-style: italic;
 }
 
 .section hr {
@@ -119,6 +123,7 @@ p .link {
 
 .section figcaption {
 	color: skyblue;
+	font-size: calc(15px + 0.300625vw)
 }
 
 
