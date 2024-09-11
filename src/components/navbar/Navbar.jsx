@@ -30,15 +30,16 @@ const Navbar = () => {
         <NavItem label="News">
           <Link href="/posts/legend-of-mushrooms-codes">Codes</Link>
           <Link href="/posts/update-new-class">Update new class</Link>
+		  <Link href="/posts/update-sea-12-september">Update SEA 12.09</Link>
           {/* <Link href={postUrl + "codes"}>Leaks</Link> */}
           {/* <Link href={postUrl + "codes"}>Dev Announcement</Link> */}
         </NavItem>
 
         <NavItem label="Class Guides">
           <Link href="/posts/best-class">Best class</Link>
-          <Link href="/posts/arrowgod-class-guide">Archer</Link>
-          <Link href="/posts/berseker-class-guide">Berserker</Link>
-          <Link href="/posts/prophet-preblitz-class-guide">Mage Pre-blitz</Link>
+          <Link href="/posts/arrowgod-class-guide">Archer - Plume Monarch</Link>
+          <Link href="/posts/berseker-class-guide">Warrior - Berserker</Link>
+          <Link href="/posts/prophet-preblitz-class-guide">Mage - Prophet Pre-blitz</Link>
           {/* <Link href="/posts/spirit-channeler">Spirit Channeler</Link> */}
         </NavItem>
 
