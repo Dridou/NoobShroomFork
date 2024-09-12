@@ -36,11 +36,11 @@ const Navbar = () => {
         </NavItem>
 
         <NavItem label="Class Guides">
-          <Link href="/posts/best-class">Best class</Link>
+		  <Link href="/posts/beast-master-class-guide">Spirit Channeler - Beast Master</Link>
           <Link href="/posts/arrowgod-class-guide">Archer - Plume Monarch</Link>
           <Link href="/posts/berseker-class-guide">Warrior - Berserker</Link>
           <Link href="/posts/prophet-preblitz-class-guide">Mage - Prophet Pre-blitz</Link>
-          {/* <Link href="/posts/spirit-channeler">Spirit Channeler</Link> */}
+		  <Link href="/posts/best-class">Best class</Link>
         </NavItem>
 
         <NavItem label="Mechanics">

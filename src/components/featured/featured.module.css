@@ -32,9 +32,9 @@
 
 .imgContainer {
   flex: 1;
-  height: 500px;
+  /* height: 200px; */
   position: relative;
-  object-fit: cover;
+  object-fit: contain;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,6 +42,7 @@
 
 .image {
   object-fit: cover;
+  height: 500px;
   border-radius: 10px;
 }
 
@@ -67,6 +68,8 @@
   border: none;
   border-radius: 5px;
   width: max-content;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 @media screen and (max-width: 1280px) {
@@ -94,9 +97,9 @@
   .subtitle {
 	font-size: 30px;
   }
-  .imgContainer {
+  /* .imgContainer {
     display: none;
-  }
+  } */
   .postTitle {
 	font-size: 24px;
   }
@@ -141,5 +144,9 @@
 
   .postDesc {
 	font-size: 14px;
+  }
+
+  .image {
+	width: 100%;
   }
 }
