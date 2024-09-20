@@ -18,11 +18,11 @@ const Featured = async () => {
       <h1 className={styles.title}>
         <b>Your ultimate Legend of Mushroom reference</b>
       </h1>
-      <h2 className={styles.subtitle}>
+      <span className={styles.subtitle}>
         <i>
           Most <b>in-depth guides</b> by the most <b>experienced players</b>.
         </i>
-      </h2>
+      </span>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
           <Image
@@ -34,9 +34,9 @@ const Featured = async () => {
           />
         </div>
         <div className={styles.textContainer}>
-          <h2 className={styles.postTitle}>
+          <span className={styles.postTitle}>
             <b>New class: Beast master - Discover our in-depth class guide</b>
-          </h2>
+          </span>
           <p className={styles.postDesc}>
             Following the <span class="tips">new update</span> of Legend of
             Mushroom you can now play the new{" "}

@@ -10,14 +10,13 @@
 	margin: auto;
 	padding-left: 5vw;
 	padding-right: 5vw;
+	border-bottom: 1px solid #444;
 }
 
 /* Logo */
-.logo {
+/* .logo {
 	text-align: left;
-	font-size: 36px;
-	font-weight: bold;
-}
+} */
 
 /* Menu hamburger */
 .hamburger {
@@ -59,7 +58,6 @@
 	z-index: 1000;
 	width: 100%;
 	list-style: none;
-	border-radius: 10px;
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 	background-color: var(--softBg);
 }
@@ -71,8 +69,15 @@
 	/* Alignement à gauche pour un meilleur rendu */
 }
 
+
+
 .navMenuOpen li:not(:last-child) {
 	border-bottom: 1px solid #444;
+	/* Séparation des éléments avec une bordure */
+}
+
+.navMenuOpen li:first-child {
+	border-bottom: 2px solid #ffffff;
 	/* Séparation des éléments avec une bordure */
 }
 
@@ -121,8 +126,12 @@
 	color: black;
 }
 
+.home {
+	font-weight: bold;
+}
+
 /* Mobile adjustments */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1536px) {
 	.social {
 		display: none;
 	}

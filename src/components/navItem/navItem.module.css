@@ -1,7 +1,6 @@
 ﻿.navItem {
 	position: relative;
-	cursor: pointer;
-}
+	cursor: pointer;}
 
 .dropdownMenu {
 	position: absolute;
@@ -25,11 +24,14 @@
 }
 
 .open {
-	max-height: 300px; /* Hauteur maximum lorsque le menu est ouvert (ajuste selon le contenu) */
+	max-height: 700px; /* Hauteur maximum lorsque le menu est ouvert (ajuste selon le contenu) */
+	background-color: rgb(60, 61, 68);
 }
 
 .dropdownMenu a {
 	padding: 10px;
+	border-bottom: 1px solid #444;
+
 }
 
 .dropdownMenu a:hover {
@@ -62,7 +64,7 @@
 		margin-left: -3px; /* Espace entre le texte et la flèche */
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1536px) {
 	.dropdownMenu {
 		width: 100%;
 		position: relative;
@@ -75,7 +77,6 @@
 	}
 
 	.open {
-		background-color: rgb(60, 61, 68);
 		padding: 10px;
 		border-radius: 10px;
 	}
