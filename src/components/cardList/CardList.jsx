@@ -14,11 +14,15 @@ const getBaseUrl = () => {
   }
 };
 
-const getData = async (page, cat) => {
+const getData = async () => {
   const baseUrl = getBaseUrl();
-  const res = await fetch(
-    `${baseUrl}/api/posts?page=${page}&cat=${cat || ""}`
-  );
+  let res = null;
+  try {
+    res = await fetch(`${baseUrl}/api/posts?sortBy=createdAt`);
+  } catch (error) {
+	console.error("Failed to fetch posts XXX", baseUrl);
+	throw new Error("Failed to fetch posts");
+  }
 
   if (!res.ok) {
     const errorDetails = await res.text();
@@ -33,8 +37,8 @@ const isPostReady = (post) => {
   return post.slug !== "best-class";
 };
 
-const CardList = async ({ page, cat }) => {
-  const { posts, count } = await getData(page, cat);
+const CardList = async () => {
+  const { posts, count } = await getData();
 
   return (
     <div className={styles.container}>
