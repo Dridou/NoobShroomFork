@@ -126,6 +126,15 @@ p .link {
 	font-size: calc(15px + 0.300625vw)
 }
 
+.headerText {
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+}
+.headerText h2 {
+	margin-top: 0px;
+	padding-top: 0px;
+}
 
 .bootstrap-wrapper {
 	@import 'bootstrap/dist/css/bootstrap.min.css';
@@ -156,6 +165,11 @@ p .link {
 	display: flex;
 	gap: 5px;
 	align-items: center;
+}
+
+.sectionDate{
+	color: var(--softTextColor);
+	font-size:1.25rem;
 }
 
 .postReference {

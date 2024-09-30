@@ -12,8 +12,9 @@
 	box-sizing: border-box;
 }
 
-p {
+p, ul {
 	margin-bottom: 20px;
+	color: rgb(206, 206, 206);
 }
 
 body {
@@ -28,7 +29,13 @@ html {
 
 a {
 	color: inherit;
+	font-style: none;
 	text-decoration: none;
+}
+
+p a {
+	color: dodgerblue;
+	font-style: italic;
 }
 
 .tips {

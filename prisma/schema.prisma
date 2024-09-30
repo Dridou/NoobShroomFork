@@ -110,7 +110,7 @@ model Comment {
 model Section {
   id      String  @id @default(cuid()) @map("_id")
   createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt @default(now())
+  updatedAt   DateTime? @updatedAt
   title   String
   content String
   icon    String?

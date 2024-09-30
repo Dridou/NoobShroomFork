@@ -2,7 +2,7 @@
 
 import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
-import Head from 'next/head';
+import Head from "next/head";
 import styles from "./singlePage.module.css";
 import SetSection from "@/components/setSection/SetSection";
 import CardList from "@/components/cardList/CardList";
@@ -17,52 +17,57 @@ const prisma = new PrismaClient();
 
 // Helper function to generate slug
 const slugifyTitle = (title) => {
-  return title.toLowerCase().trim().replace(/[\s?]/g, "-").replace(/[^\w-]+/g, "");
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[\s?]/g, "-")
+    .replace(/[^\w-]+/g, "");
 };
 
-
 export async function generateMetadata({ params }) {
-	const post = await fetchPostData(params.slug);
+  const post = await fetchPostData(params.slug);
 
-	// Slugs pour lesquels nous ne voulons pas d'indexation
-	const noIndexSlugs = [
-	  'best-class',
-	  'terms',
-	  'privacy-policy',
-	  'source-credit',
-	  'contact-us',
-	  'about-us',
-	];
+  // Slugs pour lesquels nous ne voulons pas d'indexation
+  const noIndexSlugs = [
+    "best-class",
+    "terms",
+    "privacy-policy",
+    "source-credit",
+    "contact-us",
+    "about-us",
+  ];
 
-	if (!post || !post.metadata) {
-	  return {
-		title: 'Default Title',
-		description: 'Default description for SEO purposes.',
-	  };
-	}
-
-	const { metadata } = post;
-
-	// Vérification si le slug est dans la liste des noIndexSlugs
-	const isNoIndex = noIndexSlugs.includes(params.slug);
-
-	return {
-	  title: metadata?.title || 'Default Title',
-	  description: metadata?.description || 'Default description for SEO purposes.',
-	  openGraph: {
-		url: metadata?.url || 'https://www.noobshroom.com',
-		title: metadata?.title || 'Default Title',
-		description: metadata?.description || 'Default description for SEO purposes.',
-	  },
-	  // Ajout de l'objet robots pour les slugs spécifiés
-	  robots: isNoIndex
-		? {
-			index: false,
-			follow: false,
-		  }
-		: undefined, // Pas de robots si le slug ne correspond pas
-	};
+  if (!post || !post.metadata) {
+    return {
+      title: "Default Title",
+      description: "Default description for SEO purposes.",
+    };
   }
+
+  const { metadata } = post;
+
+  // Vérification si le slug est dans la liste des noIndexSlugs
+  const isNoIndex = noIndexSlugs.includes(params.slug);
+
+  return {
+    title: metadata?.title || "Default Title",
+    description:
+      metadata?.description || "Default description for SEO purposes.",
+    openGraph: {
+      url: metadata?.url || "https://www.noobshroom.com",
+      title: metadata?.title || "Default Title",
+      description:
+        metadata?.description || "Default description for SEO purposes.",
+    },
+    // Ajout de l'objet robots pour les slugs spécifiés
+    robots: isNoIndex
+      ? {
+          index: false,
+          follow: false,
+        }
+      : undefined, // Pas de robots si le slug ne correspond pas
+  };
+}
 
 // Fetch all posts for static paths generation
 export async function generateStaticParams() {
@@ -84,9 +89,9 @@ export async function generateStaticParams() {
 // Fetch shops data for "what-to-buy-in-shops" page
 const fetchShopsData = async () => {
   const shops = await prisma.shop.findMany({
-	orderBy: {
-		displayOrder: "asc",
-	},
+    orderBy: {
+      displayOrder: "asc",
+    },
     include: {
       shopItems: {
         orderBy: {
@@ -94,7 +99,6 @@ const fetchShopsData = async () => {
         },
       },
     },
-
   });
 
   if (!shops) {
@@ -125,7 +129,7 @@ const fetchUpdatesData = async () => {
 
 // Fetch post data based on slug
 const fetchPostData = async (slug) => {
-	console.log(slug);
+  console.log(slug);
   const post = await prisma.post.findUnique({
     where: { slug },
     include: {
@@ -163,18 +167,21 @@ const renderShopsSection = (shops) => {
   }
 
   return (
-      <>
-      	{shops.map((shop) => (
-	        <div key={shop.id} id={`${slugifyTitle(shop.title)}`} className={styles.shop}>
-	          <div className={styles.shopHeader}>
-	            <h2>{shop.title}</h2>
-	            <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
-	          </div>
-	          <Shop shop={shop} />
-	        </div>
-	      ))}
-      </>
-
+    <>
+      {shops.map((shop) => (
+        <div
+          key={shop.id}
+          id={`${slugifyTitle(shop.title)}`}
+          className={styles.shop}
+        >
+          <div className={styles.shopHeader}>
+            <h2>{shop.title}</h2>
+            <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
+          </div>
+          <Shop shop={shop} />
+        </div>
+      ))}
+    </>
   );
 };
 
@@ -234,6 +241,7 @@ const renderUpdatesSection = (updates) => {
 // Render sections content for other pages
 const renderSectionsContent = (post) => {
   return post.sections.map((section) => {
+    console.log({ section });
     if (section.type === "set" && section.sets.length > 0) {
       return (
         <div
@@ -295,7 +303,18 @@ const renderSectionsContent = (post) => {
                 className={styles.sectionIcon}
               />
             )}
-            <h2>{section.title}</h2>
+            <div className={styles.headerText}>
+              <span className={styles.sectionDate}>
+                {section.updatedAt
+                  ? new Date(section.updatedAt).toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  : "Unknown Date"}
+              </span>
+              <h2>{section.title}</h2>
+            </div>
           </div>
           <div dangerouslySetInnerHTML={{ __html: section.content }} />
         </div>
@@ -312,12 +331,12 @@ export default async function SinglePage({ params }) {
 
   switch (slug) {
     case "what-to-buy-in-shops":
-	post = await fetchPostData(slug);
+      post = await fetchPostData(slug);
       const shops = await fetchShopsData();
       sectionsContent = renderShopsSection(shops);
       break;
     case "updates":
-		post = await fetchPostData(slug);
+      post = await fetchPostData(slug);
       const updates = await fetchUpdatesData();
       sectionsContent = renderUpdatesSection(updates);
       break;
@@ -353,10 +372,10 @@ export default async function SinglePage({ params }) {
             </div>
           </div>
         </div>
-        {post?.imgBig && (
+        {post?.img && (
           <div className={styles.imageContainer}>
             <Image
-              src={`/images/${post.imgBig}`}
+              src={`/images/${post.img}`}
               alt=""
               width={300}
               height={400}
