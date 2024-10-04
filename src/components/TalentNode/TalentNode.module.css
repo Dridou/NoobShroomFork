@@ -1,0 +1,32 @@
+﻿.talentNode {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-color: #333;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid white;
+	cursor: pointer;
+}
+
+.talentInfo {
+	text-align: center;
+	color: white;
+}
+
+.node1 {
+	top: 50px;
+	left: 100px;
+}
+
+.node2 {
+	top: 200px;
+	left: 300px;
+}
+
+.node3 {
+	top: 350px;
+	left: 500px;
+}

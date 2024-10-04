@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import Image from "next/image";
 import styles from "./SetTalent.module.css";
+import TalentTree from '../TalentTree/TalentTree';
 
 const SetTalent = ({ talentImage, talents, title }) => {
   return (
@@ -18,6 +19,7 @@ const SetTalent = ({ talentImage, talents, title }) => {
           />
         </div>
         <p dangerouslySetInnerHTML={{ __html: talents }}></p>
+		<TalentTree />
       </div>
     </div>
   );

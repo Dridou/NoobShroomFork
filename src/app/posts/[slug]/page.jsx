@@ -13,6 +13,11 @@ import Comments from "@/components/comments/Comments";
 import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
+import dynamic from 'next/dynamic';
+
+// Importation dynamique du composant client TalentTree
+const TalentTree = dynamic(() => import('@/components/TalentTree/TalentTree'), { ssr: false });
+
 const prisma = new PrismaClient();
 
 // Helper function to generate slug
@@ -343,6 +348,9 @@ export default async function SinglePage({ params }) {
   let sectionsContent;
 
   switch (slug) {
+	case "talent-generator":
+	  sectionsContent = <TalentTree />;
+	  break;
     case "what-to-buy-in-shops":
       post = await fetchPostData(slug);
       const shops = await fetchShopsData();

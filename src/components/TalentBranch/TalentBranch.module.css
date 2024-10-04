@@ -1,0 +1,9 @@
+﻿.talentBranch {
+	margin: 20px;
+  }
+
+  .nodes {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+  }
