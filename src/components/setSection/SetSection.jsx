@@ -11,6 +11,7 @@ import styles from "./SetSection.module.css";
 
 const SetSection = ({
   id,
+  date,
   title,
   standardImage,
   opponentImage,
@@ -34,8 +35,11 @@ const SetSection = ({
       <div className={styles.fullSet}>
         <div className={styles.cardBody}>
           <div className={styles.tabContent} id="nav-tabContent">
-			<div>
-			  <div className={styles.title}>{title}</div>
+            <div>
+              <div className={styles.titleHeader}>
+                <span className={styles.title}>{title}</span>
+                <span className={styles.date}>Updated: {date}</span>
+              </div>
               <SetSpell
                 standardImage={standardImage}
                 opponentImage={opponentImage}
@@ -47,31 +51,22 @@ const SetSection = ({
               <SetPal
                 palsImage={palsImage}
                 palsAlternatives={palsAlternatives}
-				title={"Pal"}
+                title={"Pal"}
               />
               <SetPal
                 palsImage={relicsImage}
                 palsAlternatives={relicsAlternatives}
-				title={"Relics"}
+                title={"Relics"}
               />
               <SetTalent
-			  	talentImage={talentImage}
+                talentImage={talentImage}
                 talents={talents}
-				title={"Talents"}
+                title={"Talents"}
               />
-			  <SetSectionList
-			  	list={mounts}
-				title={"Mounts"}
-			  />
-			  <SetSectionList
-			  	list={artifacts}
-				title={"Artifacts"}
-			  />
-			   <SetSectionList
-			  	list={accessories}
-				title={"Back Accessories"}
-			  />
-			  {/* <SetSectionList
+              <SetSectionList list={mounts} title={"Mounts"} />
+              <SetSectionList list={artifacts} title={"Artifacts"} />
+              <SetSectionList list={accessories} title={"Back Accessories"} />
+              {/* <SetSectionList
 			  	list={avians}
 				title={"Avians"}
 			  /> */}

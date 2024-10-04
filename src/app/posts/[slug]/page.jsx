@@ -259,12 +259,25 @@ const renderSectionsContent = (post) => {
                 className={styles.sectionIcon}
               />
             )}
-            <h2>{section.title}</h2>
+            {/* <div className={styles.headerTitle}><h2>{section.title}</h2> - {section.updatedAt
+                  ? new Date(section.updatedAt).toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  : "Unknown Date"}</div> */}
           </div>
           {section.sets.map((set, setIndex) => (
             <SetSection
               key={setIndex}
               id={set.id}
+			  date={section.updatedAt
+				? new Date(section.updatedAt).toLocaleDateString("en-US", {
+					day: "numeric",
+					month: "long",
+					year: "numeric",
+				  })
+				: "Unknown Date"}
               title={set.title}
               standardImage={set.standardImage}
               opponentImage={set.opponentImage}

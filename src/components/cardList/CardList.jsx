@@ -10,7 +10,7 @@ const getBaseUrl = () => {
   } else if (process.env.VERCEL_ENV === "preview") {
     return `https://${process.env.VERCEL_URL}`;
   } else {
-    return "http://localhost:3000";
+    return "https://www.noobshroom.com";
   }
 };
 
@@ -34,7 +34,7 @@ const getData = async () => {
 };
 
 const isPostReady = (post) => {
-  return post.slug !== "best-class";
+  return true;
 };
 
 const CardList = async () => {
