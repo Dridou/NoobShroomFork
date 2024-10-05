@@ -5,8 +5,8 @@
 }
 
 .talentTreeContainer {
-	height: 500px;
-	width: 1000px;
+	height: 1500px;
+	width: 1500px;
 	overflow: hidden; /* Cache les nœuds qui sortent du cadre */
 	position: relative;
   }

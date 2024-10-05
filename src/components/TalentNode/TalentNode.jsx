@@ -11,7 +11,7 @@ const TalentNode = ({ name, maxPoints, currentPoints, effectPerPoint, effectType
       <div className={styles.talentInfo}>
         <p>{name}</p>
         <p>{currentPoints}/{maxPoints}</p>
-        <p>Effect: {effectValue} {effectType === 'percentage' ? 'increase' : ''} on {statAffected}</p>
+        {/* <p>Effect: {effectValue} {effectType === 'percentage' ? 'increase' : ''} on {statAffected}</p> */}
       </div>
     </div>
   );

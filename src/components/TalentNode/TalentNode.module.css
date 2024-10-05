@@ -1,7 +1,7 @@
 ﻿.talentNode {
 	position: absolute;
-	width: 100px;
-	height: 100px;
+	width: 70px;
+	height: 70px;
 	background-color: #333;
 	border-radius: 50%;
 	display: flex;
@@ -14,11 +14,18 @@
 .talentInfo {
 	text-align: center;
 	color: white;
+	margin: 0;
+	padding: 0;
+}
+
+.talentInfo p {
+	margin: 0;
+	padding: 0;
 }
 
 .node1 {
-	top: 50px;
-	left: 100px;
+	top: 900px;
+	left: 900px;
 }
 
 .node2 {
