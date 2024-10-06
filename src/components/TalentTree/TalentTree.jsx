@@ -1068,44 +1068,44 @@ const TalentTree = () => {
   };
 
   return (
-    <div>
-      {/* Boutons de navigation entre les branches */}
-      <div className={styles.buttonContainer}>
-        <button onClick={() => setSelectedBranch("Archery")}>Archery</button>
-        <button onClick={() => setSelectedBranch("Sorcery")}>Sorcery</button>
-        <button onClick={() => setSelectedBranch("Beast")}>Tame Beasts</button>
-        <button onClick={() => setSelectedBranch("Fury")}>Fury</button>
-      </div>
+	<div>
+		<div className={styles.buttonContainer}>
+			<button onClick={() => setSelectedBranch("Archery")} className={`${styles.button} ${selectedBranch === "Archery" ? styles.active : ""}`}>Archery</button>
+			<button onClick={() => setSelectedBranch("Sorcery")} className={`${styles.button} ${selectedBranch === "Sorcery" ? styles.active : ""}`}>Sorcery</button>
+			<button onClick={() => setSelectedBranch("Beast")} className={`${styles.button} ${selectedBranch === "Beast" ? styles.active : ""}`}>Tame Beasts</button>
+			<button onClick={() => setSelectedBranch("Fury")} className={`${styles.button} ${selectedBranch === "Fury" ? styles.active : ""}`}>Fury</button>
+		</div>
 
-      {/* Affichage de la branche sélectionnée */}
-      <div className={styles.generatorContainer}>
-        <TransformWrapper
-          defaultScale={1}
-          initialScale={1}
-          wheel={{ step: 0.1 }}
-          pinch={{ step: 5 }}
-          doubleClick={{ disabled: true }}
-          initialPositionX={0}
-          initialPositionY={0}
-          className={styles.className}
-        >
-          <TransformComponent>
-            <div className={styles.talentTreeContainer}>{renderBranch()}</div>
-          </TransformComponent>
-        </TransformWrapper>
-      </div>
+	  <div className={styles.generatorContainer}>
+		<TransformWrapper
+		  defaultScale={1}
+		  initialScale={1}
+		  wheel={{ step: 0.1 }}
+		  pinch={{ step: 5 }}
+		  doubleClick={{ disabled: true }}
+		  initialPositionX={0}
+		  initialPositionY={0}
+		  minScale={0.5} // Permet de réduire l'arbre sur les petits écrans
+		  limitToBounds={false} // Autorise le déplacement en dehors des limites
+		  panning={{ velocityDisabled: true }} // Améliore le panning sur mobile
+		>
+		  <TransformComponent>
+			<div className={styles.talentTreeContainer}>{renderBranch()}</div>
+		  </TransformComponent>
+		</TransformWrapper>
+	  </div>
 
-      <div className={styles.statsContainer}>
-        <h3>Stats Globales</h3>
-        <ul>
-          {Object.entries(globalStats).map(([statName, value]) => (
-            <li key={statName}>
-              {statName}: {value}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+	  <div className={styles.statsContainer}>
+		<h3>Stats Globales</h3>
+		<ul>
+		  {Object.entries(globalStats).map(([statName, value]) => (
+			<li key={statName}>
+			  {statName}: {value}
+			</li>
+		  ))}
+		</ul>
+	  </div>
+	</div>
   );
 };
 

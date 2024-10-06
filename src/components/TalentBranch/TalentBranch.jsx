@@ -21,20 +21,46 @@ const TalentBranch = ({ branchName, nodes, points, onUpdatePoints }) => {
 
   // Fonction pour vérifier si un nœud est déblocable avec les nouvelles règles
   const canActivateNode = (nodeIndex) => {
-    const parentConnections = connections.filter(([parent, child]) => child === nodeIndex);
+	const parentConnections = connections.filter(([parent, child]) => child === nodeIndex);
 
-    // Pour les nœuds 0 à 8, les parents doivent avoir au moins 10 points
-    if (nodeIndex >= 0 && nodeIndex <= 8 || nodeIndex >= 10 && nodeIndex <= 18 || nodeIndex >= 20 && nodeIndex <= 28) {
-      return parentConnections.every(([parent]) => points[parent] >= 10);
-    }
-    // Pour le nœud 9 (dernier), les parents doivent avoir au moins 5 points
-    if (nodeIndex === 9 || nodeIndex === 19 || nodeIndex === 29) {
-      return parentConnections.every(([parent]) => points[parent] >= 5);
-    }
+	// Vérifier si une branche est commencée (si des nœuds ont des points, mais pas le dernier)
+	const isBranchStartedButNotFinished = (start, end, lastNode) => {
+	  // Vérifier si un nœud de la branche a été activé
+	  const branchStarted = points.slice(start, end + 1).some((points) => points > 0);
+	  // Vérifier si le dernier nœud de la branche est activé
+	  const branchFinished = points[lastNode] > 0;
+	  return branchStarted && !branchFinished;
+	};
 
-    // Par défaut, on vérifie simplement si les parents ont des points
-    return parentConnections.every(([parent]) => points[parent] > 0);
+	// Bloquer l'activation d'autres branches si une branche est commencée mais non terminée
+	if (isBranchStartedButNotFinished(0, 8, 9) && nodeIndex >= 10 && nodeIndex <= 29) {
+	  return false; // Empêche l'activation de nœuds dans les autres branches
+	}
+	if (isBranchStartedButNotFinished(10, 18, 19) && (nodeIndex <= 9 || nodeIndex >= 20)) {
+	  return false;
+	}
+	if (isBranchStartedButNotFinished(20, 28, 29) && nodeIndex <= 19) {
+	  return false;
+	}
+
+	// Pour les nœuds 0 à 8, les parents doivent avoir au moins 10 points
+	if (
+	  (nodeIndex >= 0 && nodeIndex <= 8) ||
+	  (nodeIndex >= 10 && nodeIndex <= 18) ||
+	  (nodeIndex >= 20 && nodeIndex <= 28)
+	) {
+	  return parentConnections.every(([parent]) => points[parent] >= 10);
+	}
+
+	// Pour les nœuds 9, 19, 29, les parents doivent avoir au moins 5 points
+	if (nodeIndex === 9 || nodeIndex === 19 || nodeIndex === 29) {
+	  return parentConnections.every(([parent]) => points[parent] >= 5);
+	}
+
+	// Par défaut, vérifier simplement si les parents ont des points
+	return parentConnections.every(([parent]) => points[parent] > 0);
   };
+
 
   useLayoutEffect(() => {
     if (containerRef.current) {

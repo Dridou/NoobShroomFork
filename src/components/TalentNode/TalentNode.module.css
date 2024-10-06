@@ -12,6 +12,16 @@
 	filter: grayscale(80%);
 }
 
+.talentNodeHeader {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 80px;
+	height: 70px;
+	line-height: 1.2;
+}
+
 .talentNode.active {
 	filter: grayscale(0%); /* Retirer la désaturation quand actif */
   }
@@ -65,13 +75,13 @@
 }
 
 .node6 {
-	top: 450px;
+	top: 475px;
 	left: 300px;
 	background-color: var(--talentYellow);
 }
 
 .node7 {
-	top: 350px;
+	top: 325px;
 	left: 300px;
 	background-color: var(--talentYellow);
 
@@ -237,4 +247,180 @@
 	left: 1100px;
 	background-color: var(--talentBlue);
 
+}
+
+.node1-title {
+	top: calc(500px - 45px);
+	left: 500px;
+
+}
+
+.node2-title {
+	top: calc(600px - 45px);
+	left: 400px;
+
+}
+
+.node3-title {
+	top: calc(400px - 45px);
+	left: 400px;
+
+}
+
+.node4-title {
+	top: calc(700px - 45px);
+	left: 475px;
+
+}
+
+.node5-title {
+	top: calc(700px - 45px);
+	left: 325px;
+
+}
+
+.node6-title {
+	top: calc(475px - 45px);
+	left: 300px;
+
+}
+
+.node7-title {
+	top: calc(325px - 45px);
+	left: 300px;
+
+}
+
+.node8-title {
+	top: calc(800px - 45px);
+	left: 400px;
+
+}
+
+.node9-title {
+	top: calc(400px - 45px);
+	left: 200px;
+
+}
+
+.node10-title {
+	top: calc(650px - 45px);
+	left: 100px;
+
+}
+
+.node11-title {
+	top: calc(400px - 45px);
+	left: 600px;
+
+}
+
+.node12-title {
+	top: calc(300px - 45px);
+	left: 500px;
+
+}
+
+.node13-title {
+	top: calc(300px - 45px);
+	left: 700px;
+
+}
+
+.node14-title {
+	top: calc(200px - 45px);
+	left: 400px;
+
+}
+
+.node15-title {
+	top: calc(200px - 45px);
+	left: 550px;
+
+}
+
+.node16-title {
+	top: calc(200px - 45px);
+	left: 650px;
+
+}
+
+.node17-title {
+	top: calc(200px - 45px);
+	left: 800px;
+
+}
+
+.node18-title {
+	top: calc(100px - 45px);
+	left: 500px;
+
+}
+
+.node19-title {
+	top: calc(100px - 45px);
+	left: 700px;
+
+}
+
+.node20-title {
+	top: calc(0px - 45px);
+	left: 600px;
+
+}
+
+.node21-title {
+	top: calc(500px - 45px);
+	left: 700px;
+
+}
+
+.node22-title {
+	top: calc(400px - 45px);
+	left: 800px;
+
+}
+
+.node23-title {
+	top: calc(600px - 45px);
+	left: 800px;
+
+}
+
+.node24-title {
+	top: calc(325px - 45px);
+	left: 900px;
+
+}
+
+.node25-title {
+	top: calc(475px - 45px);
+	left: 900px;
+
+}
+
+.node26-title {
+	top: calc(700px - 45px);
+	left: 725px;
+
+}
+
+.node27-title {
+	top: calc(700px - 45px);
+	left: 875px;
+}
+
+.node28-title {
+	top: calc(400px - 45px);
+	left: 1000px;
+}
+
+.node29-title {
+	top: calc(800px - 45px);
+	left: 800px;
+}
+
+.node30-title {
+	top: calc(650px - 45px);
+	left: 1100px;
 }
