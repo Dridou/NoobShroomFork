@@ -4,113 +4,175 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import TalentNode from '../TalentNode/TalentNode';
 import styles from './TalentBranch.module.css'; // Module CSS de la branche
 
-const TalentBranch = ({ branchName, nodes, points, onUpdatePoints }) => {
+const TalentBranch = ({ branchName, nodes, points, onUpdatePoints, onResetBranch  }) => {
   const nodeRefs = useRef([]); // Un tableau de références pour chaque nœud
   const containerRef = useRef(null); // Référence au conteneur du talent tree
   const [nodePositions, setNodePositions] = useState([]); // Stocker les positions des nœuds
+  const [playerFeathers, setPlayerFeathers] = useState(20000); // Définir les plumes du joueur
 
-  // Liste des connexions entre les nœuds (à compléter avec toutes les connexions demandées)
+  // Liste des connexions entre les nœuds
   const connections = [
-    [0, 1],[0, 2], [2, 5], [2, 6], [1, 3], [1, 4],
+    [0, 1], [0, 2], [2, 5], [2, 6], [1, 3], [1, 4],
     [3, 7], [4, 7], [5, 8], [6, 8], [7, 9], [8, 9],
-    [10,11],[10, 12], [12, 15], [12, 16], [11, 13], [11, 14],
+    [10, 11], [10, 12], [12, 15], [12, 16], [11, 13], [11, 14],
     [13, 17], [14, 17], [15, 18], [16, 18], [17, 19], [18, 19],
-    [20,21],[20, 22], [22, 25], [22, 26], [21, 23], [21, 24],
+    [20, 21], [20, 22], [22, 25], [22, 26], [21, 23], [21, 24],
     [23, 27], [24, 27], [25, 28], [26, 28], [27, 29], [28, 29]
   ];
 
-  // Fonction pour vérifier si un nœud est déblocable avec les nouvelles règles
-  const canActivateNode = (nodeIndex) => {
-	const parentConnections = connections.filter(([parent, child]) => child === nodeIndex);
+  const nodeCosts = {
+	// Coût pour les noeuds 0, 1, 2
+	0: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
+	1: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
+	2: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
 
-	// Vérifier si une branche est commencée (si des nœuds ont des points, mais pas le dernier)
-	const isBranchStartedButNotFinished = (start, end, lastNode) => {
-	  // Vérifier si un nœud de la branche a été activé
-	  const branchStarted = points.slice(start, end + 1).some((points) => points > 0);
-	  // Vérifier si le dernier nœud de la branche est activé
-	  const branchFinished = points[lastNode] > 0;
-	  return branchStarted && !branchFinished;
-	};
+	// Coût pour les noeuds 3, 4, 5, 6
+	3: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	4: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	5: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	6: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
 
-	// Bloquer l'activation d'autres branches si une branche est commencée mais non terminée
-	if (isBranchStartedButNotFinished(0, 8, 9) && nodeIndex >= 10 && nodeIndex <= 29) {
-	  return false; // Empêche l'activation de nœuds dans les autres branches
-	}
-	if (isBranchStartedButNotFinished(10, 18, 19) && (nodeIndex <= 9 || nodeIndex >= 20)) {
-	  return false;
-	}
-	if (isBranchStartedButNotFinished(20, 28, 29) && nodeIndex <= 19) {
-	  return false;
-	}
+	// Coût pour les noeuds 7 et 8
+	7: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
+	8: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
 
-	// Pour les nœuds 0 à 8, les parents doivent avoir au moins 10 points
-	if (
-	  (nodeIndex >= 0 && nodeIndex <= 8) ||
-	  (nodeIndex >= 10 && nodeIndex <= 18) ||
-	  (nodeIndex >= 20 && nodeIndex <= 28)
-	) {
-	  return parentConnections.every(([parent]) => points[parent] >= 10);
-	}
+	// Coût pour le dernier noeud (9)
+	9: [1584],
 
-	// Pour les nœuds 9, 19, 29, les parents doivent avoir au moins 5 points
-	if (nodeIndex === 9 || nodeIndex === 19 || nodeIndex === 29) {
-	  return parentConnections.every(([parent]) => points[parent] >= 5);
-	}
+	// Coût pour les noeuds 0, 1, 2
+	10: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
+	11: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
+	12: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
 
-	// Par défaut, vérifier simplement si les parents ont des points
-	return parentConnections.every(([parent]) => points[parent] > 0);
+	// Coût pour les noeuds 3, 4, 5, 6
+	13: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	14: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	15: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	16: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+
+	// Coût pour les noeuds 7 et 8
+	17: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
+	18: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
+
+	// Coût pour le dernier noeud (9)
+	19: [1584],
+
+	// Coût pour les noeuds 0, 1, 2
+	20: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
+	21: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
+	22: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
+
+	// Coût pour les noeuds 3, 4, 5, 6
+	23: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	24: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	25: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+	26: [18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149, 171, 189, 216],
+
+	// Coût pour les noeuds 7 et 8
+	27: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
+	28: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
+
+	// Coût pour le dernier noeud (9)
+	29: [1584]
   };
 
+
+  const canActivateNode = (nodeIndex) => {
+    const parentConnections = connections.filter(([parent, child]) => child === nodeIndex);
+    const isBranchStartedButNotFinished = (start, end, lastNode) => {
+      const branchStarted = points.slice(start, end + 1).some((points) => points > 0);
+      const branchFinished = points[lastNode] > 0;
+      return branchStarted && !branchFinished;
+    };
+
+    if (isBranchStartedButNotFinished(0, 8, 9) && nodeIndex >= 10 && nodeIndex <= 29) {
+      return false;
+    }
+    if (isBranchStartedButNotFinished(10, 18, 19) && (nodeIndex <= 9 || nodeIndex >= 20)) {
+      return false;
+    }
+    if (isBranchStartedButNotFinished(20, 28, 29) && nodeIndex <= 19) {
+      return false;
+    }
+
+    if (
+      (nodeIndex >= 0 && nodeIndex <= 8) ||
+      (nodeIndex >= 10 && nodeIndex <= 18) ||
+      (nodeIndex >= 20 && nodeIndex <= 28)
+    ) {
+      return parentConnections.every(([parent]) => points[parent] >= 10);
+    }
+
+    if (nodeIndex === 9 || nodeIndex === 19 || nodeIndex === 29) {
+      return parentConnections.every(([parent]) => points[parent] >= 5);
+    }
+
+    return parentConnections.every(([parent]) => points[parent] > 0);
+  };
+
+  const handleAddMaxPoints = (nodeIndex, maxPoints, effectPerPoint, effectType, statAffected) => {
+	if (!canActivateNode (nodeIndex)) {
+		return;
+	}
+    if (points[nodeIndex] < maxPoints) {
+      const requiredPoints = () => {
+        if (nodeIndex === 7 || nodeIndex === 8 || nodeIndex === 17 || nodeIndex === 18 || nodeIndex === 28 || nodeIndex === 29) {
+          return 5
+		}
+		else if (nodeIndex === 9 || nodeIndex === 19 || nodeIndex === 29) {
+		  return 1;
+		}
+		return 10;
+      };
+      const newPoints = Math.min(points[nodeIndex] + requiredPoints(), maxPoints);
+      onUpdatePoints(branchName, nodeIndex, newPoints, effectPerPoint, statAffected, effectType);
+    }
+  };
 
   useLayoutEffect(() => {
     if (containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();
-      console.log("Container Rect:", containerRect);
-
       const positions = nodeRefs.current.map((ref, index) => {
         if (!ref) return null;
-
-        // Cibler la div interne du nœud contenant les informations
         const innerDiv = ref.querySelector('.TalentNode_talentInfo__Pd0_g');
         if (!innerDiv) return null;
-
         const rect = innerDiv.getBoundingClientRect();
-        console.log(`Node ${index} Rect:`, rect);
-
         return {
-          top: rect.y - containerRect.y, // Ajuster en fonction de la position du container
-          left: rect.x - containerRect.x, // Ajuster en fonction de la position du container
+          top: rect.y - containerRect.y,
+          left: rect.x - containerRect.x,
           width: rect.width,
           height: rect.height
         };
       });
-
       setNodePositions(positions.filter(pos => pos !== null));
-      console.log("Node positions:", positions);
     }
   }, [nodes, points]);
 
-  const handleNodeClick = (nodeIndex, maxPoints, effectPerPoint, effectType, statAffected) => {
-    if (points[nodeIndex] < maxPoints) {
-      // Vérifier si le nœud peut être activé
-      if (canActivateNode(nodeIndex)) {
-        const newPoints = points[nodeIndex] + 1;
-        onUpdatePoints(branchName, nodeIndex, newPoints, effectPerPoint, statAffected, effectType); // Mise à jour des points et des stats
 
-        const newEffectValue = effectPerPoint * newPoints;
-        const formattedEffectValue = effectType === 'percentage' ? `${newEffectValue}%` : newEffectValue;
-        console.log(`Node ${nodeIndex} in ${branchName} has ${newPoints} points affecting ${statAffected} by ${formattedEffectValue}`);
-      } else {
-        console.log(`Node ${nodeIndex} cannot be activated yet!`);
-      }
-    }
+
+  const handleNodeClick = (nodeIndex, maxPoints, effectPerPoint, effectType, statAffected) => {
+	const currentCost = nodeCosts[nodeIndex][points[nodeIndex]]; // Coût du prochain point
+	if (playerFeathers >= currentCost && points[nodeIndex] < maxPoints) {
+	  // Vérifier si le noeud peut être activé
+	  if (canActivateNode(nodeIndex)) {
+		const newPoints = points[nodeIndex] + 1;
+		onUpdatePoints(branchName, nodeIndex, newPoints, effectPerPoint, statAffected, effectType); // Mise à jour des points et des stats
+		setPlayerFeathers(playerFeathers - currentCost); // Déduire le coût en plumes
+	  } else {
+		console.log(`Node ${nodeIndex} cannot be activated yet!`);
+	  }
+	} else {
+	  console.log("Not enough feathers to activate this node!");
+	}
   };
 
+
   return (
-    <div className={styles.talentBranch} ref={containerRef}> {/* Référence au conteneur */}
+    <div className={styles.talentBranch} ref={containerRef}>
       <h2>{branchName}</h2>
 
-      {/* SVG pour dessiner les lignes */}
+
+
       <svg width="1500px" height="1500px" style={{ position: "absolute", zIndex: 0 }}>
         {nodePositions.length > 1 && (
           <>
@@ -142,6 +204,7 @@ const TalentBranch = ({ branchName, nodes, points, onUpdatePoints }) => {
               statAffected={node.statAffected}
               onClick={() => handleNodeClick(index, node.maxPoints, node.effectPerPoint, node.effectType, node.statAffected)}
               positionClass={`node${index + 1}`}
+              onAddMaxPoints={() => handleAddMaxPoints(index, node.maxPoints, node.effectPerPoint, node.effectType, node.statAffected)} // Bouton pour ajouter les points
             />
           </div>
         ))}

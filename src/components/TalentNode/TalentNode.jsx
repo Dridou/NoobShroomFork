@@ -12,6 +12,7 @@ const TalentNode = ({
   statAffected,
   onClick,
   positionClass,
+  onAddMaxPoints, // Fonction pour ajouter les points requis
 }) => {
   const effectValue =
     effectType === "percentage"
@@ -22,6 +23,17 @@ const TalentNode = ({
   return (
     <>
       {/* Div au-dessus du nœud (par exemple, nom du talent) */}
+	  {currentPoints < maxPoints && (
+        <button
+          className={`${styles.talentNodePlus} ${
+          styles[positionClass + "-plus10"]
+        }`}
+          onClick={onAddMaxPoints} // Gérer l'ajout de points directement
+		  style={{ zIndex: 999 }}
+        >
+          +
+        </button>
+      )}
       <div
         className={`${styles.talentNodeHeader} ${
           styles[positionClass + "-title"]

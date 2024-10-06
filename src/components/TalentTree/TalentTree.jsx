@@ -440,7 +440,7 @@ const TalentTree = () => {
     },
     {
       name: "Atk Spd",
-      maxPoints: 10,
+      maxPoints: 20,
       effectPerPoint: 0.01,
       effectType: "percentage",
       statAffected: "ATK SPD",
@@ -1019,6 +1019,47 @@ const TalentTree = () => {
     }));
   };
 
+  // Fonction pour réinitialiser une branche
+  const resetBranch = (branchName) => {
+    setBranchPoints((prevPoints) => ({
+      ...prevPoints,
+      [branchName]: prevPoints[branchName].map(() => 0),
+    }));
+  };
+
+  // Fonction pour réinitialiser toutes les branches
+  const resetAllBranches = () => {
+    setBranchPoints({
+      Fury: furyNodes.map(() => 0),
+      Archery: archeryNodes.map(() => 0),
+      Sorcery: sorceryNodes.map(() => 0),
+      Beast: beastNodes.map(() => 0),
+    });
+  };
+
+  // Sauvegarder l'état des branches dans un fichier JSON
+  const saveTalentTree = () => {
+    const dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(branchPoints));
+    const downloadAnchorNode = document.createElement("a");
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "talent_tree.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  // Charger un fichier JSON pour restaurer l'état des branches
+  const loadTalentTree = (event) => {
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      const loadedData = JSON.parse(e.target.result);
+      setBranchPoints(loadedData);
+    };
+    fileReader.readAsText(event.target.files[0]);
+  };
+
   const renderBranch = () => {
     switch (selectedBranch) {
       case "Fury":
@@ -1068,44 +1109,80 @@ const TalentTree = () => {
   };
 
   return (
-	<div>
-		<div className={styles.buttonContainer}>
-			<button onClick={() => setSelectedBranch("Archery")} className={`${styles.button} ${selectedBranch === "Archery" ? styles.active : ""}`}>Archery</button>
-			<button onClick={() => setSelectedBranch("Sorcery")} className={`${styles.button} ${selectedBranch === "Sorcery" ? styles.active : ""}`}>Sorcery</button>
-			<button onClick={() => setSelectedBranch("Beast")} className={`${styles.button} ${selectedBranch === "Beast" ? styles.active : ""}`}>Tame Beasts</button>
-			<button onClick={() => setSelectedBranch("Fury")} className={`${styles.button} ${selectedBranch === "Fury" ? styles.active : ""}`}>Fury</button>
+    <div>
+      <div className={styles.headerContainer}>
+        <div className={styles.buttonContainer}>
+			<button
+	          onClick={() => setSelectedBranch("Archery")}
+	          className={`${styles.button} ${
+	            selectedBranch === "Archery" ? styles.active : ""
+	          }`}
+	        >
+	          Archery
+	        </button>
+
+			<button
+	          onClick={() => setSelectedBranch("Sorcery")}
+	          className={`${styles.button} ${
+	            selectedBranch === "Sorcery" ? styles.active : ""
+	          }`}
+	        >
+	          Sorcery
+	        </button>
+	        <button
+	          onClick={() => setSelectedBranch("Fury")}
+	          className={`${styles.button} ${
+	            selectedBranch === "Fury" ? styles.active : ""
+	          }`}
+	        >
+	          Fury
+	        </button>
+			<button
+	          onClick={() => setSelectedBranch("Beast")}
+	          className={`${styles.button} ${
+	            selectedBranch === "Beast" ? styles.active : ""
+	          }`}
+	        >
+	          Tame Beasts
+	        </button>
+        </div>
+		<div>
+			<button onClick={saveTalentTree}>Save Talent Tree</button>
+	        <input type="file" onChange={loadTalentTree} accept=".json" />
+	        <button onClick={resetAllBranches}>Reset All Branches</button>
 		</div>
+      </div>
 
-	  <div className={styles.generatorContainer}>
-		<TransformWrapper
-		  defaultScale={1}
-		  initialScale={1}
-		  wheel={{ step: 0.1 }}
-		  pinch={{ step: 5 }}
-		  doubleClick={{ disabled: true }}
-		  initialPositionX={0}
-		  initialPositionY={0}
-		  minScale={0.5} // Permet de réduire l'arbre sur les petits écrans
-		  limitToBounds={false} // Autorise le déplacement en dehors des limites
-		  panning={{ velocityDisabled: true }} // Améliore le panning sur mobile
-		>
-		  <TransformComponent>
-			<div className={styles.talentTreeContainer}>{renderBranch()}</div>
-		  </TransformComponent>
-		</TransformWrapper>
-	  </div>
+      <div className={styles.generatorContainer}>
+        <TransformWrapper
+          defaultScale={1}
+          initialScale={1}
+          wheel={{ step: 0.1 }}
+          pinch={{ step: 5 }}
+          doubleClick={{ disabled: true }}
+          initialPositionX={0}
+          initialPositionY={0}
+          minScale={0.5} // Permet de réduire l'arbre sur les petits écrans
+          limitToBounds={false} // Autorise le déplacement en dehors des limites
+          panning={{ velocityDisabled: true }} // Améliore le panning sur mobile
+        >
+          <TransformComponent>
+            <div className={styles.talentTreeContainer}>{renderBranch()}</div>
+          </TransformComponent>
+        </TransformWrapper>
+      </div>
 
-	  <div className={styles.statsContainer}>
-		<h3>Stats Globales</h3>
-		<ul>
-		  {Object.entries(globalStats).map(([statName, value]) => (
-			<li key={statName}>
-			  {statName}: {value}
-			</li>
-		  ))}
-		</ul>
-	  </div>
-	</div>
+      <div className={styles.statsContainer}>
+        <h3>Stats Globales</h3>
+        <ul>
+          {Object.entries(globalStats).map(([statName, value]) => (
+            <li key={statName}>
+              {statName}: {value}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };
 

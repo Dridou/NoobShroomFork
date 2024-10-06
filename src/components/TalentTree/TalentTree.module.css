@@ -42,6 +42,11 @@
 	color: white;
 	border: 2px solid #fff;
 	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s;
+	flex-direction: column;
 }
 
 .button.active {
