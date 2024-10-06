@@ -7,36 +7,42 @@
 .talentTreeContainer {
 	height: 1500px;
 	width: 1500px;
-	overflow: hidden; /* Cache les nœuds qui sortent du cadre */
+	overflow: hidden;
+	/* Cache les nœuds qui sortent du cadre */
 	position: relative;
-  }
+}
 
-  /* Styles pour le conteneur des boutons */
-  .buttonContainer {
+/* Styles pour le conteneur des boutons */
+.buttonContainer {
 	display: flex;
 	justify-content: space-around;
 	margin-bottom: 20px;
-  }
+}
 
-  .statsContainer {
-  padding: 10px;
-  background-color: #1e293b; /* Peut-être un fond différent pour mieux les voir */
-  border-radius: 8px;
-  color: white;
-  text-align: left; /* Aligne le texte des stats à gauche */
-  }
+.statsContainer {
+	padding: 10px;
+	background-color: #1e293b;
+	/* Peut-être un fond différent pour mieux les voir */
+	border-radius: 8px;
+	color: white;
+	text-align: left;
+	/* Aligne le texte des stats à gauche */
+}
 
-  .generator {
+.generator {
 	width: 1000px;
-  }
+}
 
-  .transformWrapper, .transformComponent {
-	width: 100%; /* Occupe toute la largeur disponible */
-	height: 100%; /* Occupe toute la hauteur disponible */
-  }
+.transformWrapper,
+.transformComponent {
+	width: 100%;
+	/* Occupe toute la largeur disponible */
+	height: 100%;
+	/* Occupe toute la hauteur disponible */
+}
 
-  /* Styles pour les boutons */
- .buttonContainer button {
+/* Styles pour les boutons */
+.buttonContainer button {
 	padding: 10px 20px;
 	font-size: 16px;
 	cursor: pointer;
@@ -44,8 +50,8 @@
 	color: white;
 	border: 2px solid #fff;
 	border-radius: 8px;
-  }
+}
 
 .buttonContainer button:hover {
 	background-color: #555;
-  }
+}

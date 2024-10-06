@@ -7,3 +7,14 @@
 	flex-direction: column;
 	gap: 10px;
   }
+
+  .line {
+	stroke: rgb(179, 169, 169);
+	stroke-width: 1;
+  }
+
+  .active-line {
+	stroke: yellow;
+	stroke-width: 4;
+	transition: stroke 0.3s ease;
+  }
