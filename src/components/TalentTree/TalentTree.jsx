@@ -3,8 +3,8 @@
 import React, { useState, useEffect} from "react";
 import TalentBranch from "../TalentBranch/TalentBranch";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import styles from "./TalentTree.module.css"; // Module CSS
 import Image from "next/image";
 
