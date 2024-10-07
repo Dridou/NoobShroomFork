@@ -190,3 +190,12 @@ model TableRow {
   table     Table   @relation("TableRows", fields: [tableId], references: [id])
   tableId   String
 }
+
+model TalentConfig {
+  id         String  @id @default(cuid()) @map("_id")
+  dungeon    String  // Le nom du donjon (e.g. "Dungeon 1", "Dungeon 2")
+  threshold  Int     // Le seuil de plumes (e.g. 6000, 12000, 20000)
+  configData Json    // Les données de configuration en JSON (points de talent, etc.)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

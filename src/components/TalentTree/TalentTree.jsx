@@ -936,6 +936,13 @@ const TalentTree = () => {
   const [playerFeathers, setPlayerFeathers] = useState(20000); // Plumes actuelles disponibles
   const [maxFeathers, setMaxFeathers] = useState(20000); // Max plumes disponibles
 
+
+  const dungeons = ["Dungeon 1", "Dungeon 2", "Dungeon 3"]; // Liste des donjons
+const thresholds = [6000, 12000, 20000]; // Seuils de plumes
+
+  const [selectedDungeon, setSelectedDungeon] = useState(dungeons[0]);
+  const [selectedThreshold, setSelectedThreshold] = useState(thresholds[0]);
+
   // Fonction pour mettre à jour le nombre de plumes maximum
   const handleMaxFeathersChange = (newMaxFeathers) => {
     if (!isNaN(newMaxFeathers) && newMaxFeathers >= 0) {
@@ -1104,26 +1111,48 @@ const TalentTree = () => {
 
   // Sauvegarder l'état des branches dans un fichier JSON
   const saveTalentTree = () => {
-    const dataStr =
-      "data:text/json;charset=utf-8," +
-      encodeURIComponent(JSON.stringify(branchPoints));
-    const downloadAnchorNode = document.createElement("a");
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", "talent_tree.json");
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+	// Créer l'objet au format configData
+	const configData = {
+	  maxFeathers: maxFeathers, // Le nombre maximum de plumes
+	  branchPoints: branchPoints // L'état actuel des points dans chaque branche
+	};
+
+	// Convertir l'objet en une chaîne JSON
+	const dataStr =
+	  "data:text/json;charset=utf-8," +
+	  encodeURIComponent(JSON.stringify(configData));
+
+	// Créer un élément d'ancre pour le téléchargement
+	const downloadAnchorNode = document.createElement("a");
+	downloadAnchorNode.setAttribute("href", dataStr);
+	downloadAnchorNode.setAttribute("download", "talent_tree.json");
+
+	// Ajouter l'ancre au document et déclencher le téléchargement
+	document.body.appendChild(downloadAnchorNode);
+	downloadAnchorNode.click();
+
+	// Retirer l'ancre après le téléchargement
+	downloadAnchorNode.remove();
   };
 
-  // Charger un fichier JSON pour restaurer l'état des branches
+  // Charger un fichier JSON pour restaurer l'état des branches et du nombre de plumes
   const loadTalentTree = (event) => {
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      const loadedData = JSON.parse(e.target.result);
-      setBranchPoints(loadedData);
-    };
-    fileReader.readAsText(event.target.files[0]);
+	const fileReader = new FileReader();
+
+	fileReader.onload = (e) => {
+	  const loadedData = JSON.parse(e.target.result);
+
+	  // Vérifier si le fichier contient les bons champs et restaurer les données
+	  if (loadedData.maxFeathers !== undefined && loadedData.branchPoints) {
+		setMaxFeathers(loadedData.maxFeathers); // Restaurer le nombre de plumes maximum
+		setBranchPoints(loadedData.branchPoints); // Restaurer les points dans les branches
+	  }
+	};
+
+	// Lire le fichier sélectionné
+	fileReader.readAsText(event.target.files[0]);
   };
+
 
   const renderBranch = () => {
     switch (selectedBranch) {
@@ -1195,6 +1224,36 @@ const TalentTree = () => {
 			<button onClick={resetAllBranches}>Reset All Branches</button>
 		  </div>
 		  <hr />
+			<>
+				<div>
+				<label>Choisir un donjon :</label>
+				<select
+					value={selectedDungeon}
+					onChange={(e) => setSelectedDungeon(e.target.value)}
+				>
+					{dungeons.map((dungeon) => (
+					<option key={dungeon} value={dungeon}>
+						{dungeon}
+					</option>
+					))}
+				</select>
+				</div>
+
+
+				<div>
+				<label>Choisir un seuil de plumes :</label>
+				<select
+					value={selectedThreshold}
+					onChange={(e) => setSelectedThreshold(parseInt(e.target.value))}
+				>
+					{thresholds.map((threshold) => (
+					<option key={threshold} value={threshold}>
+						{`< ${threshold} plumes`}
+					</option>
+					))}
+				</select>
+				</div>
+			</>
 		  <div className={styles.buttonContainer}>
 		  <input
             type="number"
