@@ -1366,7 +1366,7 @@ const TalentTree = () => {
               onClick={generateTemporaryLink}
               className={styles.shareButton}
             >
-              <FontAwesomeIcon icon={faCopy} /> Share this build
+            Share this build
             </button>
                 {/* Sélection du donjon */}
                 <select
