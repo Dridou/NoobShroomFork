@@ -4,11 +4,10 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import TalentNode from '../TalentNode/TalentNode';
 import styles from './TalentBranch.module.css'; // Module CSS de la branche
 
-const TalentBranch = ({ branchName, nodes, points, onUpdatePoints, onResetBranch  }) => {
+const TalentBranch = ({ branchName, nodes, points, onUpdatePoints, onResetBranch, playerFeathers, setPlayerFeathers  }) => {
   const nodeRefs = useRef([]); // Un tableau de références pour chaque nœud
   const containerRef = useRef(null); // Référence au conteneur du talent tree
   const [nodePositions, setNodePositions] = useState([]); // Stocker les positions des nœuds
-  const [playerFeathers, setPlayerFeathers] = useState(20000); // Définir les plumes du joueur
 
   // Liste des connexions entre les nœuds
   const connections = [
@@ -124,9 +123,30 @@ const TalentBranch = ({ branchName, nodes, points, onUpdatePoints, onResetBranch
 		}
 		return 10;
       };
-      const newPoints = Math.min(points[nodeIndex] + requiredPoints(), maxPoints);
-      onUpdatePoints(branchName, nodeIndex, newPoints, effectPerPoint, statAffected, effectType);
+      const newPoints = Math.min(points[nodeIndex] + requiredPoints(), maxPoints) - points[nodeIndex];
+      onUpdatePoints(branchName, nodeIndex, newPoints, newPoints * effectPerPoint, statAffected, effectType);
+	  let totalCost = 0;
+	  for (let i = points[nodeIndex]; i <  points[nodeIndex] + newPoints; i++) {
+		totalCost += nodeCosts[nodeIndex][i];
+	  }
+	  setPlayerFeathers(playerFeathers - totalCost); // Déduire le coût en plumes
     }
+  };
+
+   const handleNodeClick = (nodeIndex, maxPoints, effectPerPoint, effectType, statAffected) => {
+	const currentCost = nodeCosts[nodeIndex][points[nodeIndex]]; // Coût du prochain point
+	if (playerFeathers >= currentCost && points[nodeIndex] < maxPoints) {
+	  // Vérifier si le noeud peut être activé
+	  if (canActivateNode(nodeIndex)) {
+		const newPoints = points[nodeIndex] + 1;
+		onUpdatePoints(branchName, nodeIndex, 1, effectPerPoint, statAffected, effectType); // Mise à jour des points et des stats
+		setPlayerFeathers(playerFeathers - currentCost); // Déduire le coût en plumes
+	  } else {
+		console.log(`Node ${nodeIndex} cannot be activated yet!`);
+	  }
+	} else {
+	  console.log("Not enough feathers to activate this node!");
+	}
   };
 
   useLayoutEffect(() => {
@@ -150,21 +170,7 @@ const TalentBranch = ({ branchName, nodes, points, onUpdatePoints, onResetBranch
 
 
 
-  const handleNodeClick = (nodeIndex, maxPoints, effectPerPoint, effectType, statAffected) => {
-	const currentCost = nodeCosts[nodeIndex][points[nodeIndex]]; // Coût du prochain point
-	if (playerFeathers >= currentCost && points[nodeIndex] < maxPoints) {
-	  // Vérifier si le noeud peut être activé
-	  if (canActivateNode(nodeIndex)) {
-		const newPoints = points[nodeIndex] + 1;
-		onUpdatePoints(branchName, nodeIndex, newPoints, effectPerPoint, statAffected, effectType); // Mise à jour des points et des stats
-		setPlayerFeathers(playerFeathers - currentCost); // Déduire le coût en plumes
-	  } else {
-		console.log(`Node ${nodeIndex} cannot be activated yet!`);
-	  }
-	} else {
-	  console.log("Not enough feathers to activate this node!");
-	}
-  };
+
 
 
   return (

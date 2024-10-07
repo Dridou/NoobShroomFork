@@ -1,40 +1,57 @@
-﻿.globalContainer {
+﻿/* Conteneur principal */
+.mainContainer {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
+	width: 100%;
+	height: 100%;
+  }
 
-/* Styles pour le conteneur des boutons */
-.buttonContainer {
+  /* Conteneur gauche (header + générateur) */
+  .leftContainer {
+	width: 80%; /* 80% pour le header + générateur */
+	padding-right: 20px; /* Ajout d'un peu d'espace à droite */
 	display: flex;
-	justify-content: space-around;
-	margin-bottom: 20px;
-}
+	flex-direction: column;
+  }
 
-.statsContainer {
+  /* Conteneur de la partie droite (statistiques) */
+  .statsContainer {
+	width: 20%; /* 20% pour les statistiques */
 	padding: 10px;
-	background-color: #1e293b;
-	/* Peut-être un fond différent pour mieux les voir */
+	background-color: #1e293b; /* Fond pour mieux voir */
 	border-radius: 8px;
 	color: white;
 	text-align: left;
-	/* Aligne le texte des stats à gauche */
-}
+	display: flex;
+	flex-direction: column;
+  }
 
-.generator {
-	width: 1000px;
-}
+  /* Conteneur pour les boutons de sauvegarde, chargement et réinitialisation */
+  .buttonRow {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+  }
 
-.transformWrapper,
-.transformComponent {
-	width: 100%;
-	/* Occupe toute la largeur disponible */
-	height: 100%;
-	/* Occupe toute la hauteur disponible */
-}
+  /* Conteneur pour les boutons des branches */
+  .buttonContainer {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+	margin-top: 20px;
+  }
 
-/* Styles pour les boutons */
-.buttonContainer button {
+  .generatorContainer {
+	width: 100%; /* S'étend pour occuper tout l'espace restant */
+	border: 1px solid #333; /* Bordure pour mieux voir */
+  }
+
+  .talentTreeContainer {
+	position: relative;
+	width: min(1000px, 80vw); /* Largeur max de 1000px ou 80% de la largeur de l'écran */
+	height: min(1000px, 80vh); /* Hauteur max de 1000px ou 80% de la hauteur de l'écran */
+  }
+
+  .headerContainer button {
 	padding: 10px 20px;
 	font-size: 16px;
 	cursor: pointer;
@@ -42,52 +59,38 @@
 	color: white;
 	border: 2px solid #fff;
 	border-radius: 8px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transition: background-color 0.3s;
-	flex-direction: column;
-}
+  }
 
-.button.active {
+  .headerContainer button.active {
 	background-color: #2c5bb1;
-}
-
-.buttonContainer button:hover {
-	background-color: #555;
-}
-
-/* TalentTree.module.css */
-
-/* Conteneur principal de l'arbre */
-.talentTreeContainer {
-	position: relative;
-	width: 1000px; /* Taille de l'arbre, ajustez selon vos besoins */
-	height: 1000px;
   }
 
   /* Styles spécifiques pour mobile */
   @media (max-width: 768px) {
-	.talentTreeContainer {
-	  width: 750px;
-	  height: 600px;
+	.mainContainer {
+	  flex-direction: column;
 	}
 
-	/* Ajuster l'échelle initiale pour mobile */
-	.transformWrapper, .transformComponent {
-	  width: 100%;
-	  height: 100%;
+	.buttonRow {
+		flex-direction: column;
+		gap: 10px;
 	}
 
-	/* Ajustement de la taille des boutons pour mobile */
-	.buttonContainer button {
-	  padding: 8px 15px;
-	  font-size: 14px;
+	.buttonContainer {
+		flex-direction: row;
+		gap: 10px;
 	}
 
-	/* Conteneur des statistiques pour mobile */
+	.headerContainer button{
+		font-size: 12px;
+	}
+
+	.leftContainer {
+	  width: 100%; /* Le générateur occupe tout l'écran sur mobile */
+	}
+
 	.statsContainer {
-	  font-size: 14px;
-	  padding: 10px;
+	  width: 100%; /* Les stats prennent toute la largeur sur mobile */
+	  margin-top: 20px;
 	}
   }

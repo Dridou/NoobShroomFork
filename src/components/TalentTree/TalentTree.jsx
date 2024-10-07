@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import TalentBranch from "../TalentBranch/TalentBranch";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import styles from "./TalentTree.module.css"; // Module CSS
+import Image from "next/image";
 
 const TalentTree = () => {
   // Définir des nœuds pour chaque branche
@@ -931,6 +932,18 @@ const TalentTree = () => {
     },
   ];
 
+    // Plumes utilisées dans l'arbre
+  const [playerFeathers, setPlayerFeathers] = useState(20000); // Plumes actuelles disponibles
+  const [maxFeathers, setMaxFeathers] = useState(20000); // Max plumes disponibles
+
+  // Fonction pour mettre à jour le nombre de plumes maximum
+  const handleMaxFeathersChange = (newMaxFeathers) => {
+    if (!isNaN(newMaxFeathers) && newMaxFeathers >= 0) {
+      setMaxFeathers(newMaxFeathers);
+      setPlayerFeathers(newMaxFeathers); // Réinitialiser les plumes actuelles au nouveau max
+    }
+  };
+
   // Gestion des points pour chaque branche
   const [branchPoints, setBranchPoints] = useState({
     Fury: furyNodes.map(() => 0), // Initialiser les points de chaque nœud pour Fury
@@ -1008,7 +1021,7 @@ const TalentTree = () => {
     setBranchPoints((prevPoints) => ({
       ...prevPoints,
       [branchName]: prevPoints[branchName].map((points, index) =>
-        index === nodeIndex ? newPoints : points
+        index === nodeIndex ? points + newPoints : points
       ),
     }));
 
@@ -1035,6 +1048,58 @@ const TalentTree = () => {
       Sorcery: sorceryNodes.map(() => 0),
       Beast: beastNodes.map(() => 0),
     });
+	setGlobalStats({
+		"HP %": 0,
+    "DEF %": 0,
+    "ATK %": 0,
+    "ATK SPD": 0,
+
+    "Stun %": 0,
+    "Evasion %": 0,
+    "Regeneration %": 0,
+    "Ignore Stun %": 0,
+    "Ignore Evasion %": 0,
+    "Ignore Combo %": 0,
+    "Ignore Counter %": 0,
+
+    "Crit Dmg %": 0,
+    "Crit Res %": 0,
+
+    "Basic Atk Dmg %": 0,
+    "Basic Atk Res %": 0,
+
+    "Combo Dmg %": 0,
+    "Combo Res %": 0,
+
+    "Counter Dmg %": 0,
+    "Counter Res %": 0,
+
+    "Launch %": 0,
+    "Ignore Launch %": 0,
+
+    "Skill Crit Dmg %": 0,
+    "Skill Dmg %": 0,
+    "Skill Res %": 0,
+
+    "Pal Dmg %": 0,
+    "Pal Res %": 0,
+    "Healing Rate %": 0,
+    "Healing Amount %": 0,
+
+    "Skill CD Reduction %": 0,
+    "Wound %": 0,
+    "Counter Regen %": 0,
+    "Combo Regen %": 0,
+    "Pal Regen %": 0,
+    "Skill Regen %": 0,
+
+    "Pal Crit Dmg %": 0,
+    "Pal Atk Spd %": 0,
+    "Pal Ignore Evasion %": 0,
+
+    "ATK SPD": 0,
+	});
+	setPlayerFeathers(maxFeathers);
   };
 
   // Sauvegarder l'état des branches dans un fichier JSON
@@ -1070,6 +1135,9 @@ const TalentTree = () => {
             nodes={furyNodes}
             points={branchPoints.Fury}
             onUpdatePoints={updatePoints}
+			onResetBranch={resetBranch}
+			playerFeathers={playerFeathers}
+			setPlayerFeathers={setPlayerFeathers}
           />
         );
       case "Archery":
@@ -1080,6 +1148,9 @@ const TalentTree = () => {
             nodes={archeryNodes}
             points={branchPoints.Archery}
             onUpdatePoints={updatePoints}
+			onResetBranch={resetBranch}
+			playerFeathers={playerFeathers}
+			setPlayerFeathers={setPlayerFeathers}
           />
         );
       case "Sorcery":
@@ -1090,6 +1161,9 @@ const TalentTree = () => {
             nodes={sorceryNodes}
             points={branchPoints.Sorcery}
             onUpdatePoints={updatePoints}
+			onResetBranch={resetBranch}
+			playerFeathers={playerFeathers}
+			setPlayerFeathers={setPlayerFeathers}
           />
         );
 
@@ -1101,6 +1175,9 @@ const TalentTree = () => {
             nodes={beastNodes}
             points={branchPoints.Beast}
             onUpdatePoints={updatePoints}
+			onResetBranch={resetBranch}
+			playerFeathers={playerFeathers}
+			setPlayerFeathers={setPlayerFeathers}
           />
         );
       default:
@@ -1109,81 +1186,94 @@ const TalentTree = () => {
   };
 
   return (
-    <div>
-      <div className={styles.headerContainer}>
-        <div className={styles.buttonContainer}>
-			<button
-	          onClick={() => setSelectedBranch("Archery")}
-	          className={`${styles.button} ${
-	            selectedBranch === "Archery" ? styles.active : ""
-	          }`}
-	        >
-	          Archery
-	        </button>
-
-			<button
-	          onClick={() => setSelectedBranch("Sorcery")}
-	          className={`${styles.button} ${
-	            selectedBranch === "Sorcery" ? styles.active : ""
-	          }`}
-	        >
-	          Sorcery
-	        </button>
-	        <button
-	          onClick={() => setSelectedBranch("Fury")}
-	          className={`${styles.button} ${
-	            selectedBranch === "Fury" ? styles.active : ""
-	          }`}
-	        >
-	          Fury
-	        </button>
-			<button
-	          onClick={() => setSelectedBranch("Beast")}
-	          className={`${styles.button} ${
-	            selectedBranch === "Beast" ? styles.active : ""
-	          }`}
-	        >
-	          Tame Beasts
-	        </button>
-        </div>
-		<div>
+	<div className={styles.mainContainer}> {/* Conteneur principal */}
+	  <div className={styles.leftContainer}> {/* Conteneur pour le header et le générateur */}
+		<div className={styles.headerContainer}>
+		  <div className={styles.buttonRow}> {/* Ligne pour les boutons de sauvegarde, chargement et réinitialisation */}
 			<button onClick={saveTalentTree}>Save Talent Tree</button>
-	        <input type="file" onChange={loadTalentTree} accept=".json" />
-	        <button onClick={resetAllBranches}>Reset All Branches</button>
+			<button>Load a talent: <input type="file" onChange={loadTalentTree} accept=".json" /></button>
+			<button onClick={resetAllBranches}>Reset All Branches</button>
+		  </div>
+		  <hr />
+		  <div className={styles.buttonContainer}>
+		  <input
+            type="number"
+			value={maxFeathers}
+        	onChange={(e) => handleMaxFeathersChange(parseInt(e.target.value, 10))}
+            min="0"
+			max="100000"
+			placeholder="Enter your max feathers"
+          />
+		  <p>{playerFeathers} <Image src="/images/items/divine-feather.png" width={36} height={36} alt="Divine feather icon"></Image></p>
+
+			<button
+			  onClick={() => setSelectedBranch("Archery")}
+			  className={`${styles.button} ${
+				selectedBranch === "Archery" ? styles.active : ""
+			  }`}
+			>
+			  Archery
+			</button>
+			<button
+			  onClick={() => setSelectedBranch("Sorcery")}
+			  className={`${styles.button} ${
+				selectedBranch === "Sorcery" ? styles.active : ""
+			  }`}
+			>
+			  Sorcery
+			</button>
+			<button
+			  onClick={() => setSelectedBranch("Fury")}
+			  className={`${styles.button} ${
+				selectedBranch === "Fury" ? styles.active : ""
+			  }`}
+			>
+			  Fury
+			</button>
+			<button
+			  onClick={() => setSelectedBranch("Beast")}
+			  className={`${styles.button} ${
+				selectedBranch === "Beast" ? styles.active : ""
+			  }`}
+			>
+			  Tame Beasts
+			</button>
+		  </div>
 		</div>
-      </div>
 
-      <div className={styles.generatorContainer}>
-        <TransformWrapper
-          defaultScale={1}
-          initialScale={1}
-          wheel={{ step: 0.1 }}
-          pinch={{ step: 5 }}
-          doubleClick={{ disabled: true }}
-          initialPositionX={0}
-          initialPositionY={0}
-          minScale={0.5} // Permet de réduire l'arbre sur les petits écrans
-          limitToBounds={false} // Autorise le déplacement en dehors des limites
-          panning={{ velocityDisabled: true }} // Améliore le panning sur mobile
-        >
-          <TransformComponent>
-            <div className={styles.talentTreeContainer}>{renderBranch()}</div>
-          </TransformComponent>
-        </TransformWrapper>
-      </div>
+		<div className={styles.generatorContainer}>
+		  <TransformWrapper
+			defaultScale={1}
+			initialScale={1}
+			wheel={{ step: 0.1 }}
+			pinch={{ step: 5 }}
+			doubleClick={{ disabled: true }}
+			initialPositionX={0}
+			initialPositionY={0}
+			minScale={0.5}
+			limitToBounds={false}
+			panning={{ velocityDisabled: true }}
+		  >
+			<TransformComponent>
+			  <div className={styles.talentTreeContainer}>{renderBranch()}</div>
+			</TransformComponent>
+		  </TransformWrapper>
+		</div>
+	  </div>
 
-      <div className={styles.statsContainer}>
-        <h3>Stats Globales</h3>
-        <ul>
-          {Object.entries(globalStats).map(([statName, value]) => (
-            <li key={statName}>
-              {statName}: {value}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+	  <div className={styles.statsContainer}> {/* Conteneur pour les statistiques globales */}
+		<h3>Stats Globales</h3>
+		<ul>
+		  {Object.entries(globalStats).map(([statName, value]) => (
+			<li key={statName}>
+			  {statName}: {value}
+			</li>
+		  ))}
+		</ul>
+	  </div>
+	</div>
   );
+
 };
 
 export default TalentTree;
