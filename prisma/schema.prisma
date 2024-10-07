@@ -192,10 +192,29 @@ model TableRow {
 }
 
 model TalentConfig {
-  id         String  @id @default(cuid()) @map("_id")
-  dungeon    String  // Le nom du donjon (e.g. "Dungeon 1", "Dungeon 2")
-  threshold  Int     // Le seuil de plumes (e.g. 6000, 12000, 20000)
-  configData Json    // Les données de configuration en JSON (points de talent, etc.)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id         String   @id @default(cuid()) @map("_id")
+  dungeonId  String
+  dungeon    Dungeon  @relation(fields: [dungeonId], references: [id], onDelete: Cascade)
+  thresholdId String
+  threshold   Threshold @relation(fields: [thresholdId], references: [id], onDelete: Cascade)
+  configData Json
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Dungeon {
+  id        String      @id @default(cuid()) @map("_id")
+  name      String      @unique
+  thresholds Threshold[] // Relation avec le modèle Threshold
+
+  TalentConfig TalentConfig[]
+}
+
+model Threshold {
+  id        String   @id @default(cuid()) @map("_id")
+  value     Int
+  dungeonId String
+  dungeon   Dungeon  @relation(fields: [dungeonId], references: [id], onDelete: Cascade)
+
+  TalentConfig TalentConfig[]
 }

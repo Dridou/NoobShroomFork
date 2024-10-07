@@ -52,7 +52,9 @@
   }
 
   .headerContainer button {
-	padding: 10px 20px;
+	padding: 5 5;
+	padding: 10px;
+	margin: auto;
 	font-size: 16px;
 	cursor: pointer;
 	background-color: #333;
@@ -72,18 +74,31 @@
 	}
 
 	.buttonRow {
-		flex-direction: column;
-		gap: 10px;
+		display: flex;
+		flex-direction: row;
+		gap: 20px;
+		justify-content: center;
+		flex-wrap: wrap;
 	}
+
 
 	.buttonContainer {
 		flex-direction: row;
 		gap: 10px;
+		margin-bottom: 20px;
+		margin-top: 20px;
 	}
 
-	.headerContainer button{
+	.headerContainer button {
+		padding: 5 5;
+		margin: auto;
 		font-size: 12px;
-	}
+		cursor: pointer;
+		background-color: #333;
+		color: white;
+		border: 2px solid #fff;
+		border-radius: 8px;
+	  }
 
 	.leftContainer {
 	  width: 100%; /* Le générateur occupe tout l'écran sur mobile */

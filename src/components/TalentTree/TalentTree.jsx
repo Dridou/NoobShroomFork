@@ -1,8 +1,10 @@
 ﻿"use client"; // Indique que ce composant est côté client
 
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import TalentBranch from "../TalentBranch/TalentBranch";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import styles from "./TalentTree.module.css"; // Module CSS
 import Image from "next/image";
 
@@ -936,13 +938,6 @@ const TalentTree = () => {
   const [playerFeathers, setPlayerFeathers] = useState(20000); // Plumes actuelles disponibles
   const [maxFeathers, setMaxFeathers] = useState(20000); // Max plumes disponibles
 
-
-  const dungeons = ["Dungeon 1", "Dungeon 2", "Dungeon 3"]; // Liste des donjons
-const thresholds = [6000, 12000, 20000]; // Seuils de plumes
-
-  const [selectedDungeon, setSelectedDungeon] = useState(dungeons[0]);
-  const [selectedThreshold, setSelectedThreshold] = useState(thresholds[0]);
-
   // Fonction pour mettre à jour le nombre de plumes maximum
   const handleMaxFeathersChange = (newMaxFeathers) => {
     if (!isNaN(newMaxFeathers) && newMaxFeathers >= 0) {
@@ -950,6 +945,101 @@ const thresholds = [6000, 12000, 20000]; // Seuils de plumes
       setPlayerFeathers(newMaxFeathers); // Réinitialiser les plumes actuelles au nouveau max
     }
   };
+
+  const [dungeon, setDungeon] = useState('');
+  const [threshold, setThreshold] = useState('');
+
+  const [dungeons, setDungeons] = useState([]);
+  const [thresholds, setThresholds] = useState([]);
+  const [readOnlyFeathers, setReadOnlyFeathers] = useState(false); // Nouveau state pour gérer l'état readonly
+
+  const [loading, setLoading] = useState(false);
+
+
+  const [temporaryLink, setTemporaryLink] = useState('');
+
+  const getConfigFromURL = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const config = urlParams.get('config');
+    if (config) {
+      try {
+        const decodedConfig = JSON.parse(decodeURIComponent(config));
+        setBranchPoints(decodedConfig.branchPoints); // Charger la configuration des talents
+        setMaxFeathers(decodedConfig.maxFeathers); // Charger le nombre de plumes
+		setPlayerFeathers(decodedConfig.playerFeathers); // Charger le nombre de plumes actuelles
+        setReadOnlyFeathers(true); // Mettre le champ des plumes en readonly
+      } catch (error) {
+        console.error('Erreur lors du chargement de la configuration', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Charger la configuration depuis l'URL si elle est présente
+    getConfigFromURL();
+  }, []);
+
+
+  const generateTemporaryLink = () => {
+    const configData = {
+      branchPoints, // Ta configuration actuelle des points de talent
+      maxFeathers,  // Ajout des plumes dans la configuration
+	  playerFeathers
+    };
+
+    const configString = JSON.stringify(configData); // Convertir la configuration en JSON
+    const encodedConfig = encodeURIComponent(configString); // Encoder la chaîne JSON
+    const link = `${window.location.origin}/posts/talent-generator?config=${encodedConfig}`;
+    setTemporaryLink(link);
+    navigator.clipboard.writeText(link); // Copier le lien dans le presse-papiers
+    alert('Lien de build copié dans le presse-papiers');
+  };
+
+  useEffect(() => {
+    const loadDungeons = async () => {
+      try {
+        const response = await fetch('/api/dungeons');
+        const data = await response.json();
+        if (response.ok) {
+          setDungeons(data);
+        } else {
+          console.error('Error fetching dungeons:', data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching dungeons:', error);
+      }
+    };
+
+    loadDungeons();
+  }, []);
+
+  // Charger les seuils lorsque le donjon est sélectionné
+  useEffect(() => {
+    const loadThresholds = async () => {
+      if (dungeon) {
+        try {
+          const response = await fetch(`/api/thresholds/${dungeon}`);
+          const data = await response.json();
+          if (response.ok) {
+            setThresholds(data);
+          } else {
+            console.error('Error fetching thresholds:', data.error);
+          }
+        } catch (error) {
+          console.error('Error fetching thresholds:', error);
+        }
+      }
+    };
+
+    loadThresholds();
+  }, [dungeon]);
+
+   // Charger les talents depuis l'API lorsque le donjon et le seuil sont sélectionnés
+   useEffect(() => {
+    if (dungeon && threshold) {
+      loadTalentConfig(dungeon, threshold);
+    }
+  }, [dungeon, threshold]);
 
   // Gestion des points pour chaque branche
   const [branchPoints, setBranchPoints] = useState({
@@ -1153,8 +1243,53 @@ const thresholds = [6000, 12000, 20000]; // Seuils de plumes
 	fileReader.readAsText(event.target.files[0]);
   };
 
+  // Charger les talents depuis l'API
+  const loadTalentConfig = async (dungeon, threshold) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/talent?dungeon=${dungeon}&threshold=${threshold}`);
+      const data = await response.json();
+      if (response.ok) {
+        setBranchPoints(data.configData);
+      } else {
+        console.error('Error loading talent config:', data.message || data.error);
+      }
+    } catch (error) {
+      console.error('Error loading talent config:', error);
+    }
+    setLoading(false);
+  };
+
+  const saveTalentConfig = async () => {
+	console.log(dungeon, threshold, branchPoints);
+    try {
+      const response = await fetch('/api/talent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          dungeon,
+          threshold,
+          configData: branchPoints,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.error('Error saving talent config:', data.message || data.error);
+      } else {
+        console.log('Talent config saved successfully:', data);
+      }
+    } catch (error) {
+      console.error('Error saving talent config:', error);
+    }
+  };
+
 
   const renderBranch = () => {
+	console.log(dungeons)
+
     switch (selectedBranch) {
       case "Fury":
         return (
@@ -1215,122 +1350,163 @@ const thresholds = [6000, 12000, 20000]; // Seuils de plumes
   };
 
   return (
-	<div className={styles.mainContainer}> {/* Conteneur principal */}
-	  <div className={styles.leftContainer}> {/* Conteneur pour le header et le générateur */}
-		<div className={styles.headerContainer}>
-		  <div className={styles.buttonRow}> {/* Ligne pour les boutons de sauvegarde, chargement et réinitialisation */}
-			<button onClick={saveTalentTree}>Save Talent Tree</button>
-			<button>Load a talent: <input type="file" onChange={loadTalentTree} accept=".json" /></button>
-			<button onClick={resetAllBranches}>Reset All Branches</button>
-		  </div>
-		  <hr />
-			<>
-				<div>
-				<label>Choisir un donjon :</label>
-				<select
-					value={selectedDungeon}
-					onChange={(e) => setSelectedDungeon(e.target.value)}
-				>
-					{dungeons.map((dungeon) => (
-					<option key={dungeon} value={dungeon}>
-						{dungeon}
-					</option>
-					))}
-				</select>
-				</div>
+    <div className={styles.mainContainer}>
+      {" "}
+      {/* Conteneur principal */}
+      <div className={styles.leftContainer}>
+        {" "}
+        {/* Conteneur pour le header et le générateur */}
+        <div className={styles.headerContainer}>
+          <div className={styles.buttonRow}>
+            {" "}
+            {/* Ligne pour les boutons de sauvegarde, chargement et réinitialisation */}
+            {/* <button onClick={saveTalentTree}>Save Talent Tree</button> */}
+            {/* Bouton de partage avec icône de copie */}
+            <button
+              onClick={generateTemporaryLink}
+              className={styles.shareButton}
+            >
+              <FontAwesomeIcon icon={faCopy} /> Share this build
+            </button>
+                {/* Sélection du donjon */}
+                <select
+                  onChange={(e) => setDungeon(e.target.value)}
+                  value={dungeon}
+                  disabled={readOnlyFeathers}
+                >
+                  <option key="default-dungeon" value="" disabled>
+                    Select Dungeon
+                  </option>
+                  {dungeons.map((d) => (
+                    <option key={d.id} value={d.name}>
+                      {d.name}{" "}
+                      {/* Assurez-vous d'afficher la propriété appropriée de l'objet `d` */}
+                    </option>
+                  ))}
+                </select>
 
+                {/* Sélection du seuil */}
+                <select
+                  onChange={(e) => setThreshold(e.target.value)}
+                  value={threshold}
+				  disabled={!dungeon || readOnlyFeathers}                >
+                  <option key="default-threshold" value="" disabled>
+                    Select Threshold
+                  </option>
+                  {thresholds.map((t) => (
+                    <option key={t.id} value={t.value}>
+                      {t.value}{" "}
+                      {/* Assurez-vous d'afficher la propriété appropriée de l'objet `t` */}
+                    </option>
+                  ))}
+                </select>
 
-				<div>
-				<label>Choisir un seuil de plumes :</label>
-				<select
-					value={selectedThreshold}
-					onChange={(e) => setSelectedThreshold(parseInt(e.target.value))}
-				>
-					{thresholds.map((threshold) => (
-					<option key={threshold} value={threshold}>
-						{`< ${threshold} plumes`}
-					</option>
-					))}
-				</select>
-				</div>
-			</>
-		  <div className={styles.buttonContainer}>
-		  <input
-            type="number"
-			value={maxFeathers}
-        	onChange={(e) => handleMaxFeathersChange(parseInt(e.target.value, 10))}
-            min="0"
-			max="100000"
-			placeholder="Enter your max feathers"
-          />
-		  <p>{playerFeathers} <Image src="/images/items/divine-feather.png" width={36} height={36} alt="Divine feather icon"></Image></p>
+                {/* Bouton de sauvegarde */}
+                <button
+                  onClick={saveTalentConfig}
+                  disabled={!dungeon || !threshold}
+                >
+                  Save Talent Config
+                </button>
+                <button
+                  onClick={() => {
+                    window.location.href = `${window.location.origin}/posts/talent-generator`;
+                  }}
+                >
+                  New Build
+                </button>
+            {/* <button>Load a talent: <input type="file" onChange={loadTalentTree} accept=".json" /></button> */}
+            <button onClick={resetAllBranches}>Reset All Branches</button>
+          </div>
+          <hr />
+          <div className={styles.buttonContainer}>
+            <input
+              type="number"
+              value={maxFeathers}
+              onChange={(e) =>
+                handleMaxFeathersChange(parseInt(e.target.value, 10))
+              }
+              min="0"
+              max="100000"
+              placeholder="Enter your max feathers"
+              disabled={readOnlyFeathers}
+            />
+            <p>
+              {playerFeathers}{" "}
+              <Image
+                src="/images/items/divine-feather.png"
+                width={36}
+                height={36}
+                alt="Divine feather icon"
+              ></Image>
+            </p>
 
-			<button
-			  onClick={() => setSelectedBranch("Archery")}
-			  className={`${styles.button} ${
-				selectedBranch === "Archery" ? styles.active : ""
-			  }`}
-			>
-			  Archery
-			</button>
-			<button
-			  onClick={() => setSelectedBranch("Sorcery")}
-			  className={`${styles.button} ${
-				selectedBranch === "Sorcery" ? styles.active : ""
-			  }`}
-			>
-			  Sorcery
-			</button>
-			<button
-			  onClick={() => setSelectedBranch("Fury")}
-			  className={`${styles.button} ${
-				selectedBranch === "Fury" ? styles.active : ""
-			  }`}
-			>
-			  Fury
-			</button>
-			<button
-			  onClick={() => setSelectedBranch("Beast")}
-			  className={`${styles.button} ${
-				selectedBranch === "Beast" ? styles.active : ""
-			  }`}
-			>
-			  Tame Beasts
-			</button>
-		  </div>
-		</div>
-
-		<div className={styles.generatorContainer}>
-		  <TransformWrapper
-			defaultScale={1}
-			initialScale={1}
-			wheel={{ step: 0.1 }}
-			pinch={{ step: 5 }}
-			doubleClick={{ disabled: true }}
-			initialPositionX={0}
-			initialPositionY={0}
-			minScale={0.5}
-			limitToBounds={false}
-			panning={{ velocityDisabled: true }}
-		  >
-			<TransformComponent>
-			  <div className={styles.talentTreeContainer}>{renderBranch()}</div>
-			</TransformComponent>
-		  </TransformWrapper>
-		</div>
-	  </div>
-
-	  <div className={styles.statsContainer}> {/* Conteneur pour les statistiques globales */}
-		<h3>Stats Globales</h3>
-		<ul>
-		  {Object.entries(globalStats).map(([statName, value]) => (
-			<li key={statName}>
-			  {statName}: {value}
-			</li>
-		  ))}
-		</ul>
-	  </div>
-	</div>
+            <button
+              onClick={() => setSelectedBranch("Archery")}
+              className={`${styles.button} ${
+                selectedBranch === "Archery" ? styles.active : ""
+              }`}
+            >
+              Archery
+            </button>
+            <button
+              onClick={() => setSelectedBranch("Sorcery")}
+              className={`${styles.button} ${
+                selectedBranch === "Sorcery" ? styles.active : ""
+              }`}
+            >
+              Sorcery
+            </button>
+            <button
+              onClick={() => setSelectedBranch("Fury")}
+              className={`${styles.button} ${
+                selectedBranch === "Fury" ? styles.active : ""
+              }`}
+            >
+              Fury
+            </button>
+            <button
+              onClick={() => setSelectedBranch("Beast")}
+              className={`${styles.button} ${
+                selectedBranch === "Beast" ? styles.active : ""
+              }`}
+            >
+              Tame Beasts
+            </button>
+          </div>
+        </div>
+        <div className={styles.generatorContainer}>
+          <TransformWrapper
+            defaultScale={1}
+            initialScale={1}
+            wheel={{ step: 0.1 }}
+            pinch={{ step: 5 }}
+            doubleClick={{ disabled: true }}
+            initialPositionX={0}
+            initialPositionY={0}
+            minScale={0.5}
+            limitToBounds={false}
+            panning={{ velocityDisabled: true }}
+          >
+            <TransformComponent>
+              <div className={styles.talentTreeContainer}>{renderBranch()}</div>
+            </TransformComponent>
+          </TransformWrapper>
+        </div>
+      </div>
+      <div className={styles.statsContainer}>
+        {" "}
+        {/* Conteneur pour les statistiques globales */}
+        <h3>Stats Globales</h3>
+        <ul>
+          {Object.entries(globalStats).map(([statName, value]) => (
+            <li key={statName}>
+              {statName}: {value}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 
 };
