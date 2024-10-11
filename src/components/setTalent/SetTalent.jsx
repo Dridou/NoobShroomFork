@@ -19,7 +19,7 @@ const SetTalent = ({ talentImage, talents, title }) => {
           />
         </div>
         <p dangerouslySetInnerHTML={{ __html: talents }}></p>
-		<TalentTree />
+		{/* <TalentTree /> */}
       </div>
     </div>
   );
