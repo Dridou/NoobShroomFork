@@ -1361,7 +1361,7 @@ const TalentTree = () => {
                 ))}
               </select>
             )}
-            <button onClick={saveTalentConfig} disabled={!characterClass}>
+            <button onClick={saveTalentConfig} disabled>
               Save Talent Config
             </button>
             <button onClick={resetAllBranches}>Reset All Branches</button>
