@@ -26,33 +26,25 @@ const Featured = async () => {
       <div className={styles.post}>
         <div className={styles.imgContainer}>
           <Image
-            src="/images/beastmaster/beast-masters-characters.png"
-            alt="Beast master characters"
-            width={493}
-            height={511}
+            src="/images/prophet-character.png"
+            alt="Prophet Character"
+            width={512}
+            height={512}
             className={styles.image}
           />
         </div>
         <div className={styles.textContainer}>
           <span className={styles.postTitle}>
-            <b>New class: Beast master - Discover our in-depth class guide</b>
+            <b>How to play Prophet as a regeneration Tank ?</b>
           </span>
           <p className={styles.postDesc}>
-            Following the <span class="tips">new update</span> of Legend of
-            Mushroom you can now play the new{" "}
-            <span class="tips">Beastmaster</span> class.
-            <br />
-            <br />
-            In our <span class="tips">in-depth guide</span>, we dive into the
-            details of this new class and tell you the best up to date way to
-            play it!.
-            <br />
-            <br />
-            <span class="tips">Follow our ongoing guide</span> to stay
-            up-to-date and become the best Beastmaster in the game!
+			The Prophet is a mage class that can be played as a tank with the
+			right build.<br/>
+			This guide will show you how to play the Prophet as a
+			regeneration tank which is in <span class="tips">this meta a really strong pick</span> !
           </p>
           <button className={styles.button}>
-            <a href={"/posts/beast-master-class-guide"}>Beast Master guide</a>
+            <a href={"/posts/mage-prophet-tank-regen"}>Prophet regen build</a>
           </button>
         </div>
       </div>

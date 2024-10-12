@@ -46,6 +46,7 @@ const Navbar = () => {
           <Link href="/posts/prophet-preblitz-class-guide">
             Mage - Prophet Pre-blitz
           </Link>
+		  <Link href="/posts/mage-prophet-tank-regen">Mage - Prophet Regen</Link>
           <Link href="/posts/best-class">Best class</Link>
         </NavItem>
 

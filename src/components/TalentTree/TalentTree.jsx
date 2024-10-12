@@ -1,6 +1,6 @@
 ﻿"use client"; // Indique que ce composant est côté client
 
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import TalentBranch from "../TalentBranch/TalentBranch";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -934,7 +934,7 @@ const TalentTree = () => {
     },
   ];
 
-    // Plumes utilisées dans l'arbre
+  // Plumes utilisées dans l'arbre
   const [playerFeathers, setPlayerFeathers] = useState(20000); // Plumes actuelles disponibles
   const [maxFeathers, setMaxFeathers] = useState(20000); // Max plumes disponibles
 
@@ -946,30 +946,63 @@ const TalentTree = () => {
     }
   };
 
-  const [dungeon, setDungeon] = useState('');
-  const [threshold, setThreshold] = useState('');
-
-  const [dungeons, setDungeons] = useState([]);
-  const [thresholds, setThresholds] = useState([]);
+  const [builds, setBuilds] = useState([]); // State to hold the builds for the selected class
+  const [selectedBuild, setSelectedBuild] = useState(""); // State for the selected build
+  const [characterClass, setCharacterClass] = useState("");
   const [readOnlyFeathers, setReadOnlyFeathers] = useState(false); // Nouveau state pour gérer l'état readonly
-
   const [loading, setLoading] = useState(false);
+  const [temporaryLink, setTemporaryLink] = useState("");
+
+  // Fetch builds when a class is selected
+  useEffect(() => {
+    if (characterClass) {
+		fetchBuildsForClass(characterClass);
+    }
+  }, [characterClass]);
+
+  const fetchBuildsForClass = async (className) => {
+    try {
+      const response = await fetch(`/api/talent?class=${className}`);
+      const data = await response.json();
+      if (response.ok) {
+        setBuilds(data); // Populate the builds array
+      } else {
+        console.error("Error fetching builds:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching builds:", error);
+    }
+  };
+
+  const handleBuildChange = async (buildId) => {
+    setSelectedBuild(buildId);
+    try {
+      const response = await fetch(`/api/talent?id=${buildId}`); // Fetch the selected build's config
+      const buildData = await response.json();
+      if (response.ok) {
+        setBranchPoints(buildData.configData); // Load the build's talent points
+      } else {
+        console.error("Error loading build:", buildData.error);
+      }
+    } catch (error) {
+      console.error("Error loading build:", error);
+    }
+  };
 
 
-  const [temporaryLink, setTemporaryLink] = useState('');
 
   const getConfigFromURL = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const config = urlParams.get('config');
+    const config = urlParams.get("config");
     if (config) {
       try {
         const decodedConfig = JSON.parse(decodeURIComponent(config));
         setBranchPoints(decodedConfig.branchPoints); // Charger la configuration des talents
         setMaxFeathers(decodedConfig.maxFeathers); // Charger le nombre de plumes
-		setPlayerFeathers(decodedConfig.playerFeathers); // Charger le nombre de plumes actuelles
+        setPlayerFeathers(decodedConfig.playerFeathers); // Charger le nombre de plumes actuelles
         setReadOnlyFeathers(true); // Mettre le champ des plumes en readonly
       } catch (error) {
-        console.error('Erreur lors du chargement de la configuration', error);
+        console.error("Erreur lors du chargement de la configuration", error);
       }
     }
   };
@@ -979,12 +1012,11 @@ const TalentTree = () => {
     getConfigFromURL();
   }, []);
 
-
   const generateTemporaryLink = () => {
     const configData = {
       branchPoints, // Ta configuration actuelle des points de talent
-      maxFeathers,  // Ajout des plumes dans la configuration
-	  playerFeathers
+      maxFeathers, // Ajout des plumes dans la configuration
+      playerFeathers,
     };
 
     const configString = JSON.stringify(configData); // Convertir la configuration en JSON
@@ -992,54 +1024,27 @@ const TalentTree = () => {
     const link = `${window.location.origin}/posts/talent-generator?config=${encodedConfig}`;
     setTemporaryLink(link);
     navigator.clipboard.writeText(link); // Copier le lien dans le presse-papiers
-    alert('Lien de build copié dans le presse-papiers');
+    alert("Lien de build copié dans le presse-papiers");
   };
 
   useEffect(() => {
-    const loadDungeons = async () => {
+    const loadClasses = async () => {
       try {
-        const response = await fetch('/api/dungeons');
+        const response = await fetch("/api/classes");
         const data = await response.json();
         if (response.ok) {
-          setDungeons(data);
+          setCharacterClass(data[0]?.name || ""); // Sélectionner par défaut la première classe
         } else {
-          console.error('Error fetching dungeons:', data.error);
+          console.error("Error fetching classes:", data.error);
         }
       } catch (error) {
-        console.error('Error fetching dungeons:', error);
+        console.error("Error fetching class:", error);
       }
     };
 
-    loadDungeons();
+    loadClasses();
   }, []);
 
-  // Charger les seuils lorsque le donjon est sélectionné
-  useEffect(() => {
-    const loadThresholds = async () => {
-      if (dungeon) {
-        try {
-          const response = await fetch(`/api/thresholds/${dungeon}`);
-          const data = await response.json();
-          if (response.ok) {
-            setThresholds(data);
-          } else {
-            console.error('Error fetching thresholds:', data.error);
-          }
-        } catch (error) {
-          console.error('Error fetching thresholds:', error);
-        }
-      }
-    };
-
-    loadThresholds();
-  }, [dungeon]);
-
-   // Charger les talents depuis l'API lorsque le donjon et le seuil sont sélectionnés
-   useEffect(() => {
-    if (dungeon && threshold) {
-      loadTalentConfig(dungeon, threshold);
-    }
-  }, [dungeon, threshold]);
 
   // Gestion des points pour chaque branche
   const [branchPoints, setBranchPoints] = useState({
@@ -1145,150 +1150,109 @@ const TalentTree = () => {
       Sorcery: sorceryNodes.map(() => 0),
       Beast: beastNodes.map(() => 0),
     });
-	setGlobalStats({
-		"HP %": 0,
-    "DEF %": 0,
-    "ATK %": 0,
-    "ATK SPD": 0,
+    setGlobalStats({
+      "HP %": 0,
+      "DEF %": 0,
+      "ATK %": 0,
+      "ATK SPD": 0,
 
-    "Stun %": 0,
-    "Evasion %": 0,
-    "Regeneration %": 0,
-    "Ignore Stun %": 0,
-    "Ignore Evasion %": 0,
-    "Ignore Combo %": 0,
-    "Ignore Counter %": 0,
+      "Stun %": 0,
+      "Evasion %": 0,
+      "Regeneration %": 0,
+      "Ignore Stun %": 0,
+      "Ignore Evasion %": 0,
+      "Ignore Combo %": 0,
+      "Ignore Counter %": 0,
 
-    "Crit Dmg %": 0,
-    "Crit Res %": 0,
+      "Crit Dmg %": 0,
+      "Crit Res %": 0,
 
-    "Basic Atk Dmg %": 0,
-    "Basic Atk Res %": 0,
+      "Basic Atk Dmg %": 0,
+      "Basic Atk Res %": 0,
 
-    "Combo Dmg %": 0,
-    "Combo Res %": 0,
+      "Combo Dmg %": 0,
+      "Combo Res %": 0,
 
-    "Counter Dmg %": 0,
-    "Counter Res %": 0,
+      "Counter Dmg %": 0,
+      "Counter Res %": 0,
 
-    "Launch %": 0,
-    "Ignore Launch %": 0,
+      "Launch %": 0,
+      "Ignore Launch %": 0,
 
-    "Skill Crit Dmg %": 0,
-    "Skill Dmg %": 0,
-    "Skill Res %": 0,
+      "Skill Crit Dmg %": 0,
+      "Skill Dmg %": 0,
+      "Skill Res %": 0,
 
-    "Pal Dmg %": 0,
-    "Pal Res %": 0,
-    "Healing Rate %": 0,
-    "Healing Amount %": 0,
+      "Pal Dmg %": 0,
+      "Pal Res %": 0,
+      "Healing Rate %": 0,
+      "Healing Amount %": 0,
 
-    "Skill CD Reduction %": 0,
-    "Wound %": 0,
-    "Counter Regen %": 0,
-    "Combo Regen %": 0,
-    "Pal Regen %": 0,
-    "Skill Regen %": 0,
+      "Skill CD Reduction %": 0,
+      "Wound %": 0,
+      "Counter Regen %": 0,
+      "Combo Regen %": 0,
+      "Pal Regen %": 0,
+      "Skill Regen %": 0,
 
-    "Pal Crit Dmg %": 0,
-    "Pal Atk Spd %": 0,
-    "Pal Ignore Evasion %": 0,
+      "Pal Crit Dmg %": 0,
+      "Pal Atk Spd %": 0,
+      "Pal Ignore Evasion %": 0,
 
-    "ATK SPD": 0,
-	});
-	setPlayerFeathers(maxFeathers);
-  };
-
-  // Sauvegarder l'état des branches dans un fichier JSON
-  const saveTalentTree = () => {
-	// Créer l'objet au format configData
-	const configData = {
-	  maxFeathers: maxFeathers, // Le nombre maximum de plumes
-	  branchPoints: branchPoints // L'état actuel des points dans chaque branche
-	};
-
-	// Convertir l'objet en une chaîne JSON
-	const dataStr =
-	  "data:text/json;charset=utf-8," +
-	  encodeURIComponent(JSON.stringify(configData));
-
-	// Créer un élément d'ancre pour le téléchargement
-	const downloadAnchorNode = document.createElement("a");
-	downloadAnchorNode.setAttribute("href", dataStr);
-	downloadAnchorNode.setAttribute("download", "talent_tree.json");
-
-	// Ajouter l'ancre au document et déclencher le téléchargement
-	document.body.appendChild(downloadAnchorNode);
-	downloadAnchorNode.click();
-
-	// Retirer l'ancre après le téléchargement
-	downloadAnchorNode.remove();
-  };
-
-  // Charger un fichier JSON pour restaurer l'état des branches et du nombre de plumes
-  const loadTalentTree = (event) => {
-	const fileReader = new FileReader();
-
-	fileReader.onload = (e) => {
-	  const loadedData = JSON.parse(e.target.result);
-
-	  // Vérifier si le fichier contient les bons champs et restaurer les données
-	  if (loadedData.maxFeathers !== undefined && loadedData.branchPoints) {
-		setMaxFeathers(loadedData.maxFeathers); // Restaurer le nombre de plumes maximum
-		setBranchPoints(loadedData.branchPoints); // Restaurer les points dans les branches
-	  }
-	};
-
-	// Lire le fichier sélectionné
-	fileReader.readAsText(event.target.files[0]);
+      "ATK SPD": 0,
+    });
+    setPlayerFeathers(maxFeathers);
+	window.location.href = `${window.location.origin}/posts/talent-generator`;
   };
 
   // Charger les talents depuis l'API
-  const loadTalentConfig = async (dungeon, threshold) => {
+  const loadTalentConfig = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/talent?dungeon=${dungeon}&threshold=${threshold}`);
+      const response = await fetch(`/api/talent?class=${characterClass}`);
       const data = await response.json();
       if (response.ok) {
         setBranchPoints(data.configData);
       } else {
-        console.error('Error loading talent config:', data.message || data.error);
+        console.error(
+          "Error loading talent config:",
+          data.message || data.error
+        );
       }
     } catch (error) {
-      console.error('Error loading talent config:', error);
+      console.error("Error loading talent config:", error);
     }
     setLoading(false);
   };
 
   const saveTalentConfig = async () => {
-	console.log(dungeon, threshold, branchPoints);
     try {
-      const response = await fetch('/api/talent', {
-        method: 'POST',
+      const response = await fetch("/api/talent", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          dungeon,
-          threshold,
+          characterClass, // On enregistre la configuration pour la classe
           configData: branchPoints,
         }),
       });
 
       const data = await response.json();
       if (!response.ok) {
-        console.error('Error saving talent config:', data.message || data.error);
+        console.error(
+          "Error saving talent config:",
+          data.message || data.error
+        );
       } else {
-        console.log('Talent config saved successfully:', data);
+        console.log("Talent config saved successfully:", data);
       }
     } catch (error) {
-      console.error('Error saving talent config:', error);
+      console.error("Error saving talent config:", error);
     }
   };
 
-
   const renderBranch = () => {
-	console.log(dungeons)
 
     switch (selectedBranch) {
       case "Fury":
@@ -1299,9 +1263,9 @@ const TalentTree = () => {
             nodes={furyNodes}
             points={branchPoints.Fury}
             onUpdatePoints={updatePoints}
-			onResetBranch={resetBranch}
-			playerFeathers={playerFeathers}
-			setPlayerFeathers={setPlayerFeathers}
+            onResetBranch={resetBranch}
+            playerFeathers={playerFeathers}
+            setPlayerFeathers={setPlayerFeathers}
           />
         );
       case "Archery":
@@ -1312,9 +1276,9 @@ const TalentTree = () => {
             nodes={archeryNodes}
             points={branchPoints.Archery}
             onUpdatePoints={updatePoints}
-			onResetBranch={resetBranch}
-			playerFeathers={playerFeathers}
-			setPlayerFeathers={setPlayerFeathers}
+            onResetBranch={resetBranch}
+            playerFeathers={playerFeathers}
+            setPlayerFeathers={setPlayerFeathers}
           />
         );
       case "Sorcery":
@@ -1325,9 +1289,9 @@ const TalentTree = () => {
             nodes={sorceryNodes}
             points={branchPoints.Sorcery}
             onUpdatePoints={updatePoints}
-			onResetBranch={resetBranch}
-			playerFeathers={playerFeathers}
-			setPlayerFeathers={setPlayerFeathers}
+            onResetBranch={resetBranch}
+            playerFeathers={playerFeathers}
+            setPlayerFeathers={setPlayerFeathers}
           />
         );
 
@@ -1339,9 +1303,9 @@ const TalentTree = () => {
             nodes={beastNodes}
             points={branchPoints.Beast}
             onUpdatePoints={updatePoints}
-			onResetBranch={resetBranch}
-			playerFeathers={playerFeathers}
-			setPlayerFeathers={setPlayerFeathers}
+            onResetBranch={resetBranch}
+            playerFeathers={playerFeathers}
+            setPlayerFeathers={setPlayerFeathers}
           />
         );
       default:
@@ -1351,71 +1315,55 @@ const TalentTree = () => {
 
   return (
     <div className={styles.mainContainer}>
-      {" "}
       {/* Conteneur principal */}
       <div className={styles.leftContainer}>
-        {" "}
         {/* Conteneur pour le header et le générateur */}
         <div className={styles.headerContainer}>
           <div className={styles.buttonRow}>
-            {" "}
-            {/* Ligne pour les boutons de sauvegarde, chargement et réinitialisation */}
-            {/* <button onClick={saveTalentTree}>Save Talent Tree</button> */}
-            {/* Bouton de partage avec icône de copie */}
             <button
               onClick={generateTemporaryLink}
               className={styles.shareButton}
             >
-            Share this build
+              Share this build
             </button>
-                {/* Sélection du donjon */}
-                <select
-                  onChange={(e) => setDungeon(e.target.value)}
-                  value={dungeon}
-                  disabled={readOnlyFeathers}
-                >
-                  <option key="default-dungeon" value="" disabled>
-                    Select Dungeon
+            {/* Sélecteur de classe */}
+            <select
+              onChange={(e) => setCharacterClass(e.target.value)}
+              value={characterClass}
+              disabled={readOnlyFeathers}
+            >
+              <option key="default-class" value="" disabled>
+                Select Class
+              </option>
+              {/* Remplacer cette ligne par la liste des classes */}
+              <option value="Prophet">Prophet</option>
+              <option value="Darklord">Darklord</option>
+              <option value="Sacred Hunter">Sacred Hunter</option>
+              <option value="Plume Monarch">Plume Monarch</option>
+              <option value="Berserker">Berserker</option>
+              <option value="Martial Saint">Martial Saint</option>
+              <option value="Beast Master">Beast Master</option>
+              <option value="Supreme Spirit">Supreme Spirit</option>
+              {/* Ajouter d'autres classes ici */}
+            </select>
+            {characterClass && (
+              <select
+                onChange={(e) => handleBuildChange(e.target.value)}
+                value={selectedBuild}
+              >
+                <option key="default-build" value="" disabled>Select Build</option>
+                {builds.map((build) => (
+                  <option
+				  key={build.id}
+				  value={build.id}>
+				{build.name}
                   </option>
-                  {dungeons.map((d) => (
-                    <option key={d.id} value={d.name}>
-                      {d.name}{" "}
-                      {/* Assurez-vous d'afficher la propriété appropriée de l'objet `d` */}
-                    </option>
-                  ))}
-                </select>
-
-                {/* Sélection du seuil */}
-                <select
-                  onChange={(e) => setThreshold(e.target.value)}
-                  value={threshold}
-				  disabled={!dungeon || readOnlyFeathers}                >
-                  <option key="default-threshold" value="" disabled>
-                    Select Threshold
-                  </option>
-                  {thresholds.map((t) => (
-                    <option key={t.id} value={t.value}>
-                      {t.value}{" "}
-                      {/* Assurez-vous d'afficher la propriété appropriée de l'objet `t` */}
-                    </option>
-                  ))}
-                </select>
-
-                {/* Bouton de sauvegarde */}
-                <button
-                  onClick={saveTalentConfig}
-                  disabled={!dungeon || !threshold}
-                >
-                  Save Talent Config
-                </button>
-                <button
-                  onClick={() => {
-                    window.location.href = `${window.location.origin}/posts/talent-generator`;
-                  }}
-                >
-                  New Build
-                </button>
-            {/* <button>Load a talent: <input type="file" onChange={loadTalentTree} accept=".json" /></button> */}
+                ))}
+              </select>
+            )}
+            <button onClick={saveTalentConfig} disabled={!characterClass}>
+              Save Talent Config
+            </button>
             <button onClick={resetAllBranches}>Reset All Branches</button>
           </div>
           <hr />
@@ -1508,7 +1456,6 @@ const TalentTree = () => {
       </div>
     </div>
   );
-
 };
 
 export default TalentTree;

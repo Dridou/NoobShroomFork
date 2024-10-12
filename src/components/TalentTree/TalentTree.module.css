@@ -40,6 +40,12 @@
 	margin-top: 20px;
   }
 
+  .buttonRow button:disabled {
+	background-color: #ccc; /* Couleur de fond pour le bouton désactivé */
+	cursor: not-allowed; /* Changer le curseur pour indiquer que le bouton est inactif */
+	opacity: 0.6; /* Réduire l'opacité pour rendre le bouton visuellement désactivé */
+  }
+
   .generatorContainer {
 	width: 100%; /* S'étend pour occuper tout l'espace restant */
 	border: 1px solid #333; /* Bordure pour mieux voir */
@@ -80,7 +86,6 @@
 		justify-content: center;
 		flex-wrap: wrap;
 	}
-
 
 	.buttonContainer {
 		flex-direction: row;

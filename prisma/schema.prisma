@@ -193,13 +193,22 @@ model TableRow {
 
 model TalentConfig {
   id         String   @id @default(cuid()) @map("_id")
-  dungeonId  String
-  dungeon    Dungeon  @relation(fields: [dungeonId], references: [id], onDelete: Cascade)
-  thresholdId String
-  threshold   Threshold @relation(fields: [thresholdId], references: [id], onDelete: Cascade)
+  name	   String?
+//   dungeonId  String
+//   dungeon    Dungeon  @relation(fields: [dungeonId], references: [id], onDelete: Cascade)
+//   thresholdId String
+//   threshold   Threshold @relation(fields: [thresholdId], references: [id], onDelete: Cascade)
+  classId  	String?
+  class 	CharacterClass? @relation(fields: [classId], references: [id])
   configData Json
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
+}
+
+model CharacterClass {
+	id        String   @id @default(cuid()) @map("_id")
+  	name      String   @unique
+ 	talents   TalentConfig[]
 }
 
 model Dungeon {
@@ -207,7 +216,7 @@ model Dungeon {
   name      String      @unique
   thresholds Threshold[] // Relation avec le modèle Threshold
 
-  TalentConfig TalentConfig[]
+//   TalentConfig TalentConfig[]
 }
 
 model Threshold {
@@ -216,5 +225,5 @@ model Threshold {
   dungeonId String
   dungeon   Dungeon  @relation(fields: [dungeonId], references: [id], onDelete: Cascade)
 
-  TalentConfig TalentConfig[]
+//   TalentConfig TalentConfig[]
 }

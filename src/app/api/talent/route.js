@@ -5,109 +5,99 @@ import prisma from "@/utils/connect";
 
 // POST: Sauvegarder les talents
 export async function POST(req) {
-	try {
-	  const body = await req.json();
-	  const { dungeon, threshold, configData } = body;
+  try {
+    const body = await req.json();
+    const { configData, characterClass } = body; // Inclure la classe
 
-	  // Rechercher le donjon et le seuil
-	  const dungeonRecord = await prisma.dungeon.findFirst({
-		where: { name: dungeon },
-	  });
+    // Rechercher la classe en utilisant le nom
+    const classRecord = await prisma.characterClass.findFirst({
+      where: {
+        name: characterClass, // Vérifier si la classe existe déjà dans la base de données
+      },
+    });
 
-	  if (!dungeonRecord) {
-		return NextResponse.json({ error: 'Dungeon not found' }, { status: 404 });
-	  }
+    if (!classRecord) {
+      return NextResponse.json({ error: 'Character class not found' }, { status: 404 });
+    }
 
-	  const thresholdRecord = await prisma.threshold.findFirst({
-		where: {
-		  value: parseInt(threshold, 10),
-		  dungeonId: dungeonRecord.id,
-		},
-	  });
+    // Vérifier si une configuration pour cette classe existe déjà
+    const existingConfig = await prisma.talentConfig.findFirst({
+      where: {
+        classId: classRecord.id, // Utiliser l'ID de la classe pour vérifier la configuration
+      },
+    });
 
-	  if (!thresholdRecord) {
-		return NextResponse.json({ error: 'Threshold not found' }, { status: 404 });
-	  }
+    let savedConfig;
+    if (existingConfig) {
+      // Mettre à jour la configuration existante pour la classe
+      savedConfig = await prisma.talentConfig.update({
+        where: { id: existingConfig.id },
+        data: { configData: configData },
+      });
+    } else {
+      // Créer une nouvelle configuration pour la classe
+      savedConfig = await prisma.talentConfig.create({
+        data: {
+          classId: classRecord.id, // Lier la configuration à la classe
+          configData: configData,  // Enregistrer la configuration des talents
+        },
+      });
+    }
 
-	  // Vérifier si une configuration pour ce donjon et ce seuil existe déjà
-	  const existingConfig = await prisma.talentConfig.findFirst({
-		where: {
-		  dungeonId: dungeonRecord.id,
-		  thresholdId: thresholdRecord.id,
-		},
-	  });
-
-	  let savedConfig;
-	  if (existingConfig) {
-		// Mettre à jour la configuration existante
-		savedConfig = await prisma.talentConfig.update({
-		  where: { id: existingConfig.id },
-		  data: { configData: configData },
-		});
-	  } else {
-		// Créer une nouvelle configuration
-		savedConfig = await prisma.talentConfig.create({
-		  data: {
-			dungeonId: dungeonRecord.id,
-			thresholdId: thresholdRecord.id,
-			configData: configData,
-		  },
-		});
-	  }
-
-	  return NextResponse.json(savedConfig);
-	} catch (error) {
-	  console.error('Error saving talent configuration:', error);
-	  return NextResponse.json({ error: 'Error saving talent configuration' }, { status: 500 });
-	}
+    return NextResponse.json(savedConfig);
+  } catch (error) {
+    console.error('Error saving talent configuration:', error);
+    return NextResponse.json({ error: 'Error saving talent configuration' }, { status: 500 });
   }
+}
+
 
 
 
 // GET: Charger les talents
 export async function GET(req) {
 	const { searchParams } = new URL(req.url);
-	const dungeonName = searchParams.get('dungeon');
-	const thresholdValue = parseInt(searchParams.get('threshold'), 10);
+	const className = searchParams.get('class');
+	const buildId = searchParams.get('id'); // Vérifier si un id est passé
 
 	try {
-	  // Rechercher le donjon par son nom
-	  const dungeonRecord = await prisma.dungeon.findFirst({
-		where: { name: dungeonName },
-	  });
+	  if (className) {
+		// Rechercher les builds pour la classe
+		const classRecord = await prisma.characterClass.findFirst({
+		  where: { name: className },
+		});
 
-	  if (!dungeonRecord) {
-		return NextResponse.json({ message: 'Dungeon not found' }, { status: 404 });
+		if (!classRecord) {
+		  return NextResponse.json({ message: 'Classe non trouvée' }, { status: 404 });
+		}
+
+		const builds = await prisma.talentConfig.findMany({
+		  where: { classId: classRecord.id },
+		});
+
+		return NextResponse.json(builds);
 	  }
 
-	  // Rechercher le seuil (threshold) associé au donjon
-	  const thresholdRecord = await prisma.threshold.findFirst({
-		where: {
-		  value: thresholdValue,
-		  dungeonId: dungeonRecord.id,
-		},
-	  });
+	  if (buildId) {
+		// Rechercher un build spécifique par son ID
+		const talentConfig = await prisma.talentConfig.findUnique({
+		  where: { id: buildId },
+		});
 
-	  if (!thresholdRecord) {
-		return NextResponse.json({ message: 'Threshold not found' }, { status: 404 });
+		if (!talentConfig) {
+		  return NextResponse.json({ message: 'Build non trouvé' }, { status: 404 });
+		}
+
+		return NextResponse.json(talentConfig);
 	  }
 
-	  // Rechercher la configuration des talents pour le donjon et le seuil donnés
-	  const talentConfig = await prisma.talentConfig.findFirst({
-		where: {
-		  dungeonId: dungeonRecord.id,
-		  thresholdId: thresholdRecord.id,
-		},
-	  });
+	  return NextResponse.json({ message: 'Paramètre manquant' }, { status: 400 });
 
-	  if (!talentConfig) {
-		return NextResponse.json({ message: 'Talent configuration not found' }, { status: 404 });
-	  }
-
-	  return NextResponse.json(talentConfig);
 	} catch (error) {
-	  console.error('Error loading talent configuration:', error);
-	  return NextResponse.json({ error: 'Error loading talent configuration' }, { status: 500 });
+	  console.error('Erreur lors de la récupération:', error);
+	  return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
 	}
   }
+
+
 
