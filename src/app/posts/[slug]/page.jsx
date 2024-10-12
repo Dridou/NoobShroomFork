@@ -34,7 +34,6 @@ export async function generateMetadata({ params }) {
 
   // Slugs pour lesquels nous ne voulons pas d'indexation
   const noIndexSlugs = [
-    "best-class",
     "terms",
     "privacy-policy",
     "source-credit",
