@@ -7,7 +7,7 @@ import prisma from "@/utils/connect";
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { configData, characterClass } = body; // Inclure la classe
+    const { characterClass, configData  } = body; // Inclure la classe
 
     // Rechercher la classe en utilisant le nom
     const classRecord = await prisma.characterClass.findFirst({
@@ -20,21 +20,7 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Character class not found' }, { status: 404 });
     }
 
-    // Vérifier si une configuration pour cette classe existe déjà
-    const existingConfig = await prisma.talentConfig.findFirst({
-      where: {
-        classId: classRecord.id, // Utiliser l'ID de la classe pour vérifier la configuration
-      },
-    });
 
-    let savedConfig;
-    if (existingConfig) {
-      // Mettre à jour la configuration existante pour la classe
-      savedConfig = await prisma.talentConfig.update({
-        where: { id: existingConfig.id },
-        data: { configData: configData },
-      });
-    } else {
       // Créer une nouvelle configuration pour la classe
       savedConfig = await prisma.talentConfig.create({
         data: {
@@ -42,7 +28,6 @@ export async function POST(req) {
           configData: configData,  // Enregistrer la configuration des talents
         },
       });
-    }
 
     return NextResponse.json(savedConfig);
   } catch (error) {

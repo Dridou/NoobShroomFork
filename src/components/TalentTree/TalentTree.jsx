@@ -1351,7 +1351,7 @@ const TalentTree = () => {
                 onChange={(e) => handleBuildChange(e.target.value)}
                 value={selectedBuild}
               >
-                <option key="default-build" value="" disabled>Select Build</option>
+                <option key="default-build" value="" disabled>Official builds</option>
                 {builds.map((build) => (
                   <option
 				  key={build.id}
