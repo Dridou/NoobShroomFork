@@ -201,13 +201,13 @@ const TalentTree = () => {
       effectType: "percentage",
       statAffected: "Basic Atk Dmg %",
     },
-    {
+	{
       name: "Counter Dmg %",
-      maxPoints: 20,
+		maxPoints: 20,
       effectPerPoint: 25,
-      effectType: "percentage",
+		effectType: "percentage",
       statAffected: "Counter Dmg %",
-    },
+	  },
     {
       name: "Crit Dmg",
       maxPoints: 20,
@@ -980,7 +980,12 @@ const TalentTree = () => {
       const response = await fetch(`/api/talent?id=${buildId}`); // Fetch the selected build's config
       const buildData = await response.json();
       if (response.ok) {
+		setMaxFeathers(buildData.maxFeathers); // Load the build's feather count
+		// setCharacterClass(buildData.characterClass); // Load the build's class
         setBranchPoints(buildData.configData); // Load the build's talent points
+		setPlayerFeathers(0);
+		// Recalculer les statistiques globales après avoir chargé les points
+		recalculateGlobalStats(buildData.configData);
       } else {
         console.error("Error loading build:", buildData.error);
       }
@@ -1000,7 +1005,10 @@ const TalentTree = () => {
         setBranchPoints(decodedConfig.branchPoints); // Charger la configuration des talents
         setMaxFeathers(decodedConfig.maxFeathers); // Charger le nombre de plumes
         setPlayerFeathers(decodedConfig.playerFeathers); // Charger le nombre de plumes actuelles
+		setCharacterClass(decodedConfig.characterClass); // Charger la classe
         setReadOnlyFeathers(true); // Mettre le champ des plumes en readonly
+		// Recalculer les statistiques globales après avoir chargé les points
+		recalculateGlobalStats(decodedConfig.branchPoints);
       } catch (error) {
         console.error("Erreur lors du chargement de la configuration", error);
       }
@@ -1017,6 +1025,7 @@ const TalentTree = () => {
       branchPoints, // Ta configuration actuelle des points de talent
       maxFeathers, // Ajout des plumes dans la configuration
       playerFeathers,
+	  characterClass
     };
 
     const configString = JSON.stringify(configData); // Convertir la configuration en JSON
@@ -1108,8 +1117,81 @@ const TalentTree = () => {
     "ATK SPD": 0,
   });
 
+  const recalculateGlobalStats = (branchPoints) => {
+	// Initialiser les stats à zéro
+	const newStats = {
+	  "HP %": 0,
+	  "DEF %": 0,
+	  "ATK %": 0,
+	  "ATK SPD": 0,
+
+	  "Stun %": 0,
+	  "Evasion %": 0,
+	  "Regeneration %": 0,
+	  "Ignore Stun %": 0,
+	  "Ignore Evasion %": 0,
+	  "Ignore Combo %": 0,
+	  "Ignore Counter %": 0,
+
+	  "Crit Dmg %": 0,
+	  "Crit Res %": 0,
+
+	  "Basic Atk Dmg %": 0,
+	  "Basic Atk Res %": 0,
+
+	  "Combo Dmg %": 0,
+	  "Combo Res %": 0,
+
+	  "Counter Dmg %": 0,
+	  "Counter Res %": 0,
+
+	  "Launch %": 0,
+	  "Ignore Launch %": 0,
+
+	  "Skill Crit Dmg %": 0,
+	  "Skill Dmg %": 0,
+	  "Skill Res %": 0,
+
+	  "Pal Dmg %": 0,
+	  "Pal Res %": 0,
+	  "Healing Rate %": 0,
+	  "Healing Amount %": 0,
+
+	  "Skill CD Reduction %": 0,
+	  "Wound %": 0,
+	  "Counter Regen %": 0,
+	  "Combo Regen %": 0,
+	  "Pal Regen %": 0,
+	  "Skill Regen %": 0,
+
+	  "Pal Crit Dmg %": 0,
+	  "Pal Atk Spd %": 0,
+	  "Pal Ignore Evasion %": 0,
+
+	  "ATK SPD": 0,
+	};
+
+	const branches = { Fury: furyNodes, Archery: archeryNodes, Sorcery: sorceryNodes, Beast: beastNodes };
+
+	Object.keys(branchPoints).forEach((branch) => {
+	  const branchData = branches[branch];
+	  const points = branchPoints[branch];
+
+	  points.forEach((pointsForNode, index) => {
+		const node = branchData[index];
+		const { statAffected, effectPerPoint } = node;
+
+		newStats[statAffected] += pointsForNode * effectPerPoint;
+	  });
+	});
+
+	// Mettre à jour les statistiques globales
+	setGlobalStats(newStats);
+  };
+
+
   // Branche actuellement sélectionnée
-  const [selectedBranch, setSelectedBranch] = useState("Archery");
+  const [selectedBranch, setSelectedBranch] = useState("Fury");
 
   // Fonction pour mettre à jour les points dans une branche et les statistiques globales
   const updatePoints = (
@@ -1234,6 +1316,7 @@ const TalentTree = () => {
         },
         body: JSON.stringify({
           characterClass, // On enregistre la configuration pour la classe
+		  maxFeathers,
           configData: branchPoints,
         }),
       });
@@ -1322,34 +1405,35 @@ const TalentTree = () => {
           <div className={styles.buttonRow}>
             <button
               onClick={generateTemporaryLink}
-              className={styles.shareButton}
             >
               Share this build
             </button>
             {/* Sélecteur de classe */}
-            <select
-              onChange={(e) => setCharacterClass(e.target.value)}
-              value={characterClass}
-              disabled={readOnlyFeathers}
-            >
-              <option key="default-class" value="" disabled>
-                Select Class
-              </option>
-              {/* Remplacer cette ligne par la liste des classes */}
-              <option value="Prophet">Prophet</option>
-              <option value="Darklord">Darklord</option>
-              <option value="Sacred Hunter">Sacred Hunter</option>
-              <option value="Plume Monarch">Plume Monarch</option>
-              <option value="Berserker">Berserker</option>
-              <option value="Martial Saint">Martial Saint</option>
-              <option value="Beast Master">Beast Master</option>
-              <option value="Supreme Spirit">Supreme Spirit</option>
-              {/* Ajouter d'autres classes ici */}
-            </select>
+            <div className={styles.customSelect}>
+            	<select
+	              onChange={(e) => setCharacterClass(e.target.value)}
+	              value={characterClass}
+	              disabled={readOnlyFeathers}
+	            >
+	              <option key="default-class" value="" disabled>
+	                Class
+	              </option>
+	              {/* Remplacer cette ligne par la liste des classes */}
+	              <option value="Prophet">Prophet</option>
+	              <option value="Darklord">Darklord</option>
+	              <option value="Sacred Hunter">Sacred Hunter</option>
+	              <option value="Plume Monarch">Plume Monarch</option>
+	              <option value="Berserker">Berserker</option>
+	              <option value="Martial Saint">Martial Saint</option>
+	              <option value="Beast Master">Beast Master</option>
+	              <option value="Supreme Spirit">Supreme Spirit</option>
+	              {/* Ajouter d'autres classes ici */}
+	            </select>
+            </div>
             {characterClass && (
               <select
                 onChange={(e) => handleBuildChange(e.target.value)}
-                value={selectedBuild}
+                value={selectedBuild || ""}
               >
                 <option key="default-build" value="" disabled>Official builds</option>
                 {builds.map((build) => (
@@ -1361,66 +1445,73 @@ const TalentTree = () => {
                 ))}
               </select>
             )}
-            <button onClick={saveTalentConfig} disabled>
+            <button onClick={saveTalentConfig}
+			// disabled={!characterClass}
+			>
               Save Talent Config
             </button>
             <button onClick={resetAllBranches}>Reset All Branches</button>
           </div>
           <hr />
           <div className={styles.buttonContainer}>
-            <input
-              type="number"
-              value={maxFeathers}
-              onChange={(e) =>
-                handleMaxFeathersChange(parseInt(e.target.value, 10))
-              }
-              min="0"
-              max="100000"
-              placeholder="Enter your max feathers"
-              disabled={readOnlyFeathers}
-            />
-            <p>
-              {playerFeathers}{" "}
-              <Image
-                src="/images/items/divine-feather.png"
-                width={36}
-                height={36}
-                alt="Divine feather icon"
-              ></Image>
-            </p>
-
-            <button
-              onClick={() => setSelectedBranch("Archery")}
-              className={`${styles.button} ${
-                selectedBranch === "Archery" ? styles.active : ""
-              }`}
-            >
-              Archery
-            </button>
-            <button
-              onClick={() => setSelectedBranch("Sorcery")}
-              className={`${styles.button} ${
-                selectedBranch === "Sorcery" ? styles.active : ""
-              }`}
-            >
-              Sorcery
-            </button>
-            <button
-              onClick={() => setSelectedBranch("Fury")}
-              className={`${styles.button} ${
-                selectedBranch === "Fury" ? styles.active : ""
-              }`}
-            >
-              Fury
-            </button>
-            <button
-              onClick={() => setSelectedBranch("Beast")}
-              className={`${styles.button} ${
-                selectedBranch === "Beast" ? styles.active : ""
-              }`}
-            >
-              Tame Beasts
-            </button>
+            <div className={styles.featherContainer}>
+            	<div className={styles.customInput}>
+	            	Max feather: <input
+		              type="number"
+		              value={maxFeathers}
+		              onChange={(e) =>
+		                handleMaxFeathersChange(parseInt(e.target.value, 10))
+		              }
+		              min="0"
+		              max="100000"
+		              placeholder="Enter your max feathers"
+		              disabled={readOnlyFeathers}
+		            />
+	            </div>
+	            <div>
+	              Remaining : {playerFeathers}{" "}
+	              <Image
+	                src="/images/items/divine-feather.png"
+	                width={36}
+	                height={36}
+	                alt="Divine feather icon"
+	              ></Image>
+	            </div>
+            </div>
+            <div className={styles.branchSelection}>
+            	<button
+	              onClick={() => setSelectedBranch("Fury")}
+	              className={`${styles.button} ${
+	                selectedBranch === "Fury" ? styles.active : ""
+	              }`}
+	            >
+	              Fury
+	            </button>
+	            <button
+	              onClick={() => setSelectedBranch("Archery")}
+	              className={`${styles.button} ${
+	                selectedBranch === "Archery" ? styles.active : ""
+	              }`}
+	            >
+	              Archery
+	            </button>
+	            <button
+	              onClick={() => setSelectedBranch("Sorcery")}
+	              className={`${styles.button} ${
+	                selectedBranch === "Sorcery" ? styles.active : ""
+	              }`}
+	            >
+	              Sorcery
+	            </button>
+	            <button
+	              onClick={() => setSelectedBranch("Beast")}
+	              className={`${styles.button} ${
+	                selectedBranch === "Beast" ? styles.active : ""
+	              }`}
+	            >
+	              Tame Beasts
+	            </button>
+            </div>
           </div>
         </div>
         <div className={styles.generatorContainer}>

@@ -227,14 +227,14 @@
 	background-color: var(--talentBlue);
 
 }
-.node26 {
+.node27 {
 	top: 700px;
 	left: 725px;
 	background-color: var(--talentBlue);
 
 }
 
-.node27 {
+.node26 {
 	top: 700px;
 	left: 875px;
 	background-color: var(--talentBlue);
@@ -388,12 +388,12 @@
 	left: calc(900px - 30px);
 }
 
-.node26-plus10 {
+.node27-plus10 {
 	top: calc(700px + 20px);
 	left: calc(725px - 30px);
 }
 
-.node27-plus10 {
+.node26-plus10 {
 	top: calc(700px + 20px);
 	left: calc(875px - 30px);
 }
@@ -564,13 +564,13 @@
 
 }
 
-.node26-title {
+.node27-title {
 	top: calc(700px - 45px);
 	left: 725px;
 
 }
 
-.node27-title {
+.node26-title {
 	top: calc(700px - 45px);
 	left: 875px;
 }

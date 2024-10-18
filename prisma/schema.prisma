@@ -198,6 +198,7 @@ model TalentConfig {
 //   dungeon    Dungeon  @relation(fields: [dungeonId], references: [id], onDelete: Cascade)
 //   thresholdId String
 //   threshold   Threshold @relation(fields: [thresholdId], references: [id], onDelete: Cascade)
+  maxFeathers String?
   classId  	String?
   class 	CharacterClass? @relation(fields: [classId], references: [id])
   configData Json
