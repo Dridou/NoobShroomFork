@@ -157,7 +157,7 @@ const TalentTree = () => {
 
     // Nœud 19 avec 1 maxPoint (effet spécial)
     {
-      name: "Rampage",
+      name: "Regeneration",
       maxPoints: 1,
       effectPerPoint: 10,
       effectType: "special",
@@ -234,7 +234,7 @@ const TalentTree = () => {
 
     // Nœud 29 avec 1 maxPoint (effet spécial)
     {
-      name: "Final Blow",
+      name: "Rampage",
       maxPoints: 1,
       effectPerPoint: 10,
       effectType: "special",
@@ -467,7 +467,7 @@ const TalentTree = () => {
 
     // Nœud 29 avec 1 maxPoint (effet spécial)
     {
-      name: "Final Shot",
+      name: "Gale barrage",
       maxPoints: 1,
       effectPerPoint: 10,
       effectType: "special",
@@ -623,11 +623,11 @@ const TalentTree = () => {
 
     // Nœud 19 avec 1 maxPoint (effet spécial)
     {
-      name: "Endless Outburst",
+      name: "Stun",
       maxPoints: 1,
-      effectPerPoint: 10,
-      effectType: "special",
-      statAffected: "Special effect",
+      effectPerPoint: 15,
+      effectType: "percentage",
+      statAffected: "Stun %",
     },
 
     {
@@ -698,7 +698,7 @@ const TalentTree = () => {
 
     // Nœud 29 avec 1 maxPoint (effet spécial)
     {
-      name: "Final Arcane",
+      name: "Endless Outburst",
       maxPoints: 1,
       effectPerPoint: 10,
       effectType: "special",
