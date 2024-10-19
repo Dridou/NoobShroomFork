@@ -1407,7 +1407,7 @@ const TalentTree = () => {
             <button onClick={generateTemporaryLink}>Share this build</button>
             <button
               onClick={saveTalentConfig}
-              // disabled={!characterClass}
+              disabled={!characterClass}
             >
               Save Talent Config
             </button>

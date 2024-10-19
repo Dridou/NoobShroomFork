@@ -320,8 +320,6 @@ const TalentBranch = ({
 
   return (
     <div className={styles.talentBranch} ref={containerRef}>
-      <h2>{branchName}</h2>
-
       <svg
         width="1500px"
         height="1500px"
