@@ -1402,116 +1402,116 @@ const TalentTree = () => {
       <div className={styles.leftContainer}>
         {/* Conteneur pour le header et le générateur */}
         <div className={styles.headerContainer}>
+          <p className={styles.title}>PARAMETERES</p>
           <div className={styles.buttonRow}>
+            <button onClick={generateTemporaryLink}>Share this build</button>
             <button
-              onClick={generateTemporaryLink}
+              onClick={saveTalentConfig}
+              // disabled={!characterClass}
             >
-              Share this build
-            </button>
-            {/* Sélecteur de classe */}
-            <div className={styles.customSelect}>
-            	<select
-	              onChange={(e) => setCharacterClass(e.target.value)}
-	              value={characterClass}
-	              disabled={readOnlyFeathers}
-	            >
-	              <option key="default-class" value="" disabled>
-	                Class
-	              </option>
-	              {/* Remplacer cette ligne par la liste des classes */}
-	              <option value="Prophet">Prophet</option>
-	              <option value="Darklord">Darklord</option>
-	              <option value="Sacred Hunter">Sacred Hunter</option>
-	              <option value="Plume Monarch">Plume Monarch</option>
-	              <option value="Berserker">Berserker</option>
-	              <option value="Martial Saint">Martial Saint</option>
-	              <option value="Beast Master">Beast Master</option>
-	              <option value="Supreme Spirit">Supreme Spirit</option>
-	              {/* Ajouter d'autres classes ici */}
-	            </select>
-            </div>
-            {characterClass && (
-              <select
-                onChange={(e) => handleBuildChange(e.target.value)}
-                value={selectedBuild || ""}
-              >
-                <option key="default-build" value="" disabled>Official builds</option>
-                {builds.map((build) => (
-                  <option
-				  key={build.id}
-				  value={build.id}>
-				{build.name}
-                  </option>
-                ))}
-              </select>
-            )}
-            <button onClick={saveTalentConfig}
-			// disabled={!characterClass}
-			>
               Save Talent Config
             </button>
             <button onClick={resetAllBranches}>Reset All Branches</button>
           </div>
           <hr />
+          <p className={styles.title}>Build creation</p>
           <div className={styles.buttonContainer}>
             <div className={styles.featherContainer}>
-            	<div className={styles.customInput}>
-	            	Max feather: <input
-		              type="number"
-		              value={maxFeathers}
-		              onChange={(e) =>
-		                handleMaxFeathersChange(parseInt(e.target.value, 10))
-		              }
-		              min="0"
-		              max="100000"
-		              placeholder="Enter your max feathers"
-		              disabled={readOnlyFeathers}
-		            />
-	            </div>
-	            <div>
-	              Remaining : {playerFeathers}{" "}
-	              <Image
-	                src="/images/items/divine-feather.png"
-	                width={36}
-	                height={36}
-	                alt="Divine feather icon"
-	              ></Image>
-	            </div>
+              <div className={styles.customInput}>
+                Max feather:{" "}
+                <input
+                  type="number"
+                  value={maxFeathers}
+                  onChange={(e) =>
+                    handleMaxFeathersChange(parseInt(e.target.value, 10))
+                  }
+                  min="0"
+                  max="100000"
+                  placeholder="Enter your max feathers"
+                  disabled={readOnlyFeathers}
+                />
+              </div>
+              <div>
+                Remaining : {playerFeathers}{" "}
+                <Image
+                  src="/images/items/divine-feather.png"
+                  width={36}
+                  height={36}
+                  alt="Divine feather icon"
+                ></Image>
+              </div>
             </div>
-            <div className={styles.branchSelection}>
-            	<button
-	              onClick={() => setSelectedBranch("Fury")}
-	              className={`${styles.button} ${
-	                selectedBranch === "Fury" ? styles.active : ""
-	              }`}
-	            >
-	              Fury
-	            </button>
-	            <button
-	              onClick={() => setSelectedBranch("Archery")}
-	              className={`${styles.button} ${
-	                selectedBranch === "Archery" ? styles.active : ""
-	              }`}
-	            >
-	              Archery
-	            </button>
-	            <button
-	              onClick={() => setSelectedBranch("Sorcery")}
-	              className={`${styles.button} ${
-	                selectedBranch === "Sorcery" ? styles.active : ""
-	              }`}
-	            >
-	              Sorcery
-	            </button>
-	            <button
-	              onClick={() => setSelectedBranch("Beast")}
-	              className={`${styles.button} ${
-	                selectedBranch === "Beast" ? styles.active : ""
-	              }`}
-	            >
-	              Tame Beasts
-	            </button>
+            {/* Sélecteur de classe */}
+            <div className={styles.classSelection}>
+              <select
+                onChange={(e) => setCharacterClass(e.target.value)}
+                value={characterClass}
+                disabled={readOnlyFeathers}
+              >
+                <option key="default-class" value="" disabled>
+                  Class
+                </option>
+                {/* Remplacer cette ligne par la liste des classes */}
+                <option value="Prophet">Prophet</option>
+                <option value="Darklord">Darklord</option>
+                <option value="Sacred Hunter">Sacred Hunter</option>
+                <option value="Plume Monarch">Plume Monarch</option>
+                <option value="Berserker">Berserker</option>
+                <option value="Martial Saint">Martial Saint</option>
+                <option value="Beast Master">Beast Master</option>
+                <option value="Supreme Spirit">Supreme Spirit</option>
+                {/* Ajouter d'autres classes ici */}
+              </select>
+              {characterClass && (
+                <select
+                  onChange={(e) => handleBuildChange(e.target.value)}
+                  value={selectedBuild || ""}
+                >
+                  <option key="default-build" value="" disabled>
+                    Official builds
+                  </option>
+                  {builds.map((build) => (
+                    <option key={build.id} value={build.id}>
+                      {build.name}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
+          </div>
+          <div className={styles.branchSelection}>
+            <button
+              onClick={() => setSelectedBranch("Fury")}
+              className={`${styles.button} ${
+                selectedBranch === "Fury" ? styles.active : ""
+              }`}
+            >
+              Fury
+            </button>
+            <button
+              onClick={() => setSelectedBranch("Archery")}
+              className={`${styles.button} ${
+                selectedBranch === "Archery" ? styles.active : ""
+              }`}
+            >
+              Archery
+            </button>
+            <button
+              onClick={() => setSelectedBranch("Sorcery")}
+              className={`${styles.button} ${
+                selectedBranch === "Sorcery" ? styles.active : ""
+              }`}
+            >
+              Sorcery
+            </button>
+            <button
+              onClick={() => setSelectedBranch("Beast")}
+              className={`${styles.button} ${
+                selectedBranch === "Beast" ? styles.active : ""
+              }`}
+            >
+              Tame Beasts
+            </button>
           </div>
         </div>
         <div className={styles.generatorContainer}>

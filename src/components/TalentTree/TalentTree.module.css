@@ -29,6 +29,12 @@
 	flex-direction: column;
 }
 
+.buttonRow #share::before {
+		content: '\f064'; /* Code Unicode de l'icône (ex. pour FontAwesome) */
+		font-family: 'FontAwesome';
+		margin-right: 8px;
+}
+
 /* Conteneur pour les boutons de sauvegarde, chargement et réinitialisation */
 .buttonRow {
 	display: flex;
@@ -62,15 +68,15 @@
 
 .talentTreeContainer {
 	position: relative;
-	width: min(1000px, 80vw);
+	width: min(1050px, 85vw);
 	/* Largeur max de 1000px ou 80% de la largeur de l'écran */
-	height: min(1000px, 80vh);
+	height: min(1000px, 85vh);
 	/* Hauteur max de 1000px ou 80% de la hauteur de l'écran */
 }
 
 .headerContainer button {
 	padding: 10px;
-	/* margin: auto; */
+	margin: auto;
 	font-size: 16px;
 	cursor: pointer;
 	background-color: #333;
@@ -84,7 +90,7 @@
 }
 
 /* Conteneur du select */
-.customSelect {
+.classSelection {
 	position: relative;
 	display: inline-block;
 	width: fit-content;
@@ -92,38 +98,16 @@
 }
 
 /* Style du select */
-.customSelect select {
+.classSelection select {
 	width: 100%;
 	padding: 10px;
 	background-color: #333;
-	/* Ajuste la couleur de fond */
 	border: 2px solid #fff;
 	cursor: pointer;
 	color: #fff;
-	/* Couleur du texte */
 	font-size: 16px;
 	border-radius: 5px;
-	/* Pour des coins arrondis */
-	appearance: none;
-	/* Supprime le style par défaut */
-	-webkit-appearance: none;
-	-moz-appearance: none;
 	text-align: left;
-	/* Centrer le texte */
-}
-
-/* Ajout d'une flèche de dropdown personnalisée */
-.customSelect::after {
-	content: '▼';
-	/* Icône de flèche */
-	position: absolute;
-	right: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #fff;
-	/* Couleur de la flèche */
-	pointer-events: none;
-	/* Désactive les interactions avec la flèche */
 }
 
 .customInput input {
@@ -165,11 +149,18 @@
 	align-items: left;
 }
 
+.title {
+	font-size: 24px;
+	margin-bottom: 10px;
+	text-align: left;
+	text-decoration: underline;
+}
+
 .branchSelection {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	gap: 20px;
+	margin-bottom: 20px;
 }
 
 /* Styles spécifiques pour mobile */
@@ -180,7 +171,6 @@
 
 	.buttonRow {
 		display: flex;
-		flex-direction: column;
 		gap: 20px;
 		justify-content: center;
 		flex-wrap: wrap;
