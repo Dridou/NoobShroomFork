@@ -1,6 +1,7 @@
 ﻿"use client"; // Indique que ce composant est côté client
 
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import TalentBranch from "../TalentBranch/TalentBranch";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -201,13 +202,13 @@ const TalentTree = () => {
       effectType: "percentage",
       statAffected: "Basic Atk Dmg %",
     },
-	{
+    {
       name: "Counter Dmg %",
-		maxPoints: 20,
+      maxPoints: 20,
       effectPerPoint: 25,
-		effectType: "percentage",
+      effectType: "percentage",
       statAffected: "Counter Dmg %",
-	  },
+    },
     {
       name: "Crit Dmg",
       maxPoints: 20,
@@ -956,7 +957,7 @@ const TalentTree = () => {
   // Fetch builds when a class is selected
   useEffect(() => {
     if (characterClass) {
-		fetchBuildsForClass(characterClass);
+      fetchBuildsForClass(characterClass);
     }
   }, [characterClass]);
 
@@ -980,12 +981,12 @@ const TalentTree = () => {
       const response = await fetch(`/api/talent?id=${buildId}`); // Fetch the selected build's config
       const buildData = await response.json();
       if (response.ok) {
-		setMaxFeathers(buildData.maxFeathers); // Load the build's feather count
-		// setCharacterClass(buildData.characterClass); // Load the build's class
+        setMaxFeathers(buildData.maxFeathers); // Load the build's feather count
+        // setCharacterClass(buildData.characterClass); // Load the build's class
         setBranchPoints(buildData.configData); // Load the build's talent points
-		setPlayerFeathers(0);
-		// Recalculer les statistiques globales après avoir chargé les points
-		recalculateGlobalStats(buildData.configData);
+        setPlayerFeathers(0);
+        // Recalculer les statistiques globales après avoir chargé les points
+        recalculateGlobalStats(buildData.configData);
       } else {
         console.error("Error loading build:", buildData.error);
       }
@@ -994,23 +995,32 @@ const TalentTree = () => {
     }
   };
 
-
-
   const getConfigFromURL = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const config = urlParams.get("config");
+    const classParam = urlParams.get("class");
+    const buildParam = urlParams.get("build");
+
     if (config) {
       try {
         const decodedConfig = JSON.parse(decodeURIComponent(config));
         setBranchPoints(decodedConfig.branchPoints); // Charger la configuration des talents
         setMaxFeathers(decodedConfig.maxFeathers); // Charger le nombre de plumes
         setPlayerFeathers(decodedConfig.playerFeathers); // Charger le nombre de plumes actuelles
-		setCharacterClass(decodedConfig.characterClass); // Charger la classe
+        setCharacterClass(decodedConfig.characterClass); // Charger la classe
         setReadOnlyFeathers(true); // Mettre le champ des plumes en readonly
-		// Recalculer les statistiques globales après avoir chargé les points
-		recalculateGlobalStats(decodedConfig.branchPoints);
+        // Recalculer les statistiques globales après avoir chargé les points
+        recalculateGlobalStats(decodedConfig.branchPoints);
       } catch (error) {
         console.error("Erreur lors du chargement de la configuration", error);
+      }
+    } else {
+      if (classParam) {
+        setCharacterClass(classParam);
+      }
+      if (buildParam) {
+        setSelectedBuild(buildParam);
+        handleBuildChange(buildParam);
       }
     }
   };
@@ -1025,7 +1035,7 @@ const TalentTree = () => {
       branchPoints, // Ta configuration actuelle des points de talent
       maxFeathers, // Ajout des plumes dans la configuration
       playerFeathers,
-	  characterClass
+      characterClass,
     };
 
     const configString = JSON.stringify(configData); // Convertir la configuration en JSON
@@ -1053,7 +1063,6 @@ const TalentTree = () => {
 
     loadClasses();
   }, []);
-
 
   // Gestion des points pour chaque branche
   const [branchPoints, setBranchPoints] = useState({
@@ -1118,77 +1127,81 @@ const TalentTree = () => {
   });
 
   const recalculateGlobalStats = (branchPoints) => {
-	// Initialiser les stats à zéro
-	const newStats = {
-	  "HP %": 0,
-	  "DEF %": 0,
-	  "ATK %": 0,
-	  "ATK SPD": 0,
+    // Initialiser les stats à zéro
+    const newStats = {
+      "HP %": 0,
+      "DEF %": 0,
+      "ATK %": 0,
+      "ATK SPD": 0,
 
-	  "Stun %": 0,
-	  "Evasion %": 0,
-	  "Regeneration %": 0,
-	  "Ignore Stun %": 0,
-	  "Ignore Evasion %": 0,
-	  "Ignore Combo %": 0,
-	  "Ignore Counter %": 0,
+      "Stun %": 0,
+      "Evasion %": 0,
+      "Regeneration %": 0,
+      "Ignore Stun %": 0,
+      "Ignore Evasion %": 0,
+      "Ignore Combo %": 0,
+      "Ignore Counter %": 0,
 
-	  "Crit Dmg %": 0,
-	  "Crit Res %": 0,
+      "Crit Dmg %": 0,
+      "Crit Res %": 0,
 
-	  "Basic Atk Dmg %": 0,
-	  "Basic Atk Res %": 0,
+      "Basic Atk Dmg %": 0,
+      "Basic Atk Res %": 0,
 
-	  "Combo Dmg %": 0,
-	  "Combo Res %": 0,
+      "Combo Dmg %": 0,
+      "Combo Res %": 0,
 
-	  "Counter Dmg %": 0,
-	  "Counter Res %": 0,
+      "Counter Dmg %": 0,
+      "Counter Res %": 0,
 
-	  "Launch %": 0,
-	  "Ignore Launch %": 0,
+      "Launch %": 0,
+      "Ignore Launch %": 0,
 
-	  "Skill Crit Dmg %": 0,
-	  "Skill Dmg %": 0,
-	  "Skill Res %": 0,
+      "Skill Crit Dmg %": 0,
+      "Skill Dmg %": 0,
+      "Skill Res %": 0,
 
-	  "Pal Dmg %": 0,
-	  "Pal Res %": 0,
-	  "Healing Rate %": 0,
-	  "Healing Amount %": 0,
+      "Pal Dmg %": 0,
+      "Pal Res %": 0,
+      "Healing Rate %": 0,
+      "Healing Amount %": 0,
 
-	  "Skill CD Reduction %": 0,
-	  "Wound %": 0,
-	  "Counter Regen %": 0,
-	  "Combo Regen %": 0,
-	  "Pal Regen %": 0,
-	  "Skill Regen %": 0,
+      "Skill CD Reduction %": 0,
+      "Wound %": 0,
+      "Counter Regen %": 0,
+      "Combo Regen %": 0,
+      "Pal Regen %": 0,
+      "Skill Regen %": 0,
 
-	  "Pal Crit Dmg %": 0,
-	  "Pal Atk Spd %": 0,
-	  "Pal Ignore Evasion %": 0,
+      "Pal Crit Dmg %": 0,
+      "Pal Atk Spd %": 0,
+      "Pal Ignore Evasion %": 0,
 
-	  "ATK SPD": 0,
-	};
+      "ATK SPD": 0,
+    };
 
-	const branches = { Fury: furyNodes, Archery: archeryNodes, Sorcery: sorceryNodes, Beast: beastNodes };
+    const branches = {
+      Fury: furyNodes,
+      Archery: archeryNodes,
+      Sorcery: sorceryNodes,
+      Beast: beastNodes,
+    };
 
-	Object.keys(branchPoints).forEach((branch) => {
-	  const branchData = branches[branch];
-	  const points = branchPoints[branch];
+    Object.keys(branchPoints).forEach((branch) => {
+      const branchData = branches[branch];
+      const points = branchPoints[branch];
 
-	  points.forEach((pointsForNode, index) => {
-		const node = branchData[index];
-		const { statAffected, effectPerPoint } = node;
+      points.forEach((pointsForNode, index) => {
+        const node = branchData[index];
+        const { statAffected, effectPerPoint } = node;
 
-		newStats[statAffected] += pointsForNode * effectPerPoint;
-	  });
-	});
+        newStats[statAffected] += pointsForNode * effectPerPoint;
+      });
+    });
 
-	// Mettre à jour les statistiques globales
-	setGlobalStats(newStats);
+    // Mettre à jour les statistiques globales
+    setGlobalStats(newStats);
   };
-
 
   // Branche actuellement sélectionnée
   const [selectedBranch, setSelectedBranch] = useState("Fury");
@@ -1284,7 +1297,7 @@ const TalentTree = () => {
       "ATK SPD": 0,
     });
     setPlayerFeathers(maxFeathers);
-	window.location.href = `${window.location.origin}/posts/talent-generator`;
+    window.location.href = `${window.location.origin}/posts/talent-generator`;
   };
 
   // Charger les talents depuis l'API
@@ -1316,7 +1329,7 @@ const TalentTree = () => {
         },
         body: JSON.stringify({
           characterClass, // On enregistre la configuration pour la classe
-		  maxFeathers,
+          maxFeathers,
           configData: branchPoints,
         }),
       });
@@ -1335,8 +1348,18 @@ const TalentTree = () => {
     }
   };
 
-  const renderBranch = () => {
+  const { data: session, status } = useSession();
 
+  // Liste des emails des utilisateurs autorisés
+  const authorizedUsers = [
+    "aneboncarle@hotmail.fr"
+  ];
+
+  const isUserAuthorized = session?.user?.email && authorizedUsers.includes(session.user.email);
+
+
+
+  const renderBranch = () => {
     switch (selectedBranch) {
       case "Fury":
         return (
@@ -1407,7 +1430,8 @@ const TalentTree = () => {
             <button onClick={generateTemporaryLink}>Share this build</button>
             <button
               onClick={saveTalentConfig}
-              disabled={!characterClass}
+              disabled={!isUserAuthorized}
+              //   disabled={!characterClass}
             >
               Save Talent Config
             </button>
@@ -1462,21 +1486,20 @@ const TalentTree = () => {
                 <option value="Supreme Spirit">Supreme Spirit</option>
                 {/* Ajouter d'autres classes ici */}
               </select>
-              {characterClass && (
-                <select
-                  onChange={(e) => handleBuildChange(e.target.value)}
-                  value={selectedBuild || ""}
-                >
-                  <option key="default-build" value="" disabled>
-                    Official builds
+              <select
+                onChange={(e) => handleBuildChange(e.target.value)}
+                value={selectedBuild || ""}
+                disabled={!characterClass}
+              >
+                <option key="default-build" value="" disabled>
+                  Official builds
+                </option>
+                {builds.map((build) => (
+                  <option key={build.id} value={build.id}>
+                    {build.name}
                   </option>
-                  {builds.map((build) => (
-                    <option key={build.id} value={build.id}>
-                      {build.name}
-                    </option>
-                  ))}
-                </select>
-              )}
+                ))}
+              </select>
             </div>
           </div>
           <div className={styles.branchSelection}>

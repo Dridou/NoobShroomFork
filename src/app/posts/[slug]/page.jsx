@@ -71,6 +71,7 @@ export async function generateMetadata({ params }) {
           follow: false,
         }
       : undefined, // Pas de robots si le slug ne correspond pas
+	  lastmod: post?.updatedAt,
   };
 }
 
