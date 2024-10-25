@@ -1321,6 +1321,11 @@ const TalentTree = () => {
   };
 
   const saveTalentConfig = async () => {
+	if (!isUserAuthorized)
+	{
+		alert("User not authorized to save talent config");
+		return;
+	}
     try {
       const response = await fetch("/api/talent", {
         method: "POST",

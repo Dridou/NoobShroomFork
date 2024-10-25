@@ -10,13 +10,13 @@ const SetTalent = ({ talentImage, talents, title }) => {
       <div className={styles.content}>
         <h5>Brief explanation:</h5>
         <div className={styles.imageContainer}>
-          <Image
+          {talentImage && <Image
             src={talentImage}
             className={styles.image}
             alt="Pal"
             width={446}
             height={270}
-          />
+          />}
         </div>
         <p dangerouslySetInnerHTML={{ __html: talents }}></p>
 		{/* <TalentTree /> */}

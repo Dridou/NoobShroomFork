@@ -41,7 +41,6 @@
 
 .talentInfo {
 	text-align: center;
-	color: white;
 	margin: 0;
 	padding: 0;
 }
@@ -49,6 +48,8 @@
 .talentInfo p {
 	margin: 0;
 	padding: 0;
+	color: rgb(255, 255, 255);
+	font-weight: 600;
 }
 
 .node1 {

@@ -49,11 +49,11 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const { metadata } = post;
+  const { metadata, updatedAt} = post;
 
   // Vérification si le slug est dans la liste des noIndexSlugs
   const isNoIndex = noIndexSlugs.includes(params.slug);
-
+  console.log('updatedAt', updatedAt);
   return {
     title: metadata?.title || "Default Title",
     description:
@@ -71,7 +71,7 @@ export async function generateMetadata({ params }) {
           follow: false,
         }
       : undefined, // Pas de robots si le slug ne correspond pas
-	  lastmod: post?.updatedAt,
+	  lastModified: updatedAt ? new Date(updatedAt).toISOString().substring(0, 10) : undefined,
   };
 }
 
