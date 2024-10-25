@@ -30,50 +30,66 @@ const slugifyTitle = (title) => {
 };
 
 export async function generateMetadata({ params }) {
-  const post = await fetchPostData(params.slug);
+	const post = await fetchPostData(params.slug);
 
-  // Slugs pour lesquels nous ne voulons pas d'indexation
-  const noIndexSlugs = [
-    "terms",
-    "privacy-policy",
-    "source-credit",
-    "contact-us",
-    "about-us",
-	"login"
-  ];
+	// Liste des slugs pour lesquels nous voulons ajouter la balise meta spécifique
+	const slugsWithMeta = ["arrowgod-class-guide", "mage-prophet-tank-regen"];
 
-  if (!post || !post.metadata) {
-    return {
-      title: "Default Title",
-      description: "Default description for SEO purposes.",
-    };
+	// Slugs pour lesquels nous ne voulons pas d'indexation
+	const noIndexSlugs = [
+	  "terms",
+	  "privacy-policy",
+	  "source-credit",
+	  "contact-us",
+	  "about-us",
+	  "login",
+	];
+
+	if (!post || !post.metadata) {
+	  return {
+		title: "Default Title",
+		description: "Default description for SEO purposes.",
+	  };
+	}
+
+	// Vérification si le slug est dans la liste des noIndexSlugs
+	const isNoIndex = noIndexSlugs.includes(params.slug);
+
+	const metadata = {
+	  title: post.metadata.title || "Default Title",
+	  description: post.metadata.description || "Default description for SEO purposes.",
+	  openGraph: {
+		url: post.metadata.url || "https://www.noobshroom.com",
+		title: post.metadata.title || "Default Title",
+		description: post.metadata.description || "Default description for SEO purposes.",
+	  },
+	  robots: isNoIndex
+		? {
+			index: false,
+			follow: false,
+		  }
+		: undefined,
+	  lastModified: post.updatedAt
+		? new Date(post.updatedAt).toISOString().substring(0, 10)
+		: undefined,
+	};
+
+	// Ajout de la balise Adsense si le slug correspond
+	if (slugsWithMeta.includes(params.slug)) {
+	  metadata.other = {
+		"google-adsense-account": "ca-pub-3853373332492086",
+	  };
+	}
+
+	// Ajout de balises meta supplémentaires (par exemple des mots-clés pour le test)
+	metadata.other = {
+	  ...(metadata.other || {}), // Conserve les autres balises personnalisées
+	  keywords: ["Next.js", "React", "JavaScript"],
+	};
+
+	return metadata;
   }
 
-  const { metadata, updatedAt} = post;
-
-  // Vérification si le slug est dans la liste des noIndexSlugs
-  const isNoIndex = noIndexSlugs.includes(params.slug);
-  console.log('updatedAt', updatedAt);
-  return {
-    title: metadata?.title || "Default Title",
-    description:
-      metadata?.description || "Default description for SEO purposes.",
-    openGraph: {
-      url: metadata?.url || "https://www.noobshroom.com",
-      title: metadata?.title || "Default Title",
-      description:
-        metadata?.description || "Default description for SEO purposes.",
-    },
-    // Ajout de l'objet robots pour les slugs spécifiés
-    robots: isNoIndex
-      ? {
-          index: false,
-          follow: false,
-        }
-      : undefined, // Pas de robots si le slug ne correspond pas
-	  lastModified: updatedAt ? new Date(updatedAt).toISOString().substring(0, 10) : undefined,
-  };
-}
 
 // Fetch all posts for static paths generation
 export async function generateStaticParams() {
