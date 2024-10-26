@@ -162,6 +162,37 @@
 	margin-bottom: 20px;
 }
 
+.toolbar {
+	display: flex;
+	justify-content: space-between;
+}
+
+.tools {
+	display: flex;
+	gap: 10px;
+	/* Espace entre les boutons */
+	margin: 10px;
+}
+
+.tools button {
+	background-color: #fff;
+	border: 1px solid #000;
+	padding: 8px 16px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.2s ease;
+}
+
+.tools button:hover {
+	background-color: #e0e0e0;
+  }
+
+  .tools button:active {
+	background-color: #ccc;
+  }
+
 /* Styles spécifiques pour mobile */
 @media (max-width: 768px) {
 	.mainContainer {

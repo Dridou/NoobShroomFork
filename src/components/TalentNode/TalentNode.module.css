@@ -22,7 +22,8 @@
 	height: 30px;
 	border-radius: 50%;
 	background-color: #9c9c9c;
-	font-weight: 400;
+	font-weight: bold;
+	font-size: 16px;
 }
 
 .talentNodeHeader {

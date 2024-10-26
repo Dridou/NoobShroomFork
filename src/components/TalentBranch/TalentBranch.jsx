@@ -12,6 +12,8 @@ const TalentBranch = ({
   onResetBranch,
   playerFeathers,
   setPlayerFeathers,
+  setBranchFeathers,
+  setBranchPoints
 }) => {
   const nodeRefs = useRef([]); // Un tableau de références pour chaque nœud
   const containerRef = useRef(null); // Référence au conteneur du talent tree
@@ -230,7 +232,8 @@ const TalentBranch = ({
     maxPoints,
     effectPerPoint,
     effectType,
-    statAffected
+    statAffected,
+	byPassActivationNeeds = false
   ) => {
     if (!canActivateNode(nodeIndex)) {
       return;
@@ -267,6 +270,10 @@ const TalentBranch = ({
         totalCost += nodeCosts[nodeIndex][i];
       }
       setPlayerFeathers(playerFeathers - totalCost); // Déduire le coût en plumes
+	  setBranchFeathers((prevBranchFeathers) => ({
+		...prevBranchFeathers,
+		[branchName]: prevBranchFeathers[branchName] + totalCost,
+	  }));
     }
   };
 
@@ -277,28 +284,31 @@ const TalentBranch = ({
     effectType,
     statAffected
   ) => {
-    const currentCost = nodeCosts[nodeIndex][points[nodeIndex]]; // Coût du prochain point
-    if (playerFeathers >= currentCost && points[nodeIndex] < maxPoints) {
-      // Vérifier si le noeud peut être activé
-      if (canActivateNode(nodeIndex)) {
-        const newPoints = points[nodeIndex] + 1;
-        onUpdatePoints(
-          branchName,
-          nodeIndex,
-          1,
-          effectPerPoint,
-          statAffected,
-          effectType
-        ); // Mise à jour des points et des stats
-        setPlayerFeathers(playerFeathers - currentCost); // Déduire le coût en plumes
+      const currentCost = nodeCosts[nodeIndex][points[nodeIndex]]; // Coût du prochain point
+      if (playerFeathers >= currentCost && points[nodeIndex] < maxPoints) {
+        // Vérifier si le noeud peut être activé
+        if (canActivateNode(nodeIndex)) {
+          const newPoints = points[nodeIndex] + 1;
+          onUpdatePoints(
+            branchName,
+            nodeIndex,
+            1,
+            effectPerPoint,
+            statAffected,
+            effectType
+          ); // Mise à jour des points et des stats
+          setPlayerFeathers(playerFeathers - currentCost); // Déduire le coût en plumes
+          setBranchFeathers((prevBranchFeathers) => ({
+            ...prevBranchFeathers,
+            [branchName]: prevBranchFeathers[branchName] + currentCost,
+          }));
+        } else {
+          console.log(`Node ${nodeIndex} cannot be activated yet!`);
+        }
       } else {
-        console.log(`Node ${nodeIndex} cannot be activated yet!`);
+        console.log("Not enough feathers to activate this node!");
       }
-    } else {
-      console.log("Not enough feathers to activate this node!");
-    }
-  };
-
+	}
   useLayoutEffect(() => {
     if (containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();

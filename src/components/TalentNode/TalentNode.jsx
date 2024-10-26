@@ -22,7 +22,7 @@ const TalentNode = ({
 
   return (
     <>
-      {/* Div au-dessus du nœud (par exemple, nom du talent) */}
+      {/* Bouton pour ajouter des points */}
 	  {currentPoints < maxPoints && (
         <button
           className={`${styles.talentNodePlus} ${

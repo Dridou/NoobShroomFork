@@ -938,6 +938,12 @@ const TalentTree = () => {
   // Plumes utilisées dans l'arbre
   const [playerFeathers, setPlayerFeathers] = useState(20000); // Plumes actuelles disponibles
   const [maxFeathers, setMaxFeathers] = useState(20000); // Max plumes disponibles
+  const [branchFeathers, setBranchFeathers] = useState({
+	Fury: 0,
+	Archery: 0,
+	Sorcery: 0,
+	Beast: 0,
+  });
 
   // Fonction pour mettre à jour le nombre de plumes maximum
   const handleMaxFeathersChange = (newMaxFeathers) => {
@@ -1126,6 +1132,10 @@ const TalentTree = () => {
     "ATK SPD": 0,
   });
 
+  useEffect(() => {
+	recalculateGlobalStats(branchPoints);
+  }, [branchPoints]);
+
   const recalculateGlobalStats = (branchPoints) => {
     // Initialiser les stats à zéro
     const newStats = {
@@ -1222,6 +1232,7 @@ const TalentTree = () => {
       ),
     }));
 
+
     // Mise à jour des statistiques globales
     setGlobalStats((prevStats) => ({
       ...prevStats,
@@ -1235,6 +1246,17 @@ const TalentTree = () => {
       ...prevPoints,
       [branchName]: prevPoints[branchName].map(() => 0),
     }));
+
+	// Restituer les plumes utilisées dans cette branche
+	setPlayerFeathers((prevFeathers) => prevFeathers + branchFeathers[branchName]);
+
+	// Réinitialiser les plumes de la branche
+	setBranchFeathers((prevBranchFeathers) => ({
+	  ...prevBranchFeathers,
+	  [branchName]: 0,
+	}));
+
+	// recalculateGlobalStats(branchPoints); // useState
   };
 
   // Fonction pour réinitialiser toutes les branches
@@ -1377,6 +1399,8 @@ const TalentTree = () => {
             onResetBranch={resetBranch}
             playerFeathers={playerFeathers}
             setPlayerFeathers={setPlayerFeathers}
+			setBranchFeathers={setBranchFeathers}
+			setBranchPoints={setBranchPoints}
           />
         );
       case "Archery":
@@ -1390,6 +1414,8 @@ const TalentTree = () => {
             onResetBranch={resetBranch}
             playerFeathers={playerFeathers}
             setPlayerFeathers={setPlayerFeathers}
+			setBranchFeathers={setBranchFeathers}
+			setBranchPoints={setBranchPoints}
           />
         );
       case "Sorcery":
@@ -1403,6 +1429,8 @@ const TalentTree = () => {
             onResetBranch={resetBranch}
             playerFeathers={playerFeathers}
             setPlayerFeathers={setPlayerFeathers}
+			setBranchFeathers={setBranchFeathers}
+			setBranchPoints={setBranchPoints}
           />
         );
 
@@ -1417,6 +1445,8 @@ const TalentTree = () => {
             onResetBranch={resetBranch}
             playerFeathers={playerFeathers}
             setPlayerFeathers={setPlayerFeathers}
+			setBranchFeathers={setBranchFeathers}
+			setBranchPoints={setBranchPoints}
           />
         );
       default:
@@ -1430,7 +1460,7 @@ const TalentTree = () => {
       <div className={styles.leftContainer}>
         {/* Conteneur pour le header et le générateur */}
         <div className={styles.headerContainer}>
-          <p className={styles.title}>PARAMETERES</p>
+          <p className={styles.title}>Parameters</p>
           <div className={styles.buttonRow}>
             <button onClick={generateTemporaryLink}>Share this build</button>
             <button
@@ -1555,9 +1585,25 @@ const TalentTree = () => {
             limitToBounds={false}
             panning={{ velocityDisabled: true }}
           >
-            <TransformComponent>
-              <div className={styles.talentTreeContainer}>{renderBranch()}</div>
-            </TransformComponent>
+            {({ zoomIn, zoomOut, resetTransform }) => (
+              <div>
+                <div className={styles.toolbar}>
+                	<div className={styles.tools}>
+	                    <button onClick={() => zoomIn()}>Zoom +</button>
+	                    <button onClick={() => zoomOut()}>Zoom -</button>
+	                    <button onClick={() => resetTransform()}>Center</button>
+	                  </div>
+					  <div className={styles.tools}>
+					  <button onClick={() => resetBranch(selectedBranch)}>Reset Branch</button>
+					  </div>
+                </div>
+                <TransformComponent>
+                  <div className={styles.talentTreeContainer}>
+                    {renderBranch()}
+                  </div>
+                </TransformComponent>
+              </div>
+            )}
           </TransformWrapper>
         </div>
       </div>
