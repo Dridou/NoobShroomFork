@@ -1586,10 +1586,13 @@ const TalentTree = () => {
         </div>
         <div className={styles.generatorContainer}>
           <TransformWrapper
-            defaultScale={isMobile ? 0.5 : 1}
-            minScale={isMobile ? 0.5 : 1}
+            defaultScale={isMobile ? 0.2 : 1}
+			initialScale={isMobile ? 0.2 : 1}
+            minScale={isMobile ? 0.2 : 1}
             maxScale={isMobile ? 2.5 : 2}
-            // limitToBounds={isMobile}
+			initialPositionX={isMobile ? -350 : 0} // Ajuste la position initiale en X
+      		initialPositionY={isMobile ? -350 : 0} // Ajuste la position initiale en Y
+			//   limitToBounds={false}
             wheel={{ step: 0.1 }}
             pinch={{ step: 5 }}
             doubleClick={{ disabled: true }}
