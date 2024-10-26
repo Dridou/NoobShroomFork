@@ -12,6 +12,18 @@ import Image from "next/image";
 const TalentTree = () => {
   // Définir des nœuds pour chaque branche
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Change selon la largeur de ton design mobile
+	  console.log("isMobile");
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const furyNodes = [
     // Nœuds 0 à 6 avec 20 maxPoints
     {
@@ -1574,28 +1586,28 @@ const TalentTree = () => {
         </div>
         <div className={styles.generatorContainer}>
           <TransformWrapper
-            defaultScale={1}
-            initialScale={1}
+            defaultScale={isMobile ? 0.5 : 1}
+            minScale={isMobile ? 0.5 : 1}
+            maxScale={isMobile ? 2.5 : 2}
+            // limitToBounds={isMobile}
             wheel={{ step: 0.1 }}
             pinch={{ step: 5 }}
             doubleClick={{ disabled: true }}
-            initialPositionX={0}
-            initialPositionY={0}
-            minScale={0.5}
-            limitToBounds={false}
             panning={{ velocityDisabled: true }}
           >
             {({ zoomIn, zoomOut, resetTransform }) => (
               <div>
                 <div className={styles.toolbar}>
-                	<div className={styles.tools}>
-	                    <button onClick={() => zoomIn()}>Zoom +</button>
-	                    <button onClick={() => zoomOut()}>Zoom -</button>
-	                    <button onClick={() => resetTransform()}>Center</button>
-	                  </div>
-					  <div className={styles.tools}>
-					  <button onClick={() => resetBranch(selectedBranch)}>Reset Branch</button>
-					  </div>
+                  <div className={styles.tools}>
+                    <button onClick={() => zoomIn()}>Zoom +</button>
+                    <button onClick={() => zoomOut()}>Zoom -</button>
+                    <button onClick={() => resetTransform()}>Center</button>
+                  </div>
+                  <div className={styles.tools}>
+                    <button onClick={() => resetBranch(selectedBranch)}>
+                      Reset Branch
+                    </button>
+                  </div>
                 </div>
                 <TransformComponent>
                   <div className={styles.talentTreeContainer}>
