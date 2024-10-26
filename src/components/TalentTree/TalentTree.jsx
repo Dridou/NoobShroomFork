@@ -12,17 +12,7 @@ import Image from "next/image";
 const TalentTree = () => {
   // Définir des nœuds pour chaque branche
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Change selon la largeur de ton design mobile
-	  console.log("isMobile");
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const isMobile = window.innerWidth <= 768;
 
   const furyNodes = [
     // Nœuds 0 à 6 avec 20 maxPoints
@@ -1549,50 +1539,16 @@ const TalentTree = () => {
               </select>
             </div>
           </div>
-          <div className={styles.branchSelection}>
-            <button
-              onClick={() => setSelectedBranch("Fury")}
-              className={`${styles.button} ${
-                selectedBranch === "Fury" ? styles.active : ""
-              }`}
-            >
-              Fury
-            </button>
-            <button
-              onClick={() => setSelectedBranch("Archery")}
-              className={`${styles.button} ${
-                selectedBranch === "Archery" ? styles.active : ""
-              }`}
-            >
-              Archery
-            </button>
-            <button
-              onClick={() => setSelectedBranch("Sorcery")}
-              className={`${styles.button} ${
-                selectedBranch === "Sorcery" ? styles.active : ""
-              }`}
-            >
-              Sorcery
-            </button>
-            <button
-              onClick={() => setSelectedBranch("Beast")}
-              className={`${styles.button} ${
-                selectedBranch === "Beast" ? styles.active : ""
-              }`}
-            >
-              Tame Beasts
-            </button>
-          </div>
         </div>
         <div className={styles.generatorContainer}>
           <TransformWrapper
-            defaultScale={isMobile ? 0.2 : 1}
-			initialScale={isMobile ? 0.2 : 1}
+            limitToBounds={false}
+            defaultScale={isMobile ? 0.8 : 1}
+            initialScale={1}
             minScale={isMobile ? 0.2 : 1}
             maxScale={isMobile ? 2.5 : 2}
-			initialPositionX={isMobile ? -350 : 0} // Ajuste la position initiale en X
-      		initialPositionY={isMobile ? -350 : 0} // Ajuste la position initiale en Y
-			//   limitToBounds={false}
+            initialPositionX={isMobile ? -310 : 0} // Ajuste la position initiale en X
+            initialPositionY={isMobile ? -50 : 0} // Ajuste la position initiale en Y
             wheel={{ step: 0.1 }}
             pinch={{ step: 5 }}
             doubleClick={{ disabled: true }}
@@ -1600,17 +1556,73 @@ const TalentTree = () => {
           >
             {({ zoomIn, zoomOut, resetTransform }) => (
               <div>
-                <div className={styles.toolbar}>
-                  <div className={styles.tools}>
-                    <button onClick={() => zoomIn()}>Zoom +</button>
-                    <button onClick={() => zoomOut()}>Zoom -</button>
-                    <button onClick={() => resetTransform()}>Center</button>
-                  </div>
-                  <div className={styles.tools}>
-                    <button onClick={() => resetBranch(selectedBranch)}>
-                      Reset Branch
-                    </button>
-                  </div>
+                <div className={styles.transformheader}>
+                	<div className={styles.toolbar}>
+	                  <div className={styles.tools}>
+	                    <button onClick={() => zoomIn()}>Zoom +</button>
+	                    <button onClick={() => zoomOut()}>Zoom -</button>
+	                    <button onClick={() => resetTransform()}>Center</button>
+	                  </div>
+	                  <div className={styles.tools}>
+	                    <button onClick={() => resetBranch(selectedBranch)}>
+	                      Reset Branch
+	                    </button>
+	                  </div>
+	                </div>
+	                <div className={styles.branchSelection}>
+	                  <button
+	                    onClick={() => {
+	                      resetTransform();
+	                      setTimeout(() => {
+							setSelectedBranch("Fury");
+						  }, 300);
+	                    }}
+	                    className={`${styles.button} ${
+	                      selectedBranch === "Fury" ? styles.active : ""
+	                    }`}
+	                  >
+	                    Fury
+	                  </button>
+	                  <button
+	                    onClick={() => {
+							resetTransform();
+							setTimeout(() => {
+								setSelectedBranch("Archery");
+							  }, 300);
+						  }}
+	                    className={`${styles.button} ${
+	                      selectedBranch === "Archery" ? styles.active : ""
+	                    }`}
+	                  >
+	                    Archery
+	                  </button>
+	                  <button
+	                    onClick={() => {
+							resetTransform();
+							setTimeout(() => {
+								setSelectedBranch("Sorcery");
+							  }, 300);
+						  }}
+	                    className={`${styles.button} ${
+	                      selectedBranch === "Sorcery" ? styles.active : ""
+	                    }`}
+	                  >
+	                    Sorcery
+	                  </button>
+	                  <button
+	                    onClick={() => {
+							resetTransform();
+							setTimeout(() => {
+								setSelectedBranch("Beast");
+							  }, 300);
+						  }}
+	                    className={`${styles.button} ${
+	                      selectedBranch === "Beast" ? styles.active : ""
+	                    }`}
+	                  >
+	                    Tame Beasts
+	                  </button>
+	                </div>
                 </div>
                 <TransformComponent>
                   <div className={styles.talentTreeContainer}>

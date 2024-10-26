@@ -13,11 +13,12 @@ const TalentBranch = ({
   playerFeathers,
   setPlayerFeathers,
   setBranchFeathers,
-  setBranchPoints
+  setBranchPoints,
 }) => {
   const nodeRefs = useRef([]); // Un tableau de références pour chaque nœud
   const containerRef = useRef(null); // Référence au conteneur du talent tree
   const [nodePositions, setNodePositions] = useState([]); // Stocker les positions des nœuds
+  const svgRef = useRef(null); // Référence pour mémoriser le SVG et éviter le redessin
 
   // Liste des connexions entre les nœuds
   const connections = [
@@ -284,30 +285,30 @@ const TalentBranch = ({
     effectType,
     statAffected
   ) => {
-      const currentCost = nodeCosts[nodeIndex][points[nodeIndex]]; // Coût du prochain point
-      if (playerFeathers >= currentCost && points[nodeIndex] < maxPoints) {
+    const currentCost = nodeCosts[nodeIndex][points[nodeIndex]]; // Coût du prochain point
+    if (playerFeathers >= currentCost && points[nodeIndex] < maxPoints) {
         // Vérifier si le noeud peut être activé
-        if (canActivateNode(nodeIndex)) {
-          const newPoints = points[nodeIndex] + 1;
-          onUpdatePoints(
-            branchName,
-            nodeIndex,
-            1,
-            effectPerPoint,
-            statAffected,
-            effectType
-          ); // Mise à jour des points et des stats
-          setPlayerFeathers(playerFeathers - currentCost); // Déduire le coût en plumes
-          setBranchFeathers((prevBranchFeathers) => ({
-            ...prevBranchFeathers,
-            [branchName]: prevBranchFeathers[branchName] + currentCost,
-          }));
-        } else {
-          console.log(`Node ${nodeIndex} cannot be activated yet!`);
-        }
+      if (canActivateNode(nodeIndex)) {
+        const newPoints = points[nodeIndex] + 1;
+        onUpdatePoints(
+          branchName,
+          nodeIndex,
+          1,
+          effectPerPoint,
+          statAffected,
+          effectType
+        ); // Mise à jour des points et des stats
+        setPlayerFeathers(playerFeathers - currentCost); // Déduire le coût en plumes
+        setBranchFeathers((prevBranchFeathers) => ({
+          ...prevBranchFeathers,
+          [branchName]: prevBranchFeathers[branchName] + currentCost,
+        }));
       } else {
-        console.log("Not enough feathers to activate this node!");
+        console.log(`Node ${nodeIndex} cannot be activated yet!`);
       }
+    } else {
+      console.log("Not enough feathers to activate this node!");
+    }
 	}
   useLayoutEffect(() => {
     if (containerRef.current) {
@@ -331,32 +332,22 @@ const TalentBranch = ({
   return (
     <div className={styles.talentBranch} ref={containerRef}>
       <svg
+        ref={svgRef}
         width="1500px"
         height="1500px"
         style={{ position: "absolute", zIndex: 0 }}
       >
-        {nodePositions.length > 1 && (
-          <>
-            {connections.map(
-              ([start, end], index) =>
-                nodePositions[start] &&
-                nodePositions[end] && (
-                  <line
-                    key={index}
-                    x1={
-                      nodePositions[start].left + nodePositions[start].width / 2
-                    }
-                    y1={
-                      nodePositions[start].top - nodePositions[start].height / 2
-                    }
-                    x2={nodePositions[end].left + nodePositions[end].width / 2}
-                    y2={nodePositions[end].top - nodePositions[end].height / 2}
-                    className={styles.line}
-                  />
-                )
-            )}
-          </>
-        )}
+        {nodePositions.length > 1 &&
+          connections.map(([start, end], index) => (
+            <line
+              key={index}
+              x1={nodePositions[start].left + nodePositions[start].width / 2}
+              y1={nodePositions[start].top - nodePositions[start].height / 2}
+              x2={nodePositions[end].left + nodePositions[end].width / 2}
+              y2={nodePositions[end].top - nodePositions[end].height / 2}
+              className={styles.line}
+            />
+          ))}
       </svg>
 
       <div className={styles.nodes}>
