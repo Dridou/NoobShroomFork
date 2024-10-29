@@ -1,0 +1,86 @@
+﻿/* EditSection.module.css */
+
+.formContainer {
+	background-color: #1a1a2e; /* Couleur de fond plus foncée */
+	padding: 20px;
+	border-radius: 8px;
+	color: #ffffff; /* Texte blanc */
+	max-width: 1500px;
+	margin: 20px auto; /* Centrer le formulaire */
+  }
+
+  .formContainer h2 {
+	font-size: 24px;
+	margin-bottom: 15px;
+	color: #ffffff;
+  }
+
+  .label {
+	display: block;
+	font-weight: bold;
+	margin-top: 15px;
+	color: #ffffff;
+  }
+
+  .input,
+  .textarea{
+	width: 100%;
+	padding: 8px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	background-color: #2e2e3d;
+	color: #ffffff;
+  }
+
+  .button {
+	padding: 10px 15px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #ffffff;
+	background-color: #4e8eff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+  }
+
+  .button:hover {
+	background-color: #3a6fcc;
+  }
+
+/* EditSection.module.css */
+
+.quillEditor .ql-toolbar .ql-stroke {
+	stroke: #ffffff !important; /* Icônes en blanc */
+  }
+
+  .quillEditor .ql-toolbar .ql-fill {
+	fill: #ffffff !important; /* Fond des icônes en blanc */
+  }
+
+  .quillEditor .ql-toolbar .ql-picker {
+	color: #ffffff !important; /* Texte des menus déroulants en blanc */
+  }
+
+  .quillEditor .ql-toolbar .ql-picker-label {
+	color: #ffffff !important; /* Label des menus en blanc */
+  }
+
+  .quillEditor .ql-toolbar .ql-picker-options {
+	background-color: #333333 !important; /* Fond des options en gris foncé */
+  }
+
+  .quillEditor .ql-toolbar .ql-picker-options .ql-picker-item {
+	color: #ffffff !important; /* Options des menus déroulants en blanc */
+  }
+
+  .quillEditor .ql-toolbar .ql-picker-item.ql-selected {
+	color: #4e8eff !important; /* Couleur des options sélectionnées */
+  }
+
+  .quillEditor .ql-editor {
+	color: #ffffff !important; /* Texte de l'éditeur en blanc */
+  }

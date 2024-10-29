@@ -14,6 +14,10 @@ import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
 import dynamic from 'next/dynamic';
+// Import dynamique du bouton d'édition pour le rendre client-only
+const EditSectionButton = dynamic(() => import("@/components/EditSectionButton/EditSectionButton"), {
+	ssr: false,
+  });
 
 // Importation dynamique du composant client TalentTree
 const TalentTree = dynamic(() => import('@/components/TalentTree/TalentTree'), { ssr: false });
@@ -263,7 +267,6 @@ const renderUpdatesSection = (updates) => {
 // Render sections content for other pages
 const renderSectionsContent = (post) => {
   return post.sections.map((section) => {
-    console.log({ section });
     if (section.type === "set" && section.sets.length > 0) {
       return (
         <div
@@ -272,6 +275,8 @@ const renderSectionsContent = (post) => {
           className={styles.section}
         >
           <div className={styles.sectionHeader}>
+            {/* Affiche le bouton d'édition uniquement si l'utilisateur a le rôle adéquat */}
+            <EditSectionButton sectionId={section.id} postId={post.id}/>
             {section.icon && (
               <Image
                 src={section.icon}
@@ -293,13 +298,15 @@ const renderSectionsContent = (post) => {
             <SetSection
               key={setIndex}
               id={set.id}
-			  date={section.updatedAt
-				? new Date(section.updatedAt).toLocaleDateString("en-US", {
-					day: "numeric",
-					month: "long",
-					year: "numeric",
-				  })
-				: "Unknown Date"}
+              date={
+                section.updatedAt
+                  ? new Date(section.updatedAt).toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })
+                  : "Unknown Date"
+              }
               title={set.title}
               standardImage={set.standardImage}
               opponentImage={set.opponentImage}
@@ -329,6 +336,7 @@ const renderSectionsContent = (post) => {
           className={styles.section}
         >
           <div className={styles.sectionHeader}>
+		  <EditSectionButton sectionId={section.id} postId={post.id}/>
             {section.icon && (
               <Image
                 src={section.icon}
