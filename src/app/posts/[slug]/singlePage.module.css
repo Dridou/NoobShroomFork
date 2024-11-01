@@ -209,9 +209,15 @@ p .link {
 	flex-direction: column;
 }
 
+.tableOfContents ul {
+	text-decoration: underline;
+}
+
 .title {
-	font-size: 64px;
-	margin-bottom: 50px;
+	text-align: center;
+	font-weight: 500;
+	margin: 10px;
+	border-radius: 20px;
 }
 
 .headerTitle {
@@ -222,13 +228,13 @@ p .link {
 
 @media screen and (max-width: 1536px) {
 	.title {
-		font-size: 54px;
+		/* font-size: 54px; */
 	}
 }
 
 @media screen and (max-width: 1280px) {
 	.title {
-		font-size: 48px;
+		/* font-size: 48px; */
 	}
 }
 
@@ -240,7 +246,7 @@ p .link {
 
 @media screen and (max-width: 640px) {
 	.title {
-		font-size: 36px;
+		/* font-size: 36px; */
 	}
 
 	.description p {

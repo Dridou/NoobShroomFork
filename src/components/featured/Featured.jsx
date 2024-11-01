@@ -31,6 +31,7 @@ const Featured = async () => {
             width={512}
             height={512}
             className={styles.image}
+			sizes="(max-width: 768px) 70vw, (max-width: 1200px) 50vw, 100vw"
           />
         </div>
         <div className={styles.textContainer}>

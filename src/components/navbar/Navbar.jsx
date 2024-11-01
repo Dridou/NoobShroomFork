@@ -20,7 +20,17 @@ const Navbar = () => {
           alt="Noobshroom complete Logo"
           width={200}
           height={48}
+		  layout="responsive"
+		  className={styles.fulllogo}
         />
+		<Image
+		  src="/images/noobshroom-logo-icon.png"
+		  alt="Noobshroom Icon"
+		  width={653}
+		  height={614}
+		  layout="responsive"
+		  className={styles.iconlogo}
+		/>
       </div>
 
       {/* Menu de navigation */}
@@ -43,9 +53,7 @@ const Navbar = () => {
           </Link>
           <Link href="/posts/arrowgod-class-guide">Archer - Plume Monarch</Link>
           <Link href="/posts/berseker-class-guide">Warrior - Berserker</Link>
-          <Link href="/posts/prophet-preblitz-class-guide">
-            Mage - Prophet Pre-blitz
-          </Link>
+          <Link href="/posts/prophet-preblitz-class-guide">Mage - Prophet Pre-blitz</Link>
 		  <Link href="/posts/mage-prophet-tank-regen">Mage - Prophet Regen</Link>
           <Link href="/posts/best-class">Best class</Link>
         </NavItem>
