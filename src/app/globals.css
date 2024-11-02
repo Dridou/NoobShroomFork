@@ -16,7 +16,6 @@
 }
 
 p, ul {
-	margin-bottom: 20px;
 	color: rgb(206, 206, 206);
 
 }
@@ -37,6 +36,14 @@ a {
 }
 
 h1 {
+	margin-bottom: 1.5rem;
+  }
+
+  h2 {
+	margin-bottom: 1.25rem;
+  }
+
+h1 {
 	line-height: 1.5;
 }
 
@@ -46,28 +53,23 @@ h2 {
 
 h3 {
 	line-height: 1.2;
+	font-weight: 500;
 }
 
 p {
-	line-height: 2.3;
+	line-height: 1.9;
 }
 
 p a {
 	color: dodgerblue;
 	font-style: italic;
+	text-decoration: underline;
+	font-weight: bold;
 }
 
 .tips {
 	color: #9061b6;
     font-weight: bold;
-}
-
-ul,
-ol {
-	margin-left: 20px;
-	padding-left: 0;
-	padding-bottom: 10px;
-	line-height: 2;
 }
 
 .dark {
@@ -97,6 +99,12 @@ ol {
 	margin-right: auto;
 	padding-left: 80px;
 	padding-right: 80px;
+}
+
+img {
+	max-width: 100%;
+	align-items: center;
+	display: flex;
 }
 
 @media screen and (max-width: 1536px) {
@@ -130,7 +138,7 @@ ol {
 		font-size: 1.5rem;
 	  }
 
-	  p {
+	  p, ul{
 		font-size: 0.9rem;
 	  }
 }
@@ -141,19 +149,19 @@ ol {
 	}
 
 	h1 {
-		font-size: 2rem;
+		font-size: 1.75rem;
 	  }
 
 	  h2 {
-		font-size: 1.75rem;
+		font-size: 1.5rem;
 	  }
 
 	  h3 {
 		font-size: 1.25rem;
 	  }
 
-	  p {
-		font-size: 0.85rem;
+	  p, ul{
+		font-size: 0.9rem;
 	  }
 }
 

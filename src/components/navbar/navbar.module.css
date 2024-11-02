@@ -34,15 +34,27 @@
 .navMenu {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	text-align: center;
+	justify-content:space-between;
+	/* text-align: center; */
 	position: relative;
-	flex-grow: 1;
-	gap: 20px;
-	margin: 0;
-	padding: 0;
+	flex-grow: 2;
+	max-width: 1500px;
+	gap: 30px;
 	font-size: 22px;
 	list-style: none;
+}
+
+.leftpart {
+	display: flex;
+	justify-content: start;
+	gap: 40px;
+	flex: 5;
+}
+
+.rightpart {
+	display: flex;
+	justify-content: end;
+	flex: 1;
 }
 
 .navMenuOpen {
@@ -69,11 +81,6 @@
 
 .navMenuOpen li:not(:last-child) {
 	border-bottom: 1px solid #444;
-	/* Séparation des éléments avec une bordure */
-}
-
-.navMenuOpen li:first-child {
-	border-bottom: 2px solid #ffffff;
 	/* Séparation des éléments avec une bordure */
 }
 
@@ -109,7 +116,6 @@
 	transition: background-color 0.3s;
 }
 
-
 .discordButton:hover {
 	background-color: #4752c4;
 }
@@ -133,11 +139,16 @@
 .logo {
 	height: auto;
 	width: 10vw;
+	flex: 0.2;
 }
 
 
 /* Mobile adjustments */
 @media screen and (max-width: 1536px) {
+	.navMenu {
+		max-width: 1366px;
+	}
+
 	.social {
 		display: none;
 	}
@@ -171,8 +182,23 @@
 	}
 }
 
+@media screen and (max-width: 1280px) {
+	.navMenu {
+		max-width: 1024px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.navMenu {
+		max-width: 768px;
+	}
+}
+
 @media screen and (max-width: 768px) {
 	/* Additional styles for this screen size can be added here if needed */
+	.navMenu {
+		max-width: 640px;
+	}
 }
 
 @media screen and (max-width: 640px) {

@@ -9,92 +9,101 @@ import AuthLinks from "../authLinks/AuthLinks";
 import NavItem from "../navItem/NavItem";
 
 const Navbar = () => {
-
   const { isMobileMenuOpen, toggleMobileMenu } = useContext(ThemeContext); // Utilise le contexte pour le menu mobile
 
   return (
     <nav className={styles.container}>
       <div className={styles.logo}>
-        <Image
-          src="/images/noobshroom-full-logo.png"
-          alt="Noobshroom complete Logo"
-          width={200}
-          height={48}
-		  layout="responsive"
-		  className={styles.fulllogo}
-        />
-		<Image
-		  src="/images/noobshroom-logo-icon.png"
-		  alt="Noobshroom Icon"
-		  width={653}
-		  height={614}
-		  layout="responsive"
-		  className={styles.iconlogo}
-		/>
+        <Link href="/">
+          <Image
+            src="/images/noobshroom-full-logo.png"
+            alt="Noobshroom complete Logo"
+            width={200}
+            height={48}
+            layout="responsive"
+            className={styles.fulllogo}
+          />
+          <Image
+            src="/images/noobshroom-logo-icon.png"
+            alt="Noobshroom Icon"
+            width={653}
+            height={614}
+            layout="responsive"
+            className={styles.iconlogo}
+          />
+        </Link>
       </div>
 
       {/* Menu de navigation */}
       <ul className={isMobileMenuOpen ? styles.navMenuOpen : styles.navMenu}>
-        <li>
-          <a href="/" className={styles.home}>Home</a>
-        </li>
+        <div className={isMobileMenuOpen ? "": styles.leftpart}>
+        	<li>
+	          <a href="/" className={styles.home}>
+	            Home
+	          </a>
+	        </li>
 
-        <NavItem label="News">
-          <Link href="/posts/legend-of-mushrooms-codes">Codes</Link>
-          <Link href="/posts/update-new-class">Update new class</Link>
-          <Link href="/posts/update-sea-12-september">Update SEA 12.09</Link>
-          {/* <Link href={postUrl + "codes"}>Leaks</Link> */}
-          {/* <Link href={postUrl + "codes"}>Dev Announcement</Link> */}
-        </NavItem>
+        	<NavItem label="News">
+	          <Link href="/posts/legend-of-mushrooms-codes">Codes</Link>
+	          <Link href="/posts/update-new-class">Update new class</Link>
+	          <Link href="/posts/update-sea-12-september">Update SEA 12.09</Link>
+	          {/* <Link href={postUrl + "codes"}>Leaks</Link> */}
+	          {/* <Link href={postUrl + "codes"}>Dev Announcement</Link> */}
+	        </NavItem>
 
-        <NavItem label="Class Guides">
-          <Link href="/posts/beast-master-class-guide">
-            Spirit Channeler - Beast Master
-          </Link>
-          <Link href="/posts/arrowgod-class-guide">Archer - Plume Monarch</Link>
-          <Link href="/posts/berseker-class-guide">Warrior - Berserker</Link>
-          <Link href="/posts/prophet-preblitz-class-guide">Mage - Prophet Pre-blitz</Link>
-		  <Link href="/posts/mage-prophet-tank-regen">Mage - Prophet Regen</Link>
-          <Link href="/posts/best-class">Best class</Link>
-        </NavItem>
+	        <NavItem label="Class Guides">
+	          <Link href="/posts/beast-master-class-guide">
+	            Spirit Channeler - Beast Master
+	          </Link>
+	          <Link href="/posts/arrowgod-class-guide">Archer - Plume Monarch</Link>
+	          <Link href="/posts/berseker-class-guide">Warrior - Berserker</Link>
+	          <Link href="/posts/prophet-preblitz-class-guide">
+	            Mage - Prophet Pre-blitz
+	          </Link>
+	          <Link href="/posts/mage-prophet-tank-regen">
+	            Mage - Prophet Regen
+	          </Link>
+	          <Link href="/posts/best-class">Best class</Link>
+	        </NavItem>
 
-        <NavItem label="Mechanics">
-          <Link href="/posts/artifact-runes">Artifact Runes</Link>
-          <Link href="/posts/character-attributes">Character stats</Link>
-          <Link href="/posts/gear-plans">Gear Plans</Link>
-          <Link href="/posts/battle-plans">Battle Plans</Link>
-        </NavItem>
+	        <NavItem label="Mechanics">
+	          <Link href="/posts/artifact-runes">Artifact Runes</Link>
+	          <Link href="/posts/character-attributes">Character stats</Link>
+	          <Link href="/posts/gear-plans">Gear Plans</Link>
+	          <Link href="/posts/battle-plans">Battle Plans</Link>
+	        </NavItem>
 
-        {/* <NavItem label="Pve - Dungeons">
-          <Link href={postUrl + "codes"}>Cross the Abyssal Portal</Link>
-          <Link href={postUrl + "codes"}>Molten Ruins</Link>
-          <Link href={postUrl + "codes"}>Flame Temple</Link>
-        </NavItem> */}
+	        {/* <NavItem label="Pve - Dungeons">
+	          <Link href={postUrl + "codes"}>Cross the Abyssal Portal</Link>
+	          <Link href={postUrl + "codes"}>Molten Ruins</Link>
+	          <Link href={postUrl + "codes"}>Flame Temple</Link>
+	        </NavItem> */}
 
-        <NavItem label="PvP-Modes">
-          <Link href="/posts/cross-server-arena">Cross-Server Arena</Link>
-          <Link href="/posts/cross-server-showdown">Cross-Server Showdown</Link>
-          <Link href="/posts/parking-wars">Parking Wars</Link>
-        </NavItem>
+	        <NavItem label="PvP-Modes">
+	          <Link href="/posts/cross-server-arena">Cross-Server Arena</Link>
+	          <Link href="/posts/cross-server-showdown">Cross-Server Showdown</Link>
+	          <Link href="/posts/parking-wars">Parking Wars</Link>
+	        </NavItem>
 
-        <NavItem label="Resources">
-          <Link href="/posts/what-to-buy-in-shops">Shops</Link>
-          <Link href="/posts/spending-red-gems">Spending Red Gems</Link>
-          <Link href="/posts/most-profitable-packs">Best Packs</Link>
-          <Link href="/posts/mining">Mining</Link>
-          <Link href="/posts/prayer-statue">Prayer Statue</Link>
-        </NavItem>
+	        <NavItem label="Resources">
+	          <Link href="/posts/what-to-buy-in-shops">Shops</Link>
+	          <Link href="/posts/spending-red-gems">Spending Red Gems</Link>
+	          <Link href="/posts/most-profitable-packs">Best Packs</Link>
+	          <Link href="/posts/mining">Mining</Link>
+	          <Link href="/posts/prayer-statue">Prayer Statue</Link>
+	        </NavItem>
 
-        <NavItem label="About" className={styles.navItem}>
-          <Link href="/posts/updates">Noobshroom Updates</Link>
-          <Link href="/posts/about-us">About Us</Link>
-          <Link href="/posts/contact-us">Contact Us</Link>
-          <Link href="/posts/privacy-policy">Privacy Policy</Link>
-          <Link href="/posts/terms">Terms of Use</Link>
-          <Link href="/posts/source-credit">Source Credit</Link>
-        </NavItem>
+	        <NavItem label="About" className={styles.navItem}>
+	          <Link href="/posts/updates">Noobshroom Updates</Link>
+	          <Link href="/posts/about-us">About Us</Link>
+	          <Link href="/posts/contact-us">Contact Us</Link>
+	          <Link href="/posts/privacy-policy">Privacy Policy</Link>
+	          <Link href="/posts/terms">Terms of Use</Link>
+	          <Link href="/posts/source-credit">Source Credit</Link>
+	        </NavItem>
+        </div>
 
-        <AuthLinks />
+        <div className={styles.rightpart}><AuthLinks /></div>
       </ul>
 
       <div className={styles.discord}>

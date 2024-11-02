@@ -68,7 +68,6 @@
 .content {
 	display: flex;
 	flex-direction: column;
-	gap: 50px;
 }
 
 .post {
@@ -82,36 +81,41 @@ p .link {
 		font-weight: bold;
 }
 
-.section p,
-.section ul {
-	font-size: calc(15px + 0.350625vw);
-	font-weight: 300;
-	margin-bottom: 20px;
+.section h1:not(:last-child),
+.section h2:not(:last-child),
+.section h3:not(:last-child),
+.section p:not(:last-child),
+.section ul:not(:last-child),
+.section ol:not(:last-child) {
+  margin-bottom: 1.5rem;
 }
 
-.section p {
-	margin-bottom: 20px;
+
+.section ul,
+.section ol {
+	margin-left: 20px;
+	padding-left: 0;
+	line-height: 1.7;
+}
+
+.section p,
+.section ul {
+	font-weight: 300;
 }
 
 .section h2 {
 	color: rgb(255, 255, 255);
-	font-size: 3rem;
-	margin-bottom: 5px;
-	margin-top:10px
 }
 
 .section h3 {
 	padding-bottom: 5px;
 	color: rgb(220, 220, 220);
-	font-size: 2rem;
 	text-decoration: underline;
-	margin-top: 40px;
 }
 
 .section h4:not([class^="Set"]) {
 	padding-bottom: 2px;
     color: rgb(212, 212, 212);
-    font-size: 1.5rem;
 	font-weight: 500;
 	font-style: italic;
 }
@@ -123,13 +127,13 @@ p .link {
 
 .section figcaption {
 	color: skyblue;
-	font-size: calc(15px + 0.300625vw)
 }
 
 .headerText {
 	display: flex;
 	flex-direction: column;
 	gap: 0px;
+	margin-top: 20px;
 }
 .headerText h2 {
 	margin-top: 0px;
@@ -145,7 +149,6 @@ p .link {
 }
 
 .creationDate {
-	font-size: 14px;
 	color: var(--softTextColor);
 }
 
@@ -169,7 +172,7 @@ p .link {
 
 .sectionDate{
 	color: var(--softTextColor);
-	font-size:1.25rem;
+	font-size:0.75rem;
 }
 
 .postReference {
@@ -216,7 +219,7 @@ p .link {
 .title {
 	text-align: center;
 	font-weight: 500;
-	margin: 10px;
+	margin-bottom:  10px;
 	border-radius: 20px;
 }
 
@@ -247,10 +250,6 @@ p .link {
 @media screen and (max-width: 640px) {
 	.title {
 		/* font-size: 36px; */
-	}
-
-	.description p {
-		font-size: 18px;
 	}
 
 	.updateHeader {
