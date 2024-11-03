@@ -218,7 +218,7 @@ p .link {
 }
 
 .title {
-	text-align: center;
+	/* text-align: center; */
 	font-weight: 500;
 	margin-bottom:  10px;
 	border-radius: 20px;

@@ -434,7 +434,7 @@ export default async function SinglePage({ params }) {
       {slug !== "updates" &&
       (slug === "what-to-buy-in-shops" ? post?.shop : post?.sections) ? (
         <div className={styles.tableOfContents}>
-          <h2>Table of Contents</h2>
+          <h4>Table of Contents</h4>
           <ul>
             {slug === "what-to-buy-in-shops"
               ? post.shop.map((shop) => (
