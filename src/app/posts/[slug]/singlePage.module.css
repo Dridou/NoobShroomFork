@@ -76,11 +76,9 @@
 	margin-top: 60px;
 }
 
-p .link {
-		color: lightblue;
-		text-decoration: underline;
-		font-weight: bold;
-}
+.content img:not(.img-fluid) {
+	display: inline-block;
+  }
 
 .section h1:not(:last-child),
 .section h2:not(:last-child),
@@ -90,7 +88,6 @@ p .link {
 .section ol:not(:last-child) {
   margin-bottom: 1.5rem;
 }
-
 
 .section ul,
 .section ol {
@@ -204,7 +201,7 @@ p .link {
 
 .tableOfContents {
 	background-color: var(--softBg);
-	padding: 20px;
+	padding: 30px;
 	border-radius: 10px;
 	width: fit-content;
 	margin-bottom: 30px;
@@ -216,6 +213,8 @@ p .link {
 .tableOfContents ul {
 	text-decoration: underline;
 }
+
+
 
 .title {
 	/* text-align: center; */

@@ -74,6 +74,14 @@ p a {
 	--mediumTextColor: #c5c5c5;
 }
 
+
+.link {
+	color: dodgerblue;
+	font-style: italic;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
 .container {
 	min-height: 100vh;
 	background-color: var(--bg);
