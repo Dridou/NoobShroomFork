@@ -332,7 +332,7 @@ const TalentBranch = ({
   return (
     <div className={styles.talentBranch} ref={containerRef}>
       <svg
-        ref={svgRef}
+        // ref={svgRef}
         width="1500px"
         height="1500px"
         style={{ position: "absolute", zIndex: 0 }}

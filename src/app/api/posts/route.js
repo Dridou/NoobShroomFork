@@ -35,7 +35,6 @@ export const GET = async (req) => {
   try {
     // Récupère tous les posts correspondant à la requête
     const posts = await prisma.post.findMany(query);
-	console.log('sucees');
     return NextResponse.json({ posts }, { status: 200 });
   } catch (err) {
     console.log("Error fetching posts:", err);

@@ -6,16 +6,6 @@ import CategoryList from "@/components/categoryList/CategoryList";
 import CardList from "@/components/cardList/CardList";
 import Menu from "@/components/Menu/Menu";
 
-const getBaseUrl = () => {
-  if (process.env.VERCEL_ENV === "production") {
-    return "https://www.noobshroom.com";
-  } else if (process.env.VERCEL_ENV === "preview") {
-    return `https://${process.env.VERCEL_URL}`;
-  } else {
-    return "http://localhost:3000";
-  }
-};
-
 export default function Home({ searchParams }) {
 	const page = parseInt(searchParams.page) || 1;
 

@@ -1,4 +1,6 @@
 ﻿User-agent: *
+Disallow: /static/
+Disallow: /next/
 Disallow: /write
 Disallow: /api/
 Disallow: /login

@@ -1,14 +1,14 @@
 ﻿"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import styles from "./EditSection.module.css";
 
-// Import dynamique de React Quill pour éviter le rendu côté serveur
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "react-quill/dist/quill.snow.css"; // Import des styles de Quill
+// Import dynamique de TinyMCE
+const Editor = dynamic(() => import("@tinymce/tinymce-react").then(mod => mod.Editor), { ssr: false });
 
 const EditSection = ({ sectionId }) => {
+  const editorRef = useRef(null); // Référence pour TinyMCE
   const [sectionData, setSectionData] = useState({
     title: "",
     content: "",
@@ -18,8 +18,7 @@ const EditSection = ({ sectionId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
-  // Définir la fonction fetchSection en dehors de useEffect pour pouvoir la réutiliser
+  // Fonction pour récupérer les données de la section
   const fetchSection = async () => {
     try {
       const response = await fetch(`/api/sections/${sectionId}`);
@@ -44,26 +43,23 @@ const EditSection = ({ sectionId }) => {
     }));
   };
 
-  const handleContentChange = (content) => {
-    setSectionData((prevData) => ({
-      ...prevData,
-      content: content,
-    }));
-  };
-
   const handleSave = async () => {
     try {
+      // Récupère le contenu HTML depuis TinyMCE
+      const content = editorRef.current.getContent();
+      const updatedData = { ...sectionData, content };
+
       const response = await fetch(`/api/sections/${sectionId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(sectionData),
+        body: JSON.stringify(updatedData),
       });
 
       if (!response.ok) throw new Error("Failed to update section");
-      const updatedSection = await response.json();
+
       alert("Section updated successfully");
-      setSectionData(updatedSection);
-	  await fetchSection();
+      setSectionData(updatedData);
+      await fetchSection();
     } catch (err) {
       setError("Error updating section");
     }
@@ -89,11 +85,23 @@ const EditSection = ({ sectionId }) => {
 
         <label className={styles.label}>
           Content:
-          <ReactQuill
-            value={sectionData.content}
-            onChange={handleContentChange}
-            className={styles.textarea}
-            theme="snow" // Thème de Quill
+          <Editor
+            apiKey="x3eer1vn0bqep5rm8ntkj0jmckwk8qtd6okbe9fnukhokmmf"
+            onInit={(evt, editor) => (editorRef.current = editor)}
+            initialValue={sectionData.content}
+            init={{
+              height: 500,
+              menubar: false,
+              plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table paste code help wordcount",
+              ],
+              toolbar:
+                "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code",
+              content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            }}
           />
         </label>
 
