@@ -47,39 +47,33 @@ const Navbar = () => {
 	          <Link href="/posts/legend-of-mushrooms-codes">Codes</Link>
 	          <Link href="/posts/update-new-class">Update new class</Link>
 	          <Link href="/posts/update-sea-12-september">Update SEA 12.09</Link>
+			  <Link href="/posts/updates">Noobshroom Updates</Link>
 	          {/* <Link href={postUrl + "codes"}>Leaks</Link> */}
 	          {/* <Link href={postUrl + "codes"}>Dev Announcement</Link> */}
 	        </NavItem>
 
 	        <NavItem label="Class Guides">
-	          <Link href="/posts/beast-master-class-guide">
-	            Spirit Channeler - Beast Master
-	          </Link>
+	          <Link href="/posts/beast-master-class-guide">Spirit Channeler - Beast Master</Link>
 	          <Link href="/posts/arrowgod-class-guide">Archer - Plume Monarch</Link>
 	          <Link href="/posts/berseker-class-guide">Warrior - Berserker</Link>
-	          <Link href="/posts/prophet-preblitz-class-guide">
-	            Mage - Prophet Pre-blitz
-	          </Link>
-	          <Link href="/posts/mage-prophet-tank-regen">
-	            Mage - Prophet Regen
-	          </Link>
+	          <Link href="/posts/prophet-preblitz-class-guide">Mage - Prophet Pre-blitz</Link>
+	          <Link href="/posts/mage-prophet-tank-regen">Mage - Prophet Regen</Link>
 	          <Link href="/posts/best-class">Best class</Link>
 	        </NavItem>
 
 	        <NavItem label="Mechanics">
 	          <Link href="/posts/artifact-runes">Artifact Runes</Link>
 	          <Link href="/posts/character-attributes">Character stats</Link>
-	          <Link href="/posts/gear-plans">Gear Plans</Link>
-	          <Link href="/posts/battle-plans">Battle Plans</Link>
+	          <Link href="/posts/battle-plans">Battle & Gear Plans</Link>
+			  <Link href="/posts/talent-generator">Talent simulator</Link>
 	        </NavItem>
 
-	        {/* <NavItem label="Pve - Dungeons">
-	          <Link href={postUrl + "codes"}>Cross the Abyssal Portal</Link>
-	          <Link href={postUrl + "codes"}>Molten Ruins</Link>
-	          <Link href={postUrl + "codes"}>Flame Temple</Link>
-	        </NavItem> */}
+	        <NavItem label="PvE">
+	          <Link href="/posts/dungeon-assault-lamp-thief">Lamp Thief Dungeon</Link>
+	          <Link href="/posts/dungeon-molten-ruins">Molten Ruins</Link>
+	        </NavItem>
 
-	        <NavItem label="PvP-Modes">
+	        <NavItem label="PvP">
 	          <Link href="/posts/cross-server-arena">Cross-Server Arena</Link>
 	          <Link href="/posts/cross-server-showdown">Cross-Server Showdown</Link>
 	          <Link href="/posts/parking-wars">Parking Wars</Link>
@@ -94,7 +88,6 @@ const Navbar = () => {
 	        </NavItem>
 
 	        <NavItem label="About" className={styles.navItem}>
-	          <Link href="/posts/updates">Noobshroom Updates</Link>
 	          <Link href="/posts/about-us">About Us</Link>
 	          <Link href="/posts/contact-us">Contact Us</Link>
 	          <Link href="/posts/privacy-policy">Privacy Policy</Link>
