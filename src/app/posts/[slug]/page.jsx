@@ -47,12 +47,12 @@ export async function generateMetadata({ params }) {
 	  "contact-us",
 	  "about-us",
 	  "login",
-	  "posts/source-credit",
-	  "posts/talent-generator",
-	  "posts/prayer-statue",
-	  "posts/most-profitable-packs",
-	  "posts/cross-server-arena",
-	  "posts/character-attributes",
+	  "source-credit",
+	  "talent-generator",
+	  "prayer-statue",
+	  "most-profitable-packs",
+	  "cross-server-arena",
+	  "character-attributes",
 	];
 
 	if (!post || !post.metadata) {
