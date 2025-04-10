@@ -47,6 +47,12 @@ export async function generateMetadata({ params }) {
 	  "contact-us",
 	  "about-us",
 	  "login",
+	  "posts/source-credit",
+	  "posts/talent-generator",
+	  "posts/prayer-statue",
+	  "posts/most-profitable-packs",
+	  "posts/cross-server-arena",
+	  "posts/character-attributes",
 	];
 
 	if (!post || !post.metadata) {
@@ -295,18 +301,9 @@ const renderSectionsContent = (post) => {
                   : "Unknown Date"}</div> */}
           </div>
           {section.sets.map((set, setIndex) => (
-            <SetSection
-              key={setIndex}
-              id={set.id}
-              date={
-                section.updatedAt
-                  ? new Date(section.updatedAt).toLocaleDateString("en-US", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })
-                  : "Unknown Date"
-              }
+            <SetSection key={setIndex}
+			  id={set.id}
+			  date={section.updatedAt ? new Date(section.updatedAt).toLocaleDateString("en-US", {day: "numeric", month: "long", year: "numeric",}) : "Unknown Date"}
               title={set.title}
               standardImage={set.standardImage}
               opponentImage={set.opponentImage}
