@@ -4,3 +4,9 @@ Disallow: /next/
 Disallow: /write
 Disallow: /api/
 Disallow: /login
+Disallow: /posts/source-credit
+Disallow: /posts/talent-generator
+Disallow: /posts/prayer-statue
+Disallow: /posts/most-profitable-packs
+Disallow: /posts/cross-server-arena
+Disallow: /posts/character-attributes
