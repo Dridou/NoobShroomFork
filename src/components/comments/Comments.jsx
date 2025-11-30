@@ -6,16 +6,7 @@ import Image from "next/image";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-
-const getBaseUrl = () => {
-  if (process.env.VERCEL_ENV === "production") {
-    return "https://www.noobshroom.com";
-  } else if (process.env.VERCEL_ENV === "preview") {
-    return `https://${process.env.VERCEL_URL}`;
-  } else {
-    return "http://localhost:3000";
-  }
-};
+import { getBaseUrl } from "@/utils/getBaseUrl";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -31,11 +22,9 @@ const fetcher = async (url) => {
 
 const Comments = ({ postSlug }) => {
   const { status } = useSession();
+  const commentsUrl = `${getBaseUrl()}/api/comments?postSlug=${postSlug}`;
 
-  const { data, mutate, isLoading } = useSWR(
-    `${getBaseUrl()}/api/comments?postSlug=${postSlug}`,
-    fetcher
-  );
+  const { data, mutate, isLoading } = useSWR(commentsUrl, fetcher);
 
   const [desc, setDesc] = useState("");
 

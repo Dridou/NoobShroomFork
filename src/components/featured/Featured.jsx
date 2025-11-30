@@ -2,16 +2,6 @@ import React from "react";
 import styles from "./featured.module.css";
 import Image from "next/image";
 
-const getBaseUrl = () => {
-  if (process.env.VERCEL_ENV === "production") {
-    return "https://www.noobshroom.com";
-  } else if (process.env.VERCEL_ENV === "preview") {
-    return `https://${process.env.VERCEL_URL}`;
-  } else {
-    return "https://www.noobshroom.com";
-  }
-};
-
 const Featured = async () => {
   return (
     <div className={styles.container}>

@@ -1,20 +1,10 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./menuCategories.module.css";
-
-const getBaseUrl = () => {
-  if (process.env.VERCEL_ENV === "production") {
-    return "https://www.noobshroom.com";
-  } else if (process.env.VERCEL_ENV === "preview") {
-    return `https://${process.env.VERCEL_URL}`;
-  } else {
-    return "http://localhost:3000";
-  }
-};
+import { getBaseUrl } from "@/utils/getBaseUrl";
 
 const getData = async () => {
-  const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/categories`);
+  const res = await fetch(`${getBaseUrl()}/api/categories`);
 
   if (!res.ok) {
     throw new Error("Failed");

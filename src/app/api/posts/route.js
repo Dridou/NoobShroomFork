@@ -6,34 +6,39 @@ export const dynamic = 'force-dynamic';
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
 
-  const cat = searchParams.get("cat");
+  const cat = searchParams.get("cat")?.trim();
   const sortBy = searchParams.get("sortBy");
 
   const excludedCategories = ["legal", "database"];
+  const allowedSortFields = new Set(["views", "createdAt"]);
+  const normalizedSort = allowedSortFields.has(sortBy)
+    ? sortBy
+    : "createdAt";
 
-  // Construction de la requête Prisma
+  // Construction de la requÃƒÆ’Ã‚Âªte Prisma
   const query = {
     where: {
       catSlug: {
         notIn: excludedCategories,
+        ...(cat ? { equals: cat } : {}),
       },
-      ...(cat && { catSlug: cat }), // Applique le filtre cat seulement si `cat` est défini
     },
-    orderBy: {
-      ...(sortBy === "views" ? { views: "desc"} : { createdAt: "desc" }),
+    orderBy:
+      normalizedSort === "views"
+        ? { views: "desc" }
+        : { createdAt: "desc" },
+    ...(normalizedSort === "views" ? { take: 5 } : {}),
+    include: {
+      user: {
+        select: {
+          name: true,
+        },
+      },
     },
-	...(sortBy === "views" ? {take : 5} : {}),
-	include: {
-	  user: {
-	    select: {
-	      name: true,
-	    },
-	  },
-	},
   };
 
   try {
-    // Récupère tous les posts correspondant à la requête
+    // RÃƒÆ’Ã‚Â©cupÃƒÆ’Ã‚Â¨re tous les posts correspondant ÃƒÆ’Ã‚Â  la requÃƒÆ’Ã‚Âªte
     const posts = await prisma.post.findMany(query);
     return NextResponse.json({ posts }, { status: 200 });
   } catch (err) {

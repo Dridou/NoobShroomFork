@@ -1,18 +1,7 @@
 import React from "react";
 import styles from "./cardList.module.css";
-import Pagination from "../pagination/Pagination";
-import Image from "next/image";
 import Card from "../card/Card";
-
-const getBaseUrl = () => {
-  if (process.env.VERCEL_ENV === "production") {
-    return "https://www.noobshroom.com";
-  } else if (process.env.VERCEL_ENV === "preview") {
-    return `https://${process.env.VERCEL_URL}`;
-  } else {
-    return "https://www.noobshroom.com";
-  }
-};
+import { getBaseUrl } from "@/utils/getBaseUrl";
 
 const getData = async () => {
   const baseUrl = getBaseUrl();
@@ -20,8 +9,8 @@ const getData = async () => {
   try {
     res = await fetch(`${baseUrl}/api/posts?sortBy=createdAt`);
   } catch (error) {
-	console.error("Failed to fetch posts XXX", baseUrl);
-	throw new Error("Failed to fetch posts");
+    console.error("Failed to fetch posts XXX", baseUrl);
+    throw new Error("Failed to fetch posts");
   }
 
   if (!res.ok) {
