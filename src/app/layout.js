@@ -17,19 +17,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <GoogleAnalytics />
       <body className={poppins.className}>
+        <GoogleAnalytics />
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>
               <div className="container">
-
-                  <Navbar />
-				  <div className="wrapper">
+                <Navbar />
+                <div className="wrapper">
                   {children}
-				  </div>
-                  <Footer />
-
+                </div>
+                <Footer />
               </div>
             </ThemeProvider>
           </ThemeContextProvider>

@@ -3,13 +3,13 @@ import styles from "./blogPage.module.css";
 import Menu from "@/components/Menu/Menu";
 
 const BlogPage = ({ searchParams }) => {
-  const page = parseInt(searchParams.page) || 1;
   const { cat } = searchParams;
+  const catLabel = cat ? cat.replace("-", " ") : "All posts";
 
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
-        <h1 className={styles.title}>{cat.replace("-", " ")}</h1>
+        <h1 className={styles.title}>{catLabel}</h1>
       </div>
       <div className={styles.content}>
         <CardList cat={cat} />
