@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 import Head from "next/head";
 import styles from "./singlePage.module.css";
-import SetSection from "@/components/setSection/SetSection";
+import SetSection from "@/components/SetSection/SetSection";
 import CardList from "@/components/cardList/CardList";
 import Menu from "@/components/Menu/Menu";
 import Link from "next/link";

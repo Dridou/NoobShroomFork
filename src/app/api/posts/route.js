@@ -15,7 +15,7 @@ export const GET = async (req) => {
     ? sortBy
     : "createdAt";
 
-  // Construction de la requÃƒÆ’Ã‚Âªte Prisma
+  // Construction de la requête Prisma
   const query = {
     where: {
       catSlug: {
@@ -38,7 +38,7 @@ export const GET = async (req) => {
   };
 
   try {
-    // RÃƒÆ’Ã‚Â©cupÃƒÆ’Ã‚Â¨re tous les posts correspondant ÃƒÆ’Ã‚Â  la requÃƒÆ’Ã‚Âªte
+    // Récupère tous les posts correspondant à la requête
     const posts = await prisma.post.findMany(query);
     return NextResponse.json({ posts }, { status: 200 });
   } catch (err) {
