@@ -1,62 +1,50 @@
-"use client";
-
+import React from "react";
 import styles from "./featured.module.css";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-const Featured = () => {
-  const [post, setPost] = useState(null);
+const getBaseUrl = () => {
+  if (process.env.VERCEL_ENV === "production") {
+    return "https://www.noobshroom.com";
+  } else if (process.env.VERCEL_ENV === "preview") {
+    return `https://${process.env.VERCEL_URL}`;
+  } else {
+    return "https://www.noobshroom.com";
+  }
+};
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const res = await fetch(
-          "http://localhost:3000/api/posts/prophet-preblitz-class-guide"
-        );
-        if (!res.ok) {
-          throw new Error("Post not found");
-        }
-        const data = await res.json();
-        setPost(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchPost();
-  }, []);
-
+const Featured = async () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <b>Your ultimate Legend of Mushrooms reference</b>
+        <b>Your ultimate Legend of Mushroom reference</b>
       </h1>
-      <h2 className={styles.subtitle}>
-       <i> Most <b>in-depth guides</b> by the most <b>experienced players</b>.</i>
-      </h2>
+      <span className={styles.subtitle}>
+        <i>
+          Most <b>in-depth guides</b> by the most <b>experienced players</b>.
+        </i>
+      </span>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
           <Image
             src="/images/prophet-character.png"
-            alt=""
+            alt="Prophet Character"
             width={512}
             height={512}
             className={styles.image}
           />
         </div>
         <div className={styles.textContainer}>
-          <h1 className={styles.postTitle}>
-            <b>{post?.title}</b>
-          </h1>
+          <span className={styles.postTitle}>
+            <b>How to play Prophet as a regeneration Tank ?</b>
+          </span>
           <p className={styles.postDesc}>
-            Discover all the knowledge acumulated by the best Prophet players,
-            avoid mistakes and learn from the best how to play your pre-blitz
-            Prophet!
+			The Prophet is a mage class that can be played as a tank with the
+			right build.<br/>
+			This guide will show you how to play the Prophet as a
+			regeneration tank which is in <span class="tips">this meta a really strong pick</span> !
           </p>
           <button className={styles.button}>
-            <a href="http://localhost:3000/posts/prophet-preblitz-class-guide">
-              Read more
-            </a>
+            <a href={"/posts/mage-prophet-tank-regen"}>Prophet regen build</a>
           </button>
         </div>
       </div>

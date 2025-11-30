@@ -1,0 +1,242 @@
+﻿/* Conteneur principal */
+.mainContainer {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+}
+
+/* Conteneur gauche (header + générateur) */
+.leftContainer {
+	/* 80% pour le header + générateur */
+	padding-right: 20px;
+	/* Ajout d'un peu d'espace à droite */
+	display: flex;
+	flex-direction: column;
+}
+
+/* Conteneur de la partie droite (statistiques) */
+.statsContainer {
+	/* 20% pour les statistiques */
+	padding: 10px;
+	background-color: #1e293b;
+	/* Fond pour mieux voir */
+	border-radius: 8px;
+	color: white;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+}
+
+.buttonRow #share::before {
+		content: '\f064'; /* Code Unicode de l'icône (ex. pour FontAwesome) */
+		font-family: 'FontAwesome';
+		margin-right: 8px;
+}
+
+/* Conteneur pour les boutons de sauvegarde, chargement et réinitialisation */
+.buttonRow {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+/* Conteneur pour les boutons des branches */
+.buttonContainer {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.buttonRow button:disabled {
+	background-color: #ccc;
+	/* Couleur de fond pour le bouton désactivé */
+	cursor: not-allowed;
+	/* Changer le curseur pour indiquer que le bouton est inactif */
+	opacity: 0.6;
+	/* Réduire l'opacité pour rendre le bouton visuellement désactivé */
+}
+
+.generatorContainer {
+	width: 100%;
+	/* S'étend pour occuper tout l'espace restant */
+	border: 1px solid #333;
+	/* Bordure pour mieux voir */
+}
+
+.talentTreeContainer {
+	position: relative;
+	width: min(1350px, 85vw);
+	/* Largeur max de 1000px ou 80% de la largeur de l'écran */
+	height: min(1000px, 85vh);
+	/* Hauteur max de 1000px ou 80% de la hauteur de l'écran */
+}
+
+.headerContainer button {
+	padding: 10px;
+	margin: auto;
+	font-size: 16px;
+	cursor: pointer;
+	background-color: #333;
+	color: white;
+	border: 2px solid #fff;
+	border-radius: 8px;
+}
+
+.headerContainer button.active {
+	background-color: #2c5bb1;
+}
+
+/* Conteneur du select */
+.classSelection {
+	position: relative;
+	display: inline-block;
+	width: fit-content;
+	/* Ajuste la largeur */
+}
+
+/* Style du select */
+.classSelection select {
+	width: 100%;
+	padding: 10px;
+	background-color: #333;
+	border: 2px solid #fff;
+	cursor: pointer;
+	color: #fff;
+	font-size: 16px;
+	border-radius: 5px;
+	text-align: left;
+}
+
+.customInput input {
+	width: 100px;
+	/* Ajuste la largeur de l'input */
+	padding: 8px;
+	font-size: 16px;
+	border: 2px solid #1f2937;
+	/* Bordure personnalisée */
+	border-radius: 5px;
+	/* Coins arrondis */
+	background-color: #0f172a;
+	/* Couleur de fond */
+	color: #fff;
+	/* Couleur du texte */
+	text-align: center;
+	/* Centrer le texte */
+	outline: none;
+	/* Supprime le contour par défaut */
+}
+
+.custom-input input::-webkit-inner-spin-button,
+.custom-input input::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.custom-input input:focus {
+	border-color: #38bdf8;
+	/* Change la couleur de la bordure lors du focus */
+	box-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
+	/* Effet de halo lors du focus */
+}
+
+.featherContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: left;
+}
+
+.title {
+	font-size: 24px;
+	margin-bottom: 10px;
+	text-align: left;
+	text-decoration: underline;
+}
+
+.branchSelection {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.toolbar {
+	display: flex;
+	justify-content: space-between;
+}
+
+.tools {
+	display: flex;
+	gap: 10px;
+	/* Espace entre les boutons */
+	margin: 10px;
+}
+
+.transformheader button {
+	background-color: #fff;
+	border: 1px solid #000;
+	padding: 8px 16px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.2s ease;
+}
+
+.tools button:hover {
+	background-color: #e0e0e0;
+  }
+
+  .tools button:active {
+	background-color: #ccc;
+  }
+
+/* Styles spécifiques pour mobile */
+@media (max-width: 768px) {
+	.mainContainer {
+		flex-direction: column;
+	}
+
+	.buttonRow {
+		display: flex;
+		gap: 20px;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.buttonContainer {
+		flex-direction: column;
+		justify-content: center;
+		gap: 10px;
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+
+	.featherContainer {
+		flex-direction: row;
+	}
+
+	.headerContainer button {
+		padding: 5 5;
+		margin: auto;
+		font-size: 12px;
+		cursor: pointer;
+		background-color: #333;
+		color: white;
+		border: 2px solid #fff;
+		border-radius: 8px;
+	}
+
+	.leftContainer {
+		width: 100%;
+		/* Le générateur occupe tout l'écran sur mobile */
+	}
+
+	.statsContainer {
+		width: 100%;
+		/* Les stats prennent toute la largeur sur mobile */
+		margin-top: 20px;
+	}
+}

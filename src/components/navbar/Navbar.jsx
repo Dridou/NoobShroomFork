@@ -1,55 +1,138 @@
-'use client'
+"use client";
 
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext"; // Chemin du fichier ThemeProvider
 import styles from "./navbar.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import AuthLinks from "../authLinks/AuthLinks";
-import ThemeToggle from "../themeToggle/ThemeToggle";
-import NavItem from "../navItem/navItem";
-import DropdownMenu from "../dropdownMenu/dropdownMenu";
-import DropdownItem from "../dropdownItem/dropdownItem";
+import NavItem from "../navItem/NavItem";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const { isMobileMenuOpen, toggleMobileMenu } = useContext(ThemeContext); // Utilise le contexte pour le menu mobile
 
   return (
-    <div className={styles.container}>
-      <div className={styles.discord}>
-        <div className={styles.discordContainer}>
-          <div className={styles.discordButton}>
-            <Image
-              src="/images/icon_discord.png"
-              alt="Discord Logo"
-              width={30}
-              height={23}
-              className={styles.discordLogo}
-            />
-            <span className={styles.discordText}>Community</span>
-          </div>
-        </div>
-      </div>
+    <nav className={styles.container}>
       <div className={styles.logo}>
-        <Link href="/">NoobShroom</Link>
+        <Link href="/">
+          <Image
+            src="/images/noobshroom-full-logo.png"
+            alt="Noobshroom complete Logo"
+            width={200}
+            height={48}
+            layout="responsive"
+            className={styles.fulllogo}
+          />
+          <Image
+            src="/images/noobshroom-logo-icon.png"
+            alt="Noobshroom Icon"
+            width={653}
+            height={614}
+            layout="responsive"
+            className={styles.iconlogo}
+          />
+        </Link>
       </div>
 
-      <div className={styles.hamburger} onClick={toggleMenu}>
-        <span className={styles.hamburgerLine}></span>
-        <span className={styles.hamburgerLine}></span>
-        <span className={styles.hamburgerLine}></span>
-      </div>
+      {/* Menu de navigation */}
+      <ul className={isMobileMenuOpen ? styles.navMenuOpen : styles.navMenu}>
+        <div className={isMobileMenuOpen ? "": styles.leftpart}>
+        	<li>
+	          <a href="/" className={styles.home}>
+	            Home
+	          </a>
+	        </li>
 
+        	<NavItem label="News">
+	          <Link href="/posts/legend-of-mushrooms-codes">Codes</Link>
+	          <Link href="/posts/update-new-class">Update new class</Link>
+	          <Link href="/posts/update-sea-12-september">Update SEA 12.09</Link>
+			  <Link href="/posts/updates">Noobshroom Updates</Link>
+	          {/* <Link href={postUrl + "codes"}>Leaks</Link> */}
+	          {/* <Link href={postUrl + "codes"}>Dev Announcement</Link> */}
+	        </NavItem>
 
-      <ul className={`${styles.navMenu} ${isOpen ? styles.navMenuOpen : ""}`}>
-        <NavItem label="About" link="/posts/about-us" />
-        <NavItem label="Contact" link="/posts/contact-us" />
-        <AuthLinks />
+	        <NavItem label="Class Guides">
+	          <Link href="/posts/beast-master-class-guide">Spirit Channeler - Beast Master</Link>
+	          <Link href="/posts/arrowgod-class-guide">Archer - Plume Monarch</Link>
+	          <Link href="/posts/berseker-class-guide">Warrior - Berserker</Link>
+	          <Link href="/posts/prophet-preblitz-class-guide">Mage - Prophet Pre-blitz</Link>
+	          <Link href="/posts/mage-prophet-tank-regen">Mage - Prophet Regen</Link>
+	          <Link href="/posts/best-class">Best class</Link>
+	        </NavItem>
+
+	        <NavItem label="Mechanics">
+	          <Link href="/posts/artifact-runes">Artifact Runes</Link>
+	          <Link href="/posts/character-attributes">Character stats</Link>
+	          <Link href="/posts/battle-plans">Battle & Gear Plans</Link>
+			  <Link href="/posts/talent-generator">Talent simulator</Link>
+	        </NavItem>
+
+	        <NavItem label="PvE">
+	          <Link href="/posts/dungeon-assault-lamp-thief">Lamp Thief Dungeon</Link>
+	          <Link href="/posts/dungeon-molten-ruins">Molten Ruins</Link>
+	        </NavItem>
+
+	        <NavItem label="PvP">
+	          <Link href="/posts/cross-server-arena">Cross-Server Arena</Link>
+	          <Link href="/posts/cross-server-showdown">Cross-Server Showdown</Link>
+	          <Link href="/posts/parking-wars">Parking Wars</Link>
+	        </NavItem>
+
+	        <NavItem label="Resources">
+	          <Link href="/posts/what-to-buy-in-shops">Shops</Link>
+	          <Link href="/posts/spending-red-gems">Spending Red Gems</Link>
+	          <Link href="/posts/most-profitable-packs">Best Packs</Link>
+	          <Link href="/posts/mining">Mining</Link>
+	          <Link href="/posts/prayer-statue">Prayer Statue</Link>
+	        </NavItem>
+
+	        <NavItem label="About" className={styles.navItem}>
+	          <Link href="/posts/about-us">About Us</Link>
+	          <Link href="/posts/contact-us">Contact Us</Link>
+	          <Link href="/posts/privacy-policy">Privacy Policy</Link>
+	          <Link href="/posts/terms">Terms of Use</Link>
+	          <Link href="/posts/source-credit">Source Credit</Link>
+	        </NavItem>
+        </div>
+
+        <div className={styles.rightpart}><AuthLinks /></div>
       </ul>
-    </div>
+
+      <div className={styles.discord}>
+        <Link
+          href="https://discord.gg/V8FzGSQyer"
+          className={styles.discordButton}
+        >
+          <Image
+            src="/images/icon_discord.png"
+            alt="Discord Logo"
+            width={30}
+            height={23}
+          />
+        </Link>
+        <Link
+          href="https://www.buymeacoffee.com/NoobShroom"
+          target="_blank"
+          className={styles.bmcButton}
+        >
+          <Image
+            src="/images/bmc-logo.png"
+            alt="Buy me a coffee Logo"
+            width={32}
+            height={32}
+          />
+        </Link>
+      </div>
+      {/* Menu hamburger pour mobile */}
+      <div className={styles.hamburger} onClick={toggleMobileMenu}>
+        <span className={styles.hamburgerLine}></span>
+        <span className={styles.hamburgerLine}></span>
+        <span className={styles.hamburgerLine}></span>
+      </div>
+
+      {/* Boutons de Discord et Buy Me a Coffee */}
+    </nav>
   );
 };
 

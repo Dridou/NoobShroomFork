@@ -2,7 +2,7 @@
 import SetSpell from "../setSpell/SetSpell";
 import SetPal from "../setPal/SetPal";
 import SetSectionList from '../SetSectionList/SetSectionList';
-import SetTalent from '../SetTalent/SetTalent';
+import SetTalent from '../setTalent/SetTalent';
 // import SetMount from './SetMount';
 // import SetArtifact from './SetArtifact';
 // import SetBackAccessory from './SetBackAccessory';
@@ -11,6 +11,7 @@ import styles from "./SetSection.module.css";
 
 const SetSection = ({
   id,
+  date,
   title,
   standardImage,
   opponentImage,
@@ -33,23 +34,12 @@ const SetSection = ({
     <section id={id} className={styles.setSection}>
       <div className={styles.fullSet}>
         <div className={styles.cardBody}>
-          <nav>
-            <div className={styles.navTabs} id="nav-tab">
-              <button
-                className={`${styles.navLink} active`}
-                id={`nav-set-${id}`}
-                data-target={`#pill-set-${id}`}
-                role="tab"
-                aria-controls={`nav-set-${id}`}
-                aria-selected="true"
-              >
-                Standard
-              </button>
-            </div>
-          </nav>
           <div className={styles.tabContent} id="nav-tabContent">
-			<div>
-            <h4></h4>
+            <div>
+              <div className={styles.titleHeader}>
+                <span className={styles.title}>{title}</span>
+                <span className={styles.date}>Updated: {date}</span>
+              </div>
               <SetSpell
                 standardImage={standardImage}
                 opponentImage={opponentImage}
@@ -58,41 +48,25 @@ const SetSection = ({
                 timings={timings}
                 alternatives={alternatives}
               />
-              <hr />
-
               <SetPal
                 palsImage={palsImage}
                 palsAlternatives={palsAlternatives}
-				title={"Pal"}
+                title={"Pal"}
               />
-			  <hr />
               <SetPal
                 palsImage={relicsImage}
                 palsAlternatives={relicsAlternatives}
-				title={"Relics"}
+                title={"Relics"}
               />
-              <hr />
               <SetTalent
-			  	talentImage={talentImage}
+                talentImage={talentImage}
                 talents={talents}
-				title={"Talents"}
+                title={"Talents"}
               />
-              <hr />
-			  <SetSectionList
-			  	list={mounts}
-				title={"Mounts"}
-			  />
-              <hr />
-			  <SetSectionList
-			  	list={artifacts}
-				title={"Artifacts"}
-			  />
-			  <hr />
-			   <SetSectionList
-			  	list={accessories}
-				title={"Back Accessories"}
-			  />
-			  {/* <SetSectionList
+              <SetSectionList list={mounts} title={"Mounts"} />
+              <SetSectionList list={artifacts} title={"Artifacts"} />
+              <SetSectionList list={accessories} title={"Back Accessories"} />
+              {/* <SetSectionList
 			  	list={avians}
 				title={"Avians"}
 			  /> */}

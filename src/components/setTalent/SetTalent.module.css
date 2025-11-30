@@ -1,8 +1,13 @@
 ﻿.title {
-	text-align: center;
-	padding: 1.5rem 0;
-	font-size: 26px;
-	font-weight: bold;
+	padding: .75rem 0;
+    font-size: 26px;
+    font-weight: bold;
+    background-color: var(--mediumTextColor);
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 20px;
+    text-align: center;
+	color: black;
 }
 
 .imageContainer {

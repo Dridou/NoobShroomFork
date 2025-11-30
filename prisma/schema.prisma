@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = env("MONGODB_URI")
 }
 
 model Account {
@@ -65,8 +65,10 @@ model Category {
 
 model Post {
   id        String    @id @default(cuid()) @map("_id")
-  createdAt DateTime  @default(now())
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @updatedAt
   slug      String    @unique
+  metadata   Json?    // Nouvelle colonne pour les métadonnées
   title     String
   desc      String
   img       String?
@@ -78,11 +80,26 @@ model Post {
   user      User      @relation(fields: [userEmail], references: [email])
   comments  Comment[]
   sections  Section[]
+  updates   Update[]
+  shop      Shop[]
+
+}
+
+model Update {
+  id          String   @id @default(cuid()) @map("_id")
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+  title       String
+  content     String
+  postSlug    String?
+  post        Post?    @relation(fields: [postSlug], references: [slug])
+  sectionId   String?
+  section     Section? @relation(fields: [sectionId], references: [id])
 }
 
 model Comment {
   id        String   @id @default(cuid()) @map("_id")
-  createdAt DateTime @default(now())
+  createdAt DateTime? @default(now())
   desc      String
   userEmail String
   user      User     @relation(fields: [userEmail], references: [email])
@@ -92,6 +109,8 @@ model Comment {
 
 model Section {
   id      String  @id @default(cuid()) @map("_id")
+  createdAt DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
   title   String
   content String
   icon    String?
@@ -100,6 +119,7 @@ model Section {
   post    Post    @relation(fields: [postId], references: [id])
   sets    Set[] // Relier les sets aux sections
   tables   Table[]
+  updates   Update[]
   displayOrder Int?
 }
 
@@ -126,6 +146,33 @@ model Set {
   section            Section?  @relation(fields: [sectionId], references: [id])
 }
 
+model shopItem {
+	id String @id @default(cuid()) @map("_id")
+	objectImage String
+	objectName String
+	price Int
+	priority String?
+	explanation String?
+	displayOrder Int?
+	shopId String
+	shop Shop @relation("shop", fields: [shopId], references: [id])
+}
+
+model Shop {
+  id      String  @id @default(cuid()) @map("_id")
+  title   String
+  desc    String?
+  shopItems shopItem[] @relation("shop")
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt @default(now())
+  displayOrder Int?
+
+  money String[]
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+}
+
+
 model Table {
   id          String      @id @default(cuid()) @map("_id")
   title       String
@@ -142,4 +189,42 @@ model TableRow {
   explanation String
   table     Table   @relation("TableRows", fields: [tableId], references: [id])
   tableId   String
+}
+
+model TalentConfig {
+  id         String   @id @default(cuid()) @map("_id")
+  name	   String?
+//   dungeonId  String
+//   dungeon    Dungeon  @relation(fields: [dungeonId], references: [id], onDelete: Cascade)
+//   thresholdId String
+//   threshold   Threshold @relation(fields: [thresholdId], references: [id], onDelete: Cascade)
+  maxFeathers String?
+  classId  	String?
+  class 	CharacterClass? @relation(fields: [classId], references: [id])
+  configData Json
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model CharacterClass {
+	id        String   @id @default(cuid()) @map("_id")
+  	name      String   @unique
+ 	talents   TalentConfig[]
+}
+
+model Dungeon {
+  id        String      @id @default(cuid()) @map("_id")
+  name      String      @unique
+  thresholds Threshold[] // Relation avec le modèle Threshold
+
+//   TalentConfig TalentConfig[]
+}
+
+model Threshold {
+  id        String   @id @default(cuid()) @map("_id")
+  value     Int
+  dungeonId String
+  dungeon   Dungeon  @relation(fields: [dungeonId], references: [id], onDelete: Cascade)
+
+//   TalentConfig TalentConfig[]
 }

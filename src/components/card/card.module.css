@@ -1,76 +1,114 @@
 .container {
-	padding-bottom: 30px;
+	/* padding-bottom: 30px; */
 	margin-bottom: 20px;
 	display: flex;
-	flex-direction: column; /* Change to column on mobile */
+	flex-direction: column;
+	/* Change to column on mobile */
 	align-items: center;
-	border-bottom: 1px solid rgba(211, 211, 211, 0.432);
-  }
+	/* border-bottom: 1px solid rgba(211, 211, 211, 0.432); */
+	background-color: var(--softBg);
+	border: 1px solid rgb(60, 66, 75);
+	;
+}
 
-  .imageContainer {
-	width: 90%; /* Ensure the image takes full width */
-	overflow: hidden;
-	border-radius: 10px;
-	margin-top: 15px;
-	margin-bottom: 15px; /* Add some space below the image */
+.imageContainer {
+	width: 100%;
+	/* height: 400px; */
+	max-height: 400px;
+	display: flex;
 	justify-content: center;
-  }
+	align-items: center;
+	overflow: hidden;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	/* Add some space below the image */
+}
 
-  .image {
+.image {
 	width: 100%;
 	height: auto;
 	object-fit: contain;
-  }
+}
 
-  .textContainer {
+.textContainer {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	gap: 15px;
-  }
+	gap: 10px;
+	padding: 20px;
+}
 
-  .date {
+.date {
 	color: gray;
-	font-size: 14px; /* Slightly reduce the font size */
-  }
+	font-size: 14px;
+	/* Slightly reduce the font size */
+}
 
-  .category {
+.category {
 	color: crimson;
 	font-weight: 500;
-	font-size: 14px; /* Slightly reduce the font size */
-  }
+	font-size: 14px;
+	/* Slightly reduce the font size */
+}
 
-  .desc {
-	font-size: 16px; /* Slightly reduce the font size */
+.desc {
+	font-size: 16px;
+	/* Slightly reduce the font size */
 	font-weight: 300;
 	color: var(--softTextColor);
-  }
+}
 
-  .link {
-	border-bottom: 1px solid crimson;
+.link {
+	/* border-bottom: 1px solid crimson; */
+	background-color: #007bb8be;
+	font-weight: 500;
+	color:white;
 	width: max-content;
-	padding: 2px 0px;
-  }
+	padding: 15px 15px;
+	border-radius: 5px;
+}
 
-  @media screen and (min-width: 680px) {
+.title {
+	font-size: 36px;
+	font-weight: 500;
+	line-height: 1.3;
+
+}
+
+.postContent {
+	display: flex;
+	flex-direction: row;
+}
+
+.descContent {
+	flex-direction: column;
+	display: flex;
+	flex: 5;
+	gap: 15px;
+}
+
+@media screen and (min-width: 680px) {
 	.container {
-	  flex-direction: row; /* Use row layout on larger screens */
-	  height: auto; /* Let the container height adjust based on content */
+		flex-direction: column;
+		/* Use row layout on larger screens */
+		height: auto;
+		/* Let the container height adjust based on content */
 	}
 
 	.imageContainer {
-	  flex: 2;
-	  width: 20%;
-	  margin-bottom: 0; /* Remove bottom margin for desktop */
-	  margin: 0; /* Remove auto-centering for larger screens */
+		flex: 1;
+		object-fit: cover;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0;
+		padding: 0;
+		/* max-height: 200px; */
 	}
+}
 
-	.textContainer {
-	  flex: 5;
-	  gap: 30px;
+@media screen and (max-width: 680px) {
+	.imageContainer {
+		max-height: 200px;
 	}
-
-	.image {
-		height: auto;
-	}
-  }
+}

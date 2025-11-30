@@ -1,22 +1,21 @@
-.title{
-  background-color: var(--softBg);
-  color: white;
-  padding: 15px 30px;
-  text-align: center;
-  text-transform: capitalize;
-  border-radius: 20px;
-  width: max-content;
-  /* align-items: center; */
+.title {
+	background-color: var(--softBg);
+	color: white;
+	padding: 15px 30px;
+	text-align: center;
+	text-transform: capitalize;
+	border-radius: 20px;
+	width: max-content;
+	/* align-items: center; */
 }
 
 .titleContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.content{
-  display: flex;
-  gap: 50px;
+.content {
+	display: flex;
+	gap: 50px;
 }
-

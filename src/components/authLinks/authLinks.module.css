@@ -5,7 +5,7 @@
 .navLink {
 	color: var(--textColor);
 	text-decoration: none;
-	padding: 5px 10px;
+	/* padding: 5px 10px; */
 	display: block;
 	transition: background-color 0.3s;
 	border-radius: 30px;
@@ -24,15 +24,13 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	justify-content: space-between;
-	/* Espace entre l'image et le lien Logout */
+	justify-content: flex-start;
 }
 
 .userImage {
 	border-radius: 50%;
-	/* Pour rendre l'image circulaire */
 	object-fit: cover;
-	/* Assure que l'image est bien ajustée */
+	margin-left: 10px;
 }
 
 @media screen and (max-width: 640px) {
