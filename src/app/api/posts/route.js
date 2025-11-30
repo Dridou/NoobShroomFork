@@ -1,6 +1,11 @@
 import { getAuthSession } from "@/utils/auth";
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import {
+  EXCLUDED_CATEGORIES,
+  FEATURED_POSTS_LIMIT,
+  POSTS_PER_PAGE,
+} from "@/utils/constants";
 
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
@@ -9,49 +14,36 @@ export const GET = async (req) => {
   const cat = searchParams.get("cat");
   const sortBy = searchParams.get("sortBy");
 
-  const POST_PER_PAGE = 3;
+  const where = {
+    catSlug: {
+      notIn: EXCLUDED_CATEGORIES,
+    },
+    ...(cat && { catSlug: cat }),
+  };
 
-  const excludedCategories = ["legal","shops","database"];
+  const orderBy =
+    sortBy === "views"
+      ? { views: "desc" }
+      : { createdAt: "desc" };
 
-  let query = null;
+  const pagination = page
+    ? { take: POSTS_PER_PAGE, skip: POSTS_PER_PAGE * (page - 1) }
+    : { take: FEATURED_POSTS_LIMIT };
 
-  if (page) {
-    query = {
-      take: POST_PER_PAGE,
-      skip: POST_PER_PAGE * (page - 1),
-      where: {
-		catSlug: {
-		  notIn: excludedCategories,
-		},
-		...(cat && { catSlug: cat }),
-	  },
-    //   orderBy: {
-    //     ...(sortBy === "views" ? { views: "desc" } : { createdAt: "desc" }),
-    //   },
-    };
-  }
-  else {
-	query = {
-		take: 5,
-		// skip: POST_PER_PAGE * (page - 1),
-		where: {
-			catSlug: {
-			  notIn: excludedCategories,
-			},
-			...(cat && { catSlug: cat }),
-		  },
-		include: {
-		  user: {
-			select: {
-			  name: true,
-			},
-		  },
-		},
-		orderBy: {
-		  ...(sortBy === "views" ? { views: "desc" } : { createdAt: "desc" }),
-		},
-	  };
-  }
+  const query = {
+    ...pagination,
+    where,
+    orderBy,
+    ...(!page && {
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    }),
+  };
 
   try {
     const [posts, count] = await prisma.$transaction([

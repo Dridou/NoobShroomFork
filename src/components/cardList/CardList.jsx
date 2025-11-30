@@ -3,6 +3,7 @@ import styles from "./cardList.module.css";
 import Pagination from "../pagination/Pagination";
 import Image from "next/image";
 import Card from "../card/Card";
+import { POSTS_PER_PAGE } from "@/utils/constants";
 
 const getData = async (page, cat) => {
   const res = await fetch(
@@ -22,10 +23,8 @@ const getData = async (page, cat) => {
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
 
-  const POST_PER_PAGE = 3;
-
-  const hasPrev = POST_PER_PAGE * (page - 1) > 0;
-  const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
+  const hasPrev = POSTS_PER_PAGE * (page - 1) > 0;
+  const hasNext = POSTS_PER_PAGE * (page - 1) + POSTS_PER_PAGE < count;
 
   return (
     <div className={styles.container}>

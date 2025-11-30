@@ -31,7 +31,7 @@ const Card = ({ item }) => {
         <div className={styles.imageContainer}>
           <Image
             src={`/images/${item.imgBig}`}
-            alt=""
+            alt={`${item.title} image`}
             width={300}
             height={300}
             className={styles.image}

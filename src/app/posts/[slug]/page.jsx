@@ -1,4 +1,4 @@
-import Menu from "@/components/Menu/Menu";
+import Menu from "@/components/menu/Menu";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
 import Comments from "@/components/comments/Comments";
@@ -6,38 +6,38 @@ import SetSection from "@/components/SetSection/SetSection";
 import CardList from "@/components/cardList/CardList";
 import "../../styles/colStyles.css"; // Import custom table styles
 import "../../styles/tableStyles.css"; // Import custom table styles
-
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "@/utils/connect";
 
 const getData = async (slug) => {
-	// Utiliser Prisma pour récupérer les données du post avec les sections et les sets associés
-	const post = await prisma.post.findUnique({
-	  where: { slug: slug },
-	  include: {
-		user: true,
-		sections: {
-		  include: {
-			sets: true,
-		  },
-		  orderBy: {
-			displayOrder: 'asc',  // Order sections by the 'order' field in ascending order
-		  },
-		},
-	  },
-	});
+  const post = await prisma.post.findUnique({
+    where: { slug },
+    include: {
+      user: true,
+      sections: {
+        include: {
+          sets: true,
+        },
+        orderBy: {
+          displayOrder: "asc",
+        },
+      },
+    },
+  });
 
-	if (!post) {
-	  throw new Error("Post not found");
-	}
+  if (!post) {
+    throw new Error("Post not found");
+  }
 
-	return post;
-  };
+  return post;
+};
 
 const SinglePage = async ({ params }) => {
   const { slug } = params;
 
   const data = await getData(slug);
+  const formattedDate = data?.createdAt
+    ? new Date(data.createdAt).toLocaleDateString("en-GB")
+    : "";
 
   return (
     <div className={styles.container}>
@@ -49,7 +49,7 @@ const SinglePage = async ({ params }) => {
               <div className={styles.userImageContainer}>
                 <Image
                   src={data.user.image}
-                  alt=""
+                  alt={`${data.user.name} avatar`}
                   fill
                   className={styles.avatar}
                 />
@@ -57,13 +57,19 @@ const SinglePage = async ({ params }) => {
             )}
             <div className={styles.userTextContainer}>
               <span className={styles.username}>{data?.user.name}</span>
-              <span className={styles.date}>01.01.2024</span>
+              <span className={styles.date}>{formattedDate}</span>
             </div>
           </div>
         </div>
         {data?.imgBig && (
           <div className={styles.imageContainer}>
-            <Image src={`/images/${data.imgBig}`} alt="" width={300} height={400} className={styles.image} />
+            <Image
+              src={`/images/${data.imgBig}`}
+              alt={`${data.title} image`}
+              width={300}
+              height={400}
+              className={styles.image}
+            />
           </div>
         )}
       </div>
@@ -74,7 +80,7 @@ const SinglePage = async ({ params }) => {
               {section.icon && (
                 <Image
                   src={section.icon}
-                  alt=""
+                  alt={`${section.title} icon`}
                   width={32}
                   height={32}
                   className={styles.sectionIcon}
@@ -82,7 +88,7 @@ const SinglePage = async ({ params }) => {
               )}
               <h2>{section.title}</h2>
             </div>
-			{section.type === 'set' && section.sets.length > 0 ? (
+            {section.type === "set" && section.sets.length > 0 ? (
               section.sets.map((set, setIndex) => (
                 <SetSection
                   key={setIndex}
@@ -98,7 +104,7 @@ const SinglePage = async ({ params }) => {
                   palsAlternatives={set.palsAlternatives}
                   relicsImage={set.relicsImage}
                   relicsAlternatives={set.relicsAlternatives}
-				  talentImage={set.talentImage}
+                  talentImage={set.talentImage}
                   talents={set.talents}
                   mounts={set.mounts}
                   artifacts={set.artifacts}
@@ -107,20 +113,17 @@ const SinglePage = async ({ params }) => {
                 />
               ))
             ) : (
-              <div
-                dangerouslySetInnerHTML={{ __html: section.content }}
-              />
+              <div dangerouslySetInnerHTML={{ __html: section.content }} />
             )}
           </div>
-          // </div>
         ))}
         <div className={styles.comment}>
           <Comments postSlug={slug} />
         </div>
-		<div className={styles.bottomContent}>
-			<CardList page={1}/>
-	        <Menu />
-		</div>
+        <div className={styles.bottomContent}>
+          <CardList page={1} />
+          <Menu />
+        </div>
       </div>
     </div>
   );
