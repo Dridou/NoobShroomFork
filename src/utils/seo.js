@@ -20,3 +20,7 @@ export const NO_INDEX_SLUGS = [
 ];
 
 export const isNoIndexSlug = (slug) => NO_INDEX_SLUGS.includes(slug);
+
+export const NO_INDEX_PATHS = ["/login", "/write"];
+
+export const isNoIndexPath = (path) => NO_INDEX_PATHS.includes(path);
