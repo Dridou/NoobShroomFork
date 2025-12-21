@@ -36,6 +36,8 @@ next-env.d.ts
 x.html
 x.html
 public/sitemap-0.xml
+public/sitemap*.xml
+public/robots.txt
 zdata/tmp.json
 y.html
 x.html
