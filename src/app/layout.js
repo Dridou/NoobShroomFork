@@ -63,6 +63,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={poppins.className}>
         <GoogleAnalytics />
+        <Script
+          id="adsense-script"
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>
