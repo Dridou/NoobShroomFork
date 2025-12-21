@@ -2,14 +2,13 @@ import React from "react";
 import styles from "./cardList.module.css";
 import Card from "../card/Card";
 import prisma from "@/utils/connect";
+import { EXCLUDED_CATEGORIES } from "@/utils/appConstants";
 
 const getData = async () => {
-  const excludedCategories = ["legal", "database"];
-
   const posts = await prisma.post.findMany({
     where: {
       catSlug: {
-        notIn: excludedCategories,
+        notIn: EXCLUDED_CATEGORIES,
       },
     },
     orderBy: { createdAt: "desc" },

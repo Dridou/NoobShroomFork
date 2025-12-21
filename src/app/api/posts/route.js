@@ -1,5 +1,6 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import { EXCLUDED_CATEGORIES } from "@/utils/appConstants";
 
 export const dynamic = 'force-dynamic';
 
@@ -9,7 +10,6 @@ export const GET = async (req) => {
   const cat = searchParams.get("cat")?.trim();
   const sortBy = searchParams.get("sortBy");
 
-  const excludedCategories = ["legal", "database"];
   const allowedSortFields = new Set(["views", "createdAt"]);
   const normalizedSort = allowedSortFields.has(sortBy)
     ? sortBy
@@ -19,7 +19,7 @@ export const GET = async (req) => {
   const query = {
     where: {
       catSlug: {
-        notIn: excludedCategories,
+        notIn: EXCLUDED_CATEGORIES,
         ...(cat ? { equals: cat } : {}),
       },
     },

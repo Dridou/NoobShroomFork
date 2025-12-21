@@ -10,6 +10,11 @@ import AuthProvider from "@/providers/AuthProvider";
 const poppins = Poppins({ weight: ['100','200','300','400','500','600','700'],subsets: ["latin"] });
 
 export const metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://www.noobshroom.com"
+  ),
   title: "Legend of Mushroom - Wiki",
   description: "Your ultimate guide to the Legend of Mushroom game",
 };

@@ -3,14 +3,13 @@ import styles from "./categoryList.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import prisma from "@/utils/connect";
+import { EXCLUDED_CATEGORIES } from "@/utils/appConstants";
 
 const getData = async () => {
-  const excludedCategories = ["legal", "database"];
-
   return prisma.category.findMany({
     where: {
       slug: {
-        notIn: excludedCategories,
+        notIn: EXCLUDED_CATEGORIES,
       },
     },
     select: {

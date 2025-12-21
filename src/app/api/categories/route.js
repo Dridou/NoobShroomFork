@@ -1,13 +1,12 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import { EXCLUDED_CATEGORIES } from "@/utils/appConstants";
 
 export const GET = async () => {
-  const excludedCategories = ["legal","database"];
-
   let query = {
     where: {
       slug: {
-        notIn: excludedCategories,
+        notIn: EXCLUDED_CATEGORIES,
       },
     },
   };

@@ -3,14 +3,13 @@ import Link from "next/link";
 import React from "react";
 import styles from "./menuPosts.module.css";
 import prisma from "@/utils/connect";
+import { EXCLUDED_CATEGORIES } from "@/utils/appConstants";
 
 const getData = async () => {
-  const excludedCategories = ["legal", "database"];
-
   const posts = await prisma.post.findMany({
     where: {
       catSlug: {
-        notIn: excludedCategories,
+        notIn: EXCLUDED_CATEGORIES,
       },
     },
     orderBy: { views: "desc" },
