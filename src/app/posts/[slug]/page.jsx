@@ -14,7 +14,7 @@ import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
 import dynamic from 'next/dynamic';
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_URL, isNoIndexSlug } from "@/utils/seo";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_NAME, SITE_URL, isNoIndexSlug } from "@/utils/seo";
 // Import dynamique du bouton d'édition pour le rendre client-only
 const EditSectionButton = dynamic(() => import("@/components/EditSectionButton/EditSectionButton"), {
 	ssr: false,
@@ -383,18 +383,32 @@ export default async function SinglePage({ params }) {
       break;
   }
 
+  const isContactPage = slug === "contact-us";
   const jsonLd = post
-    ? {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        headline: post.title,
-        description: post.desc,
-        url: `${SITE_URL}/posts/${slug}`,
-        datePublished: post.createdAt ? new Date(post.createdAt).toISOString() : undefined,
-        dateModified: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined,
-        image: post.imgBig || post.img ? `${SITE_URL}/images/${post.imgBig || post.img}` : undefined,
-        author: post.user?.name ? { "@type": "Person", name: post.user.name } : undefined,
-      }
+    ? isContactPage
+      ? {
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: post.title,
+          description: post.desc,
+          url: `${SITE_URL}/posts/${slug}`,
+          isPartOf: {
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
+        }
+      : {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.desc,
+          url: `${SITE_URL}/posts/${slug}`,
+          datePublished: post.createdAt ? new Date(post.createdAt).toISOString() : undefined,
+          dateModified: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined,
+          image: post.imgBig || post.img ? `${SITE_URL}/images/${post.imgBig || post.img}` : undefined,
+          author: post.user?.name ? { "@type": "Person", name: post.user.name } : undefined,
+        }
     : null;
 
   return (
