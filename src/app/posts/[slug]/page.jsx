@@ -14,7 +14,13 @@ import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
 import dynamic from 'next/dynamic';
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_NAME, SITE_URL, isNoIndexSlug } from "@/utils/seo";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  SITE_NAME,
+  SITE_URL,
+  isNoIndexSlug,
+} from "@/utils/seo";
 // Import dynamique du bouton d'édition pour le rendre client-only
 const EditSectionButton = dynamic(() => import("@/components/EditSectionButton/EditSectionButton"), {
 	ssr: false,
@@ -383,32 +389,86 @@ export default async function SinglePage({ params }) {
       break;
   }
 
-  const isContactPage = slug === "contact-us";
-  const jsonLd = post
-    ? isContactPage
+  const pageUrl = `${SITE_URL}/posts/${slug}`;
+  const logoUrl = `${SITE_URL}/images/noobshroom-full-logo.png`;
+  const pageJsonLd = post
+    ? slug === "contact-us"
       ? {
           "@context": "https://schema.org",
           "@type": "ContactPage",
           name: post.title,
           description: post.desc,
-          url: `${SITE_URL}/posts/${slug}`,
+          url: pageUrl,
           isPartOf: {
             "@type": "WebSite",
             name: SITE_NAME,
             url: SITE_URL,
           },
         }
-      : {
+      : slug === "about-us"
+      ? {
           "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: post.title,
+          "@type": "AboutPage",
+          name: post.title,
           description: post.desc,
-          url: `${SITE_URL}/posts/${slug}`,
-          datePublished: post.createdAt ? new Date(post.createdAt).toISOString() : undefined,
-          dateModified: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined,
-          image: post.imgBig || post.img ? `${SITE_URL}/images/${post.imgBig || post.img}` : undefined,
-          author: post.user?.name ? { "@type": "Person", name: post.user.name } : undefined,
+          url: pageUrl,
+          isPartOf: {
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
         }
+      : slug === "privacy-policy"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "PrivacyPolicy",
+          name: post.title,
+          description: post.desc,
+          url: pageUrl,
+          isPartOf: {
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
+        }
+      : slug === "terms"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "TermsOfService",
+          name: post.title,
+          description: post.desc,
+          url: pageUrl,
+          isPartOf: {
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
+        }
+      : null
+    : null;
+  const jsonLd = post
+    ? pageJsonLd || {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.desc,
+        url: pageUrl,
+        datePublished: post.createdAt ? new Date(post.createdAt).toISOString() : undefined,
+        dateModified: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined,
+        image: post.imgBig || post.img ? `${SITE_URL}/images/${post.imgBig || post.img}` : undefined,
+        author: post.user?.name
+          ? { "@type": "Person", name: post.user.name }
+          : { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+        publisher: {
+          "@type": "Organization",
+          name: SITE_NAME,
+          url: SITE_URL,
+          logo: {
+            "@type": "ImageObject",
+            url: logoUrl,
+          },
+        },
+      }
     : null;
 
   return (
