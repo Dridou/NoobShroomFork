@@ -1,25 +1,29 @@
 import React from "react";
 import styles from "./cardList.module.css";
 import Card from "../card/Card";
-import { getBaseUrl } from "@/utils/getBaseUrl";
+import prisma from "@/utils/connect";
 
 const getData = async () => {
-  const baseUrl = getBaseUrl();
-  let res = null;
-  try {
-    res = await fetch(`${baseUrl}/api/posts?sortBy=createdAt`);
-  } catch (error) {
-    console.error("Failed to fetch posts XXX", baseUrl);
-    throw new Error("Failed to fetch posts");
-  }
+  const excludedCategories = ["legal", "database"];
 
-  if (!res.ok) {
-    const errorDetails = await res.text();
-    console.error("Fetch failed:", errorDetails);
-    throw new Error("Failed to fetch posts");
-  }
+  const posts = await prisma.post.findMany({
+    where: {
+      catSlug: {
+        notIn: excludedCategories,
+      },
+    },
+    orderBy: { createdAt: "desc" },
+    select: {
+      slug: true,
+      title: true,
+      desc: true,
+      imgBig: true,
+      createdAt: true,
+      catSlug: true,
+    },
+  });
 
-  return res.json();
+  return { posts, count: posts.length };
 };
 
 const isPostReady = (post) => {
