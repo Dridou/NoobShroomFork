@@ -2,19 +2,33 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import styles from "./menuPosts.module.css";
-import { getBaseUrl } from "@/utils/getBaseUrl";
+import prisma from "@/utils/connect";
 
 const getData = async () => {
-  const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/posts?sortBy=views`);
+  const excludedCategories = ["legal", "database"];
 
-  if (!res.ok) {
-    const errorDetails = await res.text();
-    console.error("Fetch failed:", errorDetails);
-    throw new Error("Failed to fetch posts");
-  }
+  const posts = await prisma.post.findMany({
+    where: {
+      catSlug: {
+        notIn: excludedCategories,
+      },
+    },
+    orderBy: { views: "desc" },
+    take: 5,
+    select: {
+      id: true,
+      slug: true,
+      img: true,
+      title: true,
+      user: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
 
-  return res.json();
+  return { posts, count: posts.length };
 };
 
 const MenuPosts = async () => {

@@ -23,7 +23,12 @@ const getData = async () => {
     },
   });
 
-  return { posts, count: posts.length };
+  const serializedPosts = posts.map((post) => ({
+    ...post,
+    createdAt: post.createdAt ? post.createdAt.toISOString() : "",
+  }));
+
+  return { posts: serializedPosts, count: serializedPosts.length };
 };
 
 const isPostReady = (post) => {

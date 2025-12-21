@@ -2,16 +2,24 @@ import React from "react";
 import styles from "./categoryList.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { getBaseUrl } from "@/utils/getBaseUrl";
+import prisma from "@/utils/connect";
 
 const getData = async () => {
-  const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/categories`);
-  if (!res.ok) {
-    throw new Error("Failed");
-  }
+  const excludedCategories = ["legal", "database"];
 
-  return res.json();
+  return prisma.category.findMany({
+    where: {
+      slug: {
+        notIn: excludedCategories,
+      },
+    },
+    select: {
+      id: true,
+      slug: true,
+      title: true,
+      img: true,
+    },
+  });
 };
 
 const CategoryList = async () => {
@@ -24,7 +32,7 @@ const CategoryList = async () => {
           <Link
             href={`/blog?cat=${cat.slug}`}
             className={`${styles.category} ${styles[cat.slug]}`}
-            key={cat._id}
+            key={cat.id}
           >
             {cat.img && (
               <Image
