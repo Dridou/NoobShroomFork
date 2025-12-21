@@ -14,7 +14,7 @@ import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
 import dynamic from 'next/dynamic';
-import { SITE_URL, isNoIndexSlug } from "@/utils/seo";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_URL, isNoIndexSlug } from "@/utils/seo";
 // Import dynamique du bouton d'édition pour le rendre client-only
 const EditSectionButton = dynamic(() => import("@/components/EditSectionButton/EditSectionButton"), {
 	ssr: false,
@@ -40,35 +40,31 @@ export async function generateMetadata({ params }) {
 	// Liste des slugs pour lesquels nous voulons ajouter la balise meta spécifique
 	const slugsWithMeta = ["arrowgod-class-guide", "mage-prophet-tank-regen"];
 
-	if (!post || !post.metadata) {
-	  return {
-		title: "Default Title",
-		description: "Default description for SEO purposes.",
-	  };
-	}
-
 	// Vérification si le slug est dans la liste des noIndexSlugs
 	const isNoIndex = isNoIndexSlug(params.slug);
 
 	const postUrl = `${SITE_URL}/posts/${params.slug}`;
 	const postImage = post.imgBig || post.img ? `${SITE_URL}/images/${post.imgBig || post.img}` : null;
+	const metaTitle = post?.metadata?.title || post?.title || DEFAULT_TITLE;
+	const metaDescription =
+	  post?.metadata?.description || post?.desc || DEFAULT_DESCRIPTION;
 
 	const metadata = {
-	  title: post.metadata.title || "Default Title",
-	  description: post.metadata.description || "Default description for SEO purposes.",
+	  title: metaTitle,
+	  description: metaDescription,
 	  alternates: {
 		canonical: postUrl,
 	  },
 	  openGraph: {
 		url: postUrl,
-		title: post.metadata.title || "Default Title",
-		description: post.metadata.description || "Default description for SEO purposes.",
+		title: metaTitle,
+		description: metaDescription,
 		images: postImage ? [{ url: postImage }] : undefined,
 	  },
 	  twitter: {
 		card: postImage ? "summary_large_image" : "summary",
-		title: post.metadata.title || "Default Title",
-		description: post.metadata.description || "Default description for SEO purposes.",
+		title: metaTitle,
+		description: metaDescription,
 		images: postImage ? [postImage] : undefined,
 	  },
 	  robots: isNoIndex
