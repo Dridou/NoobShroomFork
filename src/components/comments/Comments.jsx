@@ -6,7 +6,6 @@ import Image from "next/image";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { getBaseUrl } from "@/utils/getBaseUrl";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -22,17 +21,20 @@ const fetcher = async (url) => {
 
 const Comments = ({ postSlug }) => {
   const { status } = useSession();
-  const commentsUrl = `${getBaseUrl()}/api/comments?postSlug=${postSlug}`;
+  const commentsUrl = `/api/comments?postSlug=${encodeURIComponent(postSlug)}`;
 
   const { data, mutate, isLoading } = useSWR(commentsUrl, fetcher);
 
   const [desc, setDesc] = useState("");
 
   const handleSubmit = async () => {
+    if (!desc.trim()) return;
     await fetch("/api/comments", {
       method: "POST",
-      body: JSON.stringify({ desc, postSlug }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ desc: desc.trim(), postSlug }),
     });
+    setDesc("");
     mutate();
   };
 
@@ -44,6 +46,7 @@ const Comments = ({ postSlug }) => {
           <textarea
             placeholder="write a comment..."
             className={styles.input}
+            value={desc}
             onChange={(e) => setDesc(e.target.value)}
           />
           <button className={styles.button} onClick={handleSubmit}>
@@ -57,7 +60,7 @@ const Comments = ({ postSlug }) => {
         {isLoading
           ? "loading"
           : data?.map((item) => (
-              <div className={styles.comment} key={item._id}>
+              <div className={styles.comment} key={item.id}>
                 <div className={styles.user}>
                   {item?.user?.image && (
                     <Image
