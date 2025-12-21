@@ -6,11 +6,6 @@ export const DEFAULT_DESCRIPTION =
 export const ADSENSE_PUBLISHER_ID = "ca-pub-3853373332492086";
 
 export const NO_INDEX_SLUGS = [
-  "terms",
-  "privacy-policy",
-  "source-credit",
-  "contact-us",
-  "about-us",
   "login",
   "talent-generator",
   "prayer-statue",

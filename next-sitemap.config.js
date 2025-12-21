@@ -13,15 +13,15 @@
 		const posts = data.posts || [];
 
 		posts.forEach((post) => {
-		  // Exclure certains slugs
-		  if (!['terms', 'privacy-policy', 'source-credit', 'contact-us', 'about-us', 'login'].includes(post.slug)) {
-			paths.push({
-			  loc: `/posts/${post.slug}`,
-			  changefreq: 'weekly',
-			  priority: 0.7,
-			  // Ajout de la balise lastmod avec la date de mise à jour
-			  lastmod: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined
-			});
+		  if (post.slug === "login") return;
+		  paths.push({
+			loc: `/posts/${post.slug}`,
+			changefreq: 'weekly',
+			priority: 0.7,
+			// Ajout de la balise lastmod avec la date de mise … jour
+			lastmod: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined
+		  });
+		});
 		  }
 		});
 	  } catch (error) {
