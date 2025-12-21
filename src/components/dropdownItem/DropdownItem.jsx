@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import styles from './dropdownItem.module.css';
+import styles from "./DropdownItem.module.css";
 
 const DropdownItem = ({ label, link }) => {
   return (
