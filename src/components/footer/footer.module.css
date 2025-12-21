@@ -111,6 +111,9 @@
 
 .discordLogo {
 	display: inline-block;
+	object-fit: contain;
+	height: auto;
+	width: auto;
 }
 
 .important {
