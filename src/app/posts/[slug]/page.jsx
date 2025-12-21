@@ -3,6 +3,7 @@
 import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 import Head from "next/head";
+import Script from "next/script";
 import styles from "./singlePage.module.css";
 import SetSection from "@/components/SetSection/SetSection";
 import CardList from "@/components/cardList/CardList";
@@ -23,6 +24,7 @@ const EditSectionButton = dynamic(() => import("@/components/EditSectionButton/E
 const TalentTree = dynamic(() => import('@/components/TalentTree/TalentTree'), { ssr: false });
 
 const prisma = new PrismaClient();
+const SITE_URL = "https://www.noobshroom.com";
 
 // Helper function to generate slug
 const slugifyTitle = (title) => {
@@ -65,13 +67,26 @@ export async function generateMetadata({ params }) {
 	// Vérification si le slug est dans la liste des noIndexSlugs
 	const isNoIndex = noIndexSlugs.includes(params.slug);
 
+	const postUrl = `${SITE_URL}/posts/${params.slug}`;
+	const postImage = post.imgBig || post.img ? `${SITE_URL}/images/${post.imgBig || post.img}` : null;
+
 	const metadata = {
 	  title: post.metadata.title || "Default Title",
 	  description: post.metadata.description || "Default description for SEO purposes.",
+	  alternates: {
+		canonical: postUrl,
+	  },
 	  openGraph: {
-		url: post.metadata.url || "https://www.noobshroom.com",
+		url: postUrl,
 		title: post.metadata.title || "Default Title",
 		description: post.metadata.description || "Default description for SEO purposes.",
+		images: postImage ? [{ url: postImage }] : undefined,
+	  },
+	  twitter: {
+		card: postImage ? "summary_large_image" : "summary",
+		title: post.metadata.title || "Default Title",
+		description: post.metadata.description || "Default description for SEO purposes.",
+		images: postImage ? [postImage] : undefined,
 	  },
 	  robots: isNoIndex
 		? {
@@ -389,8 +404,29 @@ export default async function SinglePage({ params }) {
       break;
   }
 
+  const jsonLd = post
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.desc,
+        url: `${SITE_URL}/posts/${slug}`,
+        datePublished: post.createdAt ? new Date(post.createdAt).toISOString() : undefined,
+        dateModified: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined,
+        image: post.imgBig || post.img ? `${SITE_URL}/images/${post.imgBig || post.img}` : undefined,
+        author: post.user?.name ? { "@type": "Person", name: post.user.name } : undefined,
+      }
+    : null;
+
   return (
     <div className={styles.container}>
+      {jsonLd ? (
+        <Script
+          id="post-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      ) : null}
       <div className={styles.infoContainer}>
         <div className={styles.textContainer}>
           <h1 className={styles.title}>{post?.title}</h1>
