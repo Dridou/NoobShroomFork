@@ -1,7 +1,7 @@
 import CardList from "@/components/cardList/CardList";
 import styles from "./blogPage.module.css";
 import Menu from "@/components/Menu/Menu";
-import { SITE_URL } from "@/utils/seo";
+import { DEFAULT_DESCRIPTION, SITE_URL } from "@/utils/seo";
 
 export const generateMetadata = ({ searchParams }) => {
   const { cat } = searchParams;
@@ -11,19 +11,19 @@ export const generateMetadata = ({ searchParams }) => {
 
   return {
     title,
-    description: `Browse ${catLabel} on NoobShroom.`,
+    description: `Browse ${catLabel} on NoobShroom. ${DEFAULT_DESCRIPTION}`,
     alternates: {
       canonical: url,
     },
     openGraph: {
       url,
       title,
-      description: `Browse ${catLabel} on NoobShroom.`,
+      description: `Browse ${catLabel} on NoobShroom. ${DEFAULT_DESCRIPTION}`,
     },
     twitter: {
       card: "summary",
       title,
-      description: `Browse ${catLabel} on NoobShroom.`,
+      description: `Browse ${catLabel} on NoobShroom. ${DEFAULT_DESCRIPTION}`,
     },
   };
 };

@@ -45,3 +45,4 @@ public/sitemap-0.xml
 *.html
 *.json
 *.txt
+!public/ads.txt
