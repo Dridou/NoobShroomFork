@@ -5,13 +5,7 @@ import { createContext, useEffect, useState } from "react";
 export const ThemeContext = createContext();
 
 const getFromLocalStorage = () => {
-  if (typeof window !== "undefined") {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "light" || storedTheme === "dark") {
-      return storedTheme;
-    }
-  }
-  return "light";
+  return "dark";
 };
 
 export const ThemeContextProvider = ({ children }) => {
@@ -24,13 +18,7 @@ export const ThemeContextProvider = ({ children }) => {
     setIsMobileMenuOpen(!isMobileMenuOpen); // Bascule l'état du menu mobile
   };
 
-  const toggle = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  const toggle = () => {};
 
   return (
     <ThemeContext.Provider value={{ theme, toggle, isMobileMenuOpen,
