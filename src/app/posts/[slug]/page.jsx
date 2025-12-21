@@ -2,7 +2,6 @@
 
 import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
-import Head from "next/head";
 import Script from "next/script";
 import styles from "./singlePage.module.css";
 import SetSection from "@/components/SetSection/SetSection";
@@ -15,6 +14,7 @@ import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
 import dynamic from 'next/dynamic';
+import { SITE_URL, isNoIndexSlug } from "@/utils/seo";
 // Import dynamique du bouton d'édition pour le rendre client-only
 const EditSectionButton = dynamic(() => import("@/components/EditSectionButton/EditSectionButton"), {
 	ssr: false,
@@ -24,7 +24,6 @@ const EditSectionButton = dynamic(() => import("@/components/EditSectionButton/E
 const TalentTree = dynamic(() => import('@/components/TalentTree/TalentTree'), { ssr: false });
 
 const prisma = new PrismaClient();
-const SITE_URL = "https://www.noobshroom.com";
 
 // Helper function to generate slug
 const slugifyTitle = (title) => {
@@ -41,22 +40,6 @@ export async function generateMetadata({ params }) {
 	// Liste des slugs pour lesquels nous voulons ajouter la balise meta spécifique
 	const slugsWithMeta = ["arrowgod-class-guide", "mage-prophet-tank-regen"];
 
-	// Slugs pour lesquels nous ne voulons pas d'indexation
-	const noIndexSlugs = [
-	  "terms",
-	  "privacy-policy",
-	  "source-credit",
-	  "contact-us",
-	  "about-us",
-	  "login",
-	  "source-credit",
-	  "talent-generator",
-	  "prayer-statue",
-	  "most-profitable-packs",
-	  "cross-server-arena",
-	  "character-attributes",
-	];
-
 	if (!post || !post.metadata) {
 	  return {
 		title: "Default Title",
@@ -65,7 +48,7 @@ export async function generateMetadata({ params }) {
 	}
 
 	// Vérification si le slug est dans la liste des noIndexSlugs
-	const isNoIndex = noIndexSlugs.includes(params.slug);
+	const isNoIndex = isNoIndexSlug(params.slug);
 
 	const postUrl = `${SITE_URL}/posts/${params.slug}`;
 	const postImage = post.imgBig || post.img ? `${SITE_URL}/images/${post.imgBig || post.img}` : null;
