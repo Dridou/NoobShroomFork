@@ -31,7 +31,7 @@ const Featured = async () => {
 			The Prophet is a mage class that can be played as a tank with the
 			right build.<br/>
 			This guide will show you how to play the Prophet as a
-			regeneration tank which is in <span class="tips">this meta a really strong pick</span> !
+			regeneration tank which is in <span className={styles.tips}>this meta a really strong pick</span> !
           </p>
           <button className={styles.button}>
             <a href={"/posts/mage-prophet-tank-regen"}>Prophet regen build</a>

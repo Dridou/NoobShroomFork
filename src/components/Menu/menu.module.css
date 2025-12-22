@@ -1,15 +1,15 @@
 .container {
   flex: 2;
-  margin-top: 60px;
+  margin-top: clamp(24px, 6vw, 60px);
 }
 
 .subtitle {
   color: gray;
-  font-size: 16px;
+  font-size: clamp(14px, 1vw, 16px);
   font-weight: 400;
 }
 .title {
-  font-size: 28px;
+  font-size: clamp(20px, 1.6vw, 28px);
 }
 
 

@@ -1,24 +1,24 @@
-﻿/* EditSection.module.css */
+/* EditSection.module.css */
 
 .formContainer {
 	background-color: #1a1a2e; /* Couleur de fond plus foncée */
-	padding: 20px;
+	padding: clamp(12px, 3vw, 20px);
 	border-radius: 8px;
 	color: #ffffff; /* Texte blanc */
 	max-width: 1500px;
-	margin: 20px auto; /* Centrer le formulaire */
+	margin: clamp(12px, 3vw, 20px) auto; /* Centrer le formulaire */
   }
 
   .formContainer h2 {
-	font-size: 24px;
-	margin-bottom: 15px;
+	font-size: clamp(18px, 2.2vw, 24px);
+	margin-bottom: clamp(10px, 2vw, 15px);
 	color: #ffffff;
   }
 
   .label {
 	display: block;
 	font-weight: bold;
-	margin-top: 15px;
+	margin-top: clamp(10px, 2vw, 15px);
 	color: #ffffff;
   }
 
@@ -28,7 +28,7 @@
 	padding: 8px;
 	margin-top: 5px;
 	margin-bottom: 10px;
-	font-size: 16px;
+	font-size: clamp(14px, 1.4vw, 16px);
 	border: 1px solid #cccccc;
 	border-radius: 4px;
 	background-color: #2e2e3d;
@@ -37,7 +37,7 @@
 
   .button {
 	padding: 10px 15px;
-	font-size: 16px;
+	font-size: clamp(14px, 1.4vw, 16px);
 	font-weight: bold;
 	color: #ffffff;
 	background-color: #4e8eff;
@@ -45,6 +45,7 @@
 	border-radius: 4px;
 	cursor: pointer;
 	transition: background-color 0.3s;
+	min-height: 44px;
   }
 
   .button:hover {
@@ -84,3 +85,6 @@
   .quillEditor .ql-editor {
 	color: #ffffff !important; /* Texte de l'éditeur en blanc */
   }
+
+
+

@@ -6,7 +6,10 @@ const Card = ({ item }) => {
   return (
     <div className={styles.container}>
       {item.imgBig && (
-        <div className={styles.imageContainer}>
+        <div
+          className={styles.imageContainer}
+          style={{ "--card-image": `url(/images/${item.imgBig})` }}
+        >
           <Image
             src={`/images/${item.imgBig}`}
             alt=""

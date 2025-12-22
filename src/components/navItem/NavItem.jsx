@@ -1,4 +1,4 @@
-﻿import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './navItem.module.css';
 import { ThemeContext } from '@/context/ThemeContext';  // Assurez-vous d'importer le bon contexte
 
@@ -34,13 +34,19 @@ const NavItem = ({ label, link, children }) => {
     setIsOpen(false);  // Ferme le sous-menu au hover si pas cliqué
   };
 
+  const handleToggle = () => {
+    if (isMobileMenuOpen) {
+      setIsOpen((prev) => !prev);
+    }
+  };
+
   return (
     <li
       className={`${styles.navItem}`}
       onMouseEnter={toggleDropdown}
       onMouseLeave={handleMouseLeave}
     >
-      <span className={styles.navLink}>
+      <span className={styles.navLink} onClick={handleToggle}>
         {label}
       </span>
 
@@ -57,3 +63,5 @@ const NavItem = ({ label, link, children }) => {
 };
 
 export default NavItem;
+
+

@@ -5,12 +5,13 @@
 
 .title {
 	padding: .75rem 0;
-    font-size: 26px;
+    font-size: clamp(18px, 2.4vw, 26px);
     font-weight: bold;
     background-color: var(--mediumTextColor);
     border-radius: 10px;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: clamp(12px, 3vw, 20px);
     text-align: center;
 	color: black;
+	line-height: 1.2;
 }

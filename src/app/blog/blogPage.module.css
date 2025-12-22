@@ -1,11 +1,13 @@
 .title {
 	background-color: var(--softBg);
 	color: white;
-	padding: 15px 30px;
+	padding: clamp(10px, 2.5vw, 15px) clamp(16px, 4vw, 30px);
 	text-align: center;
 	text-transform: capitalize;
 	border-radius: 20px;
-	width: max-content;
+	width: fit-content;
+	max-width: 100%;
+	white-space: normal;
 	/* align-items: center; */
 }
 
@@ -17,5 +19,6 @@
 
 .content {
 	display: flex;
-	gap: 50px;
+	gap: clamp(24px, 4vw, 50px);
+	align-items: flex-start;
 }

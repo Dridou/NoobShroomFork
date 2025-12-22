@@ -1,4 +1,4 @@
-﻿.navItem {
+.navItem {
 	position: relative;
 	cursor: pointer;
 }
@@ -54,8 +54,13 @@
 	/* display: block; */
 	transition: background-color 0.3s;
 	border-radius: 30px;
-	padding: 0;
+	padding: 4px 6px;
 	margin: 0;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	line-height: 1.2;
+	cursor: pointer;
 }
 
 .navLink:hover {
@@ -63,7 +68,7 @@
 }
 
 .navLink::after {
-	content: " ▼";
+	content: " v";
 	/* Flèche vers le bas */
 	font-size: 0.8em;
 	/* Taille de la flèche légèrement plus petite */
@@ -76,6 +81,7 @@
 		width: 100%;
 		position: relative;
 		border-radius: 0px;
+		white-space: normal;
 	}
 
 	.dropdownMenu a {
@@ -88,3 +94,4 @@
 		border-radius: 10px;
 	}
 }
+

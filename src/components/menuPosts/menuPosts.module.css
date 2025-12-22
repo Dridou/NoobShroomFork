@@ -1,15 +1,15 @@
 .items {
-  margin-top: 35px;
-  margin-bottom: 60px;
+  margin-top: clamp(16px, 3vw, 35px);
+  margin-bottom: clamp(24px, 5vw, 60px);
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: clamp(16px, 3vw, 35px);
 }
 
 .item {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: clamp(12px, 3vw, 20px);
 }
 
 .imageContainer {
@@ -51,14 +51,14 @@
   }
 
 .postTitle {
-  font-size: 18px;
+  font-size: clamp(14px, 1.6vw, 18px);
   font-weight: 600;
   color: var(--textColor);
 
 }
 
 .detail {
-  font-size: 12px;
+  font-size: clamp(11px, 1.2vw, 12px);
 }
 
 .date {

@@ -1,4 +1,4 @@
-﻿/* Conteneur principal */
+/* Conteneur principal */
 .mainContainer {
 	display: flex;
 	width: 100%;
@@ -45,8 +45,8 @@
 .buttonContainer {
 	display: flex;
 	justify-content: space-around;
-	margin-bottom: 20px;
-	margin-top: 20px;
+	margin-bottom: clamp(12px, 3vw, 20px);
+	margin-top: clamp(12px, 3vw, 20px);
 }
 
 .buttonRow button:disabled {
@@ -159,7 +159,7 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin-bottom: 20px;
+	margin-bottom: clamp(12px, 3vw, 20px);
 }
 
 .toolbar {
@@ -201,7 +201,7 @@
 
 	.buttonRow {
 		display: flex;
-		gap: 20px;
+		gap: clamp(12px, 3vw, 20px);
 		justify-content: center;
 		flex-wrap: wrap;
 	}
@@ -210,8 +210,8 @@
 		flex-direction: column;
 		justify-content: center;
 		gap: 10px;
-		margin-bottom: 20px;
-		margin-top: 20px;
+		margin-bottom: clamp(12px, 3vw, 20px);
+		margin-top: clamp(12px, 3vw, 20px);
 	}
 
 	.featherContainer {
@@ -237,6 +237,6 @@
 	.statsContainer {
 		width: 100%;
 		/* Les stats prennent toute la largeur sur mobile */
-		margin-top: 20px;
+		margin-top: clamp(12px, 3vw, 20px);
 	}
 }

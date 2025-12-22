@@ -1,11 +1,11 @@
 .container {
-	margin-top: 50px;
-	padding: 20px 0px;
+	margin-top: clamp(24px, 5vw, 50px);
+	padding: clamp(12px, 3vw, 20px) 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start; /* Align items to the top */
 	color: var(--softTextColor);
-	gap: 20px;
+	gap: clamp(12px, 3vw, 20px);
 	flex-wrap: wrap;
   }
 
@@ -67,6 +67,7 @@
 	font-weight: bold;
 	cursor: pointer;
 	transition: background-color 0.3s;
+	min-height: 44px;
 }
 .discordButton {
 	display: flex;
@@ -83,11 +84,13 @@
 	font-weight: bold;
 	cursor: pointer;
 	transition: background-color 0.3s;
+	min-height: 44px;
+	font-size: clamp(16px, 1.6vw, 24px);
 }
 
 .bmcText {
 	color: black;
-	font-size: 26px;
+	font-size: clamp(16px, 1.6vw, 24px);
 }
 
 .discord {
@@ -130,10 +133,10 @@
 .yo {
 	width: 100%;
 	/* Assure que cette section prend toute la largeur */
-	padding-top: 20px;
+	padding-top: clamp(12px, 3vw, 20px);
 	border-top: 1px solid rgba(211, 211, 211, 0.432);
-	margin-top: 20px;
-	padding-bottom: 20px;
+	margin-top: clamp(12px, 3vw, 20px);
+	padding-bottom: clamp(12px, 3vw, 20px);
 }
 
 .links {
@@ -142,10 +145,12 @@
 	/* Centre les liens horizontalement */
 	gap: 15px;
 	/* Espace entre les liens */
+	flex-wrap: wrap;
+	row-gap: 8px;
 }
 
 .links :not(:first-child)::before {
-	content: '•';
+	content: '|';
 	color: var(--softTextColor);
 	padding: 0 8px;
 }
@@ -181,7 +186,8 @@
 	}
 
 	.links :not(:first-child)::before {
-		content: ' ';
+		content: '';
 		padding: 0;
 	}
 }
+

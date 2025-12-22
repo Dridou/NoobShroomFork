@@ -30,7 +30,7 @@ export const metadata = {
 };
 
 export default function Home({ searchParams }) {
-	const page = parseInt(searchParams.page) || 1;
+  const page = parseInt(searchParams.page) || 1;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -44,18 +44,18 @@ export default function Home({ searchParams }) {
     },
   };
 
-	return (
-	  <div className={styles.container}>
+  return (
+    <div className={styles.container}>
       <Script
         id="home-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-		<Featured />
-		<div className={styles.content}>
-		  <CardList page={page}/>
-		  <Menu />
-		</div>
-	  </div>
-	);
+      <Featured />
+      <div className={styles.content}>
+        <CardList page={page} />
+        <Menu />
+      </div>
+    </div>
+  );
 }

@@ -2,28 +2,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 60px;
+  margin-top: clamp(24px, 6vw, 60px);
 }
 
 .wrapper {
   background-color: var(--softBg);
-  padding: 150px 200px;
+  padding: clamp(40px, 8vw, 150px) clamp(30px, 12vw, 200px);
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: clamp(20px, 4vw, 50px);
   border-radius: 10px;
 }
 
 .socialButton {
-  padding: 20px;
+  padding: clamp(12px, 3vw, 20px);
   border-radius: 5px;
   border: none;
   color: white;
   font-weight: bold;
+  font-size: clamp(14px, 1.6vw, 16px);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 44px;
 }
 
 .socialButton:first-child {
@@ -38,18 +40,3 @@
   background-color: #087bea;
 }
 
-@media screen and (max-width: 768px) {
-  .wrapper {
-    padding: 50px 100px;
-  }
-}
-@media screen and (max-width: 640px) {
-  .wrapper {
-    padding: 30px;
-  }
-
-  .socialButton{
-    font-weight: 400;
-    font-size: 14px;
-  }
-}

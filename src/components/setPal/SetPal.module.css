@@ -5,19 +5,22 @@
 
 .title {
 	padding: .75rem 0;
-    font-size: 26px;
+    font-size: clamp(18px, 2.4vw, 26px);
     font-weight: bold;
     background-color: var(--mediumTextColor);
     border-radius: 10px;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: clamp(12px, 3vw, 20px);
     text-align: center;
 	color: black;
+	line-height: 1.2;
 }
 
 .imageContainer {
 	display: flex;
 	padding-bottom: 30px;
+	justify-content: center;
+	align-items: center;
 }
 
 .setImage {
@@ -35,7 +38,7 @@
 
 .setDetails {
 	padding: 10px 0;
-	font-size: 18px;
+	font-size: clamp(14px, 1.8vw, 18px);
 }
 
 .setDetails img {
@@ -44,10 +47,10 @@
 
 .setDetails p {
 	color: var(--mediumTextColor);
-	padding-bottom: 30px;
+	padding-bottom: clamp(16px, 3vw, 30px);
 }
 
 .setDetails h5 {
-	font-size: 22px;
+	font-size: clamp(16px, 2.2vw, 22px);
 	padding-bottom: 10px;
 }

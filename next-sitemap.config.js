@@ -1,33 +1,31 @@
-﻿module.exports = {
+module.exports = {
 	siteUrl: 'https://www.noobshroom.com',
 	generateRobotsTxt: true,
 	sitemapSize: 7000,
 	exclude: ['/write', '/login', '/api/*', '/best-class', '/terms', '/privacy-policy', '/source-credit', '/contact-us', '/about-us'], // Exclude these paths from sitemap
 	additionalPaths: async (config) => {
-	  const paths = [];
+		const paths = [];
 
-	  try {
-		const res = await fetch("https://www.noobshroom.com/api/all-posts");
-		const data = await res.json();
+		try {
+			const res = await fetch("https://www.noobshroom.com/api/all-posts");
+			const data = await res.json();
 
-		const posts = data.posts || [];
+			const posts = data.posts || [];
 
-		posts.forEach((post) => {
-		  if (post.slug === "login") return;
-		  paths.push({
-			loc: `/posts/${post.slug}`,
-			changefreq: 'weekly',
-			priority: 0.7,
-			// Ajout de la balise lastmod avec la date de mise … jour
-			lastmod: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined
-		  });
-		});
-		  }
-		});
-	  } catch (error) {
-		console.error("Failed to fetch posts for sitemap:", error);
-	  }
+			posts.forEach((post) => {
+				if (post.slug === "login") return;
+				paths.push({
+					loc: `/posts/${post.slug}`,
+					changefreq: 'weekly',
+					priority: 0.7,
+					// Ajout de la balise lastmod avec la date de mise a jour
+					lastmod: post.updatedAt ? new Date(post.updatedAt).toISOString() : undefined,
+				});
+			});
+		} catch (error) {
+			console.error("Failed to fetch posts for sitemap:", error);
+		}
 
-	  return paths;
+		return paths;
 	},
-  };
+};

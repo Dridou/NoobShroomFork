@@ -6,6 +6,7 @@
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	min-width: 300px;
 	overflow-x: auto;
+	font-size: clamp(14px, 1.4vw, 16px);
   }
 
   .custom-table thead tr {
@@ -17,7 +18,7 @@
 
   .custom-table th,
   .custom-table td {
-	padding: 12px 15px;
+	padding: clamp(8px, 2vw, 12px) clamp(10px, 2.5vw, 15px);
 	border: 1px solid #8a616141;
 	word-wrap: break-word;
     white-space: normal;
