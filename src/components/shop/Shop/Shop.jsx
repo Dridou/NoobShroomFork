@@ -1,9 +1,9 @@
 ﻿import React from "react";
-import ShopItem from "@/components/ShopItem/ShopItem";
-import "../../app/styles/colStyles.css"; // Import custom table styles
-import "../../app/styles/tableStyles.css"; // Import custom table styles
+import ShopItem from "@/components/shop/ShopItem/ShopItem";
+import "@/app/styles/colStyles.css"; // Import custom table styles
+import "@/app/styles/tableStyles.css"; // Import custom table styles
 import "./Shop.module.css";
-import styles from "../../app/posts/[slug]/singlePage.module.css";
+import styles from "@/app/posts/[slug]/singlePage.module.css";
 
 
 const Shop = ({ shop }) => {

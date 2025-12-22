@@ -4,12 +4,12 @@ import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 import Script from "next/script";
 import styles from "./singlePage.module.css";
-import SetSection from "@/components/setSection/SetSection";
-import CardList from "@/components/cardList/CardList";
-import Menu from "@/components/Menu/Menu";
+import SetSection from "@/components/sets/setSection/SetSection";
+import CardList from "@/components/blog/cardList/CardList";
+import Menu from "@/components/blog/Menu/Menu";
 import Link from "next/link";
-import Shop from "@/components/Shop/Shop";
-import Comments from "@/components/comments/Comments";
+import Shop from "@/components/shop/Shop/Shop";
+import Comments from "@/components/blog/comments/Comments";
 import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
@@ -22,12 +22,12 @@ import {
   isNoIndexSlug,
 } from "@/utils/seo";
 // Import dynamique du bouton d'édition pour le rendre client-only
-const EditSectionButton = dynamic(() => import("@/components/EditSectionButton/EditSectionButton"), {
-	ssr: false,
-  });
+const EditSectionButton = dynamic(() => import("@/components/sets/EditSectionButton/EditSectionButton"), {
+  ssr: false,
+});
 
 // Importation dynamique du composant client TalentTree
-const TalentTree = dynamic(() => import('@/components/TalentTree/TalentTree'), { ssr: false });
+const TalentTree = dynamic(() => import('@/components/talent/TalentTree/TalentTree'), { ssr: false });
 
 const prisma = new PrismaClient();
 

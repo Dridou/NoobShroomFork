@@ -1,6 +1,6 @@
-import CardList from "@/components/cardList/CardList";
+import CardList from "@/components/blog/cardList/CardList";
 import styles from "./blogPage.module.css";
-import Menu from "@/components/Menu/Menu";
+import Menu from "@/components/blog/Menu/Menu";
 import Script from "next/script";
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/utils/seo";
 

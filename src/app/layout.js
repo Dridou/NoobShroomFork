@@ -1,8 +1,8 @@
-import Navbar from "@/components/navbar/Navbar";
+import Navbar from "@/components/layout/navbar/Navbar";
 import "./globals.css";
 import { Poppins } from "next/font/google";
-import Footer from "@/components/footer/Footer";
-import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
+import Footer from "@/components/layout/footer/Footer";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics/GoogleAnalytics";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";

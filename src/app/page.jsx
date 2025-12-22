@@ -1,8 +1,8 @@
 // app/page.jsx
 import styles from "./homepage.module.css";
-import Featured from "@/components/featured/Featured";
-import CardList from "@/components/cardList/CardList";
-import Menu from "@/components/Menu/Menu";
+import Featured from "@/components/blog/featured/Featured";
+import CardList from "@/components/blog/cardList/CardList";
+import Menu from "@/components/blog/Menu/Menu";
 import Script from "next/script";
 import {
   DEFAULT_DESCRIPTION,

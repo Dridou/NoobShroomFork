@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext"; // Chemin du fichier ThemeProvider
+import { ThemeContext } from "@/context/ThemeContext"; // Chemin du fichier ThemeProvider
 import styles from "./navbar.module.css";
 import Image from "next/image";
 import Link from "next/link";

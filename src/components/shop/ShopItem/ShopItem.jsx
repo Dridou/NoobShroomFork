@@ -1,8 +1,8 @@
 ﻿// components/ShopItem.jsx
 
 import React from "react";
-import "../../app/styles/colStyles.css"; // Import custom table styles
-import "../../app/styles/tableStyles.css"; // Import custom table styles
+import "@/app/styles/colStyles.css"; // Import custom table styles
+import "@/app/styles/tableStyles.css"; // Import custom table styles
 import styles from "./ShopItem.module.css";
 import Image from "next/image";
 

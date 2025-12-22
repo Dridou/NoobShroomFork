@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import Image from "next/image";
 import styles from "./SetTalent.module.css";
-import TalentTree from '../TalentTree/TalentTree';
+import TalentTree from "@/components/talent/TalentTree/TalentTree";
 
 const SetTalent = ({ talentImage, talents, title }) => {
   return (

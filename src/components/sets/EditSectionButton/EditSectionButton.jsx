@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import EditSection from "@/components/EditSection/EditSection";
+import EditSection from "@/components/sets/EditSection/EditSection";
 
 const EditSectionButton = ({ sectionId , postId}) => {
   const { data: session } = useSession();
