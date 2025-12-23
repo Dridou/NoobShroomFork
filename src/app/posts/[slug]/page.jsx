@@ -368,6 +368,7 @@ export default async function SinglePage({ params }) {
   const { slug } = params;
   let post;
   let sectionsContent;
+  const isCodesPage = slug === "legend-of-mushrooms-codes";
 
   switch (slug) {
 	case "talent-generator":
@@ -478,6 +479,29 @@ export default async function SinglePage({ params }) {
           id="post-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      ) : null}
+      {isCodesPage ? (
+        <Script
+          id="copy-code-buttons"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+            (() => {
+              const handler = (event) => {
+                const button = event.target.closest('[data-copy-code]');
+                if (!button) return;
+                const code = button.getAttribute('data-copy-code');
+                if (!code || !navigator.clipboard) return;
+                navigator.clipboard.writeText(code).then(() => {
+                  button.classList.add('is-copied');
+                  window.setTimeout(() => button.classList.remove('is-copied'), 1200);
+                }).catch(() => {});
+              };
+              document.addEventListener('click', handler);
+            })();
+          `,
+          }}
         />
       ) : null}
       <div className={styles.infoContainer}>
