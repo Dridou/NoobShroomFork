@@ -2,6 +2,15 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(12px, 3vw, 24px);
+}
+
+.custom-row .img-fluid {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    flex: 1 1 240px;
 }
 
 .custom-col {
@@ -22,4 +31,15 @@
 .figure-caption {
     font-size: 14px;
     color: #555;
+}
+
+@media screen and (max-width: 640px) {
+    .custom-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .custom-row .img-fluid {
+        width: min(100%, 420px);
+    }
 }
