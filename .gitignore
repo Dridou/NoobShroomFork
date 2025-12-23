@@ -48,3 +48,5 @@ public/sitemap-0.xml
 *.json
 *.txt
 !public/ads.txt
+
+learning/
