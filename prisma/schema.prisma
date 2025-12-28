@@ -228,3 +228,18 @@ model Threshold {
 
 //   TalentConfig TalentConfig[]
 }
+
+enum RedeemCodeStatus {
+  ACTIVE
+  EXPIRED
+  INVALID
+}
+
+model RedeemCode {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  code            String            @unique
+  status          RedeemCodeStatus  @default(ACTIVE)
+  source          String
+  sourceMessageId String?
+  createdAt       DateTime          @default(now())
+}

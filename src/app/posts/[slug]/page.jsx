@@ -159,6 +159,16 @@ const fetchUpdatesData = async () => {
   return updates;
 };
 
+const fetchRedeemCodes = async () => {
+  const codes = await prisma.redeemCode.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return codes;
+};
+
 // Fetch post data based on slug
 const fetchPostData = async (slug) => {
   console.log(slug);
@@ -270,6 +280,80 @@ const renderUpdatesSection = (updates) => {
   ));
 };
 
+const renderCodesTable = (codes) => {
+  if (codes.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="codes-table-wrap">
+      <table className="custom-table codes-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          {codes.map((code) => (
+            <tr key={code.id}>
+              <td>
+                <span className="code-cell">
+                  <span>{code.code}</span>
+                  <button
+                    type="button"
+                    className="code-copy"
+                    data-copy-code={code.code}
+                    aria-label={`Copy code ${code.code}`}
+                  >
+                    Copy
+                  </button>
+                </span>
+              </td>
+              <td>{code.source}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const renderCodesSection = (title, codes, emptyLabel) => (
+  <div className={styles.section}>
+    <h2>{title}</h2>
+    {codes.length ? renderCodesTable(codes) : <p>{emptyLabel}</p>}
+  </div>
+);
+
+const renderCodesContent = (codes) => {
+  const activeCodes = codes.filter((code) => code.status === "ACTIVE");
+  const expiredCodes = codes.filter((code) => code.status === "EXPIRED");
+  const invalidCodes = codes.filter((code) => code.status === "INVALID");
+
+  return (
+    <>
+      {renderCodesSection(
+        "Active Codes",
+        activeCodes,
+        "No active codes available."
+      )}
+      {renderCodesSection(
+        "Expired Codes",
+        expiredCodes,
+        "No expired codes available."
+      )}
+      {invalidCodes.length
+        ? renderCodesSection(
+            "Invalid Codes",
+            invalidCodes,
+            "No invalid codes available."
+          )
+        : null}
+    </>
+  );
+};
+
 // Render sections content for other pages
 const renderSectionsContent = (post) => {
   return post.sections.map((section) => {
@@ -373,6 +457,11 @@ export default async function SinglePage({ params }) {
   switch (slug) {
 	case "talent-generator":
 	  sectionsContent = <TalentTree />;
+	  break;
+	case "legend-of-mushrooms-codes":
+	  post = await fetchPostData(slug);
+	  const codes = await fetchRedeemCodes();
+	  sectionsContent = renderCodesContent(codes);
 	  break;
     case "what-to-buy-in-shops":
       post = await fetchPostData(slug);
