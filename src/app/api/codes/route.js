@@ -2,6 +2,23 @@ import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 export const POST = async (req) => {
+  const expectedApiKey = process.env.CODES_API_KEY;
+  const providedApiKey = req.headers.get("x-api-key");
+
+  if (!expectedApiKey) {
+    return new NextResponse(
+      JSON.stringify({ message: "API key is not configured." }),
+      { status: 500 }
+    );
+  }
+
+  if (providedApiKey !== expectedApiKey) {
+    return new NextResponse(
+      JSON.stringify({ message: "Unauthorized." }),
+      { status: 401 }
+    );
+  }
+
   let body;
 
   try {
