@@ -149,6 +149,8 @@ export const POST = async (req) => {
     ? body.items
     : Array.isArray(body?.messages)
     ? body.messages
+    : typeof body?.content === "string"
+    ? [body]
     : null;
 
   if (items) {
