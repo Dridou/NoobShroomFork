@@ -1,8 +1,68 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
+const LOG_PREFIX = "[codes-api]";
 const CODE_PATTERN = /gift\s*code\s*[:\-]\s*([A-Za-z0-9_-]+)/gi;
 const DATE_PATTERN = /valid\s*until\s*([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/i;
+
+const safeStringify = (value) => {
+  try {
+    return JSON.stringify(value);
+  } catch (err) {
+    return "[unserializable]";
+  }
+};
+
+const logInfo = (message, data) => {
+  if (data === undefined) {
+    console.log(`${LOG_PREFIX} ${message}`);
+    return;
+  }
+  console.log(`${LOG_PREFIX} ${message} ${safeStringify(data)}`);
+};
+
+const logWarn = (message, data) => {
+  if (data === undefined) {
+    console.warn(`${LOG_PREFIX} ${message}`);
+    return;
+  }
+  console.warn(`${LOG_PREFIX} ${message} ${safeStringify(data)}`);
+};
+
+const logError = (message, data) => {
+  if (data === undefined) {
+    console.error(`${LOG_PREFIX} ${message}`);
+    return;
+  }
+  console.error(`${LOG_PREFIX} ${message} ${safeStringify(data)}`);
+};
+
+const describePayload = (payload) => {
+  if (payload === null) {
+    return { type: "null" };
+  }
+  if (payload === undefined) {
+    return { type: "undefined" };
+  }
+  if (Array.isArray(payload)) {
+    return {
+      type: "array",
+      length: payload.length,
+      sampleKeys:
+        payload[0] && typeof payload[0] === "object"
+          ? Object.keys(payload[0])
+          : [],
+    };
+  }
+  if (typeof payload === "object") {
+    return {
+      type: "object",
+      keys: Object.keys(payload),
+    };
+  }
+  const preview = String(payload).slice(0, 160);
+  return { type: typeof payload, preview };
+};
 
 const normalizeCode = (value) => value.trim().toUpperCase();
 
@@ -46,15 +106,23 @@ const parseExpiredOn = (value) => {
   return parsed;
 };
 
+const normalizeMessagePayload = (message) => {
+  const payload =
+    message?.json && typeof message.json === "object" ? message.json : message;
+  const content = typeof payload?.content === "string" ? payload.content : "";
+  const id = payload?.id ? String(payload.id) : undefined;
+  return { content, id };
+};
+
 const extractCodesFromMessage = (message) => {
-  const content = typeof message?.content === "string" ? message.content : "";
+  const { content, id } = normalizeMessagePayload(message);
+
   if (!content) {
     return [];
   }
 
   const dateMatch = content.match(DATE_PATTERN);
   const expiredOn = dateMatch ? parseMmDdYyyy(dateMatch[1]) : null;
-  const sourceMessageId = message?.id ? String(message.id) : undefined;
   const results = [];
 
   for (const match of content.matchAll(CODE_PATTERN)) {
@@ -65,12 +133,44 @@ const extractCodesFromMessage = (message) => {
     results.push({
       code: normalizedCode,
       source: "discord",
-      sourceMessageId,
+      sourceMessageId: id,
       expiredOn,
     });
   }
 
   return results;
+};
+
+const collectMessages = (body) => {
+  if (Array.isArray(body)) {
+    return body;
+  }
+  if (Array.isArray(body?.items)) {
+    return body.items;
+  }
+  if (Array.isArray(body?.messages)) {
+    return body.messages;
+  }
+  if (Array.isArray(body?.data)) {
+    return body.data;
+  }
+  if (Array.isArray(body?.json)) {
+    return body.json;
+  }
+  if (
+    body?.json &&
+    typeof body.json === "object" &&
+    typeof body.json.content === "string"
+  ) {
+    return [body.json];
+  }
+  if (typeof body?.content === "string") {
+    return [body];
+  }
+  if (typeof body === "string") {
+    return [{ content: body }];
+  }
+  return null;
 };
 
 const createRedeemCode = async ({ code, source, sourceMessageId, expiredOn }) => {
@@ -137,26 +237,22 @@ export const POST = async (req) => {
   try {
     body = await req.json();
   } catch (err) {
+    logWarn("invalid JSON payload", { error: err?.message });
     return new NextResponse(
       JSON.stringify({ message: "Invalid JSON payload." }),
       { status: 400 }
     );
   }
 
-  const items = Array.isArray(body)
-    ? body
-    : Array.isArray(body?.items)
-    ? body.items
-    : Array.isArray(body?.messages)
-    ? body.messages
-    : typeof body?.content === "string"
-    ? [body]
-    : null;
+  logInfo("payload received", describePayload(body));
+
+  const items = collectMessages(body);
 
   if (items) {
     const extracted = items.flatMap(extractCodesFromMessage);
 
     if (!extracted.length) {
+      logInfo("no codes extracted", { items: items.length });
       return new NextResponse(
         JSON.stringify({ extracted: 0, created: 0, results: [] }),
         { status: 200 }
@@ -182,6 +278,12 @@ export const POST = async (req) => {
 
       const createdCount = results.filter((result) => result.created).length;
 
+      logInfo("codes processed", {
+        extracted: extracted.length,
+        unique: unique.length,
+        created: createdCount,
+      });
+
       return new NextResponse(
         JSON.stringify({
           extracted: extracted.length,
@@ -191,7 +293,7 @@ export const POST = async (req) => {
         { status: 200 }
       );
     } catch (err) {
-      console.log(err);
+      logError("failed to create codes", { error: err?.message });
       return new NextResponse(
         JSON.stringify({ message: "Something went wrong! Check the server previous log." }),
         { status: 500 }
@@ -203,8 +305,12 @@ export const POST = async (req) => {
   const normalizedCode = normalizeCode(rawCode || "");
 
   if (!normalizedCode) {
+    logWarn("no valid code or content in payload", describePayload(body));
     return new NextResponse(
-      JSON.stringify({ message: "Valid Code is required." }),
+      JSON.stringify({
+        message:
+          "Valid Code is required. Provide {code} or a message with {content}.",
+      }),
       { status: 400 }
     );
   }
@@ -223,6 +329,7 @@ export const POST = async (req) => {
   const expiredOn = parseExpiredOn(rawExpiredOn);
 
   if (rawExpiredOn && !expiredOn) {
+    logWarn("invalid expiredOn value", { expiredOn: rawExpiredOn });
     return new NextResponse(
       JSON.stringify({ message: "Invalid expiredOn value." }),
       { status: 400 }
@@ -239,7 +346,7 @@ export const POST = async (req) => {
 
     return new NextResponse(JSON.stringify(result), { status: 200 });
   } catch (err) {
-    console.log(err);
+    logError("failed to create code", { error: err?.message });
     return new NextResponse(
       JSON.stringify({ message: "Something went wrong! Check the server previous log." }),
       { status: 500 }
