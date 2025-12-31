@@ -241,5 +241,7 @@ model RedeemCode {
   status          RedeemCodeStatus  @default(ACTIVE)
   source          String
   sourceMessageId String?
+  expiredOn       DateTime?
   createdAt       DateTime          @default(now())
 }
+
