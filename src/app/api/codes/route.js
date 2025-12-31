@@ -145,30 +145,8 @@ const collectMessages = (body) => {
   if (Array.isArray(body)) {
     return body;
   }
-  if (Array.isArray(body?.items)) {
-    return body.items;
-  }
   if (Array.isArray(body?.messages)) {
     return body.messages;
-  }
-  if (Array.isArray(body?.data)) {
-    return body.data;
-  }
-  if (Array.isArray(body?.json)) {
-    return body.json;
-  }
-  if (
-    body?.json &&
-    typeof body.json === "object" &&
-    typeof body.json.content === "string"
-  ) {
-    return [body.json];
-  }
-  if (typeof body?.content === "string") {
-    return [body];
-  }
-  if (typeof body === "string") {
-    return [{ content: body }];
   }
   return null;
 };
