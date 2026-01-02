@@ -1,5 +1,6 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 
 const LOG_PREFIX = "[codes-api]";
 const CODE_PATTERN = /gift\s*code\s*[:\-]\s*([A-Za-z0-9_-]+)/gi;
@@ -256,6 +257,10 @@ export const POST = async (req) => {
 
       const createdCount = results.filter((result) => result.created).length;
 
+      if (createdCount > 0) {
+        revalidateTag("redeem-codes");
+      }
+
       logInfo("codes processed", {
         extracted: extracted.length,
         unique: unique.length,
@@ -321,6 +326,10 @@ export const POST = async (req) => {
       sourceMessageId,
       expiredOn,
     });
+
+    if (result.created) {
+      revalidateTag("redeem-codes");
+    }
 
     return new NextResponse(JSON.stringify(result), { status: 200 });
   } catch (err) {

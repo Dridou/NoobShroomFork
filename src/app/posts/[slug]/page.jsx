@@ -10,6 +10,7 @@ import Menu from "@/components/blog/Menu/Menu";
 import Link from "next/link";
 import Shop from "@/components/shop/Shop/Shop";
 import Comments from "@/components/blog/comments/Comments";
+import { unstable_cache } from "next/cache";
 import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
@@ -30,6 +31,7 @@ const EditSectionButton = dynamic(() => import("@/components/sets/EditSectionBut
 const TalentTree = dynamic(() => import('@/components/talent/TalentTree/TalentTree'), { ssr: false });
 
 const prisma = new PrismaClient();
+const REDEEM_CODES_REVALIDATE_SECONDS = 60 * 60 * 12;
 
 // Helper function to generate slug
 const slugifyTitle = (title) => {
@@ -159,15 +161,19 @@ const fetchUpdatesData = async () => {
   return updates;
 };
 
-const fetchRedeemCodes = async () => {
-  const codes = await prisma.redeemCode.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+const fetchRedeemCodes = unstable_cache(
+  async () => {
+    const codes = await prisma.redeemCode.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
-  return codes;
-};
+    return codes;
+  },
+  ["redeem-codes"],
+  { revalidate: REDEEM_CODES_REVALIDATE_SECONDS, tags: ["redeem-codes"] }
+);
 
 // Fetch post data based on slug
 const fetchPostData = async (slug) => {

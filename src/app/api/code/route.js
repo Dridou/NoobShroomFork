@@ -1,5 +1,6 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 
 const normalizeCode = (value) => value.trim().toUpperCase();
 
@@ -48,6 +49,8 @@ export const POST = async (req) => {
   const providedApiKey = req.headers.get("x-api-key");
 
   if (!expectedApiKey) {
+    revalidateTag("redeem-codes");
+
     return new NextResponse(
       JSON.stringify({ message: "API key is not configured." }),
       { status: 500 }
