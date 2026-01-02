@@ -355,7 +355,7 @@ const renderCodesContent = (codes) => {
       <div className={styles.section}>
         <p>
           Help us keep this list accurate. If a code stops working, please tell
-          the team in the comments below so we can update it quickly <3 !
+          the team in the comments below so we can update it quickly !
         </p>
       </div>
       {renderCodesSection(
