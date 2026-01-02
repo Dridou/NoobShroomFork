@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/utils/connect";
+import { normalizeContentBlocks } from "@/utils/contentBlocks";
 
 const getRequestToken = (req) => {
   const authHeader = req.headers.get("authorization") || "";
@@ -250,6 +251,10 @@ export async function POST(req) {
 
   for (const sectionInput of sections) {
     const sectionId = normalizeId(sectionInput.id || sectionInput._id);
+    const hasContentBlocks = Object.prototype.hasOwnProperty.call(sectionInput, "contentBlocks");
+    const contentBlocks = hasContentBlocks
+      ? normalizeContentBlocks(sectionInput.contentBlocks)
+      : undefined;
     let sectionPostId =
       sectionInput.postId || resolvedPostId || null;
 
@@ -267,6 +272,7 @@ export async function POST(req) {
     const sectionData = clean({
       title: sectionInput.title,
       content: sectionInput.content,
+      contentBlocks: contentBlocks ?? undefined,
       icon: sectionInput.icon,
       type: sectionInput.type,
       displayOrder: sectionInput.displayOrder,
@@ -286,7 +292,7 @@ export async function POST(req) {
         },
       });
     } else {
-      if (!sectionInput.title || !sectionInput.content) {
+      if (!sectionInput.title || (!sectionInput.content && (!contentBlocks || contentBlocks.length === 0))) {
         return NextResponse.json(
           { error: "Section create requires title and content." },
           { status: 400 }
