@@ -161,19 +161,23 @@ const fetchUpdatesData = async () => {
   return updates;
 };
 
-const fetchRedeemCodes = unstable_cache(
-  async () => {
-    const codes = await prisma.redeemCode.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+const fetchRedeemCodes = async () => {
+  const getCodes = unstable_cache(
+    async () => {
+      const codes = await prisma.redeemCode.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
 
-    return codes;
-  },
-  ["redeem-codes"],
-  { revalidate: REDEEM_CODES_REVALIDATE_SECONDS, tags: ["redeem-codes"] }
-);
+      return codes;
+    },
+    ["redeem-codes"],
+    { revalidate: REDEEM_CODES_REVALIDATE_SECONDS, tags: ["redeem-codes"] }
+  );
+
+  return getCodes();
+};
 
 // Fetch post data based on slug
 const fetchPostData = async (slug) => {
