@@ -1,20 +1,15 @@
 // src/app/posts/[slug]/page.js
 
-import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 import Script from "next/script";
 import styles from "./singlePage.module.css";
-import SetSection from "@/components/sets/setSection/SetSection";
 import CardList from "@/components/blog/cardList/CardList";
 import Menu from "@/components/blog/Menu/Menu";
-import Link from "next/link";
-import Shop from "@/components/shop/Shop/Shop";
 import Comments from "@/components/blog/comments/Comments";
-import { unstable_cache } from "next/cache";
 import "../../styles/colStyles.css";
 import "../../styles/tableStyles.css";
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_TITLE,
@@ -22,25 +17,23 @@ import {
   SITE_URL,
   isNoIndexSlug,
 } from "@/utils/seo";
-// Import dynamique du bouton d'édition pour le rendre client-only
-const EditSectionButton = dynamic(() => import("@/components/sets/EditSectionButton/EditSectionButton"), {
-  ssr: false,
-});
+import { slugifyTitle } from "./helpers";
+import {
+  fetchPostData,
+  fetchPostSlugs,
+  fetchRedeemCodes,
+  fetchShopsData,
+  fetchUpdatesData,
+} from "./data";
+import {
+  renderCodesContent,
+  renderSectionsContent,
+  renderShopsSection,
+  renderUpdatesSection,
+} from "./renderers";
 
 // Importation dynamique du composant client TalentTree
-const TalentTree = dynamic(() => import('@/components/talent/TalentTree/TalentTree'), { ssr: false });
-
-const prisma = new PrismaClient();
-const REDEEM_CODES_REVALIDATE_SECONDS = 60 * 60 * 12;
-
-// Helper function to generate slug
-const slugifyTitle = (title) => {
-  return title
-    .toLowerCase()
-    .trim()
-    .replace(/[\s?]/g, "-")
-    .replace(/[^\w-]+/g, "");
-};
+const TalentTree = dynamic(() => import("@/components/talent/TalentTree/TalentTree"), { ssr: false });
 
 export async function generateMetadata({ params }) {
 	const post = await fetchPostData(params.slug);
@@ -105,372 +98,8 @@ export async function generateMetadata({ params }) {
 
 // Fetch all posts for static paths generation
 export async function generateStaticParams() {
-  const posts = await prisma.post.findMany({
-    select: {
-      slug: true,
-    },
-  });
-
-  if (!posts) {
-    throw new Error("No post found in the database");
-  }
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  return fetchPostSlugs();
 }
-
-// Fetch shops data for "what-to-buy-in-shops" page
-const fetchShopsData = async () => {
-  const shops = await prisma.shop.findMany({
-    orderBy: {
-      displayOrder: "asc",
-    },
-    include: {
-      shopItems: {
-        orderBy: {
-          displayOrder: "asc",
-        },
-      },
-    },
-  });
-
-  if (!shops) {
-    throw new Error("Shops not found");
-  }
-
-  return shops;
-};
-
-// Fetch updates data for "updates" page
-const fetchUpdatesData = async () => {
-  const updates = await prisma.update.findMany({
-    include: {
-      post: true,
-      section: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-
-  if (!updates) {
-    throw new Error("Updates not found");
-  }
-
-  return updates;
-};
-
-const fetchRedeemCodes = async () => {
-  const getCodes = unstable_cache(
-    async () => {
-      const codes = await prisma.redeemCode.findMany({
-        orderBy: {
-          createdAt: "desc",
-        },
-      });
-
-      return codes;
-    },
-    ["redeem-codes"],
-    { revalidate: REDEEM_CODES_REVALIDATE_SECONDS, tags: ["redeem-codes"] }
-  );
-
-  return getCodes();
-};
-
-// Fetch post data based on slug
-const fetchPostData = async (slug) => {
-  console.log(slug);
-  const post = await prisma.post.findUnique({
-    where: { slug },
-    include: {
-      user: true,
-      sections: {
-        include: {
-          sets: true,
-        },
-        orderBy: {
-          displayOrder: "asc",
-        },
-      },
-      shop: {
-        include: {
-          shopItems: true,
-        },
-        orderBy: {
-          displayOrder: "asc",
-        },
-      },
-    },
-  });
-
-  if (!post) {
-    throw new Error("Post not found");
-  }
-
-  return post;
-};
-
-// Render shops section for "what-to-buy-in-shops" page
-const renderShopsSection = (shops) => {
-  if (shops.length === 0) {
-    return <div>Shops not found</div>;
-  }
-
-  return (
-    <>
-      {shops.map((shop) => (
-        <div
-          key={shop.id}
-          id={`${slugifyTitle(shop.title)}`}
-          className={styles.shop}
-        >
-          <div className={styles.shopHeader}>
-            <h2>{shop.title}</h2>
-            <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
-          </div>
-          <Shop shop={shop} />
-        </div>
-      ))}
-    </>
-  );
-};
-
-// Render updates section for "updates" page
-const renderUpdatesSection = (updates) => {
-  if (updates.length === 0) {
-    return <div>Updates not found</div>;
-  }
-
-  return updates.map((update) => (
-    <div key={update.id} className={styles.update}>
-      <div className={styles.fullHeader}>
-        <span className={styles.creationDate}>
-          {update.createdAt.toLocaleDateString()}
-        </span>
-        <div className={styles.updateHeader}>
-          <h2>{update.title}</h2>
-          <span>
-            {update.post && update.section ? (
-              <div className={styles.references}>
-                <span className={styles.postReference}>
-                  {update.post.title}
-                </span>
-                <span className={styles.arrow}>-</span>
-                <span className={styles.sectionReference}>
-                  {update.section.title}
-                </span>
-              </div>
-            ) : (
-              <div className={styles.references}>
-                <span className={styles.noReference}>General</span>
-              </div>
-            )}
-          </span>
-        </div>
-      </div>
-      <p dangerouslySetInnerHTML={{ __html: update.content }}></p>
-      {update.post && update.section ? (
-        <Link
-          href={`/posts/${update.post?.slug}/#${slugifyTitle(
-            update.section.title
-          )}`}
-        >
-          <span>
-            → See{" "}
-            <u>
-              {update.post?.title}/{update.section?.title}
-            </u>{" "}
-            updated section
-          </span>
-        </Link>
-      ) : null}
-    </div>
-  ));
-};
-
-const renderCodesTable = (codes) => {
-  if (codes.length === 0) {
-    return null;
-  }
-
-  const formatExpiredOn = (expiredOn) => {
-    if (!expiredOn) {
-      return "Active";
-    }
-    return new Date(expiredOn).toISOString().substring(0, 10);
-  };
-
-  return (
-    <div className="codes-table-wrap">
-      <table className="custom-table codes-table">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Source</th>
-            <th>Expires</th>
-          </tr>
-        </thead>
-        <tbody>
-          {codes.map((code) => (
-            <tr key={code.id}>
-              <td>
-                <span className="code-cell">
-                  <span>{code.code}</span>
-                  <button
-                    type="button"
-                    className="code-copy"
-                    data-copy-code={code.code}
-                    aria-label={`Copy code ${code.code}`}
-                  >
-                    Copy
-                  </button>
-                </span>
-              </td>
-              <td>{code.source}</td>
-              <td>{formatExpiredOn(code.expiredOn)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-const renderCodesSection = (title, codes, emptyLabel) => (
-  <div className={styles.section}>
-    <h2>{title}</h2>
-    {codes.length ? renderCodesTable(codes) : <p>{emptyLabel}</p>}
-  </div>
-);
-
-const renderCodesContent = (codes) => {
-  const activeCodes = codes.filter((code) => code.status === "ACTIVE");
-  const expiredCodes = codes.filter((code) => code.status === "EXPIRED");
-  const invalidCodes = codes.filter((code) => code.status === "INVALID");
-
-  return (
-    <>
-      <div className={styles.section}>
-        <p>
-          Help us keep this list accurate. If a code stops working, please tell
-          the team in the comments below so we can update it quickly !
-        </p>
-      </div>
-      {renderCodesSection(
-        "Active Codes",
-        activeCodes,
-        "No active codes available."
-      )}
-      {renderCodesSection(
-        "Expired Codes",
-        expiredCodes,
-        "No expired codes available."
-      )}
-      {invalidCodes.length
-        ? renderCodesSection(
-            "Invalid Codes",
-            invalidCodes,
-            "No invalid codes available."
-          )
-        : null}
-    </>
-  );
-};
-
-// Render sections content for other pages
-const renderSectionsContent = (post) => {
-  return post.sections.map((section) => {
-    if (section.type === "set" && section.sets.length > 0) {
-      return (
-        <div
-          key={section.id}
-          id={`${slugifyTitle(section.title)}`}
-          className={styles.section}
-        >
-          <div className={styles.sectionHeader}>
-            {/* Affiche le bouton d'édition uniquement si l'utilisateur a le rôle adéquat */}
-            <EditSectionButton sectionId={section.id} postId={post.id}/>
-            {section.icon && (
-              <Image
-                src={section.icon}
-                alt=""
-                width={32}
-                height={32}
-                className={styles.sectionIcon}
-              />
-            )}
-            {/* <div className={styles.headerTitle}><h2>{section.title}</h2> - {section.updatedAt
-                  ? new Date(section.updatedAt).toLocaleDateString("en-US", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })
-                  : "Unknown Date"}</div> */}
-          </div>
-          {section.sets.map((set, setIndex) => (
-            <SetSection key={setIndex}
-			  id={set.id}
-			  date={section.updatedAt ? new Date(section.updatedAt).toLocaleDateString("en-US", {day: "numeric", month: "long", year: "numeric",}) : "Unknown Date"}
-              title={set.title}
-              standardImage={set.standardImage}
-              opponentImage={set.opponentImage}
-              opponentSpells={set.opponentSpells}
-              explanation={set.explanation}
-              timings={set.timings}
-              alternatives={set.alternatives}
-              palsImage={set.palsImage}
-              palsAlternatives={set.palsAlternatives}
-              relicsImage={set.relicsImage}
-              relicsAlternatives={set.relicsAlternatives}
-              talentImage={set.talentImage}
-              talents={set.talents}
-              mounts={set.mounts}
-              artifacts={set.artifacts}
-              accessories={set.accessories}
-              avians={set.avians}
-            />
-          ))}
-        </div>
-      );
-    } else {
-      return (
-        <div
-          key={section.id}
-          id={`${slugifyTitle(section.title)}`}
-          className={styles.section}
-        >
-          <div className={styles.sectionHeader}>
-		  <EditSectionButton sectionId={section.id} postId={post.id}/>
-            {section.icon && (
-              <Image
-                src={section.icon}
-                alt=""
-                width={32}
-                height={32}
-                className={styles.sectionIcon}
-              />
-            )}
-            <div className={styles.headerText}>
-              <span className={styles.sectionDate}>
-                {section.updatedAt
-                  ? new Date(section.updatedAt).toLocaleDateString("en-US", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })
-                  : "Unknown Date"}
-              </span>
-              <h2>{section.title}</h2>
-            </div>
-          </div>
-          <div dangerouslySetInnerHTML={{ __html: section.content }} />
-        </div>
-      );
-    }
-  });
-};
 
 // Main page component
 export default async function SinglePage({ params }) {
