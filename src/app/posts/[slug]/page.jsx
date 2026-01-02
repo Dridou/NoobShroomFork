@@ -295,6 +295,13 @@ const renderCodesTable = (codes) => {
     return null;
   }
 
+  const formatExpiredOn = (expiredOn) => {
+    if (!expiredOn) {
+      return "Active";
+    }
+    return new Date(expiredOn).toISOString().substring(0, 10);
+  };
+
   return (
     <div className="codes-table-wrap">
       <table className="custom-table codes-table">
@@ -302,6 +309,7 @@ const renderCodesTable = (codes) => {
           <tr>
             <th>Code</th>
             <th>Source</th>
+            <th>Expires</th>
           </tr>
         </thead>
         <tbody>
@@ -321,6 +329,7 @@ const renderCodesTable = (codes) => {
                 </span>
               </td>
               <td>{code.source}</td>
+              <td>{formatExpiredOn(code.expiredOn)}</td>
             </tr>
           ))}
         </tbody>
@@ -343,6 +352,12 @@ const renderCodesContent = (codes) => {
 
   return (
     <>
+      <div className={styles.section}>
+        <p>
+          Help us keep this list accurate. If a code stops working, please tell
+          the team in the comments below so we can update it quickly <3 !
+        </p>
+      </div>
       {renderCodesSection(
         "Active Codes",
         activeCodes,
