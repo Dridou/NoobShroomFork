@@ -113,6 +113,7 @@ model Section {
   updatedAt   DateTime? @updatedAt
   title   String
   content String
+  contentBlocks Json?
   icon    String?
   type    String  @default("text") // Ajoutez ce champ pour déterminer le type de la section
   postId  String

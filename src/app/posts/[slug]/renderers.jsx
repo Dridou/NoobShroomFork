@@ -89,6 +89,51 @@ export const renderUpdatesSection = (updates) => {
   ));
 };
 
+const renderContentBlocks = (blocks) => {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return null;
+  }
+
+  return blocks.map((block, index) => {
+    if (!block || typeof block !== "object") {
+      return null;
+    }
+
+    const key = block.id ? `block-${block.id}` : `block-${index}`;
+
+    switch (block.type) {
+      case "paragraph":
+        return <p key={key}>{block.text}</p>;
+      case "heading": {
+        const level = Number(block.level) || 2;
+        const safeLevel = Math.min(6, Math.max(2, level));
+        const Tag = `h${safeLevel}`;
+        return <Tag key={key}>{block.text}</Tag>;
+      }
+      case "list": {
+        const items = Array.isArray(block.items) ? block.items : [];
+        const ListTag = block.ordered ? "ol" : "ul";
+        return (
+          <ListTag key={key}>
+            {items.map((item, itemIndex) => (
+              <li key={`${key}-item-${itemIndex}`}>{item}</li>
+            ))}
+          </ListTag>
+        );
+      }
+      case "html":
+        return (
+          <div
+            key={key}
+            dangerouslySetInnerHTML={{ __html: block.html || "" }}
+          />
+        );
+      default:
+        return null;
+    }
+  });
+};
+
 const renderCodesTable = (codes) => {
   if (codes.length === 0) {
     return null;
@@ -235,6 +280,8 @@ export const renderSectionsContent = (post) => {
       );
     }
 
+    const blocks = renderContentBlocks(section.contentBlocks);
+
     return (
       <div
         key={section.id}
@@ -265,7 +312,9 @@ export const renderSectionsContent = (post) => {
             <h2>{section.title}</h2>
           </div>
         </div>
-        <div dangerouslySetInnerHTML={{ __html: section.content }} />
+        {blocks ?? (
+          <div dangerouslySetInnerHTML={{ __html: section.content }} />
+        )}
       </div>
     );
   });
