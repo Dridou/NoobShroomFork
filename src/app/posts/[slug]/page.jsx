@@ -115,7 +115,12 @@ export default async function SinglePage({ params }) {
 	case "legend-of-mushrooms-codes":
 	  post = await fetchPostData(slug);
 	  const codes = await fetchRedeemCodes();
-	  sectionsContent = renderCodesContent(codes);
+	  sectionsContent = (
+        <>
+          {renderCodesContent(codes)}
+          {renderSectionsContent(post)}
+        </>
+      );
 	  break;
     case "what-to-buy-in-shops":
       post = await fetchPostData(slug);
@@ -319,3 +324,4 @@ export default async function SinglePage({ params }) {
     </div>
   );
 }
+

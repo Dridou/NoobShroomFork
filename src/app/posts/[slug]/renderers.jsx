@@ -207,11 +207,13 @@ export const renderCodesContent = (codes) => {
         activeCodes,
         "No active codes available."
       )}
-      {renderCodesSection(
-        "Expired Codes",
-        expiredCodes,
-        "No expired codes available."
-      )}
+      {expiredCodes.length
+        ? renderCodesSection(
+            "Expired Codes",
+            expiredCodes,
+            "No expired codes available."
+          )
+        : null}
       {invalidCodes.length
         ? renderCodesSection(
             "Invalid Codes",
@@ -319,3 +321,4 @@ export const renderSectionsContent = (post) => {
     );
   });
 };
+
