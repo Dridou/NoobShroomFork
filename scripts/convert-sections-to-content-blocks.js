@@ -26,79 +26,122 @@ const loadEnv = (file) => {
 const stripTags = (html) =>
   html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 
-const extractListItems = (html) => {
-  const items = [];
-  let hasHtml = false;
-  const regex = /<li[^>]*>([\s\S]*?)<\/li>/gi;
-  let match;
-  while ((match = regex.exec(html)) !== null) {
-    const inner = match[1] || "";
-    if (/<[^>]+>/.test(inner)) {
-      hasHtml = true;
-    }
-    const text = stripTags(inner);
-    if (text) items.push(text);
-  }
-  return { items, hasHtml };
+const stripSectionTags = (html) => html.replace(/<\/?section[^>]*>/gi, "");
+
+const extractLooseListItems = (html) => {
+  const parts = html.split(/<li[^>]*>/gi).slice(1);
+  const items = parts
+    .map((part) =>
+      stripTags(part.split(/<\/li>/i)[0].replace(/<\/(ul|ol)>/i, ""))
+    )
+    .filter((item) => item.length > 0);
+  const hasInlineTags = /<[^>]+>/.test(html.replace(/<\/?li[^>]*>/gi, ""));
+  return { items, hasInlineTags };
 };
 
-const blockPattern =
-  /<div[^>]*class="[^"]*(custom-row|codes-table-wrap)[^"]*"[^>]*>[\s\S]*?<\/div>|<table[\s\S]*?<\/table>|<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>|<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>|<ol[^>]*>[\s\S]*?<\/ol>/gi;
+const blockTagRegex = /<(p|ul|ol|h[1-6]|table|div)\b[^>]*>/gi;
 
-const htmlToBlocks = (html) => {
-  if (typeof html !== "string" || html.trim().length === 0) {
+const findNextBlock = (html, startIndex) => {
+  blockTagRegex.lastIndex = startIndex;
+  const match = blockTagRegex.exec(html);
+  if (!match) return null;
+  return {
+    tag: match[1].toLowerCase(),
+    index: match.index,
+    open: match[0],
+  };
+};
+
+const sliceUntil = (html, startIndex, endIndex, closingTag) => {
+  if (endIndex === -1 || endIndex < startIndex) {
+    return html.slice(startIndex);
+  }
+  if (
+    closingTag &&
+    html.slice(endIndex, endIndex + closingTag.length) === closingTag
+  ) {
+    return html.slice(startIndex, endIndex + closingTag.length);
+  }
+  return html.slice(startIndex, endIndex);
+};
+
+const htmlToBlocks = (input) => {
+  if (typeof input !== "string" || input.trim().length === 0) {
     return [];
   }
 
+  const html = stripSectionTags(input);
   const blocks = [];
-  let match;
+  let cursor = 0;
 
-  while ((match = blockPattern.exec(html)) !== null) {
-    const chunk = match[0];
-    const tagMatch = chunk.match(/^<\s*([a-z0-9]+)/i);
-    const tag = tagMatch ? tagMatch[1].toLowerCase() : "";
+  while (true) {
+    const next = findNextBlock(html, cursor);
+    if (!next) break;
+
+    const tag = next.tag;
+    const openTag = next.open;
+    const contentStart = next.index + openTag.length;
+    const closingTag = `</${tag}>`;
+    const closingIndex = html.indexOf(closingTag, contentStart);
+    const following = findNextBlock(html, contentStart);
+    const nextIndex = following ? following.index : -1;
+    const contentEnd =
+      closingIndex !== -1 && (nextIndex === -1 || closingIndex < nextIndex)
+        ? closingIndex
+        : nextIndex;
 
     if (tag === "table" || tag === "div") {
-      blocks.push({ type: "html", html: chunk.trim() });
+      const chunk = sliceUntil(html, next.index, closingIndex, closingTag);
+      if (chunk.trim()) {
+        blocks.push({ type: "html", html: chunk.trim() });
+      }
+      cursor =
+        closingIndex !== -1 ? closingIndex + closingTag.length : contentStart;
       continue;
     }
 
     if (tag.startsWith("h")) {
-      const level = Number(tag.slice(1)) || 2;
-      const safeLevel = Math.min(6, Math.max(2, level));
+      const chunk = sliceUntil(html, contentStart, contentEnd, closingTag);
       const text = stripTags(chunk);
       if (text) {
+        const level = Number(tag.slice(1)) || 2;
+        const safeLevel = Math.min(6, Math.max(2, level));
         blocks.push({ type: "heading", level: safeLevel, text });
       }
+      cursor = contentEnd !== -1 ? contentEnd : contentStart;
       continue;
     }
 
     if (tag === "p") {
-      const inner = chunk.replace(/^<p[^>]*>|<\/p>$/gi, "");
-      if (/<[^>]+>/.test(inner)) {
-        blocks.push({ type: "html", html: chunk.trim() });
-      } else {
-        const text = stripTags(chunk);
-        if (text) {
-          blocks.push({ type: "paragraph", text });
+      const chunk = sliceUntil(html, contentStart, contentEnd, closingTag);
+      const hasInlineTags = /<[^>]+>/.test(chunk);
+      if (chunk.trim()) {
+        if (hasInlineTags) {
+          blocks.push({ type: "html", html: `<p>${chunk.trim()}</p>` });
+        } else {
+          const text = stripTags(chunk);
+          if (text) {
+            blocks.push({ type: "paragraph", text });
+          }
         }
       }
+      cursor = contentEnd !== -1 ? contentEnd : contentStart;
       continue;
     }
 
     if (tag === "ul" || tag === "ol") {
-      const { items, hasHtml } = extractListItems(chunk);
-      if (hasHtml) {
-        blocks.push({ type: "html", html: chunk.trim() });
-      } else if (items.length) {
-        blocks.push({
-          type: "list",
-          items,
-          ordered: tag === "ol",
-        });
+      const chunk = sliceUntil(html, contentStart, contentEnd, closingTag);
+      const { items, hasInlineTags } = extractLooseListItems(chunk);
+      if (hasInlineTags || items.length === 0) {
+        blocks.push({ type: "html", html: `<${tag}>${chunk}</${tag}>` });
+      } else {
+        blocks.push({ type: "list", items, ordered: tag === "ol" });
       }
+      cursor = contentEnd !== -1 ? contentEnd : contentStart;
       continue;
     }
+
+    cursor = contentStart;
   }
 
   return blocks;
