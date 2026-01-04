@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { inlineHtmlToMarkdown } = require("./lib/markdownBlocks");
 
 const loadEnv = (file) => {
   if (!fs.existsSync(file)) return;
@@ -23,9 +24,6 @@ const loadEnv = (file) => {
   }
 };
 
-const stripTags = (html) =>
-  html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
-
 const extractTagHtml = (html, tag) => {
   const regex = new RegExp(`<${tag}[^>]*>[\\s\\S]*?<\\/${tag}>`, "gi");
   return html.match(regex) || [];
@@ -40,11 +38,11 @@ const extractListItems = (html, tag) => {
   const listHtml = extractFirstTagHtml(html, tag);
   if (!listHtml) return [];
   const liMatches = listHtml.match(/<li>[\s\S]*?<\/li>/gi) || [];
-  return liMatches.map((item) => stripTags(item));
+  return liMatches.map((item) => inlineHtmlToMarkdown(item));
 };
 
 const extractHeadingText = (html, index = 0) => {
-  const headings = extractTagHtml(html, "h3").map(stripTags);
+  const headings = extractTagHtml(html, "h3").map(inlineHtmlToMarkdown);
   return headings[index] || null;
 };
 
@@ -96,12 +94,12 @@ const RELEASE_SECTION_ID = "cmjhzwn3v0005pa7z0pn3yu8f";
   }
 
   const activeParagraphs = extractTagHtml(activeSection.content, "p");
-    const activeBlocks = [
+  const activeBlocks = [
     activeParagraphs[0]
-      ? { type: "html", html: activeParagraphs[0].trim() }
+      ? { type: "paragraph", text: inlineHtmlToMarkdown(activeParagraphs[0]) }
       : null,
     activeParagraphs[1]
-      ? { type: "paragraph", text: stripTags(activeParagraphs[1]) }
+      ? { type: "paragraph", text: inlineHtmlToMarkdown(activeParagraphs[1]) }
       : null,
     {
       type: "list",
@@ -109,17 +107,21 @@ const RELEASE_SECTION_ID = "cmjhzwn3v0005pa7z0pn3yu8f";
       ordered: false,
     },
     extractSourcesHtml(activeSection.content)
-      ? { type: "html", html: extractSourcesHtml(activeSection.content) }
+      ? {
+          type: "paragraph",
+          text: inlineHtmlToMarkdown(extractSourcesHtml(activeSection.content)),
+        }
       : null,
   ].filter(Boolean);
 
   const redeemParagraphs = extractTagHtml(redeemSection.content, "p");
+  const customRow = extractCustomRowHtml(redeemSection.content);
   const redeemBlocks = [
     redeemParagraphs[0]
-      ? { type: "paragraph", text: stripTags(redeemParagraphs[0]) }
+      ? { type: "paragraph", text: inlineHtmlToMarkdown(redeemParagraphs[0]) }
       : null,
-    extractCustomRowHtml(redeemSection.content)
-      ? { type: "html", html: extractCustomRowHtml(redeemSection.content) }
+    customRow
+      ? { type: "paragraph", text: inlineHtmlToMarkdown(customRow) }
       : null,
     {
       type: "heading",
@@ -142,15 +144,15 @@ const RELEASE_SECTION_ID = "cmjhzwn3v0005pa7z0pn3yu8f";
       ordered: false,
     },
     redeemParagraphs[1]
-      ? { type: "paragraph", text: stripTags(redeemParagraphs[1]) }
+      ? { type: "paragraph", text: inlineHtmlToMarkdown(redeemParagraphs[1]) }
       : null,
   ].filter(Boolean);
 
   const releaseParagraphs = extractTagHtml(releaseSection.content, "p");
-    const releaseBlocks = [
+  const releaseBlocks = [
     ...releaseParagraphs.map((paragraph) => ({
       type: "paragraph",
-      text: stripTags(paragraph),
+      text: inlineHtmlToMarkdown(paragraph),
     })),
     {
       type: "list",
@@ -181,4 +183,3 @@ const RELEASE_SECTION_ID = "cmjhzwn3v0005pa7z0pn3yu8f";
   .finally(async () => {
     await prisma.$disconnect();
   });
-

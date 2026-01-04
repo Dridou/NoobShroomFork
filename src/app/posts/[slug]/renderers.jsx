@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import MarkdownIt from "markdown-it";
 import styles from "./singlePage.module.css";
 import SetSection from "@/components/sets/setSection/SetSection";
 import Shop from "@/components/shop/Shop/Shop";
@@ -12,6 +13,24 @@ const EditSectionButton = dynamic(
     ssr: false,
   }
 );
+
+const markdown = new MarkdownIt({
+  html: false,
+  linkify: true,
+  breaks: true,
+});
+
+markdown.renderer.rules.table_open = () => '<table class="custom-table">';
+
+const renderMarkdownInline = (content) => {
+  if (!content) return "";
+  return markdown.renderInline(content);
+};
+
+const renderMarkdownBlock = (content) => {
+  if (!content) return "";
+  return markdown.render(content);
+};
 
 export const renderShopsSection = (shops) => {
   if (shops.length === 0) {
@@ -112,22 +131,35 @@ const renderContentBlocks = (blocks) => {
     const key = block.id ? `block-${block.id}` : `block-${index}`;
 
     switch (block.type) {
-      case "paragraph":
-        return <p key={key}>{block.text}</p>;
+      case "paragraph": {
+        const html = renderMarkdownInline(block.text);
+        return html ? (
+          <p key={key} dangerouslySetInnerHTML={{ __html: html }} />
+        ) : null;
+      }
       case "heading": {
         const level = Number(block.level) || 2;
         const safeLevel = Math.min(6, Math.max(2, level));
         const Tag = `h${safeLevel}`;
-        return <Tag key={key}>{block.text}</Tag>;
+        const html = renderMarkdownInline(block.text);
+        return html ? (
+          <Tag key={key} dangerouslySetInnerHTML={{ __html: html }} />
+        ) : null;
       }
       case "list": {
         const items = Array.isArray(block.items) ? block.items : [];
         const ListTag = block.ordered ? "ol" : "ul";
         return (
           <ListTag key={key}>
-            {items.map((item, itemIndex) => (
-              <li key={`${key}-item-${itemIndex}`}>{item}</li>
-            ))}
+            {items.map((item, itemIndex) => {
+              const html = renderMarkdownInline(item);
+              return html ? (
+                <li
+                  key={`${key}-item-${itemIndex}`}
+                  dangerouslySetInnerHTML={{ __html: html }}
+                />
+              ) : null;
+            })}
           </ListTag>
         );
       }
@@ -138,6 +170,12 @@ const renderContentBlocks = (blocks) => {
             dangerouslySetInnerHTML={{ __html: block.html || "" }}
           />
         );
+      case "markdown": {
+        const html = renderMarkdownBlock(block.text || "");
+        return html ? (
+          <div key={key} dangerouslySetInnerHTML={{ __html: html }} />
+        ) : null;
+      }
       default:
         return null;
     }
