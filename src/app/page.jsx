@@ -1,6 +1,6 @@
 // app/page.jsx
 import styles from "./homepage.module.css";
-import Featured from "@/components/blog/featured/Featured";
+import HomeHero from "@/components/home/HomeHero";
 import HomeHighlights from "@/components/home/HomeHighlights";
 import CardList from "@/components/blog/cardList/CardList";
 import Menu from "@/components/blog/Menu/Menu";
@@ -52,7 +52,7 @@ export default function Home({ searchParams }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Featured />
+      <HomeHero />
       <HomeHighlights />
       <div className={styles.content}>
         <CardList page={page} />
@@ -61,6 +61,9 @@ export default function Home({ searchParams }) {
     </div>
   );
 }
+
+
+
 
 
 
