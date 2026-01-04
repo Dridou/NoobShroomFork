@@ -17,6 +17,16 @@ export const renderShopsSection = (shops) => {
   if (shops.length === 0) {
     return <div>Shops not found</div>;
   }
+  const renderShopDescription = (shop) => {
+    const blocks = renderContentBlocks(shop?.section?.contentBlocks);
+    if (blocks) {
+      return blocks;
+    }
+    const html = shop?.section?.content || shop?.desc || "";
+    return html ? (
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    ) : null;
+  };
 
   return (
     <>
@@ -28,7 +38,7 @@ export const renderShopsSection = (shops) => {
         >
           <div className={styles.shopHeader}>
             <h2>{shop.title}</h2>
-            <p dangerouslySetInnerHTML={{ __html: shop.desc }}></p>
+            <div>{renderShopDescription(shop)}</div>
           </div>
           <Shop shop={shop} />
         </div>
@@ -321,4 +331,5 @@ export const renderSectionsContent = (post) => {
     );
   });
 };
+
 

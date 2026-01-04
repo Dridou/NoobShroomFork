@@ -115,12 +115,13 @@ model Section {
   content String
   contentBlocks Json?
   icon    String?
-  type    String  @default("text") // Ajoutez ce champ pour déterminer le type de la section
+  type    String  @default("text") // Ajoutez ce champ pour dＵerminer le type de la section
   postId  String
   post    Post    @relation(fields: [postId], references: [id])
   sets    Set[] // Relier les sets aux sections
   tables   Table[]
   updates   Update[]
+  shops    Shop[]
   displayOrder Int?
 }
 
@@ -167,6 +168,8 @@ model Shop {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt @default(now())
   displayOrder Int?
+  sectionId String?
+  section   Section? @relation(fields: [sectionId], references: [id])
 
   money String[]
   postId String
@@ -341,4 +344,9 @@ model Avian {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+
+
+
+
 

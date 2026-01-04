@@ -31,6 +31,7 @@ export const fetchShopsData = async () => {
           displayOrder: "asc",
         },
       },
+      section: true,
     },
   });
 
@@ -108,3 +109,4 @@ export const fetchPostData = async (slug) => {
 
   return post;
 };
+
