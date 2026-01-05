@@ -224,7 +224,83 @@ const htmlToMarkdownBlocks = (input) => {
   return blocks;
 };
 
+const blocksToMarkdown = (blocks) => {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return "";
+  }
+
+  const parts = [];
+
+  blocks.forEach((block) => {
+    if (!block || typeof block !== "object") {
+      return;
+    }
+
+    switch (block.type) {
+      case "heading": {
+        const level = Number(block.level) || 2;
+        const safeLevel = Math.min(6, Math.max(2, level));
+        const text = (block.text || "").trim();
+        if (text) {
+          parts.push(`${"#".repeat(safeLevel)} ${text}`);
+        }
+        return;
+      }
+      case "paragraph": {
+        const text = (block.text || "").trim();
+        if (text) {
+          parts.push(text);
+        }
+        return;
+      }
+      case "list": {
+        const items = Array.isArray(block.items) ? block.items : [];
+        const prefix = block.ordered ? "1." : "-";
+        const lines = items
+          .map((item) => (item || "").trim())
+          .filter(Boolean)
+          .map((item) => `${prefix} ${item}`);
+        if (lines.length > 0) {
+          parts.push(lines.join("\n"));
+        }
+        return;
+      }
+      case "markdown": {
+        const text = (block.text || "").trim();
+        if (text) {
+          parts.push(text);
+        }
+        return;
+      }
+      case "html": {
+        const html = (block.html || "").trim();
+        if (!html) {
+          return;
+        }
+        const markdown = htmlToMarkdownString(html);
+        if (markdown) {
+          parts.push(markdown);
+        } else {
+          parts.push(html);
+        }
+        return;
+      }
+      default:
+        return;
+    }
+  });
+
+  return parts.join("\n\n").trim();
+};
+
+const htmlToMarkdownString = (input) => {
+  const blocks = htmlToMarkdownBlocks(input);
+  return blocksToMarkdown(blocks);
+};
+
 module.exports = {
   htmlToMarkdownBlocks,
+  htmlToMarkdownString,
   inlineHtmlToMarkdown,
+  blocksToMarkdown,
 };

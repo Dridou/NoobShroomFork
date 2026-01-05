@@ -63,3 +63,4 @@ export const normalizeContentBlocks = (blocks) => {
 
   return normalized;
 };
+

@@ -1,0 +1,11 @@
+---
+id: clzihpobm000d20ic6oynbf07
+title: Useless pals
+order: 6
+type: text
+format: html
+icon: null
+createdAt: null
+updatedAt: "2024-09-04T00:34:03.156Z"
+---
+<table class="custom-table table"><thead><tr><th>Pal<th>Effect<th>Explanation<tbody><tr><td><img alt="Benny pal icon"class=img-fluid src=/images/aco-benny.png style=width:5rem><td>Crit +5%, have 30% chance to airborne the target for 0.5 second (at each bunny attack)<td>As berserker we don't want to bump the opponent we want to receive attacks.<tr><td class=text-center><img alt="Cat Prince pal icon"class=img-fluid src=/images/aco-cat-prince.png style=width:5rem><td>After using any skill, deal 200% dmg<td>Dealing more damage with spells, that's for mages.<tr><td><img alt="Snow General pal icon"class=img-fluid src=/images/aco-snow-general.png style=width:5rem><td>Reduce enemy attack speed by 15%<td>Reducing the opponent's attack speed is not for us since we want to be attacked.<tr><td><img alt="Cactus pal icon"class=img-fluid src=/images/aco-cactus.png style=width:5rem><td>Every 3 basic attacks you hit, deal an extra 40% Dmg<td>Basic attacks are not our main source of damage.<tr><td><img alt="Fiery Tail pal icon"class=img-fluid src=/images/aco-fiery-tail.png style=width:5rem><td>Skill Dmg +60%<td>Increasing spells damage, that's for mages.<tr><td><img alt="Snail pal icon"class=img-fluid src=/images/aco-snail.png style=width:5rem><td>Enemy movement speed -40%<td>Slowing the opponent won't bring us benefits as we want to be attacked.<tr><td><img alt="Banana pal icon"class=img-fluid src=/images/aco-banana.png style=width:5rem><td>Combo +10%, Combo Dmg+100%<td>Combo is not our source of damage.<tr><td><img alt="Octopus pal icon"class=img-fluid src=/images/aco-octopus.png style=width:5rem><td>Increase Combo Dmg by +60%, and every 3 auto attacks of the octopus deal an extra 200%<td>Combo is not our source of damage.<tr><td><img alt="Fox pal icon"class=img-fluid src=/images/aco-fox.png style=width:5rem><td>Extend stun duration by 30%, and deal extra 25% Dmg to stunned enemies.<td>We never want to stun our opponent, not for us.<tr><td><img alt="Lizard pal icon"class=img-fluid src=/images/aco-lizard.png style=width:5rem><td>Pal Dmg +60%<td>Kinda tricky because we don't know yet how pals damages are calculated, so there is better for now.</table>
