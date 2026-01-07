@@ -166,7 +166,15 @@ export async function POST(req) {
 
     const existingPost = await prisma.post.findUnique({
       where: { slug },
-      select: { id: true },
+      select: {
+        id: true,
+        title: true,
+        desc: true,
+        img: true,
+        imgBig: true,
+        catSlug: true,
+        userEmail: true,
+      },
     });
 
     if (!existingPost) {
@@ -232,13 +240,24 @@ export async function POST(req) {
       updatedAt: postInput.updatedAt ? new Date(postInput.updatedAt) : undefined,
     });
 
+    const postCreateData = clean({
+      slug,
+      title: postData.title ?? existingPost?.title,
+      desc: postData.desc ?? existingPost?.desc,
+      img: postData.img ?? existingPost?.img,
+      imgBig: postData.imgBig ?? existingPost?.imgBig,
+      metadata: postData.metadata,
+      views: postData.views,
+      catSlug: postData.catSlug ?? existingPost?.catSlug,
+      userEmail: postData.userEmail ?? existingPost?.userEmail,
+      createdAt: postData.createdAt,
+      updatedAt: postData.updatedAt,
+    });
+
     postRecord = await prisma.post.upsert({
       where: { slug },
       update: postData,
-      create: {
-        slug,
-        ...postData,
-      },
+      create: postCreateData,
     });
   }
 
@@ -281,6 +300,11 @@ export async function POST(req) {
       updatedAt: sectionInput.updatedAt ? new Date(sectionInput.updatedAt) : undefined,
     });
 
+    const sectionCreateData = {
+      ...sectionData,
+      content: sectionData.content ?? "",
+    };
+
     let savedSection;
     if (sectionId) {
       savedSection = await prisma.section.upsert({
@@ -288,7 +312,7 @@ export async function POST(req) {
         update: sectionData,
         create: {
           id: sectionId,
-          ...sectionData,
+          ...sectionCreateData,
         },
       });
     } else {
@@ -298,7 +322,7 @@ export async function POST(req) {
           { status: 400 }
         );
       }
-      savedSection = await prisma.section.create({ data: sectionData });
+      savedSection = await prisma.section.create({ data: sectionCreateData });
     }
 
     const sectionSets = getArray(sectionInput.sets);

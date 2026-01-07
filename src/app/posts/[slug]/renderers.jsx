@@ -22,14 +22,19 @@ const markdown = new MarkdownIt({
 
 markdown.renderer.rules.table_open = () => '<table class="custom-table">';
 
+const applyUnderlineSyntax = (html) => {
+  if (!html) return "";
+  return html.replace(/\+\+([^+]+)\+\+/g, "<u>$1</u>");
+};
+
 const renderMarkdownInline = (content) => {
   if (!content) return "";
-  return markdown.renderInline(content);
+  return applyUnderlineSyntax(markdown.renderInline(content));
 };
 
 const renderMarkdownBlock = (content) => {
   if (!content) return "";
-  return markdown.render(content);
+  return applyUnderlineSyntax(markdown.render(content));
 };
 
 export const renderShopsSection = (shops) => {
@@ -369,5 +374,7 @@ export const renderSectionsContent = (post) => {
     );
   });
 };
+
+
 
 

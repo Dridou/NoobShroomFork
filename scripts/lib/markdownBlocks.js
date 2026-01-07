@@ -2,8 +2,6 @@ const decodeEntities = (text) =>
   text
     .replace(/&nbsp;/gi, " ")
     .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
     .replace(/&quot;/gi, '"')
     .replace(/&#39;/gi, "'");
 
@@ -44,6 +42,13 @@ const inlineHtmlToMarkdown = (input) => {
     }
   );
 
+  text = text.replace(
+    /<u[^>]*>([\s\S]*?)<\/u>/gi,
+    (_, inner) => {
+      const label = inlineHtmlToMarkdown(inner);
+      return label ? `++${label}++` : "";
+    }
+  );
   text = text.replace(/<code[^>]*>([\s\S]*?)<\/code>/gi, (_, inner) => {
     const label = inlineHtmlToMarkdown(inner);
     return label ? `\`${label}\`` : "";
@@ -304,3 +309,8 @@ module.exports = {
   inlineHtmlToMarkdown,
   blocksToMarkdown,
 };
+
+
+
+
+

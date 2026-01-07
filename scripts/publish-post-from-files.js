@@ -73,7 +73,7 @@ const run = async () => {
     .sort((a, b) => a.localeCompare(b))
     .map((fileName) => {
       const orderFromName = getSectionOrder(fileName);
-      if (!orderFromName) {
+      if (orderFromName === null) {
         throw new Error(`Section file missing order prefix: ${fileName}`);
       }
 

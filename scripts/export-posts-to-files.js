@@ -61,6 +61,18 @@ const buildFrontMatter = (data) => {
 };
 
 const detectFormatAndBody = (section) => {
+  const html = (section.content || "").trim();
+  if (html) {
+    if (/<table\b/i.test(html)) {
+      return { format: "html", body: html };
+    }
+    const markdown = htmlToMarkdownString(html);
+    if (markdown) {
+      return { format: "markdown", body: markdown };
+    }
+    return { format: "html", body: html };
+  }
+
   const blocks = Array.isArray(section.contentBlocks)
     ? section.contentBlocks
     : [];
@@ -83,17 +95,7 @@ const detectFormatAndBody = (section) => {
     }
   }
 
-  const html = (section.content || "").trim();
-  if (!html) {
-    return { format: "markdown", body: "" };
-  }
-
-  const markdown = htmlToMarkdownString(html);
-  if (markdown) {
-    return { format: "markdown", body: markdown };
-  }
-
-  return { format: "html", body: html };
+  return { format: "markdown", body: "" };
 };
 
 const ensureDir = (dir) => {
@@ -226,3 +228,8 @@ run()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+
+
+
+

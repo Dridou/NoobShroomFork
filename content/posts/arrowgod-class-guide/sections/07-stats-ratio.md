@@ -25,10 +25,10 @@ As crossbow, the mask relic allows up to exchange 10% Combo for 10% CC and vice 
 
 Some examples of ratios comparison, assuming you have a decent combo and crit dmg
 
-- 70% Combo / 30% CC > 80% Combo / 20% CC
-- 80% Combo / 15% CC > 90% Combo / 5% CC
-- 80% Combo / 70% CC > 90% Combo / 60%% CC
-- 90% Combo / 50% CC > 100% Combo / 40% CC
+- 70% Combo / 30% CC &gt; 80% Combo / 20% CC
+- 80% Combo / 15% CC &gt; 90% Combo / 5% CC
+- 80% Combo / 70% CC &gt; 90% Combo / 60%% CC
+- 90% Combo / 50% CC &gt; 100% Combo / 40% CC
 
 ### Late game (50/60m+ power):
 

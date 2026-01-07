@@ -49,6 +49,11 @@ const normalizeBlock = (block) => {
     return html ? { type, html } : null;
   }
 
+  if (type === "markdown") {
+    const text = toTrimmedString(block.text);
+    return text ? { type, text } : null;
+  }
+
   return null;
 };
 
