@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import TalentBranch from "@/components/talent/TalentBranch/TalentBranch";
 import { TALENT_TABS, TALENT_TAB_ORDER } from "@/data/talents";
@@ -207,7 +207,7 @@ const TalentBuilder = ({ buildId }) => {
     setPlayerFeathers(Math.max(parsed - totalSpent, 0));
   };
 
-  const applyLoadedConfig = (points, maxFeathersValue, meta) => {
+  const applyLoadedConfig = useCallback((points, maxFeathersValue, meta) => {
     const totals = TALENT_TAB_ORDER.reduce((acc, tab) => {
       acc[tab] = sumNodeCosts(points[tab]);
       return acc;
@@ -238,7 +238,7 @@ const TalentBuilder = ({ buildId }) => {
         dislikes: meta.dislikes || 0,
       });
     }
-  };
+  }, [maxFeathers]);
 
   useEffect(() => {
     const configParam = searchParams?.get("config");
@@ -278,7 +278,7 @@ const TalentBuilder = ({ buildId }) => {
     };
 
     loadBuild();
-  }, [buildId, searchParams]);
+  }, [applyLoadedConfig, buildId, searchParams]);
 
   const handleSaveShare = async () => {
     setLoading(true);
