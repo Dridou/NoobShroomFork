@@ -3,6 +3,11 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import TalentNode from "../TalentNode/TalentNode";
 import styles from "./TalentBranch.module.css"; // Module CSS de la branche
+import {
+  getNodeCost,
+  getNodePointStep,
+  isFinalNodeIndex,
+} from "@/utils/talentCosts";
 
 const TalentBranch = ({
   branchName,
@@ -14,6 +19,8 @@ const TalentBranch = ({
   setPlayerFeathers,
   setBranchFeathers,
   setBranchPoints,
+  finalTalentCount,
+  maxFinalTalents,
 }) => {
   const nodeRefs = useRef([]); // Un tableau de références pour chaque nœud
   const containerRef = useRef(null); // Référence au conteneur du talent tree
@@ -60,98 +67,6 @@ const TalentBranch = ({
     [28, 29],
   ];
 
-  const nodeCosts = {
-    // Coût pour les noeuds 0, 1, 2
-    0: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-    1: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-    2: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-
-    // Coût pour les noeuds 3, 4, 5, 6
-    3: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    4: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    5: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    6: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-
-    // Coût pour les noeuds 7 et 8
-    7: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
-    8: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
-
-    // Coût pour le dernier noeud (9)
-    9: [1584],
-
-    // Coût pour les noeuds 0, 1, 2
-    10: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-    11: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-    12: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-
-    // Coût pour les noeuds 3, 4, 5, 6
-    13: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    14: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    15: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    16: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-
-    // Coût pour les noeuds 7 et 8
-    17: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
-    18: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
-
-    // Coût pour le dernier noeud (9)
-    19: [1584],
-
-    // Coût pour les noeuds 0, 1, 2
-    20: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-    21: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-    22: [2, 3, 4, 4, 5, 5, 6, 6, 7, 9, 14, 20, 26, 32, 40, 48, 56, 65, 76, 100],
-
-    // Coût pour les noeuds 3, 4, 5, 6
-    23: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    24: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    25: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-    26: [
-      18, 22, 27, 31, 36, 40, 49, 59, 68, 72, 81, 90, 99, 108, 122, 135, 149,
-      171, 189, 216,
-    ],
-
-    // Coût pour les noeuds 7 et 8
-    27: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
-    28: [153, 193, 233, 277, 313, 357, 430, 550, 667, 787],
-
-    // Coût pour le dernier noeud (9)
-    29: [1584],
-  };
-
   const canActivateNode = (nodeIndex) => {
     const parentConnections = connections.filter(
       ([parent, child]) => child === nodeIndex
@@ -164,18 +79,15 @@ const TalentBranch = ({
       return branchStarted && !branchFinished;
     };
 
-    console.log(
-      "isBranchStartedButNotFinished(0, 8, 9)",
-      isBranchStartedButNotFinished(0, 8, 9)
-    );
-    console.log(
-      "isBranchStartedButNotFinished(10, 18, 19)",
-      isBranchStartedButNotFinished(10, 18, 19)
-    );
-    console.log(
-      "isBranchStartedButNotFinished(20, 28, 29)",
-      isBranchStartedButNotFinished(20, 28, 29)
-    );
+    if (
+      isFinalNodeIndex(nodeIndex) &&
+      points[nodeIndex] === 0 &&
+      typeof maxFinalTalents === "number" &&
+      typeof finalTalentCount === "number" &&
+      finalTalentCount >= maxFinalTalents
+    ) {
+      return false;
+    }
 
     // Si une branche est terminée, on doit permettre de revenir ajouter des points dans cette branche
     const isBranchFinished = (lastNode) =>
@@ -227,37 +139,31 @@ const TalentBranch = ({
 
     return parentConnections.every(([parent]) => points[parent] > 0);
   };
-
   const handleAddMaxPoints = (
     nodeIndex,
     maxPoints,
     effectPerPoint,
     effectType,
-    statAffected,
-	byPassActivationNeeds = false
+    statAffected
   ) => {
     if (!canActivateNode(nodeIndex)) {
       return;
     }
+
     if (points[nodeIndex] < maxPoints) {
-      const requiredPoints = () => {
-        if (
-          nodeIndex === 7 ||
-          nodeIndex === 8 ||
-          nodeIndex === 17 ||
-          nodeIndex === 18 ||
-          nodeIndex === 28 ||
-          nodeIndex === 29
-        ) {
-          return 5;
-        } else if (nodeIndex === 9 || nodeIndex === 19 || nodeIndex === 29) {
-          return 1;
-        }
-        return 10;
-      };
+      const step = getNodePointStep(nodeIndex);
       const newPoints =
-        Math.min(points[nodeIndex] + requiredPoints(), maxPoints) -
-        points[nodeIndex];
+        Math.min(points[nodeIndex] + step, maxPoints) - points[nodeIndex];
+
+      let totalCost = 0;
+      for (let i = points[nodeIndex]; i < points[nodeIndex] + newPoints; i++) {
+        totalCost += getNodeCost(nodeIndex, i);
+      }
+
+      if (playerFeathers < totalCost) {
+        return;
+      }
+
       onUpdatePoints(
         branchName,
         nodeIndex,
@@ -266,15 +172,11 @@ const TalentBranch = ({
         statAffected,
         effectType
       );
-      let totalCost = 0;
-      for (let i = points[nodeIndex]; i < points[nodeIndex] + newPoints; i++) {
-        totalCost += nodeCosts[nodeIndex][i];
-      }
-      setPlayerFeathers(playerFeathers - totalCost); // Déduire le coût en plumes
-	  setBranchFeathers((prevBranchFeathers) => ({
-		...prevBranchFeathers,
-		[branchName]: prevBranchFeathers[branchName] + totalCost,
-	  }));
+      setPlayerFeathers(playerFeathers - totalCost);
+      setBranchFeathers((prevBranchFeathers) => ({
+        ...prevBranchFeathers,
+        [branchName]: prevBranchFeathers[branchName] + totalCost,
+      }));
     }
   };
 
@@ -285,31 +187,31 @@ const TalentBranch = ({
     effectType,
     statAffected
   ) => {
-    const currentCost = nodeCosts[nodeIndex][points[nodeIndex]]; // Coût du prochain point
-    if (playerFeathers >= currentCost && points[nodeIndex] < maxPoints) {
-        // Vérifier si le noeud peut être activé
-      if (canActivateNode(nodeIndex)) {
-        const newPoints = points[nodeIndex] + 1;
-        onUpdatePoints(
-          branchName,
-          nodeIndex,
-          1,
-          effectPerPoint,
-          statAffected,
-          effectType
-        ); // Mise à jour des points et des stats
-        setPlayerFeathers(playerFeathers - currentCost); // Déduire le coût en plumes
-        setBranchFeathers((prevBranchFeathers) => ({
-          ...prevBranchFeathers,
-          [branchName]: prevBranchFeathers[branchName] + currentCost,
-        }));
-      } else {
-        console.log(`Node ${nodeIndex} cannot be activated yet!`);
-      }
-    } else {
-      console.log("Not enough feathers to activate this node!");
+    const currentCost = getNodeCost(nodeIndex, points[nodeIndex]);
+
+    if (playerFeathers < currentCost || points[nodeIndex] >= maxPoints) {
+      return;
     }
-	}
+
+    if (!canActivateNode(nodeIndex)) {
+      return;
+    }
+
+    onUpdatePoints(
+      branchName,
+      nodeIndex,
+      1,
+      effectPerPoint,
+      statAffected,
+      effectType
+    );
+    setPlayerFeathers(playerFeathers - currentCost);
+    setBranchFeathers((prevBranchFeathers) => ({
+      ...prevBranchFeathers,
+      [branchName]: prevBranchFeathers[branchName] + currentCost,
+    }));
+  };
+
   useLayoutEffect(() => {
     if (containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();

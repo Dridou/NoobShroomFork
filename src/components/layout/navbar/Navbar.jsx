@@ -12,7 +12,7 @@ const MENU_GROUPS = [
     links: [
       { href: "/posts/best-class", label: "Best class" },
       { href: "/posts/legend-of-mushrooms-codes", label: "Codes" },
-      { href: "/posts/talent-generator", label: "Talent simulator" },
+      { href: "/builder/talents", label: "Talent builder" },
     ],
   },
   {

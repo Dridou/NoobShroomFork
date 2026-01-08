@@ -216,6 +216,39 @@ model CharacterClass {
  	talents   TalentConfig[]
 }
 
+
+model TalentBuild {
+  id            String   @id @default(cuid()) @map("_id")
+  config        Json
+  maxFeathers   Int
+  schemaVersion Int      @default(1)
+
+  name          String?
+  creatorName   String?
+  tags          String[]
+
+  likes         Int      @default(0)
+  dislikes      Int      @default(0)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  votes         TalentBuildVote[]
+}
+
+model TalentBuildVote {
+  id        String   @id @default(cuid()) @map("_id")
+  buildId   String
+  build     TalentBuild @relation(fields: [buildId], references: [id], onDelete: Cascade)
+
+  ipHash    String
+  vote      Int
+
+  createdAt DateTime @default(now())
+
+  @@unique([buildId, ipHash])
+}
+
 model Dungeon {
   id        String      @id @default(cuid()) @map("_id")
   name      String      @unique
