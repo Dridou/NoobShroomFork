@@ -235,8 +235,8 @@ const TalentBranch = ({
     <div className={styles.talentBranch} ref={containerRef}>
       <svg
         // ref={svgRef}
-        width="1500px"
-        height="1500px"
+        width="100%"
+        height="100%"
         style={{ position: "absolute", zIndex: 0 }}
       >
         {nodePositions.length > 1 &&

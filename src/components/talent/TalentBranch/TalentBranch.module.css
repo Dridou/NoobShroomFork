@@ -1,12 +1,17 @@
 ﻿.talentBranch {
-	margin: 20px;
-  }
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
 
   .nodes {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-  }
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 
   .line {
 	stroke: rgb(179, 169, 169);

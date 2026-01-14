@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import TalentBranch from "@/components/talent/TalentBranch/TalentBranch";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { TALENT_TABS, TALENT_TAB_ORDER } from "@/data/talents";
 import { getNodeCost } from "@/utils/talentCosts";
 import styles from "./TalentBuilder.module.css";
@@ -11,6 +12,8 @@ const FINAL_NODE_INDEXES = [9, 19, 29];
 const MAX_FINAL_TALENTS = 4;
 const BRANCH_SIZE = 10;
 const FALLBACK_SCHEMA_VERSION = 1;
+const TREE_WIDTH = 1350;
+const TREE_HEIGHT = 1000;
 
 const createEmptyPoints = () =>
   TALENT_TAB_ORDER.reduce((acc, tab) => {
@@ -126,6 +129,8 @@ const parseLegacyConfig = (config) => {
 
 const TalentBuilder = ({ buildId }) => {
   const searchParams = useSearchParams();
+  const treeWrapperRef = useRef(null);
+  const [treeScale, setTreeScale] = useState(1);
   const [selectedTab, setSelectedTab] = useState("Fury");
   const [activeBuildId, setActiveBuildId] = useState(buildId || "");
   const [branchPoints, setBranchPoints] = useState(() => createEmptyPoints());
@@ -141,6 +146,31 @@ const TalentBuilder = ({ buildId }) => {
   const [buildMeta, setBuildMeta] = useState(null);
   const [voteCounts, setVoteCounts] = useState({ likes: 0, dislikes: 0 });
   const [voteStatus, setVoteStatus] = useState("");
+
+
+  const calculateTreeScale = useCallback(() => {
+    const wrapper = treeWrapperRef.current;
+    if (!wrapper) {
+      return;
+    }
+
+    const { width, height } = wrapper.getBoundingClientRect();
+    if (!width || !height) {
+      return;
+    }
+
+    const scale = Math.min(width / TREE_WIDTH, height / TREE_HEIGHT, 1);
+    const resolvedScale = Number.isFinite(scale) ? scale : 1;
+    setTreeScale(resolvedScale);
+  }, []);
+
+  useLayoutEffect(() => {
+    calculateTreeScale();
+    window.addEventListener("resize", calculateTreeScale);
+    return () => window.removeEventListener("resize", calculateTreeScale);
+  }, [calculateTreeScale]);
+
+  const treeScaleKey = Math.round(treeScale * 1000);
 
   const finalTalentCount = useMemo(() => {
     return TALENT_TAB_ORDER.reduce((count, tab) => {
@@ -514,20 +544,39 @@ const TalentBuilder = ({ buildId }) => {
             ))}
           </div>
 
-          <div className={styles.treeWrapper}>
-            <TalentBranch
-              branchName={selectedTab}
-              nodes={TALENT_TABS[selectedTab].nodes}
-              points={branchPoints[selectedTab]}
-              onUpdatePoints={updatePoints}
-              onResetBranch={resetTab}
-              playerFeathers={playerFeathers}
-              setPlayerFeathers={setPlayerFeathers}
-              setBranchFeathers={setBranchFeathers}
-              setBranchPoints={setBranchPoints}
-              finalTalentCount={finalTalentCount}
-              maxFinalTalents={MAX_FINAL_TALENTS}
-            />
+          <div className={styles.treeWrapper} ref={treeWrapperRef}>
+            <TransformWrapper
+              key={treeScaleKey}
+              initialScale={treeScale}
+              minScale={Math.max(treeScale * 0.6, 0.2)}
+              maxScale={2.5}
+              centerOnInit
+              limitToBounds={false}
+              doubleClick={{ disabled: true }}
+              panning={{ velocityDisabled: true }}
+              wheel={{ step: 0.1 }}
+              pinch={{ step: 5 }}
+            >
+              <TransformComponent
+                wrapperStyle={{ width: "100%", height: "100%" }}
+              >
+                <div className={styles.talentCanvas}>
+                  <TalentBranch
+                    branchName={selectedTab}
+                    nodes={TALENT_TABS[selectedTab].nodes}
+                    points={branchPoints[selectedTab]}
+                    onUpdatePoints={updatePoints}
+                    onResetBranch={resetTab}
+                    playerFeathers={playerFeathers}
+                    setPlayerFeathers={setPlayerFeathers}
+                    setBranchFeathers={setBranchFeathers}
+                    setBranchPoints={setBranchPoints}
+                    finalTalentCount={finalTalentCount}
+                    maxFinalTalents={MAX_FINAL_TALENTS}
+                  />
+                </div>
+              </TransformComponent>
+            </TransformWrapper>
           </div>
         </div>
       </div>

@@ -74,6 +74,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
 }
 
 .card {
@@ -192,6 +193,7 @@
   flex-direction: column;
   gap: 16px;
   min-height: 500px;
+  min-width: 0;
 }
 
 .tabRow {
@@ -220,8 +222,29 @@
   border-radius: 20px;
   padding: clamp(16px, 2vw, 24px);
   border: 1px solid rgba(148, 163, 184, 0.2);
-  min-height: 720px;
-  overflow: auto;
+  min-height: 520px;
+  height: min(840px, 70vh);
+  overflow: hidden;
+}
+
+
+.talentCanvas {
+  position: relative;
+  width: 1350px;
+  height: 1000px;
+  margin: 0 auto;
+}
+
+.treeWrapper :global(.react-transform-wrapper) {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.treeWrapper :global(.react-transform-component) {
+  width: 100%;
+  height: 100%;
+  background: transparent;
 }
 
 @media (max-width: 980px) {
@@ -231,6 +254,11 @@
 }
 
 @media (max-width: 640px) {
+
+  .treeWrapper {
+    min-height: 420px;
+    height: 65vh;
+  }
   .header {
     flex-direction: column;
   }
