@@ -146,6 +146,7 @@ const TalentBuilder = ({ buildId }) => {
   const [buildMeta, setBuildMeta] = useState(null);
   const [voteCounts, setVoteCounts] = useState({ likes: 0, dislikes: 0 });
   const [voteStatus, setVoteStatus] = useState("");
+  const [lastSavedFingerprint, setLastSavedFingerprint] = useState("");
 
 
   const calculateTreeScale = useCallback(() => {
@@ -171,6 +172,22 @@ const TalentBuilder = ({ buildId }) => {
   }, [calculateTreeScale]);
 
   const treeScaleKey = Math.round(treeScale * 1000);
+
+  const saveFingerprint = useMemo(() => {
+    const config = buildConfigFromPoints(branchPoints);
+    return JSON.stringify({
+      config,
+      maxFeathers,
+      schemaVersion: FALLBACK_SCHEMA_VERSION,
+      name: buildName || "",
+      creatorName: creatorName || "",
+      tags,
+    });
+  }, [branchPoints, maxFeathers, buildName, creatorName, tags]);
+
+  const isUnchanged = lastSavedFingerprint && saveFingerprint === lastSavedFingerprint;
+
+  const isSaveDisabled = loading || isUnchanged;
 
   const totalSpent = useMemo(() => {
     return Object.values(branchFeathers).reduce((sum, value) => sum + value, 0);
@@ -301,6 +318,15 @@ const TalentBuilder = ({ buildId }) => {
         if (response.ok) {
           const points = buildPointsFromConfig(data.config);
           applyLoadedConfig(points, data.maxFeathers, data);
+          const loadedFingerprint = JSON.stringify({
+            config: data.config,
+            maxFeathers: data.maxFeathers,
+            schemaVersion: data.schemaVersion || FALLBACK_SCHEMA_VERSION,
+            name: data.name || "",
+            creatorName: data.creatorName || "",
+            tags: data.tags || [],
+          });
+          setLastSavedFingerprint(loadedFingerprint);
         } else {
           console.error("Failed to load build", data.error || data.message);
         }
@@ -315,6 +341,10 @@ const TalentBuilder = ({ buildId }) => {
   }, [applyLoadedConfig, buildId, searchParams]);
 
   const handleSaveShare = async () => {
+    if (isUnchanged) {
+      return;
+    }
+
     setLoading(true);
     setVoteStatus("");
     try {
@@ -347,6 +377,7 @@ const TalentBuilder = ({ buildId }) => {
       setBuildMeta(data);
       setActiveBuildId(data.id || "");
       setVoteCounts({ likes: data.likes || 0, dislikes: data.dislikes || 0 });
+      setLastSavedFingerprint(saveFingerprint);
       if (data.id) {
         window.history.replaceState(null, "", `/builder/talents/${data.id}`);
       }
@@ -494,7 +525,8 @@ const TalentBuilder = ({ buildId }) => {
                 type="button"
                 className={styles.primary}
                 onClick={handleSaveShare}
-                disabled={loading}
+                disabled={isSaveDisabled}
+                title={isUnchanged ? "No changes to save." : undefined}
               >
                 Save & Share
               </button>
