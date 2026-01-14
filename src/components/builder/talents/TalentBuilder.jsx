@@ -172,6 +172,10 @@ const TalentBuilder = ({ buildId }) => {
 
   const treeScaleKey = Math.round(treeScale * 1000);
 
+  const totalSpent = useMemo(() => {
+    return Object.values(branchFeathers).reduce((sum, value) => sum + value, 0);
+  }, [branchFeathers]);
+
   const finalTalentCount = useMemo(() => {
     return TALENT_TAB_ORDER.reduce((count, tab) => {
       const points = branchPoints[tab];
@@ -409,7 +413,7 @@ const TalentBuilder = ({ buildId }) => {
           {loading && <span className={styles.loading}>Loading build...</span>}
         </div>
         <div className={styles.headerMeta}>
-          <div className={styles.feathersBox}>
+          <div className={`${styles.feathersBox} ${styles.finalTalentsBox}`}>
             <span>Final talents</span>
             <strong>
               {finalTalentCount}/{MAX_FINAL_TALENTS}
@@ -418,6 +422,10 @@ const TalentBuilder = ({ buildId }) => {
           <div className={styles.feathersBox}>
             <span>Remaining feathers</span>
             <strong>{playerFeathers}</strong>
+          </div>
+          <div className={styles.feathersBox}>
+            <span>Required feathers</span>
+            <strong>{totalSpent}</strong>
           </div>
         </div>
       </div>
@@ -430,8 +438,12 @@ const TalentBuilder = ({ buildId }) => {
               <label htmlFor="max-feathers">Max feathers</label>
               <input
                 id="max-feathers"
+                className={styles.featherInput}
                 type="number"
                 min="0"
+                max="100000"
+                step="100"
+                inputMode="numeric"
                 value={maxFeathers}
                 onChange={(event) =>
                   handleMaxFeathersChange(event.target.value)

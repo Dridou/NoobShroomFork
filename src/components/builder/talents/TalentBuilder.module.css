@@ -106,6 +106,29 @@
   color: #f8fafc;
 }
 
+
+.featherInput {
+  background: #0f172a;
+  border: 1px solid #2b3a55;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #f8fafc;
+}
+
+.featherInput::-webkit-outer-spin-button,
+.featherInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.featherInput {
+  -moz-appearance: textfield;
+}
+
+.finalTalentsBox {
+  display: flex;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -254,6 +277,10 @@
 }
 
 @media (max-width: 640px) {
+
+  .finalTalentsBox {
+    display: none;
+  }
 
   .treeWrapper {
     min-height: 420px;
