@@ -1,9 +1,10 @@
 ﻿"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import VoteButtons from "@/components/builder/talents/VoteButtons";
 import TalentBranch from "@/components/talent/TalentBranch/TalentBranch";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { TALENT_TABS, TALENT_TAB_ORDER } from "@/data/talents";
 import styles from "./ViewBuild.module.css";
 
@@ -56,6 +57,7 @@ export default function ViewBuild({ buildId }) {
     Sorcery: [],
     Beast: [],
   });
+  const treeWrapperRef = useRef(null);
 
   useEffect(() => {
     const fetchBuild = async () => {
@@ -201,13 +203,31 @@ export default function ViewBuild({ buildId }) {
         </div>
 
         {/* Talent Branch Display */}
-        <div className={styles.branchContainer}>
-          <TalentBranch
-            branchName={selectedTab}
-            nodes={getTabNodes(selectedTab)}
-            points={branchPoints[selectedTab]}
-            readOnly={true}
-          />
+        <div className={styles.branchContainer} ref={treeWrapperRef}>
+          <TransformWrapper
+            initialScale={0.7}
+            minScale={0.3}
+            maxScale={2.5}
+            centerOnInit
+            limitToBounds={false}
+            doubleClick={{ disabled: true }}
+            panning={{ velocityDisabled: true }}
+            wheel={{ step: 0.1 }}
+            pinch={{ step: 5 }}
+          >
+            <TransformComponent
+              wrapperStyle={{ width: "100%", height: "100%" }}
+            >
+              <div className={styles.talentCanvas}>
+                <TalentBranch
+                  branchName={selectedTab}
+                  nodes={getTabNodes(selectedTab)}
+                  points={branchPoints[selectedTab]}
+                  readOnly={true}
+                />
+              </div>
+            </TransformComponent>
+          </TransformWrapper>
         </div>
       </div>
 
