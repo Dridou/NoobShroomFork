@@ -290,6 +290,65 @@
   color: white;
 }
 
+/* Action Controls - Reset & Undo */
+.actionControls {
+  position: absolute;
+  top: 20px;
+  left: 120px;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+  background: var(--color-bg-darker);
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border-dark);
+}
+
+.resetBranchBtn,
+.undoBtn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-medium);
+  background: var(--color-bg-darkest);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.resetBranchBtn:hover,
+.undoBtn:hover {
+  border-color: var(--color-text-tertiary);
+  color: var(--color-text-primary);
+  background: var(--color-bg-darker);
+}
+
+.undoBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Feathers Display - Top Right */
+.feathersDisplay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  background: var(--color-bg-darker);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border-dark);
+}
+
+.feathersText {
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
 /* Tab Buttons Inside Container - Top Center */
 .tabContainerInside {
   position: absolute;

@@ -148,7 +148,7 @@ const TalentBuilder = ({ buildId }) => {
   const [voteCounts, setVoteCounts] = useState({ likes: 0, dislikes: 0 });
   const [voteStatus, setVoteStatus] = useState("");
   const [lastSavedFingerprint, setLastSavedFingerprint] = useState("");
-
+  const [lastAction, setLastAction] = useState(null);
 
   const calculateTreeScale = useCallback(() => {
     const wrapper = treeWrapperRef.current;
@@ -433,6 +433,36 @@ const TalentBuilder = ({ buildId }) => {
     );
   };
 
+  const handleResetBranch = () => {
+    setLastAction({
+      type: "reset",
+      tab: selectedTab,
+      previousPoints: branchPoints[selectedTab],
+      previousFeathers: branchFeathers[selectedTab],
+    });
+    resetTab(selectedTab);
+  };
+
+  const handleUndo = () => {
+    if (!lastAction) return;
+
+    if (lastAction.type === "reset") {
+      // Undo reset branch
+      setBranchPoints((prevPoints) => ({
+        ...prevPoints,
+        [lastAction.tab]: lastAction.previousPoints,
+      }));
+      setPlayerFeathers((prevFeathers) =>
+        prevFeathers - lastAction.previousFeathers
+      );
+      setBranchFeathers((prevBranchFeathers) => ({
+        ...prevBranchFeathers,
+        [lastAction.tab]: lastAction.previousFeathers,
+      }));
+      setLastAction(null);
+    }
+  };
+
   return (
     <div className={styles.page}>
       {/* Header */}
@@ -581,6 +611,34 @@ const TalentBuilder = ({ buildId }) => {
                 +{value}
               </button>
             ))}
+          </div>
+
+          {/* Reset Branch & Undo Buttons - Top Left After Increments */}
+          <div className={styles.actionControls}>
+            <button
+              type="button"
+              className={styles.resetBranchBtn}
+              onClick={handleResetBranch}
+              title="Reset current branch"
+            >
+              Reset ↻
+            </button>
+            <button
+              type="button"
+              className={styles.undoBtn}
+              onClick={handleUndo}
+              disabled={!lastAction}
+              title="Undo last action"
+            >
+              Undo ↶
+            </button>
+          </div>
+
+          {/* Feathers Display - Top Right */}
+          <div className={styles.feathersDisplay}>
+            <span className={styles.feathersText}>
+              {totalSpent}/{maxFeathers}
+            </span>
           </div>
 
           {/* Tab Buttons - Top Center */}

@@ -58,7 +58,13 @@ export default function ViewBuild({ buildId }) {
     Sorcery: [],
     Beast: [],
   });
+  const [lastAction, setLastAction] = useState(null);
   const treeWrapperRef = useRef(null);
+
+  // Calculate total feathers spent
+  const totalFeathersSpent = Object.values(branchPoints).reduce((acc, branch) => {
+    return acc + branch.reduce((sum, points) => sum + points, 0);
+  }, 0);
 
   useEffect(() => {
     const fetchBuild = async () => {
@@ -87,6 +93,30 @@ export default function ViewBuild({ buildId }) {
 
     fetchBuild();
   }, [buildId]);
+
+  const handleResetBranch = () => {
+    setLastAction({
+      type: "reset",
+      tab: selectedTab,
+      previousPoints: branchPoints[selectedTab],
+    });
+    setBranchPoints((prevPoints) => ({
+      ...prevPoints,
+      [selectedTab]: prevPoints[selectedTab].map(() => 0),
+    }));
+  };
+
+  const handleUndo = () => {
+    if (!lastAction) return;
+
+    if (lastAction.type === "reset") {
+      setBranchPoints((prevPoints) => ({
+        ...prevPoints,
+        [lastAction.tab]: lastAction.previousPoints,
+      }));
+      setLastAction(null);
+    }
+  };
 
   if (loading) {
     return <div className={styles.container}><div className={styles.loading}>Loading build...</div></div>;
@@ -203,6 +233,34 @@ export default function ViewBuild({ buildId }) {
                 +{value}
               </button>
             ))}
+          </div>
+
+          {/* Reset Branch & Undo Buttons - Top Left After Increments */}
+          <div className={styles.actionControls}>
+            <button
+              type="button"
+              className={styles.resetBranchBtn}
+              onClick={handleResetBranch}
+              title="Reset current branch"
+            >
+              Reset ↻
+            </button>
+            <button
+              type="button"
+              className={styles.undoBtn}
+              onClick={handleUndo}
+              disabled={!lastAction}
+              title="Undo last action"
+            >
+              Undo ↶
+            </button>
+          </div>
+
+          {/* Feathers Display - Top Right */}
+          <div className={styles.feathersDisplay}>
+            <span className={styles.feathersText}>
+              {totalFeathersSpent}/{build.maxFeathers}
+            </span>
           </div>
 
           {/* Tab Buttons - Top Center */}
