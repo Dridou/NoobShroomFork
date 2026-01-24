@@ -141,48 +141,6 @@ const TalentBranch = ({
 
     return parentConnections.every(([parent]) => points[parent] > 0);
   };
-  const handleAddMaxPoints = (
-    nodeIndex,
-    maxPoints,
-    effectPerPoint,
-    effectType,
-    statAffected
-  ) => {
-    if (readOnly) return;
-    
-    if (!canActivateNode(nodeIndex)) {
-      return;
-    }
-
-    if (points[nodeIndex] < maxPoints) {
-      const step = getNodePointStep(nodeIndex);
-      const newPoints =
-        Math.min(points[nodeIndex] + step, maxPoints) - points[nodeIndex];
-
-      let totalCost = 0;
-      for (let i = points[nodeIndex]; i < points[nodeIndex] + newPoints; i++) {
-        totalCost += getNodeCost(nodeIndex, i);
-      }
-
-      if (playerFeathers < totalCost) {
-        return;
-      }
-
-      onUpdatePoints(
-        branchName,
-        nodeIndex,
-        newPoints,
-        newPoints * effectPerPoint,
-        statAffected,
-        effectType
-      );
-      setPlayerFeathers(playerFeathers - totalCost);
-      setBranchFeathers((prevBranchFeathers) => ({
-        ...prevBranchFeathers,
-        [branchName]: prevBranchFeathers[branchName] + totalCost,
-      }));
-    }
-  };
 
   const handleNodeClick = (
     nodeIndex,
@@ -290,15 +248,6 @@ const TalentBranch = ({
                 )
               }
               positionClass={`node${index + 1}`}
-              onAddMaxPoints={() =>
-                handleAddMaxPoints(
-                  index,
-                  node.maxPoints,
-                  node.effectPerPoint,
-                  node.effectType,
-                  node.statAffected
-                )
-              } // Bouton pour ajouter les points
             />
           </div>
         ))}
