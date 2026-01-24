@@ -94,6 +94,18 @@ export default function ViewBuild({ buildId }) {
     fetchBuild();
   }, [buildId]);
 
+  // Track node investment for undo functionality
+  const handleNodeInvestment = (tabName, nodeIndex, newPoints, costSpent) => {
+    setLastAction({
+      type: "invest",
+      tab: tabName,
+      nodeIndex,
+      pointsAdded: newPoints,
+      costSpent,
+      previousPoints: branchPoints[tabName][nodeIndex],
+    });
+  };
+
   const handleResetBranch = () => {
     setLastAction({
       type: "reset",
@@ -113,6 +125,15 @@ export default function ViewBuild({ buildId }) {
       setBranchPoints((prevPoints) => ({
         ...prevPoints,
         [lastAction.tab]: lastAction.previousPoints,
+      }));
+      setLastAction(null);
+    } else if (lastAction.type === "invest") {
+      // Undo point investment
+      setBranchPoints((prevPoints) => ({
+        ...prevPoints,
+        [lastAction.tab]: prevPoints[lastAction.tab].map((value, index) =>
+          index === lastAction.nodeIndex ? lastAction.previousPoints : value
+        ),
       }));
       setLastAction(null);
     }
@@ -243,7 +264,8 @@ export default function ViewBuild({ buildId }) {
               onClick={handleResetBranch}
               title="Reset current branch"
             >
-              Reset ↻
+              <span className={styles.buttonText}>Reset</span>
+              <span className={styles.buttonIcon}>↻</span>
             </button>
             <button
               type="button"
@@ -252,7 +274,8 @@ export default function ViewBuild({ buildId }) {
               disabled={!lastAction}
               title="Undo last action"
             >
-              Undo ↶
+              <span className={styles.buttonText}>Undo</span>
+              <span className={styles.buttonIcon}>↶</span>
             </button>
           </div>
 
@@ -297,6 +320,7 @@ export default function ViewBuild({ buildId }) {
                   branchName={selectedTab}
                   nodes={getTabNodes(selectedTab)}
                   points={branchPoints[selectedTab]}
+                  onNodeInvestment={handleNodeInvestment}
                   readOnly={true}
                   incrementValue={incrementValue}
                 />

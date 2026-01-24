@@ -333,9 +333,10 @@
 .actionControls {
   position: absolute;
   top: 20px;
-  left: 120px;
+  left: 68px;
   z-index: 100;
   display: flex;
+  flex-direction: row;
   gap: 8px;
   background: var(--color-bg-darker);
   padding: 8px;
@@ -369,10 +370,20 @@
   cursor: not-allowed;
 }
 
-/* Feathers Display - Top Right */
+/* Button text and icon display */
+.buttonText {
+  display: inline;
+  margin-right: 4px;
+}
+
+.buttonIcon {
+  display: none;
+}
+
+/* Feathers Display - Bottom Right */
 .feathersDisplay {
   position: absolute;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
   z-index: 100;
   background: var(--color-bg-darker);
@@ -485,6 +496,38 @@
 
   .tabButtonInside {
     padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .actionControls {
+    top: 60px;
+    left: 12px;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px;
+    background: transparent;
+    border: none;
+  }
+
+  .resetBranchBtn,
+  .undoBtn {
+    padding: 8px;
+    font-size: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feathersDisplay {
+    bottom: 12px;
+    right: 12px;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .feathersText {
     font-size: 11px;
   }
 
@@ -604,5 +647,70 @@
   .feathersBox {
     text-align: left;
     width: 100%;
+  }
+
+  /* Mobile controls layout - vertical stack */
+  .incrementControls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .incrementBtn {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .actionControls {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .resetBranchBtn,
+  .undoBtn {
+    padding: 8px;
+    min-width: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--color-text-primary);
+  }
+
+  .buttonText {
+    display: none;
+  }
+
+  .buttonIcon {
+    display: inline;
+  }
+
+  .feathersDisplay {
+    position: absolute;
+    top: auto;
+    right: 20px;
+    bottom: 20px;
+    padding: 6px 10px;
+  }
+
+  .feathersText {
+    font-size: 11px;
+  }
+
+  .tabContainerInside {
+    gap: 5px;
+  }
+
+  .tabButtonInside {
+    padding: 6px 10px;
+    font-size: 12px;
   }
 }

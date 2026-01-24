@@ -14,6 +14,7 @@ const TalentBranch = ({
   nodes,
   points,
   onUpdatePoints,
+  onNodeInvestment,
   onResetBranch,
   playerFeathers,
   setPlayerFeathers,
@@ -168,6 +169,11 @@ const TalentBranch = ({
 
     if (playerFeathers < totalCost || points[nodeIndex] >= maxPoints) {
       return;
+    }
+
+    // Track investment for undo functionality
+    if (onNodeInvestment) {
+      onNodeInvestment(branchName, nodeIndex, pointsToAdd, totalCost);
     }
 
     onUpdatePoints(

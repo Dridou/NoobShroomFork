@@ -204,6 +204,20 @@ const TalentBuilder = ({ buildId }) => {
     }, 0);
   }, [branchPoints]);
 
+  // Track node investment for undo functionality
+  const handleNodeInvestment = (tabName, nodeIndex, newPoints, costSpent) => {
+    setLastAction({
+      type: "invest",
+      tab: tabName,
+      nodeIndex,
+      pointsAdded: newPoints,
+      costSpent,
+      previousPoints: branchPoints[tabName][nodeIndex],
+      previousPlayerFeathers: playerFeathers,
+      previousBranchFeathers: branchFeathers[tabName],
+    });
+  };
+
   const updatePoints = (
     tabName,
     nodeIndex,
@@ -460,6 +474,20 @@ const TalentBuilder = ({ buildId }) => {
         [lastAction.tab]: lastAction.previousFeathers,
       }));
       setLastAction(null);
+    } else if (lastAction.type === "invest") {
+      // Undo point investment
+      setBranchPoints((prevPoints) => ({
+        ...prevPoints,
+        [lastAction.tab]: prevPoints[lastAction.tab].map((value, index) =>
+          index === lastAction.nodeIndex ? lastAction.previousPoints : value
+        ),
+      }));
+      setPlayerFeathers(lastAction.previousPlayerFeathers);
+      setBranchFeathers((prevBranchFeathers) => ({
+        ...prevBranchFeathers,
+        [lastAction.tab]: lastAction.previousBranchFeathers,
+      }));
+      setLastAction(null);
     }
   };
 
@@ -621,7 +649,8 @@ const TalentBuilder = ({ buildId }) => {
               onClick={handleResetBranch}
               title="Reset current branch"
             >
-              Reset ↻
+              <span className={styles.buttonText}>Reset</span>
+              <span className={styles.buttonIcon}>↻</span>
             </button>
             <button
               type="button"
@@ -630,7 +659,8 @@ const TalentBuilder = ({ buildId }) => {
               disabled={!lastAction}
               title="Undo last action"
             >
-              Undo ↶
+              <span className={styles.buttonText}>Undo</span>
+              <span className={styles.buttonIcon}>↶</span>
             </button>
           </div>
 
@@ -678,6 +708,7 @@ const TalentBuilder = ({ buildId }) => {
                   nodes={TALENT_TABS[selectedTab].nodes}
                   points={branchPoints[selectedTab]}
                   onUpdatePoints={updatePoints}
+                  onNodeInvestment={handleNodeInvestment}
                   onResetBranch={resetTab}
                   playerFeathers={playerFeathers}
                   setPlayerFeathers={setPlayerFeathers}
