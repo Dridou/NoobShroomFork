@@ -51,6 +51,7 @@ export default function ViewBuild({ buildId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTab, setSelectedTab] = useState("Fury");
+  const [incrementValue, setIncrementValue] = useState(1);
   const [branchPoints, setBranchPoints] = useState({
     Fury: [],
     Archery: [],
@@ -187,23 +188,38 @@ export default function ViewBuild({ buildId }) {
       <div className={styles.talentSection}>
         <h2>Talent Distribution</h2>
 
-        {/* Tabs */}
-        <div className={styles.tabContainer}>
-          {TALENT_TAB_ORDER.map((tab) => (
-            <button
-              key={tab}
-              className={`${styles.tabButton} ${
-                selectedTab === tab ? styles.active : ""
-              }`}
-              onClick={() => setSelectedTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
-        {/* Talent Branch Display */}
+        {/* Talent Branch Display with Controls */}
         <div className={styles.branchContainer} ref={treeWrapperRef}>
+          {/* Increment Controls - Top Left */}
+          <div className={styles.incrementControls}>
+            {[1, 5, 10].map((value) => (
+              <button
+                key={value}
+                className={`${styles.incrementBtn} ${
+                  incrementValue === value ? styles.active : ""
+                }`}
+                onClick={() => setIncrementValue(value)}
+              >
+                +{value}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Buttons - Top Center */}
+          <div className={styles.tabContainerInside}>
+            {TALENT_TAB_ORDER.map((tab) => (
+              <button
+                key={tab}
+                className={`${styles.tabButtonInside} ${
+                  selectedTab === tab ? styles.active : ""
+                }`}
+                onClick={() => setSelectedTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
           <TransformWrapper
             initialScale={0.7}
             minScale={0.3}

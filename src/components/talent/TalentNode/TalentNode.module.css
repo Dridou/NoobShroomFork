@@ -44,13 +44,21 @@
 	text-align: center;
 	margin: 0;
 	padding: 0;
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	/* Positionnement du texte légèrement en dessous du cercle */
+	top: 100%;
 }
 
 .talentInfo p {
 	margin: 0;
 	padding: 0;
 	color: rgb(255, 255, 255);
-	font-weight: 600;
+	font-weight: 700;
+	font-size: 14px;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .node1 {

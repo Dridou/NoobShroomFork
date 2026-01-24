@@ -248,15 +248,81 @@
 }
 
 .branchContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   background: var(--color-bg-darkest);
   border: 1px solid var(--color-border-dark);
   border-radius: 8px;
   padding: 20px;
   min-height: 500px;
   overflow: hidden;
+}
+
+/* Increment Controls - Top Left */
+.incrementControls {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+
+.incrementBtn {
+  padding: 8px 12px;
+  border: 2px solid var(--color-border-dark);
+  background: var(--color-bg-darker);
+  color: var(--color-text-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.incrementBtn:hover {
+  border-color: var(--color-accent-primary);
+  background: var(--color-bg-dark);
+}
+
+.incrementBtn.active {
+  background: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  color: white;
+}
+
+/* Tab Buttons Inside Container - Top Center */
+.tabContainerInside {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+
+.tabButtonInside {
+  padding: 10px 18px;
+  border: 2px solid var(--color-border-dark);
+  background: var(--color-bg-darkest);
+  color: var(--color-text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.tabButtonInside:hover {
+  border-color: var(--color-accent-primary);
+  background: var(--color-bg-dark);
+  color: var(--color-text-primary);
+}
+
+.tabButtonInside.active {
+  background: var(--color-accent-primary);
+  color: white;
+  border-color: var(--color-accent-primary);
 }
 
 /* Stats Section */
@@ -316,12 +382,18 @@
   width: 100%;
   height: 100%;
   background: transparent;
+  margin-top: 60px;
 }
 
 .branchContainer :global(.react-transform-component) {
   width: 100%;
   height: 100%;
   background: transparent;
+}
+
+/* Hide old tab container - tabs moved inside branchContainer */
+.tabContainer {
+  display: none;
 }
 
 /* Responsive */
