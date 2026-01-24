@@ -132,6 +132,7 @@ const TalentBuilder = ({ buildId }) => {
   const treeWrapperRef = useRef(null);
   const [treeScale, setTreeScale] = useState(1);
   const [selectedTab, setSelectedTab] = useState("Fury");
+  const [incrementValue, setIncrementValue] = useState(1);
   const [activeBuildId, setActiveBuildId] = useState(buildId || "");
   const [branchPoints, setBranchPoints] = useState(() => createEmptyPoints());
   const [branchFeathers, setBranchFeathers] = useState(() => createEmptyFeathers());
@@ -434,236 +435,202 @@ const TalentBuilder = ({ buildId }) => {
 
   return (
     <div className={styles.page}>
+      {/* Header */}
       <div className={styles.header}>
         <div>
-          <p className={styles.eyebrow}>Talent Builder</p>
-          <h1 className={styles.title}>Build, save, and share talent trees</h1>
+          <h1 className={styles.title}>Create Talent Build</h1>
           <p className={styles.subtitle}>
-            Create a full 4-tab build, share a short link, and let others fork it.
+            Design your talent tree, share it, and let others fork it.
           </p>
           {loading && <span className={styles.loading}>Loading build...</span>}
         </div>
-        <div className={styles.headerMeta}>
-          <div className={`${styles.feathersBox} ${styles.finalTalentsBox}`}>
-            <span>Final talents</span>
-            <strong>
-              {finalTalentCount}/{MAX_FINAL_TALENTS}
-            </strong>
-          </div>
-          <div className={styles.feathersBox}>
-            <span>Remaining feathers</span>
-            <strong>{playerFeathers}</strong>
-          </div>
-          <div className={styles.feathersBox}>
-            <span>Required feathers</span>
-            <strong>{totalSpent}</strong>
-          </div>
-        </div>
       </div>
 
-      <div className={styles.layout}>
-        <div className={styles.controls}>
-          <div className={styles.card}>
-            <h2>Build settings</h2>
-            <div className={styles.field}>
-              <label htmlFor="max-feathers">Max feathers</label>
-              <input
-                id="max-feathers"
-                className={styles.featherInput}
-                type="number"
-                min="0"
-                max="100000"
-                step="100"
-                inputMode="numeric"
-                value={maxFeathers}
-                onChange={(event) =>
-                  handleMaxFeathersChange(event.target.value)
-                }
-              />
-            </div>
-            <div className={styles.field}>
-              <label htmlFor="build-name">Build name (optional)</label>
-              <input
-                id="build-name"
-                type="text"
-                value={buildName}
-                onChange={(event) => setBuildName(event.target.value)}
-                placeholder="Ex: Fury PvE starter"
-              />
-            </div>
-            <div className={styles.field}>
-              <label htmlFor="creator-name">Your nickname (optional)</label>
-              <input
-                id="creator-name"
-                type="text"
-                value={creatorName}
-                onChange={(event) => setCreatorName(event.target.value)}
-                placeholder="Ex: SaintM"
-              />
-            </div>
-            <div className={styles.tags}>
-              {[
-                "PvE",
-                "PvP",
-                "F2P",
-                "Whale",
-              ].map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  className={`${styles.tag} ${
-                    tags.includes(tag) ? styles.tagActive : ""
-                  }`}
-                  onClick={() => toggleTag(tag)}
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
-            <div className={styles.actions}>
+      {/* Info Grid with Settings & Stats */}
+      <div className={styles.infoGrid}>
+        <div className={styles.infoCard}>
+          <h3>Build Settings</h3>
+          <div className={styles.field}>
+            <label htmlFor="max-feathers">Max Feathers</label>
+            <input
+              id="max-feathers"
+              className={styles.featherInput}
+              type="number"
+              min="0"
+              max="100000"
+              step="100"
+              inputMode="numeric"
+              value={maxFeathers}
+              onChange={(event) => handleMaxFeathersChange(event.target.value)}
+            />
+          </div>
+          <div className={styles.field}>
+            <label htmlFor="build-name">Build Name (optional)</label>
+            <input
+              id="build-name"
+              type="text"
+              value={buildName}
+              onChange={(event) => setBuildName(event.target.value)}
+              placeholder="Ex: Fury PvE starter"
+            />
+          </div>
+          <div className={styles.field}>
+            <label htmlFor="creator-name">Your Nickname (optional)</label>
+            <input
+              id="creator-name"
+              type="text"
+              value={creatorName}
+              onChange={(event) => setCreatorName(event.target.value)}
+              placeholder="Ex: SaintM"
+            />
+          </div>
+          <div className={styles.tags}>
+            {["PvE", "PvP", "F2P", "Whale"].map((tag) => (
               <button
+                key={tag}
                 type="button"
-                className={styles.primary}
-                onClick={handleSaveShare}
-                disabled={isSaveDisabled}
-                title={isUnchanged ? "No changes to save." : undefined}
+                className={`${styles.tag} ${tags.includes(tag) ? styles.tagActive : ""}`}
+                onClick={() => toggleTag(tag)}
               >
-                Save & Share
+                {tag}
               </button>
-              <button type="button" onClick={() => resetTab(selectedTab)}>
-                Reset tab
-              </button>
-              <button type="button" onClick={resetAll}>
-                Reset all
-              </button>
+            ))}
+          </div>
+          <div className={styles.actions}>
+            <button
+              type="button"
+              className={styles.primary}
+              onClick={handleSaveShare}
+              disabled={isSaveDisabled}
+              title={isUnchanged ? "No changes to save." : undefined}
+            >
+              Save & Share
+            </button>
+            <button type="button" onClick={() => resetTab(selectedTab)}>
+              Reset Tab
+            </button>
+            <button type="button" onClick={resetAll}>
+              Reset All
+            </button>
+          </div>
+          {shareUrl && (
+            <div className={styles.shareBox}>
+              <p>Share link copied to clipboard.</p>
+              <a href={shareUrl}>{shareUrl}</a>
+              {fallbackUrl && (
+                <div className={styles.fallback}>
+                  Fallback: <a href={fallbackUrl}>{fallbackUrl}</a>
+                </div>
+              )}
             </div>
-            {shareUrl && (
-              <div className={styles.shareBox}>
-                <div>
-                  <p>Share link copied to clipboard.</p>
-                  <a href={shareUrl}>{shareUrl}</a>
-                </div>
-                {fallbackUrl && (
-                  <div className={styles.fallback}>
-                    Fallback: <a href={fallbackUrl}>{fallbackUrl}</a>
-                  </div>
-                )}
-              </div>
-            )}
-            {buildMeta && activeBuildId && (
-              <div className={styles.voteBox}>
-                <p>Community feedback</p>
-                <div className={styles.voteRow}>
-                  <button type="button" onClick={() => handleVote(1)}>
-                    Like ({voteCounts.likes})
-                  </button>
-                  <button type="button" onClick={() => handleVote(-1)}>
-                    Dislike ({voteCounts.dislikes})
-                  </button>
-                </div>
-                {voteStatus && <span className={styles.voteStatus}>{voteStatus}</span>}
-              </div>
-            )}
-            {activeBuildId && (
-              <p className={styles.forkNote}>
-                Editing this build will create a new shared link.
-              </p>
-            )}
+          )}
+          {activeBuildId && (
+            <p className={styles.forkNote}>
+              Editing this build will create a new shared link.
+            </p>
+          )}
+        </div>
+
+        <div className={styles.infoCard}>
+          <h3>Progress</h3>
+          <div className={styles.stats}>
+            <p>
+              <strong>Final Talents:</strong> {finalTalentCount}/{MAX_FINAL_TALENTS}
+            </p>
+            <p>
+              <strong>Feathers Used:</strong> {totalSpent}
+            </p>
+            <p>
+              <strong>Remaining:</strong> {playerFeathers}
+            </p>
           </div>
         </div>
 
-        <div className={styles.builder}>
-          <div className={styles.tabRow}>
-            {TALENT_TAB_ORDER.map((tab) => (
+        {buildMeta && activeBuildId && (
+          <div className={styles.infoCard}>
+            <h3>Community Feedback</h3>
+            <div className={styles.voteRow}>
+              <button type="button" onClick={() => handleVote(1)}>
+                Like ({voteCounts.likes})
+              </button>
+              <button type="button" onClick={() => handleVote(-1)}>
+                Dislike ({voteCounts.dislikes})
+              </button>
+            </div>
+            {voteStatus && <span className={styles.voteStatus}>{voteStatus}</span>}
+          </div>
+        )}
+      </div>
+
+      {/* Talent Tree Section */}
+      <div className={styles.talentSection}>
+        <h2>Talent Distribution</h2>
+
+        {/* Talent Container with Controls */}
+        <div className={styles.branchContainer} ref={treeWrapperRef}>
+          {/* Increment Controls - Top Left */}
+          <div className={styles.incrementControls}>
+            {[1, 5, 10].map((value) => (
               <button
-                key={tab}
-                type="button"
-                className={`${styles.tab} ${
-                  selectedTab === tab ? styles.tabActive : ""
+                key={value}
+                className={`${styles.incrementBtn} ${
+                  incrementValue === value ? styles.active : ""
                 }`}
-                onClick={() => setSelectedTab(tab)}
+                onClick={() => setIncrementValue(value)}
               >
-                <span
-                  className={styles.tabResetIcon}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    resetTab(tab);
-                  }}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      event.stopPropagation();
-                      resetTab(tab);
-                    }
-                  }}
-                  title={`Reset ${TALENT_TABS[tab].label} tab`}
-                  aria-label={`Reset ${TALENT_TABS[tab].label} tab`}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="16"
-                    height="16"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path
-                      d="M20 12a8 8 0 1 1-2.34-5.66"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M20 4v6h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-                <span className={styles.tabLabel}>{TALENT_TABS[tab].label}</span>
+                +{value}
               </button>
             ))}
           </div>
 
-          <div className={styles.treeWrapper} ref={treeWrapperRef}>
-            <TransformWrapper
-              key={treeScaleKey}
-              initialScale={treeScale}
-              minScale={Math.max(treeScale * 0.6, 0.2)}
-              maxScale={2.5}
-              centerOnInit
-              limitToBounds={false}
-              doubleClick={{ disabled: true }}
-              panning={{ velocityDisabled: true }}
-              wheel={{ step: 0.1 }}
-              pinch={{ step: 5 }}
-            >
-              <TransformComponent
-                wrapperStyle={{ width: "100%", height: "100%" }}
+          {/* Tab Buttons - Top Center */}
+          <div className={styles.tabContainerInside}>
+            {TALENT_TAB_ORDER.map((tab) => (
+              <button
+                key={tab}
+                className={`${styles.tabButtonInside} ${
+                  selectedTab === tab ? styles.active : ""
+                }`}
+                onClick={() => setSelectedTab(tab)}
+                title={`Switch to ${TALENT_TABS[tab].label}`}
               >
-                <div className={styles.talentCanvas}>
-                  <TalentBranch
-                    branchName={selectedTab}
-                    nodes={TALENT_TABS[selectedTab].nodes}
-                    points={branchPoints[selectedTab]}
-                    onUpdatePoints={updatePoints}
-                    onResetBranch={resetTab}
-                    playerFeathers={playerFeathers}
-                    setPlayerFeathers={setPlayerFeathers}
-                    setBranchFeathers={setBranchFeathers}
-                    setBranchPoints={setBranchPoints}
-                    finalTalentCount={finalTalentCount}
-                    maxFinalTalents={MAX_FINAL_TALENTS}
-                  />
-                </div>
-              </TransformComponent>
-            </TransformWrapper>
+                {tab}
+              </button>
+            ))}
           </div>
+
+          <TransformWrapper
+            key={treeScaleKey}
+            initialScale={treeScale}
+            minScale={Math.max(treeScale * 0.6, 0.2)}
+            maxScale={2.5}
+            centerOnInit
+            limitToBounds={false}
+            doubleClick={{ disabled: true }}
+            panning={{ velocityDisabled: true }}
+            wheel={{ step: 0.1 }}
+            pinch={{ step: 5 }}
+          >
+            <TransformComponent
+              wrapperStyle={{ width: "100%", height: "100%" }}
+            >
+              <div className={styles.talentCanvas}>
+                <TalentBranch
+                  branchName={selectedTab}
+                  nodes={TALENT_TABS[selectedTab].nodes}
+                  points={branchPoints[selectedTab]}
+                  onUpdatePoints={updatePoints}
+                  onResetBranch={resetTab}
+                  playerFeathers={playerFeathers}
+                  setPlayerFeathers={setPlayerFeathers}
+                  setBranchFeathers={setBranchFeathers}
+                  setBranchPoints={setBranchPoints}
+                  finalTalentCount={finalTalentCount}
+                  maxFinalTalents={MAX_FINAL_TALENTS}
+                />
+              </div>
+            </TransformComponent>
+          </TransformWrapper>
         </div>
       </div>
     </div>
