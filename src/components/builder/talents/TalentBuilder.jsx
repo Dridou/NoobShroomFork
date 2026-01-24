@@ -627,6 +627,7 @@ const TalentBuilder = ({ buildId }) => {
                   setBranchPoints={setBranchPoints}
                   finalTalentCount={finalTalentCount}
                   maxFinalTalents={MAX_FINAL_TALENTS}
+                  incrementValue={incrementValue}
                 />
               </div>
             </TransformComponent>

@@ -22,6 +22,7 @@ const TalentBranch = ({
   finalTalentCount,
   maxFinalTalents,
   readOnly = false,
+  incrementValue = 1,
 }) => {
   const nodeRefs = useRef([]); // Un tableau de références pour chaque nœud
   const containerRef = useRef(null); // Référence au conteneur du talent tree
@@ -192,28 +193,37 @@ const TalentBranch = ({
   ) => {
     if (readOnly) return;
     
-    const currentCost = getNodeCost(nodeIndex, points[nodeIndex]);
-
-    if (playerFeathers < currentCost || points[nodeIndex] >= maxPoints) {
+    if (!canActivateNode(nodeIndex)) {
       return;
     }
 
-    if (!canActivateNode(nodeIndex)) {
+    // Calculate total cost for adding incrementValue points
+    let totalCost = 0;
+    const pointsToAdd = Math.min(
+      incrementValue,
+      maxPoints - points[nodeIndex]
+    );
+    
+    for (let i = points[nodeIndex]; i < points[nodeIndex] + pointsToAdd; i++) {
+      totalCost += getNodeCost(nodeIndex, i);
+    }
+
+    if (playerFeathers < totalCost || points[nodeIndex] >= maxPoints) {
       return;
     }
 
     onUpdatePoints(
       branchName,
       nodeIndex,
-      1,
-      effectPerPoint,
+      pointsToAdd,
+      pointsToAdd * effectPerPoint,
       statAffected,
       effectType
     );
-    setPlayerFeathers(playerFeathers - currentCost);
+    setPlayerFeathers(playerFeathers - totalCost);
     setBranchFeathers((prevBranchFeathers) => ({
       ...prevBranchFeathers,
-      [branchName]: prevBranchFeathers[branchName] + currentCost,
+      [branchName]: prevBranchFeathers[branchName] + totalCost,
     }));
   };
 

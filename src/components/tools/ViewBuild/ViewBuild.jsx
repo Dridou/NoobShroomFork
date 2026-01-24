@@ -240,6 +240,7 @@ export default function ViewBuild({ buildId }) {
                   nodes={getTabNodes(selectedTab)}
                   points={branchPoints[selectedTab]}
                   readOnly={true}
+                  incrementValue={incrementValue}
                 />
               </div>
             </TransformComponent>
