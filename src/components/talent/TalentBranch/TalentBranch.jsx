@@ -21,6 +21,7 @@ const TalentBranch = ({
   setBranchPoints,
   finalTalentCount,
   maxFinalTalents,
+  readOnly = false,
 }) => {
   const nodeRefs = useRef([]); // Un tableau de références pour chaque nœud
   const containerRef = useRef(null); // Référence au conteneur du talent tree
@@ -146,6 +147,8 @@ const TalentBranch = ({
     effectType,
     statAffected
   ) => {
+    if (readOnly) return;
+    
     if (!canActivateNode(nodeIndex)) {
       return;
     }
@@ -187,6 +190,8 @@ const TalentBranch = ({
     effectType,
     statAffected
   ) => {
+    if (readOnly) return;
+    
     const currentCost = getNodeCost(nodeIndex, points[nodeIndex]);
 
     if (playerFeathers < currentCost || points[nodeIndex] >= maxPoints) {

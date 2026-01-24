@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 3vw, 32px);
-  color: #e2e8f0;
+  color: var(--color-text-tertiary);
 }
 
 .header {
@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 24px;
-  background: linear-gradient(135deg, #0f172a, #1f2a44);
+  background: var(--gradient-bg-primary);
   border-radius: 20px;
   padding: clamp(20px, 3vw, 32px);
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4);
@@ -21,27 +21,27 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   margin-bottom: 8px;
 }
 
 .title {
   font-size: clamp(28px, 4vw, 42px);
   margin: 0 0 8px 0;
-  color: #f8fafc;
+  color: var(--color-text-primary);
 }
 
 .subtitle {
   max-width: 520px;
   line-height: 1.6;
   margin: 0;
-  color: #cbd5f5;
+  color: var(--color-text-secondary);
 }
 
 
 .loading {
   font-size: 12px;
-  color: #38bdf8;
+  color: var(--color-semantic-info);
   margin-top: 6px;
 }
 
@@ -53,8 +53,8 @@
 }
 
 .feathersBox {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: var(--color-component-bg-light);
+  border: 1px solid var(--color-border-light);
   padding: 14px 18px;
   border-radius: 16px;
   display: flex;
@@ -78,10 +78,10 @@
 }
 
 .card {
-  background: #111827;
+  background: var(--color-bg-card);
   border-radius: 16px;
   padding: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--color-border-light);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -99,20 +99,19 @@
 }
 
 .field input {
-  background: #0f172a;
-  border: 1px solid #2b3a55;
+  background: var(--color-bg-darkest);
+  border: 1px solid var(--color-border-dark);
   border-radius: 10px;
   padding: 10px 12px;
-  color: #f8fafc;
+  color: var(--color-text-primary);
 }
 
-
 .featherInput {
-  background: #0f172a;
-  border: 1px solid #2b3a55;
+  background: var(--color-bg-darkest);
+  border: 1px solid var(--color-border-dark);
   border-radius: 10px;
   padding: 10px 12px;
-  color: #f8fafc;
+  color: var(--color-text-primary);
 }
 
 .featherInput::-webkit-outer-spin-button,
@@ -136,18 +135,18 @@
 }
 
 .tag {
-  border: 1px solid #334155;
+  border: 1px solid var(--color-border-medium);
   border-radius: 999px;
   background: transparent;
-  color: #cbd5f5;
+  color: var(--color-text-secondary);
   padding: 6px 12px;
   cursor: pointer;
 }
 
 .tagActive {
-  background: #2563eb;
-  border-color: #2563eb;
-  color: #fff;
+  background: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  color: white;
 }
 
 .actions {
@@ -159,21 +158,21 @@
 .actions button {
   padding: 10px 12px;
   border-radius: 10px;
-  border: 1px solid #334155;
-  background: #1f2937;
-  color: #f8fafc;
+  border: 1px solid var(--color-border-medium);
+  background: var(--color-bg-darker);
+  color: var(--color-text-primary);
   cursor: pointer;
   flex: 1 1 0;
   min-width: 0;
 }
 
 .primary {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: var(--gradient-accent-blue);
   border: none;
 }
 
 .shareBox {
-  background: rgba(37, 99, 235, 0.15);
+  background: var(--color-semantic-info-bg-light);
   border-radius: 12px;
   padding: 12px;
   font-size: 14px;
@@ -184,7 +183,7 @@
 
 .shareBox a,
 .fallback a {
-  color: #7dd3fc;
+  color: var(--color-semantic-info-light);
   word-break: break-all;
 }
 
@@ -205,12 +204,12 @@
 
 .voteStatus {
   font-size: 12px;
-  color: #cbd5f5;
+  color: var(--color-text-secondary);
 }
 
 .forkNote {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--color-text-muted);
 }
 
 .builder {
@@ -231,21 +230,21 @@
   width: 26px;
   height: 26px;
   border-radius: 999px;
-  border: 1px solid #475569;
-  background: #1e293b;
-  color: #e2e8f0;
+  border: 1px solid var(--color-border-medium);
+  background: var(--color-bg-darker);
+  color: var(--color-text-tertiary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   cursor: pointer;
-  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.2);
+  box-shadow: 0 0 0 1px var(--color-border-light);
 }
 
 .tabResetIcon:hover {
-  border-color: #94a3b8;
-  color: #f8fafc;
-  background: #243249;
+  border-color: var(--color-text-muted);
+  color: var(--color-text-primary);
+  background: var(--color-bg-darker);
 }
 
 .tabResetIcon:active {
@@ -253,9 +252,9 @@
 }
 
 .tabActive .tabResetIcon {
-  background: #0f172a;
-  border-color: #0f172a;
-  color: #f8fafc;
+  background: var(--color-bg-darkest);
+  border-color: var(--color-bg-darkest);
+  color: var(--color-text-primary);
   box-shadow: none;
 }
 
@@ -276,23 +275,23 @@
   align-items: center;
   gap: 8px;
   border-radius: 999px;
-  background: #0f172a;
-  border: 1px solid #2b3a55;
-  color: #cbd5f5;
+  background: var(--color-bg-darkest);
+  border: 1px solid var(--color-border-dark);
+  color: var(--color-text-secondary);
   cursor: pointer;
 }
 
 .tabActive {
-  background: #f8fafc;
-  color: #0f172a;
+  background: var(--color-text-primary);
+  color: var(--color-bg-darkest);
   border-color: transparent;
 }
 
 .treeWrapper {
-  background: #0f172a;
+  background: var(--color-bg-darkest);
   border-radius: 20px;
   padding: clamp(16px, 2vw, 24px);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  border: 1px solid var(--color-border-light);
   min-height: 520px;
   height: min(840px, 70vh);
   overflow: hidden;

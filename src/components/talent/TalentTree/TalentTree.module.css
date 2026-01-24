@@ -118,7 +118,7 @@
 	/* Bordure personnalisée */
 	border-radius: 5px;
 	/* Coins arrondis */
-	background-color: #0f172a;
+	background-color: var(--color-bg-darkest);
 	/* Couleur de fond */
 	color: #fff;
 	/* Couleur du texte */

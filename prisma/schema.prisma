@@ -241,12 +241,13 @@ model TalentBuildVote {
   buildId   String
   build     TalentBuild @relation(fields: [buildId], references: [id], onDelete: Cascade)
 
-  ipHash    String
+  anonId    String
   vote      Int
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@unique([buildId, ipHash])
+  @@unique([buildId, anonId])
 }
 
 model Dungeon {

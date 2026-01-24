@@ -1,0 +1,86 @@
+﻿/**
+ * NoobShroom Color Palette
+ * 
+ * Unified color system for consistent UI across the entire application
+ * Dark blue theme with accent colors for actions and feedback
+ */
+
+:root {
+  /* === PRIMARY COLORS === */
+  /* Dark blue gradient base colors */
+  --color-bg-darkest: #0f172a;
+  --color-bg-dark: #1f2a44;
+  --color-bg-darker: #1a1f2e;
+  
+  /* Neutral/Border colors */
+  --color-border-dark: #2b3a55;
+  --color-border-medium: #3a4a6a;
+  
+  /* === TEXT COLORS === */
+  --color-text-primary: #f8fafc;      /* Brightest text */
+  --color-text-secondary: #cbd5f5;    /* Secondary text, lower contrast */
+  --color-text-tertiary: #e2e8f0;     /* Tertiary text, medium contrast */
+  --color-text-muted: #94a3b8;        /* Muted text, very low contrast */
+  
+  /* === ACCENT COLORS === */
+  --color-accent-primary: #2563eb;    /* Blue accent - primary actions */
+  --color-accent-hover: #1d4ed8;      /* Blue accent - hover state */
+  
+  /* === SEMANTIC COLORS === */
+  /* Success / Like colors */
+  --color-semantic-success: #4caf50;
+  --color-semantic-success-light: #66bb6a;
+  --color-semantic-success-lighter: #81c784;
+  --color-semantic-success-bg-light: rgba(76, 175, 80, 0.2);
+  
+  /* Danger / Dislike colors */
+  --color-semantic-danger: #f44336;
+  --color-semantic-danger-light: #ef5350;
+  --color-semantic-danger-lighter: #e57373;
+  --color-semantic-danger-bg-light: rgba(244, 67, 54, 0.2);
+  
+  /* Warning colors */
+  --color-semantic-warning: #f97316;
+  --color-semantic-warning-light: #fb923c;
+  --color-semantic-warning-bg-light: rgba(249, 115, 22, 0.2);
+  
+  /* Info colors */
+  --color-semantic-info: #2563eb;
+  --color-semantic-info-light: #60a5fa;
+  --color-semantic-info-bg-light: rgba(37, 99, 235, 0.2)
+  
+  /* === GRADIENTS === */
+  --gradient-bg-primary: linear-gradient(135deg, #0f172a, #1f2a44);
+  --gradient-bg-subtle: linear-gradient(135deg, #1f2a44, #2a3a55);
+  --gradient-accent-blue: linear-gradient(135deg, #2563eb, #7c3aed);
+  
+  /* === COMPONENT BACKGROUNDS === */
+  --color-card-bg: linear-gradient(135deg, #0f172a, #1f2a44);
+  --color-section-bg: linear-gradient(135deg, #0f172a, #1f2a44);
+  --color-component-bg-light: rgba(15, 23, 42, 0.8);
+  --color-button-bg: #2a2a2a;
+  --color-button-hover: #333;
+  --color-input-bg: #0f172a;
+  --color-bg-card: #111827;
+  
+  /* === OPACITY VARIANTS === */
+  /* For semi-transparent overlays and backgrounds */
+  --color-success-bg-alpha: rgba(76, 175, 80, 0.2);
+  --color-danger-bg-alpha: rgba(244, 67, 54, 0.2);
+  --color-warning-bg-alpha: rgba(249, 115, 22, 0.2);
+  --color-info-bg-alpha: rgba(37, 99, 235, 0.2);
+  --color-border-light: rgba(148, 163, 184, 0.2);
+}
+
+/* Legacy variable mappings for backward compatibility */
+:root {
+  --bg-primary: var(--color-bg-darkest);
+  --bg-secondary: var(--color-bg-dark);
+  --bg-tertiary: var(--color-bg-darker);
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --border-color: var(--color-border-dark);
+  --primary-color: var(--color-accent-primary);
+  --success-color: var(--color-success-base);
+  --danger-color: var(--color-danger-base);
+}

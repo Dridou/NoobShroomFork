@@ -1,0 +1,112 @@
+﻿.voteContainer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.voteButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 2px solid var(--color-border-medium);
+  border-radius: 6px;
+  background-color: var(--color-button-bg);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  user-select: none;
+  position: relative;
+}
+
+.voteButton:hover:not(:disabled) {
+  border-color: var(--color-accent-primary);
+  background-color: var(--color-button-hover);
+  transform: translateY(-2px);
+}
+
+.voteButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Bounce animation on click */
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.voteButton:active:not(:disabled) {
+  animation: bounce 0.4s ease-in-out;
+}
+
+/* Active state styling */
+.voteButton.active {
+  background-color: var(--color-button-bg);
+  border-color: var(--color-border-medium);
+  font-weight: 600;
+}
+
+.likeButton.active {
+  background-color: var(--color-semantic-success-bg-light);
+  border-color: var(--color-semantic-success);
+  color: var(--color-semantic-success-light);
+}
+
+.likeButton.active .thumbsUp {
+  animation: bounce 0.3s ease-in-out;
+}
+
+.dislikeButton.active {
+  background-color: var(--color-semantic-danger-bg-light);
+  border-color: var(--color-semantic-danger);
+  color: var(--color-semantic-danger-light);
+}
+
+.dislikeButton.active .thumbsDown {
+  animation: bounce 0.3s ease-in-out;
+}
+
+.thumbsUp,
+.thumbsDown {
+  display: inline-block;
+  font-size: 18px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.count {
+  min-width: 24px;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* Colors are handled globally through CSS variables from colors.css */
+/* Dark theme colors are applied by default */
+
+/* Responsive */
+@media (max-width: 768px) {
+  .voteButton {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .thumbsUp,
+  .thumbsDown {
+    font-size: 16px;
+  }
+
+  .count {
+    min-width: 20px;
+    font-size: 12px;
+  }
+}

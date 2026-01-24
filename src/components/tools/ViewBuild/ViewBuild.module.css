@@ -1,0 +1,399 @@
+﻿.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 1.2rem;
+  color: var(--text-secondary, #666);
+}
+
+.error {
+  color: var(--danger-color, #dc3545);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid var(--color-border-dark);
+  gap: 20px;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: var(--color-text-primary);
+  word-break: break-word;
+}
+
+.creator {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.backLink {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--primary-color, #007bff);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.backLink:hover {
+  opacity: 0.9;
+  transform: translateX(-4px);
+}
+
+/* Info Grid */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.infoCard {
+  padding: 20px;
+  background: var(--gradient-bg-primary);
+  border: 1px solid var(--color-border-dark);
+  border-radius: 8px;
+}
+
+.infoCard h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: var(--color-text-primary);
+}
+
+/* Rating Display */
+.ratingDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.voteSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ratingBox {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.voteCount {
+  display: flex;
+  gap: 15px;
+  font-size: 1.05rem;
+}
+
+.like {
+  color: var(--success-color, #4caf50);
+  font-weight: 600;
+}
+
+.dislike {
+  color: var(--danger-color, #f44336);
+  font-weight: 600;
+}
+
+.ratingBar {
+  height: 30px;
+  background: var(--color-bg-dark);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border-dark);
+}
+
+.ratingFill {
+  height: 100%;
+  transition: width 0.3s;
+}
+
+.ratingPercent {
+  position: absolute;
+  right: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--color-bg-dark);
+  color: var(--color-text-secondary);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--color-border-dark);
+}
+
+.tag:nth-child(1) {
+  background: rgba(76, 175, 80, 0.2);
+  color: var(--color-semantic-success-light);
+  border-color: var(--color-semantic-success);
+}
+
+.tag:nth-child(2) {
+  background: rgba(244, 67, 54, 0.2);
+  color: var(--color-semantic-danger-light);
+  border-color: var(--color-semantic-danger);
+}
+
+.tag:nth-child(3) {
+  background: rgba(37, 99, 235, 0.2);
+  color: #60a5fa;
+  border-color: var(--color-accent-primary);
+}
+
+.tag:nth-child(4) {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fb923c;
+  border-color: #f97316;
+}
+
+/* Details */
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.details p {
+  margin: 0;
+  color: var(--color-text-tertiary);
+  font-size: 1rem;
+}
+
+.details strong {
+  color: var(--color-text-primary);
+  margin-right: 5px;
+}
+
+/* Talent Section */
+.talentSection {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: var(--gradient-bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--color-border-dark);
+}
+
+.talentSection h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 25px 0;
+  color: var(--color-text-primary);
+}
+
+.tabContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.tabButton {
+  padding: 10px 20px;
+  border: 2px solid var(--color-border-dark);
+  background: var(--color-bg-darkest);
+  color: var(--color-text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.tabButton:hover {
+  border-color: var(--color-accent-primary);
+  background: var(--color-bg-dark);
+  color: var(--color-text-primary);
+}
+
+.tabButton.active {
+  background: var(--color-accent-primary);
+  color: white;
+  border-color: var(--color-accent-primary);
+}
+
+.branchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-bg-darkest);
+  border: 1px solid var(--color-border-dark);
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 500px;
+  overflow-x: auto;
+}
+
+/* Stats Section */
+.statsSection {
+  padding: 30px;
+  background: var(--gradient-bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--color-border-dark);
+}
+
+.statsSection h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 25px 0;
+  color: var(--color-text-primary);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.statCard {
+  padding: 20px;
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-border-dark);
+  border-radius: 8px;
+}
+
+.statCard h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: var(--color-text-primary);
+}
+
+.statCard p {
+  margin: 10px 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.statCard strong {
+  color: var(--color-text-primary);
+  margin-right: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 12px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .backLink {
+    width: 100%;
+    text-align: center;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .talentSection {
+    padding: 20px;
+  }
+
+  .tabContainer {
+    gap: 8px;
+  }
+
+  .tabButton {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+
+  .branchContainer {
+    min-height: 400px;
+    padding: 15px;
+  }
+
+  .statsSection {
+    padding: 20px;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .statCard {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .creator {
+    font-size: 1rem;
+  }
+
+  .infoCard h3 {
+    font-size: 1.1rem;
+  }
+
+  .talentSection h2,
+  .statsSection h2 {
+    font-size: 1.5rem;
+  }
+
+  .voteCount {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tabContainer {
+    flex-direction: column;
+  }
+
+  .tabButton {
+    width: 100%;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}

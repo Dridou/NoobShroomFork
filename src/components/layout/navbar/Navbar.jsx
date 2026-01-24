@@ -12,7 +12,6 @@ const MENU_GROUPS = [
     links: [
       { href: "/posts/best-class", label: "Best class" },
       { href: "/posts/legend-of-mushrooms-codes", label: "Codes" },
-      { href: "/builder/talents", label: "Talent builder" },
     ],
   },
   {
@@ -46,6 +45,13 @@ const MENU_GROUPS = [
       { href: "/posts/cross-server-arena", label: "Cross-Server Arena" },
       { href: "/posts/cross-server-showdown", label: "Cross-Server Showdown" },
       { href: "/posts/parking-wars", label: "Parking Wars" },
+    ],
+  },
+  {
+    title: "Talent Builder",
+    links: [
+      { href: "/builder/talents/create", label: "Create Build" },
+      { href: "/builder/talents/browse", label: "Browse Builds" },
     ],
   },
   {
