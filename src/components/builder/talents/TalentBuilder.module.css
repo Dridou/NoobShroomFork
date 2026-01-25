@@ -380,10 +380,10 @@
   display: none;
 }
 
-/* Feathers Display - Bottom Right */
+/* Feathers Display - Top Right */
 .feathersDisplay {
   position: absolute;
-  bottom: 20px;
+  top: 20px;
   right: 20px;
   z-index: 100;
   background: var(--color-bg-darker);
@@ -521,7 +521,7 @@
   }
 
   .feathersDisplay {
-    bottom: 12px;
+    top: 20px;
     right: 12px;
     padding: 6px 10px;
     font-size: 11px;
