@@ -22,6 +22,7 @@ const TalentBranch = ({
   setBranchPoints,
   finalTalentCount,
   maxFinalTalents,
+  activeSegments = [],
   readOnly = false,
   incrementValue = 1,
 }) => {
@@ -219,16 +220,19 @@ const TalentBranch = ({
         style={{ position: "absolute", zIndex: 0 }}
       >
         {nodePositions.length > 1 &&
-          connections.map(([start, end], index) => (
-            <line
-              key={index}
-              x1={nodePositions[start].left + nodePositions[start].width / 2}
-              y1={nodePositions[start].top - nodePositions[start].height / 2}
-              x2={nodePositions[end].left + nodePositions[end].width / 2}
-              y2={nodePositions[end].top - nodePositions[end].height / 2}
-              className={styles.line}
-            />
-          ))}
+          connections.map(([start, end], index) => {
+            const isActive = activeSegments.includes(index);
+            return (
+              <line
+                key={index}
+                x1={nodePositions[start].left + nodePositions[start].width / 2}
+                y1={nodePositions[start].top - nodePositions[start].height / 2}
+                x2={nodePositions[end].left + nodePositions[end].width / 2}
+                y2={nodePositions[end].top - nodePositions[end].height / 2}
+                className={`${styles.line} ${isActive ? styles.active : styles.inactive}`}
+              />
+            );
+          })}
       </svg>
 
       <div className={styles.nodes}>

@@ -717,6 +717,7 @@ const TalentBuilder = ({ buildId }) => {
                   finalTalentCount={finalTalentCount}
                   maxFinalTalents={MAX_FINAL_TALENTS}
                   incrementValue={incrementValue}
+                  activeSegments={[]}
                 />
               </div>
             </TransformComponent>

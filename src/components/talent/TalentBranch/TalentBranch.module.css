@@ -13,13 +13,42 @@
 }
 
 
+  /* Segments de connexion */
   .line {
-	stroke: rgb(179, 169, 169);
-	stroke-width: 1;
+    stroke: rgb(100, 90, 90);
+    stroke-width: 3;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
-  .active-line {
-	stroke: yellow;
-	stroke-width: 4;
-	transition: stroke 0.3s ease;
+  .line.inactive {
+    stroke: rgb(100, 90, 90);
+    stroke-width: 3;
+    opacity: 0.4;
+  }
+
+  .line.active {
+    stroke: rgb(220, 180, 100);
+    stroke-width: 4;
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(220, 180, 100, 0.6));
+  }
+
+  /* Couleurs par branche */
+  .line.active.branch-fury {
+    stroke: rgb(220, 180, 100);
+  }
+
+  .line.active.branch-archery {
+    stroke: rgb(150, 220, 100);
+  }
+
+  .line.active.branch-sorcery {
+    stroke: rgb(150, 200, 255);
+  }
+
+  .line.active.branch-beast {
+    stroke: rgb(220, 150, 100);
   }

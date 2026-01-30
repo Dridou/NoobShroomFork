@@ -323,6 +323,7 @@ export default function ViewBuild({ buildId }) {
                   onNodeInvestment={handleNodeInvestment}
                   readOnly={true}
                   incrementValue={incrementValue}
+                  activeSegments={[]}
                 />
               </div>
             </TransformComponent>
