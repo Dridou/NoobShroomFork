@@ -1,6 +1,6 @@
 ﻿"use client"; // Spécifie que ce composant est côté client
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import TalentNode from "../TalentNode/TalentNode";
 import styles from "./TalentBranch.module.css"; // Module CSS de la branche
 import {
@@ -29,6 +29,7 @@ const TalentBranch = ({
   const nodeRefs = useRef([]); // Un tableau de références pour chaque nœud
   const containerRef = useRef(null); // Référence au conteneur du talent tree
   const [nodePositions, setNodePositions] = useState([]); // Stocker les positions des nœuds
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
   const svgRef = useRef(null); // Référence pour mémoriser le SVG et éviter le redessin
 
   // Liste des connexions entre les nœuds
@@ -192,32 +193,62 @@ const TalentBranch = ({
     }));
   };
 
-  useLayoutEffect(() => {
-    if (containerRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const positions = nodeRefs.current.map((ref, index) => {
-        if (!ref) return null;
-        const innerDiv = ref.querySelector(".TalentNode_talentInfo__Pd0_g");
-        if (!innerDiv) return null;
-        const rect = innerDiv.getBoundingClientRect();
-        return {
-          top: rect.y - containerRect.y,
-          left: rect.x - containerRect.x,
-          width: rect.width,
-          height: rect.height,
-        };
+  const calculateNodePositions = useCallback(() => {
+    const positions = nodeRefs.current.map((node) => {
+      if (!node) return null;
+      return {
+        top: node.offsetTop,
+        left: node.offsetLeft,
+        width: node.offsetWidth,
+        height: node.offsetHeight,
+      };
+    }).filter(Boolean);
+
+    setNodePositions(positions);
+
+    if (positions.length) {
+      const maxRight = Math.max(...positions.map((pos) => pos.left + pos.width));
+      const maxBottom = Math.max(...positions.map((pos) => pos.top + pos.height));
+      setCanvasSize({
+        width: Math.ceil(maxRight),
+        height: Math.ceil(maxBottom),
       });
-      setNodePositions(positions.filter((pos) => pos !== null));
+      return;
     }
-  }, [nodes, points]);
+
+    if (containerRef.current) {
+      setCanvasSize({
+        width: containerRef.current.offsetWidth,
+        height: containerRef.current.offsetHeight,
+      });
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    calculateNodePositions();
+    window.addEventListener("resize", calculateNodePositions);
+    return () => window.removeEventListener("resize", calculateNodePositions);
+  }, [calculateNodePositions, nodes]);
 
   return (
     <div className={styles.talentBranch} ref={containerRef}>
       <svg
         // ref={svgRef}
-        width="100%"
-        height="100%"
-        style={{ position: "absolute", zIndex: 0 }}
+        width={canvasSize.width || "100%"}
+        height={canvasSize.height || "100%"}
+        viewBox={
+          canvasSize.width && canvasSize.height
+            ? `0 0 ${canvasSize.width} ${canvasSize.height}`
+            : undefined
+        }
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          overflow: "visible",
+        }}
       >
         {nodePositions.length > 1 &&
           connections.map(([start, end], index) => {
@@ -226,9 +257,9 @@ const TalentBranch = ({
               <line
                 key={index}
                 x1={nodePositions[start].left + nodePositions[start].width / 2}
-                y1={nodePositions[start].top - nodePositions[start].height / 2}
+                y1={nodePositions[start].top + nodePositions[start].height / 2}
                 x2={nodePositions[end].left + nodePositions[end].width / 2}
-                y2={nodePositions[end].top - nodePositions[end].height / 2}
+                y2={nodePositions[end].top + nodePositions[end].height / 2}
                 className={`${styles.line} ${isActive ? styles.active : styles.inactive}`}
               />
             );
@@ -237,29 +268,26 @@ const TalentBranch = ({
 
       <div className={styles.nodes}>
         {nodes.map((node, index) => (
-          <div
+          <TalentNode
             ref={(el) => (nodeRefs.current[index] = el)}
             key={`${branchName}-${node.name}-${index}`}
-          >
-            <TalentNode
-              name={node.name}
-              maxPoints={node.maxPoints}
-              currentPoints={points[index]}
-              effectPerPoint={node.effectPerPoint}
-              effectType={node.effectType}
-              statAffected={node.statAffected}
-              onClick={() =>
-                handleNodeClick(
-                  index,
-                  node.maxPoints,
-                  node.effectPerPoint,
-                  node.effectType,
-                  node.statAffected
-                )
-              }
-              positionClass={`node${index + 1}`}
-            />
-          </div>
+            name={node.name}
+            maxPoints={node.maxPoints}
+            currentPoints={points[index]}
+            effectPerPoint={node.effectPerPoint}
+            effectType={node.effectType}
+            statAffected={node.statAffected}
+            onClick={() =>
+              handleNodeClick(
+                index,
+                node.maxPoints,
+                node.effectPerPoint,
+                node.effectType,
+                node.statAffected
+              )
+            }
+            positionClass={`node${index + 1}`}
+          />
         ))}
       </div>
     </div>
