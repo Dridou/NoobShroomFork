@@ -641,29 +641,6 @@ const TalentBuilder = ({ buildId }) => {
             ))}
           </div>
 
-          {/* Reset Branch & Undo Buttons - Top Left After Increments */}
-          <div className={styles.actionControls}>
-            <button
-              type="button"
-              className={styles.resetBranchBtn}
-              onClick={handleResetBranch}
-              title="Reset current branch"
-            >
-              <span className={styles.buttonText}>Reset</span>
-              <span className={styles.buttonIcon}>↻</span>
-            </button>
-            <button
-              type="button"
-              className={styles.undoBtn}
-              onClick={handleUndo}
-              disabled={!lastAction}
-              title="Undo last action"
-            >
-              <span className={styles.buttonText}>Undo</span>
-              <span className={styles.buttonIcon}>↶</span>
-            </button>
-          </div>
-
           {/* Feathers Display - Top Right */}
           <div className={styles.feathersDisplay}>
             <span className={styles.feathersText}>
@@ -694,33 +671,78 @@ const TalentBuilder = ({ buildId }) => {
             maxScale={2.5}
             centerOnInit
             limitToBounds={false}
-            doubleClick={{ disabled: true }}
+            doubleClick={{ step: 0.2 }}
             panning={{ velocityDisabled: true }}
             wheel={{ step: 0.1 }}
             pinch={{ step: 5 }}
           >
-            <TransformComponent
-              wrapperStyle={{ width: "100%", height: "100%" }}
-            >
-              <div className={styles.talentCanvas}>
-                <TalentBranch
-                  branchName={selectedTab}
-                  nodes={TALENT_TABS[selectedTab].nodes}
-                  points={branchPoints[selectedTab]}
-                  onUpdatePoints={updatePoints}
-                  onNodeInvestment={handleNodeInvestment}
-                  onResetBranch={resetTab}
-                  playerFeathers={playerFeathers}
-                  setPlayerFeathers={setPlayerFeathers}
-                  setBranchFeathers={setBranchFeathers}
-                  setBranchPoints={setBranchPoints}
-                  finalTalentCount={finalTalentCount}
-                  maxFinalTalents={MAX_FINAL_TALENTS}
-                  incrementValue={incrementValue}
-                  activeSegments={[]}
-                />
-              </div>
-            </TransformComponent>
+            {({ zoomIn, zoomOut }) => (
+              <>
+                {/* Reset, Undo, Zoom Controls */}
+                <div className={styles.actionControls}>
+                  <button
+                    type="button"
+                    className={styles.resetBranchBtn}
+                    onClick={handleResetBranch}
+                    title="Reset current branch"
+                  >
+                    <span className={styles.buttonText}>Reset</span>
+                    <span className={styles.buttonIcon}>↻</span>
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.undoBtn}
+                    onClick={handleUndo}
+                    disabled={!lastAction}
+                    title="Undo last action"
+                  >
+                    <span className={styles.buttonText}>Undo</span>
+                    <span className={styles.buttonIcon}>↶</span>
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.resetBranchBtn}
+                    onClick={() => zoomIn(0.2)}
+                    title="Zoom in"
+                  >
+                    <span className={styles.buttonText}>Zoom +</span>
+                    <span className={styles.buttonIcon}>+</span>
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.resetBranchBtn}
+                    onClick={() => zoomOut(0.2)}
+                    title="Zoom out"
+                  >
+                    <span className={styles.buttonText}>Zoom -</span>
+                    <span className={styles.buttonIcon}>−</span>
+                  </button>
+                </div>
+
+                <TransformComponent
+                  wrapperStyle={{ width: "100%", height: "100%" }}
+                >
+                  <div className={styles.talentCanvas}>
+                    <TalentBranch
+                      branchName={selectedTab}
+                      nodes={TALENT_TABS[selectedTab].nodes}
+                      points={branchPoints[selectedTab]}
+                      onUpdatePoints={updatePoints}
+                      onNodeInvestment={handleNodeInvestment}
+                      onResetBranch={resetTab}
+                      playerFeathers={playerFeathers}
+                      setPlayerFeathers={setPlayerFeathers}
+                      setBranchFeathers={setBranchFeathers}
+                      setBranchPoints={setBranchPoints}
+                      finalTalentCount={finalTalentCount}
+                      maxFinalTalents={MAX_FINAL_TALENTS}
+                      incrementValue={incrementValue}
+                      activeSegments={[]}
+                    />
+                  </div>
+                </TransformComponent>
+              </>
+            )}
           </TransformWrapper>
         </div>
       </div>
