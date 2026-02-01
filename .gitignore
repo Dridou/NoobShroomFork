@@ -36,17 +36,15 @@ backup/
 *.tsbuildinfo
 next-env.d.ts
 x.html
-x.html
 public/sitemap-0.xml
 public/sitemap*.xml
-public/robots.txt
 zdata/tmp.json
 y.html
-x.html
 public/sitemap-0.xml
 *.html
 *.json
 *.txt
 !public/ads.txt
+!public/robots.txt
 
 learning/

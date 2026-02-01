@@ -1,10 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import TalentBranch from "@/components/talent/TalentBranch/TalentBranch";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { TALENT_TABS, TALENT_TAB_ORDER } from "@/data/talents";
+import TalentDistributionSection from "@/components/builder/talents/TalentDistributionSection";
 import { getNodeCost } from "@/utils/talentCosts";
 import styles from "./TalentBuilder.module.css";
 
@@ -12,10 +11,6 @@ const FINAL_NODE_INDEXES = [9, 19, 29];
 const MAX_FINAL_TALENTS = 4;
 const BRANCH_SIZE = 10;
 const FALLBACK_SCHEMA_VERSION = 1;
-const TREE_WIDTH = 1350;
-const TREE_HEIGHT = 1000;
-const BRANCH_VIEW_WIDTH = 470;
-const BRANCH_VIEW_HEIGHT = 545;
 
 const createEmptyPoints = () =>
   TALENT_TAB_ORDER.reduce((acc, tab) => {
@@ -131,9 +126,6 @@ const parseLegacyConfig = (config) => {
 
 const TalentBuilder = ({ buildId }) => {
   const searchParams = useSearchParams();
-  const treeWrapperRef = useRef(null);
-  const [treeScale, setTreeScale] = useState(1);
-  const [initialTransform, setInitialTransform] = useState({ scale: 1, x: 0, y: 0 });
   const [selectedTab, setSelectedTab] = useState("Fury");
   const [incrementValue, setIncrementValue] = useState(1);
   const [activeBuildId, setActiveBuildId] = useState(buildId || "");
@@ -152,39 +144,6 @@ const TalentBuilder = ({ buildId }) => {
   const [voteStatus, setVoteStatus] = useState("");
   const [lastSavedFingerprint, setLastSavedFingerprint] = useState("");
   const [lastAction, setLastAction] = useState(null);
-
-  const calculateTreeScale = useCallback(() => {
-    const wrapper = treeWrapperRef.current;
-    if (!wrapper) {
-      return;
-    }
-
-    const { width, height } = wrapper.getBoundingClientRect();
-    if (!width || !height) {
-      return;
-    }
-
-    const baseScale = Math.min(width / TREE_WIDTH, height / TREE_HEIGHT, 1);
-    const branchScale = Math.min(
-      width / BRANCH_VIEW_WIDTH,
-      height / BRANCH_VIEW_HEIGHT,
-      1
-    );
-    const resolvedScale = Math.max(baseScale, branchScale);
-    const finalScale = Number.isFinite(resolvedScale) ? resolvedScale : 1;
-    const centeredX = (width - TREE_WIDTH * finalScale) / 2;
-    const centeredY = (height - TREE_HEIGHT * finalScale) / 2;
-    setTreeScale(finalScale);
-    setInitialTransform({ scale: finalScale, x: centeredX, y: centeredY });
-  }, []);
-
-  useLayoutEffect(() => {
-    calculateTreeScale();
-    window.addEventListener("resize", calculateTreeScale);
-    return () => window.removeEventListener("resize", calculateTreeScale);
-  }, [calculateTreeScale]);
-
-  const treeScaleKey = `${Math.round(initialTransform.scale * 1000)}-${Math.round(initialTransform.x)}-${Math.round(initialTransform.y)}`;
 
   const saveFingerprint = useMemo(() => {
     const config = buildConfigFromPoints(branchPoints);
@@ -469,10 +428,6 @@ const TalentBuilder = ({ buildId }) => {
     resetTab(selectedTab);
   };
 
-  const stopZoomEvent = (event) => {
-    event.stopPropagation();
-  };
-
   const handleUndo = () => {
     if (!lastAction) return;
 
@@ -637,149 +592,33 @@ const TalentBuilder = ({ buildId }) => {
       </div>
 
       {/* Talent Tree Section */}
-      <div className={styles.talentSection}>
-        <h2>Talent Distribution</h2>
+      <TalentDistributionSection
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+        incrementValue={incrementValue}
+        setIncrementValue={setIncrementValue}
+        getTalentBranchProps={(tab) => ({
+          branchName: tab,
+          nodes: TALENT_TABS[tab].nodes,
+          points: branchPoints[tab],
+          onUpdatePoints: updatePoints,
+          onNodeInvestment: handleNodeInvestment,
+          onResetBranch: resetTab,
+          playerFeathers,
+          setPlayerFeathers,
+          setBranchFeathers,
+          setBranchPoints,
+          finalTalentCount,
+          maxFinalTalents: MAX_FINAL_TALENTS,
+          activeSegments: [],
+        })}
+        onResetBranch={handleResetBranch}
+        onUndo={handleUndo}
+        lastAction={lastAction}
+        feathersSpent={totalSpent}
+        feathersTotal={maxFeathers}
+      />
 
-        {/* Talent Container with Controls */}
-        <div className={styles.branchContainer} ref={treeWrapperRef}>
-          {/* Increment Controls - Top Left */}
-          <div
-            className={styles.incrementControls}
-            onPointerDown={stopZoomEvent}
-            onDoubleClick={stopZoomEvent}
-          >
-            {[1, 5, 10].map((value) => (
-              <button
-                key={value}
-                className={`${styles.incrementBtn} ${
-                  incrementValue === value ? styles.active : ""
-                }`}
-                onClick={() => setIncrementValue(value)}
-              >
-                +{value}
-              </button>
-            ))}
-          </div>
-
-          {/* Feathers Display - Top Right */}
-          <div
-            className={styles.feathersDisplay}
-            onPointerDown={stopZoomEvent}
-            onDoubleClick={stopZoomEvent}
-          >
-            <span className={styles.feathersText}>
-              {totalSpent}/{maxFeathers}
-            </span>
-          </div>
-
-          {/* Tab Buttons - Top Center */}
-          <div
-            className={styles.tabContainerInside}
-            onPointerDown={stopZoomEvent}
-            onDoubleClick={stopZoomEvent}
-          >
-            {TALENT_TAB_ORDER.map((tab) => (
-              <button
-                key={tab}
-                className={`${styles.tabButtonInside} ${
-                  selectedTab === tab ? styles.active : ""
-                }`}
-                onClick={() => setSelectedTab(tab)}
-                title={`Switch to ${TALENT_TABS[tab].label}`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          <TransformWrapper
-            key={treeScaleKey}
-            initialScale={initialTransform.scale}
-            initialPositionX={initialTransform.x}
-            initialPositionY={initialTransform.y}
-            minScale={Math.max(treeScale * 0.6, 0.2)}
-            maxScale={2.5}
-            centerOnInit={false}
-            limitToBounds={false}
-            doubleClick={{ disabled: true }}
-            panning={{ velocityDisabled: true }}
-            wheel={{ step: 0.1 }}
-            pinch={{ step: 5 }}
-          >
-            {({ zoomIn, zoomOut }) => (
-              <>
-                {/* Reset, Undo, Zoom Controls */}
-                <div
-                  className={styles.actionControls}
-                  onPointerDown={stopZoomEvent}
-                  onDoubleClick={stopZoomEvent}
-                >
-                  <button
-                    type="button"
-                    className={styles.resetBranchBtn}
-                    onClick={handleResetBranch}
-                    title="Reset current branch"
-                  >
-                    <span className={styles.buttonText}>Reset</span>
-                    <span className={styles.buttonIcon}>↻</span>
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.undoBtn}
-                    onClick={handleUndo}
-                    disabled={!lastAction}
-                    title="Undo last action"
-                  >
-                    <span className={styles.buttonText}>Undo</span>
-                    <span className={styles.buttonIcon}>↶</span>
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.resetBranchBtn}
-                    onClick={() => zoomIn(0.2)}
-                    title="Zoom in"
-                  >
-                    <span className={styles.buttonText}>Zoom +</span>
-                    <span className={styles.buttonIcon}>+</span>
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.resetBranchBtn}
-                    onClick={() => zoomOut(0.2)}
-                    title="Zoom out"
-                  >
-                    <span className={styles.buttonText}>Zoom -</span>
-                    <span className={styles.buttonIcon}>−</span>
-                  </button>
-                </div>
-
-                <TransformComponent
-                  wrapperStyle={{ width: "100%", height: "100%" }}
-                >
-                  <div className={styles.talentCanvas}>
-                    <TalentBranch
-                      branchName={selectedTab}
-                      nodes={TALENT_TABS[selectedTab].nodes}
-                      points={branchPoints[selectedTab]}
-                      onUpdatePoints={updatePoints}
-                      onNodeInvestment={handleNodeInvestment}
-                      onResetBranch={resetTab}
-                      playerFeathers={playerFeathers}
-                      setPlayerFeathers={setPlayerFeathers}
-                      setBranchFeathers={setBranchFeathers}
-                      setBranchPoints={setBranchPoints}
-                      finalTalentCount={finalTalentCount}
-                      maxFinalTalents={MAX_FINAL_TALENTS}
-                      incrementValue={incrementValue}
-                      activeSegments={[]}
-                    />
-                  </div>
-                </TransformComponent>
-              </>
-            )}
-          </TransformWrapper>
-        </div>
-      </div>
     </div>
   );
 };
