@@ -10,9 +10,9 @@ export const HOME_UPDATES = [
     linkLabel: "See codes",
   },
   {
-    id: "archer-avians-update",
-    text: "Archer update: the avians section has been updated.",
-    href: "/posts/arrowgod-class-guide",
-    linkLabel: "View update",
+    id: "talent-builder-new",
+    text: "Talent Builder is now live ! Build & Share your talent branches for your guild mates !\nAlso consult the most popular builds driven by the community.\nDon't hesitate to tell me your feedbacks and your needs on Discord.",
+    href: "/builder/talents/create",
+    linkLabel: "Create & Share your build !",
   },
 ];

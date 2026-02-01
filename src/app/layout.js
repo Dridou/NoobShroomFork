@@ -65,6 +65,14 @@ export default function RootLayout({ children }) {
       <body className={poppins.className}>
         <GoogleAnalytics />
         <Script
+          id="quge5-tag"
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="207550"
+          data-cfasync="false"
+          async
+          strategy="beforeInteractive"
+        />
+        <Script
           id="adsense-script"
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
