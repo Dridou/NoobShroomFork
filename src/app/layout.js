@@ -64,14 +64,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={poppins.className}>
         <GoogleAnalytics />
-        <Script
-          id="quge5-tag"
+        <script
           src="https://quge5.com/88/tag.min.js"
-          data-zone="207550"
-          data-cfasync="false"
+          data-zone="207563"
           async
-          strategy="beforeInteractive"
-        />
+          data-cfasync="false"
+        ></script>
         <Script
           id="adsense-script"
           async
@@ -98,9 +96,7 @@ export default function RootLayout({ children }) {
                   }}
                 />
                 <Navbar />
-                <div className="wrapper">
-                  {children}
-                </div>
+                <div className="wrapper">{children}</div>
                 <Footer />
               </div>
             </ThemeProvider>
