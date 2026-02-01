@@ -15,7 +15,7 @@
 }
 
 .logo {
-  height: auto;
+  height: 48px;
   width: 10vw;
   flex: 0.2;
 }
@@ -32,6 +32,29 @@
   height: auto;
   object-fit: contain;
   display: block;
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+.fullLogoWrap,
+.iconLogoWrap {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 200 / 48;
+}
+
+.fullLogoWrap {
+  display: block;
+}
+
+.iconLogoWrap {
+  display: none;
+  aspect-ratio: 1 / 1;
+  width: 40px;
 }
 
 .home {
@@ -249,24 +272,33 @@
 
 @media screen and (max-width: 640px) {
   .container {
-    padding-left: 2vw;
-    padding-right: 5vw;
-    padding-bottom: 1px;
-    padding-top: 1px;
-    background-color: inherit;
-    border: none;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    background-color: var(--softBg);
+    border-bottom: 1px solid var(--color-border-medium);
+    height: 56px;
   }
 
   .logo {
-    width: 20vw;
+    width: auto;
+    height: 100%;
+    flex: 0 0 auto;
   }
 
-  .fulllogo {
+  .fullLogoWrap {
+    display: block;
+    height: 100%;
+  }
+
+  .iconLogoWrap {
     display: none;
   }
 
-  .iconlogo {
-    display: block;
+  .fulllogo {
+    width: 100%;
+    height: 100%;
   }
 
   .discordButton {

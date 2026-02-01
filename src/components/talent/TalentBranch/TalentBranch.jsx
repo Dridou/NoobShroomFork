@@ -1,6 +1,7 @@
 ﻿"use client"; // Spécifie que ce composant est côté client
 
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import TalentNode from "../TalentNode/TalentNode";
 import styles from "./TalentBranch.module.css"; // Module CSS de la branche
 import {
@@ -30,7 +31,9 @@ const TalentBranch = ({
   const containerRef = useRef(null); // Référence au conteneur du talent tree
   const [nodePositions, setNodePositions] = useState([]); // Stocker les positions des nœuds
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  const [quickUpgradeState, setQuickUpgradeState] = useState({ open: false, nodeIndex: null });
   const svgRef = useRef(null); // Référence pour mémoriser le SVG et éviter le redessin
+  const portalTarget = typeof document !== "undefined" ? document.body : null;
 
   // Liste des connexions entre les nœuds
   const connections = [
@@ -145,6 +148,116 @@ const TalentBranch = ({
     return parentConnections.every(([parent]) => points[parent] > 0);
   };
 
+
+  const branchRanges = [
+    { start: 0, end: 9, finalIndex: 9 },
+    { start: 10, end: 19, finalIndex: 19 },
+    { start: 20, end: 29, finalIndex: 29 },
+  ];
+
+  const getBranchForNode = (nodeIndex) =>
+    branchRanges.find(({ start, end }) => nodeIndex >= start && nodeIndex <= end);
+
+  const getParentRequirement = (childIndex) =>
+    isFinalNodeIndex(childIndex) ? 5 : 10;
+
+  const getParents = (childIndex) =>
+    connections
+      .filter(([parent, child]) => child === childIndex)
+      .map(([parent]) => parent);
+
+  const isBranchInProgress = ({ start, end, finalIndex }) => {
+    const started = points.slice(start, end + 1).some((value) => value > 0);
+    const finished = points[finalIndex] > 0;
+    return started && !finished;
+  };
+
+  const quickUpgradeNode = (targetIndex) => {
+    const targetBranch = getBranchForNode(targetIndex);
+    if (!targetBranch) return;
+
+    const blockingBranch = branchRanges.find(
+      (range) => isBranchInProgress(range) && range !== targetBranch
+    );
+    if (blockingBranch) {
+      window.alert("Finish the current branch before switching to another one.");
+      return;
+    }
+
+    const targetMax = nodes[targetIndex]?.maxPoints ?? 0;
+    const pointsToAdd = Math.min(
+      incrementValue,
+      Math.max(targetMax - points[targetIndex], 0)
+    );
+
+    if (!pointsToAdd) {
+      return;
+    }
+
+    const requiredPoints = { [targetIndex]: points[targetIndex] + pointsToAdd };
+    const stack = [targetIndex];
+
+    while (stack.length) {
+      const child = stack.pop();
+      const parentRequirement = getParentRequirement(child);
+      getParents(child).forEach((parent) => {
+        const maxAllowed = nodes[parent]?.maxPoints ?? parentRequirement;
+        const requiredValue = Math.min(parentRequirement, maxAllowed);
+        if (points[parent] >= requiredValue) {
+          return;
+        }
+        const existing = requiredPoints[parent] || 0;
+        if (requiredValue > existing) {
+          requiredPoints[parent] = requiredValue;
+          stack.push(parent);
+        }
+      });
+    }
+
+    let totalCost = 0;
+    Object.entries(requiredPoints).forEach(([indexString, targetValue]) => {
+      const index = Number(indexString);
+      const current = points[index] || 0;
+      for (let i = current; i < targetValue; i += 1) {
+        totalCost += getNodeCost(index, i);
+      }
+    });
+
+    if (playerFeathers < totalCost) {
+      window.alert("Not enough feathers to quick upgrade this node.");
+      return;
+    }
+
+    setBranchPoints((prevPoints) => ({
+      ...prevPoints,
+      [branchName]: prevPoints[branchName].map((value, index) => {
+        if (!(index in requiredPoints)) {
+          return value;
+        }
+        return Math.max(value, requiredPoints[index]);
+      }),
+    }));
+
+    setPlayerFeathers((prevFeathers) => prevFeathers - totalCost);
+    setBranchFeathers((prevBranchFeathers) => ({
+      ...prevBranchFeathers,
+      [branchName]: prevBranchFeathers[branchName] + totalCost,
+    }));
+  };
+
+  const closeQuickUpgrade = () => {
+    setQuickUpgradeState({ open: false, nodeIndex: null });
+  };
+
+  const handleQuickUpgradeConfirm = () => {
+    if (quickUpgradeState.nodeIndex === null) {
+      closeQuickUpgrade();
+      return;
+    }
+    quickUpgradeNode(quickUpgradeState.nodeIndex);
+    closeQuickUpgrade();
+  };
+
   const handleNodeClick = (
     nodeIndex,
     maxPoints,
@@ -155,6 +268,7 @@ const TalentBranch = ({
     if (readOnly) return;
     
     if (!canActivateNode(nodeIndex)) {
+      setQuickUpgradeState({ open: true, nodeIndex });
       return;
     }
 
@@ -265,6 +379,42 @@ const TalentBranch = ({
             );
           })}
       </svg>
+
+
+      {quickUpgradeState.open && portalTarget &&
+        createPortal(
+          <div
+            className={styles.quickUpgradeOverlay}
+            role="dialog"
+            aria-modal="true"
+            onClick={closeQuickUpgrade}
+          >
+            <div
+              className={styles.quickUpgradeModal}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <h3>Quick upgrade</h3>
+              <p>Do you want to quick upgrade this node?</p>
+              <div className={styles.quickUpgradeActions}>
+                <button
+                  type="button"
+                  className={styles.quickUpgradeCancel}
+                  onClick={closeQuickUpgrade}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className={styles.quickUpgradeConfirm}
+                  onClick={handleQuickUpgradeConfirm}
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>,
+          portalTarget
+        )}
 
       <div className={styles.nodes}>
         {nodes.map((node, index) => (

@@ -112,23 +112,25 @@ const Navbar = () => {
   return (
     <nav className={styles.container}>
       <div className={styles.logo}>
-        <Link href="/">
-          <Image
-            src="/images/noobshroom-full-logo.png"
-            alt="Noobshroom complete Logo"
-            width={200}
-            height={48}
-            layout="responsive"
-            className={styles.fulllogo}
-          />
-          <Image
-            src="/images/noobshroom-logo-icon.png"
-            alt="Noobshroom Icon"
-            width={653}
-            height={614}
-            layout="responsive"
-            className={styles.iconlogo}
-          />
+        <Link href="/" className={styles.logoLink}>
+          <span className={styles.fullLogoWrap}>
+            <Image
+              src="/images/noobshroom-full-logo.png"
+              alt="Noobshroom complete Logo"
+              fill
+              sizes="(max-width: 640px) 180px, 220px"
+              className={styles.fulllogo}
+            />
+          </span>
+          <span className={styles.iconLogoWrap}>
+            <Image
+              src="/images/noobshroom-logo-icon.png"
+              alt="Noobshroom Icon"
+              fill
+              sizes="40px"
+              className={styles.iconlogo}
+            />
+          </span>
         </Link>
       </div>
 

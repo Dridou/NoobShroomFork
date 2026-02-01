@@ -14,6 +14,8 @@ const BRANCH_SIZE = 10;
 const FALLBACK_SCHEMA_VERSION = 1;
 const TREE_WIDTH = 1350;
 const TREE_HEIGHT = 1000;
+const BRANCH_VIEW_WIDTH = 470;
+const BRANCH_VIEW_HEIGHT = 545;
 
 const createEmptyPoints = () =>
   TALENT_TAB_ORDER.reduce((acc, tab) => {
@@ -131,6 +133,7 @@ const TalentBuilder = ({ buildId }) => {
   const searchParams = useSearchParams();
   const treeWrapperRef = useRef(null);
   const [treeScale, setTreeScale] = useState(1);
+  const [initialTransform, setInitialTransform] = useState({ scale: 1, x: 0, y: 0 });
   const [selectedTab, setSelectedTab] = useState("Fury");
   const [incrementValue, setIncrementValue] = useState(1);
   const [activeBuildId, setActiveBuildId] = useState(buildId || "");
@@ -161,9 +164,18 @@ const TalentBuilder = ({ buildId }) => {
       return;
     }
 
-    const scale = Math.min(width / TREE_WIDTH, height / TREE_HEIGHT, 1);
-    const resolvedScale = Number.isFinite(scale) ? scale : 1;
-    setTreeScale(resolvedScale);
+    const baseScale = Math.min(width / TREE_WIDTH, height / TREE_HEIGHT, 1);
+    const branchScale = Math.min(
+      width / BRANCH_VIEW_WIDTH,
+      height / BRANCH_VIEW_HEIGHT,
+      1
+    );
+    const resolvedScale = Math.max(baseScale, branchScale);
+    const finalScale = Number.isFinite(resolvedScale) ? resolvedScale : 1;
+    const centeredX = (width - TREE_WIDTH * finalScale) / 2;
+    const centeredY = (height - TREE_HEIGHT * finalScale) / 2;
+    setTreeScale(finalScale);
+    setInitialTransform({ scale: finalScale, x: centeredX, y: centeredY });
   }, []);
 
   useLayoutEffect(() => {
@@ -172,7 +184,7 @@ const TalentBuilder = ({ buildId }) => {
     return () => window.removeEventListener("resize", calculateTreeScale);
   }, [calculateTreeScale]);
 
-  const treeScaleKey = Math.round(treeScale * 1000);
+  const treeScaleKey = `${Math.round(initialTransform.scale * 1000)}-${Math.round(initialTransform.x)}-${Math.round(initialTransform.y)}`;
 
   const saveFingerprint = useMemo(() => {
     const config = buildConfigFromPoints(branchPoints);
@@ -457,6 +469,10 @@ const TalentBuilder = ({ buildId }) => {
     resetTab(selectedTab);
   };
 
+  const stopZoomEvent = (event) => {
+    event.stopPropagation();
+  };
+
   const handleUndo = () => {
     if (!lastAction) return;
 
@@ -627,7 +643,11 @@ const TalentBuilder = ({ buildId }) => {
         {/* Talent Container with Controls */}
         <div className={styles.branchContainer} ref={treeWrapperRef}>
           {/* Increment Controls - Top Left */}
-          <div className={styles.incrementControls}>
+          <div
+            className={styles.incrementControls}
+            onPointerDown={stopZoomEvent}
+            onDoubleClick={stopZoomEvent}
+          >
             {[1, 5, 10].map((value) => (
               <button
                 key={value}
@@ -642,14 +662,22 @@ const TalentBuilder = ({ buildId }) => {
           </div>
 
           {/* Feathers Display - Top Right */}
-          <div className={styles.feathersDisplay}>
+          <div
+            className={styles.feathersDisplay}
+            onPointerDown={stopZoomEvent}
+            onDoubleClick={stopZoomEvent}
+          >
             <span className={styles.feathersText}>
               {totalSpent}/{maxFeathers}
             </span>
           </div>
 
           {/* Tab Buttons - Top Center */}
-          <div className={styles.tabContainerInside}>
+          <div
+            className={styles.tabContainerInside}
+            onPointerDown={stopZoomEvent}
+            onDoubleClick={stopZoomEvent}
+          >
             {TALENT_TAB_ORDER.map((tab) => (
               <button
                 key={tab}
@@ -666,12 +694,14 @@ const TalentBuilder = ({ buildId }) => {
 
           <TransformWrapper
             key={treeScaleKey}
-            initialScale={treeScale}
+            initialScale={initialTransform.scale}
+            initialPositionX={initialTransform.x}
+            initialPositionY={initialTransform.y}
             minScale={Math.max(treeScale * 0.6, 0.2)}
             maxScale={2.5}
-            centerOnInit
+            centerOnInit={false}
             limitToBounds={false}
-            doubleClick={{ step: 0.2 }}
+            doubleClick={{ disabled: true }}
             panning={{ velocityDisabled: true }}
             wheel={{ step: 0.1 }}
             pinch={{ step: 5 }}
@@ -679,7 +709,11 @@ const TalentBuilder = ({ buildId }) => {
             {({ zoomIn, zoomOut }) => (
               <>
                 {/* Reset, Undo, Zoom Controls */}
-                <div className={styles.actionControls}>
+                <div
+                  className={styles.actionControls}
+                  onPointerDown={stopZoomEvent}
+                  onDoubleClick={stopZoomEvent}
+                >
                   <button
                     type="button"
                     className={styles.resetBranchBtn}

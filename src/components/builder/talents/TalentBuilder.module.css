@@ -277,13 +277,14 @@
   overflow: hidden;
 }
 
-/* Increment Controls - Top Left */
+/* Increment Controls - Bottom Right */
 .incrementControls {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  bottom: 20px;
+  right: 20px;
   z-index: 100;
   display: flex;
+  flex-direction: column;
   gap: 8px;
   background: var(--color-bg-darker);
   padding: 8px;
@@ -329,14 +330,14 @@
   border: 1px solid var(--color-border-dark);
 }
 
-/* Action Controls - Reset & Undo */
+/* Action Controls - Reset, Undo, Zoom */
 .actionControls {
   position: absolute;
-  top: 20px;
-  left: 68px;
+  bottom: 20px;
+  left: 20px;
   z-index: 100;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   gap: 8px;
   background: var(--color-bg-darker);
   padding: 8px;
@@ -385,7 +386,7 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  z-index: 100;
+  z-index: 200;
   background: var(--color-bg-darker);
   padding: 8px 12px;
   border-radius: 12px;
@@ -437,6 +438,8 @@
   height: 100%;
   background: transparent;
   margin-top: 60px;
+  position: relative;
+  z-index: 1;
 }
 
 .branchContainer :global(.react-transform-component) {
@@ -454,7 +457,7 @@
 
 @media (max-width: 640px) {
   .page {
-    padding: 16px;
+    padding: 12px;
     gap: 16px;
   }
 
@@ -472,13 +475,16 @@
 
   .branchContainer {
     min-height: 420px;
-    height: 90vh;
-    padding: 12px;
+    height: 80vh;
+    padding: 8px;
   }
 
   .incrementControls {
-    top: 12px;
-    left: 12px;
+    top: auto;
+    left: auto;
+    bottom: 12px;
+    right: 12px;
+    flex-direction: column;
     gap: 6px;
     padding: 6px;
   }
@@ -500,8 +506,9 @@
   }
 
   .actionControls {
-    top: 60px;
+    top: auto;
     left: 12px;
+    bottom: 12px;
     flex-direction: column;
     gap: 6px;
     padding: 6px;
@@ -521,10 +528,11 @@
   }
 
   .feathersDisplay {
-    top: 20px;
+    top: 12px;
     right: 12px;
     padding: 6px 10px;
     font-size: 11px;
+    display: none;
   }
 
   .feathersText {
@@ -632,10 +640,6 @@
     display: none;
   }
 
-  .treeWrapper {
-    min-height: 420px;
-    height: 65vh;
-  }
   .header {
     flex-direction: column;
   }
@@ -652,8 +656,10 @@
   /* Mobile controls layout - vertical stack */
   .incrementControls {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: auto;
+    left: auto;
+    bottom: 12px;
+    right: 12px;
     flex-direction: column;
     gap: 4px;
     padding: 6px;
@@ -666,8 +672,9 @@
 
   .actionControls {
     position: absolute;
-    top: 100px;
-    left: 20px;
+    top: auto;
+    left: 12px;
+    bottom: 12px;
     flex-direction: column;
     gap: 4px;
     padding: 6px;
@@ -695,10 +702,11 @@
 
   .feathersDisplay {
     position: absolute;
-    top: auto;
-    right: 20px;
-    bottom: 20px;
+    top: 12px;
+    right: 12px;
+    bottom: auto;
     padding: 6px 10px;
+    display: none;
   }
 
   .feathersText {

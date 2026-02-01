@@ -17,6 +17,9 @@ const TalentNode = forwardRef(
     },
     ref
   ) => {
+    const stopDoubleClick = (event) => {
+      event.stopPropagation();
+    };
     const effectValue =
       effectType === "percentage"
         ? `${effectPerPoint * currentPoints}%`
@@ -29,6 +32,7 @@ const TalentNode = forwardRef(
           className={`${styles.talentNodeHeader} ${
             styles[positionClass + "-title"]
           }`}
+          onDoubleClick={stopDoubleClick}
         >
           <p>{name}</p>
         </div>
@@ -41,6 +45,7 @@ const TalentNode = forwardRef(
             styles[positionClass]
           }`}
           onClick={onClick}
+          onDoubleClick={stopDoubleClick}
         >
           <div className={styles.talentInfo}>
             <p>

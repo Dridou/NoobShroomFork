@@ -21,6 +21,7 @@
 	width: 80px;
 	height: 70px;
 	line-height: 1.2;
+	z-index: 200;
 }
 
 .talentNode.active {

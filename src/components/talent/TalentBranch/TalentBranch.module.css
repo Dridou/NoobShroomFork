@@ -52,3 +52,67 @@
   .line.active.branch-beast {
     stroke: rgb(220, 150, 100);
   }
+
+
+.quickUpgradeOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 10, 24, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 16px;
+}
+
+.quickUpgradeModal {
+  width: min(360px, 90vw);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: 16px;
+  padding: 20px;
+  color: var(--color-text-primary);
+  box-shadow: 0 18px 40px rgba(3, 7, 18, 0.6);
+}
+
+.quickUpgradeModal h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.quickUpgradeModal p {
+  margin: 0 0 16px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.quickUpgradeActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.quickUpgradeCancel,
+.quickUpgradeConfirm {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-medium);
+  background: var(--color-bg-darker);
+  color: var(--color-text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quickUpgradeCancel:hover,
+.quickUpgradeConfirm:hover {
+  border-color: var(--color-text-tertiary);
+  background: var(--color-bg-darkest);
+}
+
+.quickUpgradeConfirm {
+  background: var(--gradient-accent-blue);
+  border: none;
+  color: white;
+}
