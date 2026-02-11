@@ -64,12 +64,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={poppins.className}>
         <GoogleAnalytics />
-        <script
+        {/* <script
           src="https://quge5.com/88/tag.min.js"
           data-zone="207563"
           async
           data-cfasync="false"
-        ></script>
+        ></script> */}
         <Script
           id="adsense-script"
           async
